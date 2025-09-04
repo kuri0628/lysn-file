@@ -1,34 +1,221 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Bubble UI 채팅 기록</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>前田陸❤️</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #fafafa; padding: 20px; }
-    #chat-rooms { display: flex; gap: 10px; margin-bottom: 20px; }
-    #chat-rooms button {
-      padding: 8px 12px; border-radius: 12px; border: none; cursor: pointer;
-      background-color: #d9c9ff; color: #fff; font-weight: bold;
-    }
-    #chat-rooms button.active { background-color: #b392ff; }
-    #chat {
-      display: flex; flex-direction: column; gap: 10px;
-      max-width: 500px; margin: 0 auto; height: 400px;
-      overflow-y: auto; padding: 10px; background: #fff;
-      border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .chat-bubble { max-width: 70%; padding: 10px 14px; border-radius: 18px; font-size: 14px; line-height: 1.4; position: relative; word-wrap: break-word; }
-    .bubble-user { background-color: #f1f1f1; align-self: flex-end; }
-    .bubble-artist { background-color: #d9c9ff; align-self: flex-start; }
-    .time-stamp { font-size: 10px; color: #999; position: absolute; bottom: -14px; right: 6px; }
-    .date-label { text-align: center; font-size: 12px; color: #888; margin: 20px 0 10px; }
-  </style>
-</head>
-<body>
-  <div id="chat-rooms"></div>
-  <div id="chat"></div>
+          body {
+           font-family: "Apple SD Gothic Neo", "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;/*font-family: "Apple SD Gothic Neo", sans-serif;*/
+           background: #666666;
+           margin: 0;
+           padding: 0;
+           display: flex;
+           justify-content: center;
+         }
+          
+         .container {
+           width: 100%;
+           max-width: 400px;
+           background: #EEEEEE;
+           min-height: 100vh;
+           display: flex;
+           flex-direction: column;
+         }
+          
+         .header {
+           background: white;
+           text-align: center;
+           padding: 10px;
+           font-weight: bold;
+           border-bottom: 1px
+           solid #ccc;
+         }
 
-  <script src="chat.js"></script>
-  <script src="render.js"></script>
-</body>
-</html>
+         .chat {
+           padding: 20px 10px;
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+         }  
+          
+         .date {
+           text-align: center;
+           font-size: 12px;
+           color: #555;
+           margin: 10px 0;
+           user-select: none;
+         }
+          
+        .message {
+          display: flex;
+          align-items: flex-start; /* 전체 메시지 위쪽 정렬 */
+          margin: 8px 0; /* 말풍선 간격 상하, 좌우 */
+        }
+          
+        .message:not(.me) {
+          justify-content: flex-start;
+        }
+          
+        .message.me {
+          justify-content: flex-end;
+        }
+          
+        .profile-container {
+          margin-right: 6px; /* '프사' 랑 '말풍선' 간격 */
+          position: relative;
+          height: 60px; /* 닉네임+메시지 높이 예상 */
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start; /* 위쪽 정렬 */
+        }
+          
+        .profile {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          object-fit: cover;
+          display: block;
+          user-select: none;
+          margin-top: 6px; /* 닉네임 높이 1/3 만큼 띄움 */
+          flex-shrink: 0;
+        }
+          
+        .text-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          min-height: 60px; /* 프로필과 높이 맞추기 */
+        }
+          
+        .nickname {
+          font-size: 12px;
+          font-weight: 700;
+          color: #333;
+          margin-bottom: 4px;
+          user-select: none;
+        }
+        /* 말풍선과 시간 묶음 */
+        .bubble-time-container {
+          display: flex;
+          align-items: flex-end; /* 말풍선과 시간 아래쪽 정렬 */
+          gap: 6px;
+        }
+/* 상대 메시지: 시간 오른쪽 */
+        .message:not(.me) .bubble-time-container {
+          flex-direction: row;
+        }
+/* 내 메시지: 시간 왼쪽 */
+        .message.me .bubble-time-container {
+          flex-direction: row-reverse;
+        }
+          
+        .bubble {
+          max-width: 80%; /* 말풍선 범위 */
+          padding: 10px 13px; /* 여백 상하,좌우 */
+          border-radius: 13px; /* 말풍선 둥근 정도 */
+          background: white;
+          font-size: 15.5px;
+          letter-spacing: 0.4px; /* 자간 */
+          line-height: 1.3; /* 행간 */
+          position: relative;
+          user-select: text;
+          white-space: pre-wrap;     /* 공백 유지 + 자동 줄바꿈 허용 */
+          overflow-wrap: anywhere;   /* word-break: keep-all; 한글 단어·특수문자 단위로 줄바꿈 */
+          overflow-wrap: break-word; /* 긴 영어/숫자도 말풍선 안에서 개행 */
+        }
+/* 한 줄로 강제 */
+        .bubble.no-break {
+          white-space: nowrap;       /* 강제로 한 줄 */
+          overflow-wrap: normal;     /* 글자 단위 줄바꿈 금지 */
+        }
+          
+        .message.me .bubble {
+          background: #A584F9;
+          color: #FFFDFF;
+        }
+/* 상대 메시지 꼬리 */
+        .message:not(.me) .bubble::after {
+          content: "";
+          position: absolute;
+          left: 0px;  /* 꼬리 위치 조절 */
+          top: 0px;   /* 꼬리 위치 조절 */
+          width: 0;
+          height: 0;
+          border-bottom: 15px solid transparent;
+          border-left: 15px solid white; /* 말풍선 배경색과 맞춤 */
+          border-top: none;
+          border-right: none;
+        }
+/* 내 메시지 꼬리 */
+        .message.me .bubble::after {
+          content: "";
+          position: absolute;
+          right: 0px;    /* 꼬리 위치 조절 */
+          bottom: 0px;   /* 꼬리 위치 조절 */
+          width: 0;
+          height: 0; 
+          border-top: 15px solid transparent; /* 투명 */
+          border-right: 15px
+          solid #A584F9;   /* 직각삼각형만큼 보임 */
+          border-bottom: none;
+          border-left: none;
+        }
+/* -------- 시간 표시 관련 -------- */
+        .time {
+          font-size: 11px;
+          font-weight: 500;
+          color: #B6B6B6;
+          white-space: nowrap;
+          user-select: none; /* 숫자와 기호가 같은 기준선에 오도록 */
+             /*font-feature-settings: "tnum"; 고정폭 숫자 사용 */
+          font-variant-numeric: tabular-nums;
+          line-height: 1; /* 폰트 높이를 딱 맞게 */
+          position: relative; /* 미세 조정 가능하도록 */
+          /*top: -0.5px; 콜론을 살짝 위로 올림 */
+        }
+        .colon {
+          display: inline-block;
+          transform: translateY(-0.0em); /* font-size 기준으로 콜론만 살짝 위로 */
+        }
+    
+</style>
+</head>
+<body>  
+  <div class="container">
+    <div class="header">前田陸❤️</div>
+    <div class="chat">
+      <div class="date">2025년 8월 16일 토요일</div>
+
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">오늘 컬러 무대 봤엉?</div>
+            <div class="time">00<span class="colon">:</span>23</div>
+      </div>
+      </div>
+</div>
+            
+<div class="message">
+      <div class="profile-container">
+            <img class="profile" src="riku_profile_color.jpg" alt="프로필" />
+      </div>
+      <div class="text-container">
+            <div class="nickname">陸</div>
+      <div class="bubble-time-container">
+            <div class="bubble">진짜 많이 기다렷어</div>
+            <div class="time">00<span class="colon">:</span>23</div>
+      </div>
+      </div>
+</div>
+
+<div class="message me">
+      <div class="bubble-time-container">
+            <div class="bubble">웅 잘 기다리구잇을게</div>
+            <div class="time">20:24</div>
+      </div>
+</div>
