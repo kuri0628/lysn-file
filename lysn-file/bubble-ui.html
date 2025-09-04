@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Bubble UI 채팅 기록</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; padding: 20px; }
+    #chat-rooms { display: flex; gap: 10px; margin-bottom: 20px; }
+    #chat-rooms button {
+      padding: 8px 12px; border-radius: 12px; border: none; cursor: pointer;
+      background-color: #d9c9ff; color: #fff; font-weight: bold;
+    }
+    #chat-rooms button.active { background-color: #b392ff; }
+    #chat {
+      display: flex; flex-direction: column; gap: 10px;
+      max-width: 500px; margin: 0 auto; height: 400px;
+      overflow-y: auto; padding: 10px; background: #fff;
+      border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .chat-bubble { max-width: 70%; padding: 10px 14px; border-radius: 18px; font-size: 14px; line-height: 1.4; position: relative; word-wrap: break-word; }
+    .bubble-user { background-color: #f1f1f1; align-self: flex-end; }
+    .bubble-artist { background-color: #d9c9ff; align-self: flex-start; }
+    .time-stamp { font-size: 10px; color: #999; position: absolute; bottom: -14px; right: 6px; }
+    .date-label { text-align: center; font-size: 12px; color: #888; margin: 20px 0 10px; }
+  </style>
+</head>
+<body>
+  <div id="chat-rooms"></div>
+  <div id="chat"></div>
+
+  <script src="chat.js"></script>
+  <script src="render.js"></script>
+</body>
+</html>
