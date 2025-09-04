@@ -23,7 +23,7 @@ function setActiveButton(activeBtn) {
   activeBtn.classList.add("active");
 }
 
-// 메시지 렌더링 함수
+// 메시지 렌더링
 function renderChat(messages) {
   chatDiv.innerHTML = "";
   let lastDate = "";
