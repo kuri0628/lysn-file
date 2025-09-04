@@ -4,17 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>아티스트 채팅</title>
+
+  <!-- Inter 폰트 불러오기 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
   <style>
+    /* 전체 페이지 기본 폰트 적용 */
     body {
-      font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Helvetica Neue", sans-serif;
+      font-family: 'Inter', -apple-system, 'Roboto', sans-serif;
+      /* font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
+      /* font-family: -apple-system, / iOS, Mac 기본 폰트 (San Francisco) /
+                   "Roboto",      / Android 기본 폰트 /
+                   sans-serif;    / 나머지 / */
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.5;
       margin: 0;
       background: #F1F1F1;
     }
 
     .chat-container {
       max-width: 500px;
-      margin: 0;
-      padding: 2px;
+      margin: 0 auto;
+      padding: 10px;
     }
 
     .chat-message {
@@ -50,22 +62,26 @@
       margin-bottom: 4px;
     }
 
+    /* 아티스트 태그 */
     .artist-tag {
+      font-family: inherit; /* body에서 지정한 Inter를 상속 */
+      font-weight: 700; /* 강조 굵기 */
       font-size: 9px;
-      font-weight: 900;
       color: #fff;
       background: linear-gradient(90deg, #6040FF, #D28AFD);
-      padding: 1px 6px; /* 상하 좌우 */
+      padding: 1px 6px; /* 상하 좌우 여백 */
       border-radius: 999px;
       margin-right: 5px;
     }
 
     .name {
+      font-family: inherit;
       font-size: 12px;
       color: #171718;
     }
 
     .bubble {
+      font-family: inherit;
       background: #FFFFFF;
       border-radius: 12px;
       padding: 8px 12px;
@@ -74,6 +90,7 @@
     }
 
     .time {
+      font-family: inherit;
       font-size: 11px;
       color: #A8A8A8;
       margin-left: 6px;
@@ -128,6 +145,3 @@
   </script>
 </body>
 </html>
-
-
-
