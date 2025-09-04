@@ -3,36 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>채팅 예제</title>
+  <title>아티스트 채팅</title>
   <style>
     body {
       font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      background: #f5f5f5;
       margin: 0;
-      padding: 0;
+      background: #ffffff;
     }
 
     .chat-container {
       max-width: 500px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin: 0 auto;
+      padding: 10px 16px;
     }
 
     .chat-message {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .profile {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      margin-right: 8px;
       overflow: hidden;
+      margin-right: 8px;
       flex-shrink: 0;
     }
 
@@ -41,29 +37,34 @@
       height: 100%;
     }
 
-    .bubble {
-      background: #f1f1f1;
-      padding: 10px 14px;
+    .message-box {
+      background: #f9f9f9;
       border-radius: 12px;
-      max-width: 70%;
+      padding: 10px 14px;
       font-size: 14px;
-      position: relative;
+      line-height: 1.4;
+      max-width: 70%;
     }
 
-    .bubble .artist-tag {
-      display: inline-block;
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .artist-tag {
       font-size: 11px;
       font-weight: bold;
       color: white;
       background: #a24cff;
       padding: 2px 6px;
       border-radius: 6px;
-      margin-bottom: 4px;
+      margin-right: 6px;
     }
 
-    .bubble .name {
-      font-weight: bold;
-      margin-bottom: 4px;
+    .name {
+      font-size: 13px;
     }
 
     .time {
@@ -81,9 +82,12 @@
       <div class="profile">
         <img src="https://em-content.zobj.net/source/microsoft-teams/363/dog-face_1f436.png" alt="profile">
       </div>
-      <div class="bubble">
-        <div class="artist-tag">ARTIST</div> 율이
-        <div>오늘 첫방어땠어요~~</div>
+      <div class="message-box">
+        <div class="header">
+          <div class="artist-tag">ARTIST</div>
+          <div class="name">윤이</div>
+        </div>
+        오늘 첫방어땠어요~~
       </div>
       <div class="time">오후 08:46</div>
     </div>
@@ -92,9 +96,12 @@
       <div class="profile">
         <img src="https://em-content.zobj.net/source/microsoft-teams/363/dog-face_1f436.png" alt="profile">
       </div>
-      <div class="bubble">
-        <div class="artist-tag">ARTIST</div> 율이
-        <div>직캠보고왔는데</div>
+      <div class="message-box">
+        <div class="header">
+          <div class="artist-tag">ARTIST</div>
+          <div class="name">윤이</div>
+        </div>
+        직캠보고왔는데
       </div>
       <div class="time">오후 08:46</div>
     </div>
@@ -103,9 +110,12 @@
       <div class="profile">
         <img src="https://em-content.zobj.net/source/microsoft-teams/363/dog-face_1f436.png" alt="profile">
       </div>
-      <div class="bubble">
-        <div class="artist-tag">ARTIST</div> 율이
-        <div>맘에 들어</div>
+      <div class="message-box">
+        <div class="header">
+          <div class="artist-tag">ARTIST</div>
+          <div class="name">윤이</div>
+        </div>
+        좀<br>맘에 들어
       </div>
       <div class="time">오후 08:46</div>
     </div>
@@ -114,9 +124,12 @@
       <div class="profile">
         <img src="https://em-content.zobj.net/source/microsoft-teams/363/dog-face_1f436.png" alt="profile">
       </div>
-      <div class="bubble">
-        <div class="artist-tag">ARTIST</div> 율이
-        <div>역시 시즈니가 있어야 완성되는 무대</div>
+      <div class="message-box">
+        <div class="header">
+          <div class="artist-tag">ARTIST</div>
+          <div class="name">윤이</div>
+        </div>
+        역시 시즈니가 있어야 완성되는 무대
       </div>
       <div class="time">오후 08:48</div>
     </div>
@@ -125,9 +138,12 @@
       <div class="profile">
         <img src="https://em-content.zobj.net/source/microsoft-teams/363/dog-face_1f436.png" alt="profile">
       </div>
-      <div class="bubble">
-        <div class="artist-tag">ARTIST</div> 율이
-        <div>물론 무대는 다 그렇지만</div>
+      <div class="message-box">
+        <div class="header">
+          <div class="artist-tag">ARTIST</div>
+          <div class="name">윤이</div>
+        </div>
+        물론 무대는 다 그렇지만
       </div>
       <div class="time">오후 08:48</div>
     </div>
