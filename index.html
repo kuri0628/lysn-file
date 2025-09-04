@@ -51,18 +51,18 @@
     }
 
     .artist-tag {
-      font-size: 11px;
+      font-size: 9px;
       font-weight: bold;
       color: #fff;
-      background: linear-gradient(90deg, #a24cff, #c99bff);
-      padding: 3px 10px;
-      border-radius: 999px; /* pill shape */
+      background: linear-gradient(90deg, #6040FF, #D28AFD);
+      padding: 2px 7px;
+      border-radius: 999px;
       margin-right: 6px;
     }
 
     .name {
       font-size: 12px;
-      color: #666;
+      color: #171718;
     }
 
     .bubble {
@@ -71,12 +71,11 @@
       padding: 8px 12px;
       font-size: 14px;
       line-height: 1.5;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
     }
 
     .time {
       font-size: 11px;
-      color: #999;
+      color: #BFBFBF;
       margin-left: 6px;
       align-self: flex-end;
       white-space: nowrap;
@@ -84,103 +83,48 @@
   </style>
 </head>
 <body>
-  <div class="chat-container">
+  <div class="chat-container" id="chat"></div>
 
-    <div class="chat-message">
-      <div class="profile">
-        <img src="profile_ryo_color.jpg" alt="profile">
-      </div>
-      <div class="message-content">
-        <div class="header">
-          <div class="artist-tag">ARTIST</div>
-          <div class="name">율이</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-          <div class="bubble">오늘 첫방어땠어요~~</div>
-          <div class="time">오후 08:46</div>
-        </div>
-      </div>
-    </div>
+  <script>
+    // 아티스트 정보
+    const artistProfile = {
+      img: "profile_ryo_color.jpg",
+      tag: "ARTIST",
+      name: "율이"
+    };
 
-    <div class="chat-message">
-      <div class="profile">
-        <img src="profile_ryo_color.jpg" alt="profile">
-      </div>
-      <div class="message-content">
-        <div class="header">
-          <div class="artist-tag">ARTIST</div>
-          <div class="name">율이</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-          <div class="bubble">직캠보고왔는데</div>
-          <div class="time">오후 08:46</div>
-        </div>
-      </div>
-    </div>
+    // 메시지 배열
+    const messages = [
+      { text: "오늘 첫방어땠어요~~", time: "오후 08:46" },
+      { text: "직캠보고왔는데", time: "오후 08:46" },
+      { text: "좀", time: "오후 08:46" },
+      { text: "맘에 들어", time: "오후 08:46" },
+      { text: "역시 시즈니가 있어야 완성되는 무대", time: "오후 08:48" },
+      { text: "물론 무대는 다 그렇지만", time: "오후 08:48" }
+    ];
 
-    <div class="chat-message">
-      <div class="profile">
-        <img src="profile_ryo_color.jpg" alt="profile">
-      </div>
-      <div class="message-content">
-        <div class="header">
-          <div class="artist-tag">ARTIST</div>
-          <div class="name">율이</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-          <div class="bubble">좀</div>
-          <div class="time">오후 08:46</div>
-        </div>
-      </div>
-      
-    </div><div class="chat-message">
-      <div class="profile">
-        <img src="profile_ryo_color.jpg" alt="profile">
-      </div>
-      <div class="message-content">
-        <div class="header">
-          <div class="artist-tag">ARTIST</div>
-          <div class="name">율이</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-          <div class="bubble">맘에 들어</div>
-          <div class="time">오후 08:46</div>
-        </div>
-      </div>
-    </div>
+    const chatContainer = document.getElementById("chat");
 
-    <div class="chat-message">
-      <div class="profile">
-        <img src="profile_ryo_color.jpg" alt="profile">
-      </div>
-      <div class="message-content">
-        <div class="header">
-          <div class="artist-tag">ARTIST</div>
-          <div class="name">율이</div>
+    messages.forEach(msg => {
+      const chatMsg = document.createElement("div");
+      chatMsg.className = "chat-message";
+      chatMsg.innerHTML = `
+        <div class="profile">
+          <img src="${artistProfile.img}" alt="profile">
         </div>
-        <div style="display:flex; align-items:flex-end;">
-          <div class="bubble">역시 시즈니가 있어야 완성되는 무대</div>
-          <div class="time">오후 08:48</div>
+        <div class="message-content">
+          <div class="header">
+            <div class="artist-tag">${artistProfile.tag}</div>
+            <div class="name">${artistProfile.name}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+            <div class="bubble">${msg.text}</div>
+            <div class="time">${msg.time}</div>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="chat-message">
-      <div class="profile">
-        <img src="profile_ryo_color.jpg" alt="profile">
-      </div>
-      <div class="message-content">
-        <div class="header">
-          <div class="artist-tag">ARTIST</div>
-          <div class="name">율이</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-          <div class="bubble">물론 무대는 다 그렇지만</div>
-          <div class="time">오후 08:48</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+      `;
+      chatContainer.appendChild(chatMsg);
+    });
+  </script>
 </body>
 </html>
