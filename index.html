@@ -60,18 +60,18 @@
       margin-bottom: 4px;
     }
 
-/* 아티스트 뱃지 
+/* 아티스트 뱃지 */
     .artist-tag {
-      font-weight: 900; / 강조 굵기 /
+      font-weight: 900; /* 강조 굵기 */
       font-size: 8px;
       lin-height: 0.8;
       color: #fff;
-      / 진한보라: #6040FF , 연보라: #DA87FE #D28AFD /
+      /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
       background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
-      padding: 1px 6px; / 상하 좌우 여백 /
+      padding: 1px 6px; /* 상하 좌우 여백 */
       border-radius: 999px;
       margin-right: 5px;
-    } */
+    }
 
     .name {
       font-size: 12px;
@@ -83,7 +83,7 @@
     .bubble {
       background: #FFFFFF;
       border-radius: 12px;
-      padding: 10px 11px;  /* 상하-좌우 여백 */
+      padding: 11px 11px;  /* 상하-좌우 여백 */
       font-size: 15px;
       line-height: 1;
     }
@@ -105,7 +105,7 @@
     const artistProfile = {
       img: "profile_ryo_color.jpg",
       tag: "ARTIST",
-      name: "덩떵찬"
+      name: "율이"
     };
 
     // 메시지 배열
@@ -127,6 +127,7 @@
         <div class="profile"></div>
         <div class="message-content">
           <div class="header">
+          <div class="artist-tag">${artistProfile.tag}</div>
             <div class="name">${artistProfile.name}</div>
           </div>
           <div style="display:flex; align-items:flex-end;">
@@ -140,6 +141,7 @@
   </script>
 </body>
 </html>
+
 
 
 
