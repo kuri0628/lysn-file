@@ -39,22 +39,15 @@
       width: 47px;
       height: 47px;
       border-radius: 50%;
-      background: linear-gradient(90deg, #D28AFD, #E141FD); /* 테두리 */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .profile-img {
-      width: 43px;  /* 테두리보다 작게 */
-      height: 43px;
-      border-radius: 50%;
       background-image: url('profile_ryo_color.jpg');
       background-size: cover;
       background-position: center;
+      /* background: linear-gradient(90deg, #D28AFD, #E141FD); / 테두리 /
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; */
     }
-
     .message-content {
       display: flex;
       flex-direction: column;
@@ -131,9 +124,7 @@
       const chatMsg = document.createElement("div");
       chatMsg.className = "chat-message";
       chatMsg.innerHTML = `
-        <div class="profile">
-          <div class="profile-img"></div>
-          </div>
+        <div class="profile"></div>
         <div class="message-content">
           <div class="header">
             <div class="name">${artistProfile.name}</div>
@@ -149,6 +140,7 @@
   </script>
 </body>
 </html>
+
 
 
 
