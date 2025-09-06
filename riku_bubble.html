@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아티스트 채팅</title>
+
+  <!-- Inter 폰트 불러오기 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* 전체 페이지 기본 폰트 적용 */
+    body {
+      /* font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
+      font-family: -apple-system,    /* iOS, Mac 기본 폰트 (San Francisco) */
+                      'Inter',
+                      "Roboto",      /* Android 기본 폰트 */
+                      sans-serif;    /* 나머지 */
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      background: #F1F1F1;
+    }
+
+    .chat-container {
+      max-width: 500px;
+      margin: 0;
+      padding: 8px;
+    }
+
+    .chat-message {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px; /* 메시지 간 각격 */
+      gap: 5px             /* 메시지-프로필 간격 */
+    }
+
+    .profile {
+      width: 41px;
+      height: 41px;
+      border-radius: 50%;
+      background-image: url('profile_ryo_color.jpg');
+      background-size: cover;
+      background-position: center;
+      margin-top: 7px;
+      /* background: linear-gradient(90deg, #D28AFD, #E141FD); / 테두리 /
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; */
+    }
+    .message-content {
+      display: flex;
+      flex-direction: column;
+      max-width: 95%;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+/* 아티스트 뱃지 /
+    .artist-tag {
+      font-weight: 800;
+      font-size: 7px;
+      line-height: 1.5;
+      color: #fff;
+      / 진한보라: #6040FF , 연보라: #DA87FE #D28AFD /
+      background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
+      padding: 1px 6px; / 상하 좌우 여백 /
+      border-radius: 999px;
+      margin-right: 5px; 
+    } */
+
+    .name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #171718;
+    }
+    
+/* 말풍선 */
+    .bubble {
+      background: #FFFFFF;
+      border-radius: 5px 14px 14px 14px;
+      padding: 11px 12px;  /* 상하-좌우 여백 */
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .time {
+      font-size: 10px;
+      font-weight: 450;
+      color: #A8A8A8;
+      margin-left: 6px;
+      white-space: nowrap;
+      position: relative;
+      top: 2px;
+      /* align-self: flex-end; */
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container" id="chat"></div>
+
+  <script>
+    // 아티스트 정보
+    const artistProfile = {
+      img: "profile_ryo_color.jpg",
+      tag: "ARTIST",
+      name: "陸"
+    };
+
+    // 메시지 배열
+    const messages = [
+      { text: "컬러 음방 봣어요???", time: "14:19" },
+      { text: "퍼포먼스 멋잇죠", time: "14:19" },
+      { text: "히히", time: "14:20" },
+      { text: "료한테 칭찬받앗어", time: "14:20" },
+      { text: "마지막 포스트코러스 부분", time: "14:20" },
+      { text: "나랑 시온이형 멋잇대", time: "14:21" },
+      { text: "헤헤", time: "14:21" }
+    ];
+
+    const chatContainer = document.getElementById("chat");
+
+    messages.forEach(msg => {
+      const chatMsg = document.createElement("div");
+      chatMsg.className = "chat-message";
+      chatMsg.innerHTML = `
+        <div class="profile"></div>
+        <div class="message-content">
+          <div class="header">
+            <div class="name">${artistProfile.name}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+            <div class="bubble">${msg.text}</div>
+            <div class="time">${msg.time}</div>
+          </div>
+        </div>
+      `;
+      chatContainer.appendChild(chatMsg);
+    });
+  </script>
+</body>
+</html>
