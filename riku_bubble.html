@@ -40,7 +40,6 @@
       width: 41px;
       height: 41px;
       border-radius: 50%;
-      background-image: url('profile_ryo_color.jpg');
       background-size: cover;
       background-position: center;
       margin-top: 7px;
@@ -108,22 +107,29 @@
 
   <script>
     // 아티스트 정보
-    const artistProfile = {
-      img: "profile_ryo_color.jpg",
-      tag: "ARTIST",
-      name: "陸"
-    };
+    const artistProfile = [
+      {img: "riku_first.jpg", name: "RIKU"},
+      {img: "riku_baby.jpg", name:"陸"}
+      {img: "profile/profile_riku_color.jpg", name:"陸"}
+    ];
 
     // 메시지 배열
     const messages = [
-      { text: "컬러 음방 봣어요???", time: "14:19" },
+      { text: "컬러 음방 봣어요???", time: "14:19", profileIndex:0},
       { text: "퍼포먼스 멋잇죠", time: "14:19" },
       { text: "히히", time: "14:20" },
-      { text: "료한테 칭찬받앗어", time: "14:20" },
+      { text: "료한테 칭찬받앗어", time: "14:20", profileIndex:1 },
       { text: "마지막 포스트코러스 부분", time: "14:20" },
-      { text: "나랑 시온이형 멋잇대", time: "14:21" },
+      { text: "나랑 시온이형 멋잇대", time: "14:21", profileIndex:2 },
       { text: "헤헤", time: "14:21" }
     ];
+
+    let currentProfileIndex = 0;
+
+    messages.forEach(msg => {
+    if (msg.profileIndex !== undefined) {
+      currentProfileIndex = msg.profileIndex;
+  }
 
     const chatContainer = document.getElementById("chat");
 
