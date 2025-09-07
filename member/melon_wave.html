@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아티스트 채팅</title>
+
+  <!-- Inter 폰트 불러오기 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* 전체 페이지 기본 폰트 적용 */
+    body {
+      /* font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
+      font-family: -apple-system,    /* iOS, Mac 기본 폰트 (San Francisco) */
+                      'Inter',
+                      "Roboto",      /* Android 기본 폰트 */
+                      sans-serif;    /* 나머지 */
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      background: #F1F1F1;
+    }
+
+    .chat-container {
+      max-width: 500px;
+      margin: 0;
+      padding: 8px;
+    }
+
+    .chat-message {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px; /* 메시지 간 각격 */
+      gap: 5px             /* 메시지-프로필 간격 */
+    }
+
+    .profile {
+      width: 41px;
+      height: 41px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      margin-top: 7px;
+    }
+    
+    .message-content {
+      display: flex;
+      flex-direction: column;
+      max-width: 95%;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #171718;
+    }
+    
+/* 말풍선 */
+    .bubble {
+      background: #FFFFFF;
+      border-radius: 5px 14px 14px 14px;
+      padding: 11px 12px;  /* 상하-좌우 여백 */
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .time {
+      font-size: 10px;
+      font-weight: 450;
+      color: #ABABAB;
+      margin-left: 6px;
+      white-space: nowrap;
+      position: relative;
+      top: 2px;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="chat-container" id="chat"></div>
+
+  <script>
+    // 채팅 내용
+    const messages = [
+      { text: "안녕하시온", name: 시온, img: "../songbird_sion.jpg", time: "14:19" },
+      { text: "안녕하세요", name: 사쿠야, img: "../songbird_sakuya.jpg" },
+      { text: "아 잠만", name: 료, img: "../surf_ryo.jpg", time: "23:43" },
+      { text: "요기가 우리", name: 시온, img: "../surf_sion.jpg", time: "23:43" },
+      { text: "자컨!!!!", name: 료, img: "../surf_ryo.jpg", time: "23:43" },
+      { text: "단톡방이네", name: 시온, img: "../surf_sion.jpg", time: "23:43" },
+      { text: "ㅋㅋㅋㅋㅋ", name: 시온, img: "../surf_sion.jpg", time: "23:43" },
+      { text: "제주도", name: 료, img: "../surf_ryo.jpg", time: "23:43" }
+    ];
+
+    const chatContainer = document.getElementById("chat");
+
+    messages.forEach(msg => {
+      const chatMsg = document.createElement("div");
+      chatMsg.className = "chat-message";
+
+      chatMsg.innerHTML = `
+        <div class="profile"></div>
+        <div class="message-content">
+          <div class="header">
+            <div class="name">${msg.name}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+            <div class="bubble">${msg.text}</div>
+            <div class="time">${msg.time}</div>
+          </div>
+        </div>
+      `;
+
+      chatMsg.querySelector(".profile").style.backgroundImage = `url('${msg.img}')`;
+      chatContainer.appendChild(chatMsg);
+    });
+  </script>
+</body>
+</html>
