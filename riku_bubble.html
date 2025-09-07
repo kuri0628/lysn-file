@@ -109,7 +109,7 @@
     // 아티스트 정보
     const artistProfile = [
       {img: "profile/riku_first.jpg", name: "RIKU"},
-      {img: "profile/riku_baby.jpg", name:"陸"}
+      {img: "profile/riku_baby.jpg", name:"陸"},
       {img: "profile/profile_riku_color.jpg", name:"陸"}
     ];
 
@@ -127,31 +127,32 @@
     ];
 
     let currentProfileIndex = 0;
+    const chatContainer = document.getElementById("chat");
 
     messages.forEach(msg => {
     if (msg.profileIndex !== undefined) {
       currentProfileIndex = msg.profileIndex;
-  }
+    }
 
-    const chatContainer = document.getElementById("chat");
+   const chatMsg = document.createElement("div");
+   chatMsg.className = "chat-message";
+   chatMsg.innerHTML = `
+    <div class="profile"></div>
+    <div class="message-content">
+      <div class="header">
+        <div class="name">${artistProfile[currentProfileIndex].name}</div>
+      </div>
+      <div style="display:flex; align-items:flex-end;">
+        <div class="bubble">${msg.text}</div>
+        <div class="time">${msg.time}</div>
+      </div>
+    </div>
+  `;
+  chatMsg.querySelector(".profile").style.backgroundImage =
+    `url('${artistProfile[currentProfileIndex].img}')`;
 
-    messages.forEach(msg => {
-      const chatMsg = document.createElement("div");
-      chatMsg.className = "chat-message";
-      chatMsg.innerHTML = `
-        <div class="profile"></div>
-        <div class="message-content">
-          <div class="header">
-            <div class="name">${artistProfile.name}</div>
-          </div>
-          <div style="display:flex; align-items:flex-end;">
-            <div class="bubble">${msg.text}</div>
-            <div class="time">${msg.time}</div>
-          </div>
-        </div>
-      `;
-      chatContainer.appendChild(chatMsg);
-    });
+  chatContainer.appendChild(chatMsg);
+});
   </script>
 </body>
 </html>
