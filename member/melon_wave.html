@@ -82,6 +82,25 @@
       position: relative;
       top: 2px;
     }
+
+    .date-divider {
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      margin: 18px 0;
+      position: relative;
+    }
+    
+    .date-divider::before,
+    .date-divider::after {
+      content: "";
+      display: inline-block; 
+      width: 30%;
+      height: 1px;
+      background: #ccc;
+      vertical-align: middle;
+      margin: 0 5px;
+    }
     
   </style>
 </head>
@@ -91,6 +110,7 @@
   <script>
     // 채팅 내용
     const messages = [
+      { text: "안녕하시온", name: "시온", img: "../profile/songbird_sion.jpg", time: "14:19", date: "2025-09-08" },
       { text: "안녕하시온", name: "시온", img: "../profile/songbird_sion.jpg", time: "14:19" },
       { text: "안녕하세요", name: "사쿠야", img: "../profile/songbird_sakuya.jpg" },
       { text: "아 잠만", name: "료", img: "../profile/surf_ryo.jpg", time: "23:43" },
@@ -102,6 +122,16 @@
     ];
 
     const chatContainer = document.getElementById("chat");
+    let lastDate = "";
+    messages.forEach(msg => {
+      if (msg.date !== lastDate) {
+        const dateDivider = document.createElement("div");
+        dateDivider.className = "date-divider";
+        dateDivider.textContent = msg.date;
+        chatContainer.appendChild(dateDivider);
+        lastDate = msg.date;
+      }
+    });
 
     messages.forEach(msg => {
       const chatMsg = document.createElement("div");
