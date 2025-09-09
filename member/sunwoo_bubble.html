@@ -65,7 +65,7 @@
       justify-content: flex-end; /* 오른쪽 정렬 */
     }
     
-    .profile-pic {
+    .profile {
       width: 41px;
       height: 41px;
       border-radius: 50%;
@@ -194,7 +194,7 @@
         /* ⭐️ 2. 연속 메시지 처리 로직 제거 */
         // const isContinuation = ... 부분과 삼항연산자를 제거하고, 항상 프로필과 이름을 표시하도록 수정
         const profileAndName = `
-          <div class="profile-pic" style="background-image: url('${msg.profile}')"></div>
+          <div class="profile" style="background-image: url('${msg.profile}')"></div>
           <div class="message-content">
             <div class="artist-name">${msg.name}</div>
         `;
