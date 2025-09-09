@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble</title>
+
+  <style>
+    /* 웹 폰트 로드 (Apple 기본 폰트와 유사) */
+    @import url('https://rsms.me/inter/inter.css');
+    html { font-family: 'Inter', sans-serif; }
+
+    body {
+      font-family: -apple-system, 'Inter', "Roboto", sans-serif;
+      margin: 0;
+      background: #FFFFFF; /* 버블 배경이 흰색이므로 전체 배경을 흰색으로 변경 */
+    }
+
+    .chat-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 16px 8px;
+    }
+
+    /* 날짜 구분선 */
+    .date-divider {
+      text-align: center;
+      font-size: 12px;
+      color: #999999;
+      margin: 24px 0;
+    }
+
+    /* 모든 메시지 공통 컨테이너 */
+    .message-row {
+      display: flex;
+      margin-bottom: 4px;
+    }
+
+    /* 아티스트 메시지 (왼쪽 정렬) */
+    .artist-message {
+      justify-content: flex-start; /* 왼쪽 정렬 */
+    }
+
+    /* 내 메시지 (오른쪽 정렬) */
+    .my-message {
+      justify-content: flex-end; /* 오른쪽 정렬 */
+    }
+    
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      margin-right: 8px;
+      flex-shrink: 0; /* 프로필 이미지가 찌그러지지 않도록 */
+    }
+
+    .message-content {
+      display: flex;
+      flex-direction: column;
+      max-width: calc(100% - 44px); /* 프로필 사진 너비만큼 빼기 */
+    }
+
+    .my-message .message-content {
+      align-items: flex-end; /* 내 메시지는 내용물을 오른쪽으로 정렬 */
+    }
+    
+    .artist-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #171718;
+      margin-bottom: 3px;
+    }
+
+    .bubble-wrapper {
+        display: flex;
+        align-items: flex-end; /* 말풍선과 시간을 아래 정렬 */
+    }
+    
+    .my-message .bubble-wrapper {
+        flex-direction: row-reverse; /* 내 메시지는 시간-말풍선 순서 */
+    }
+
+    /* 말풍선 공통 스타일 */
+    .bubble {
+      padding: 10px 12px;
+      font-size: 15px;
+      line-height: 1.4;
+      max-width: 250px;
+      word-break: break-word; /* 긴 단어가 있을 경우 줄바꿈 */
+    }
+
+    /* 아티스트 말풍선 */
+    .artist-bubble {
+      background: #F1F1F1;
+      color: #000000;
+      border-radius: 4px 14px 14px 14px;
+    }
+
+    /* 내 말풍선 */
+    .my-bubble {
+      background: #8A6BFF;
+      color: #FFFFFF;
+      border-radius: 14px 14px 4px 14px;
+    }
+
+    /* 이미지 말풍선 */
+    .image-bubble img {
+      width: 100%;
+      max-width: 200px; /* 이미지 최대 너비 */
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* 시간 */
+    .timestamp {
+      font-size: 11px;
+      color: #999999;
+      white-space: nowrap;
+      margin: 0 6px;
+      padding-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container" id="chat-container"></div>
+
+  <script>
+    // 1. 데이터 구조 변경: 보낸 사람(sender), 메시지 타입(type) 추가
+    const messages = [
+      { sender: 'artist', name: '陸', profile: 'https://via.placeholder.com/36', type: 'text', content: '나한테 칭찬하는 것처럼 유진이한테도 칭찬해줘용', time: '오후 2:24' },
+      { sender: 'artist', name: '陸', profile: 'https://via.placeholder.com/36', type: 'text', content: '셀프 쓰담쓰담', time: '오후 2:24' },
+      { sender: 'me', type: 'text', content: '알아써🫶 리쿠는 내가 많이 쓰담쓰담해줄게', time: '오후 2:25' },
+      { type: 'date', content: '2025년 9월 7일 일요일' },
+      { sender: 'artist', name: '陸', profile: 'https://via.placeholder.com/36', type: 'image', content: 'https://i.ibb.co/6P6XypZ/1000042163.jpg', time: '오후 2:28' },
+    ];
+
+    const chatContainer = document.getElementById('chat-container');
+
+    messages.forEach((msg, index) => {
+      // 2. 날짜 구분선 렌더링
+      if (msg.type === 'date') {
+        const dateEl = document.createElement('div');
+        dateEl.className = 'date-divider';
+        dateEl.textContent = msg.content;
+        chatContainer.appendChild(dateEl);
+        return; // 날짜는 처리 후 다음 메시지로 넘어감
+      }
+      
+      const messageRow = document.createElement('div');
+      messageRow.className = 'message-row';
+
+      let messageHTML = '';
+      const isArtist = msg.sender === 'artist';
+
+      // 3. 연속 메시지 처리: 이전 메시지와 보낸 사람이 같은지 확인
+      const isContinuation = index > 0 && messages[index - 1].sender === msg.sender;
+
+      // 내가 보낸 메시지
+      if (!isArtist) {
+        messageRow.classList.add('my-message');
+        messageHTML = `
+          <div class="message-content">
+            <div class="bubble-wrapper">
+              <span class="timestamp">${msg.time}</span>
+              <div class="bubble my-bubble">${msg.content}</div>
+            </div>
+          </div>
+        `;
+      } 
+      // 아티스트가 보낸 메시지
+      else {
+        messageRow.classList.add('artist-message');
+        
+        // 프로필 사진과 이름: 첫 메시지이거나 이전 사람과 다를 때만 표시
+        const profileAndName = !isContinuation ? `
+          <div class="profile-pic" style="background-image: url('${msg.profile}')"></div>
+          <div class="message-content">
+            <div class="artist-name">${msg.name}</div>
+        ` : `
+          <div style="width: 44px;"></div> <div class="message-content">
+        `;
+
+        // 메시지 타입 (텍스트 vs 이미지)
+        const bubbleContent = msg.type === 'text' 
+          ? `<div class="bubble artist-bubble">${msg.content}</div>`
+          : `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+
+        messageHTML = `
+          ${profileAndName}
+            <div class="bubble-wrapper">
+              ${bubbleContent}
+              <span class="timestamp">${msg.time}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      messageRow.innerHTML = messageHTML;
+      chatContainer.appendChild(messageRow);
+    });
+  </script>
+
+</body>
+</html>
