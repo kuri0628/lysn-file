@@ -13,7 +13,7 @@
     body {
       font-family: -apple-system, 'Inter', "Roboto", sans-serif;
       margin: 0;
-      background: #FFFFFF; /* 버블 배경이 흰색이므로 전체 배경을 흰색으로 변경 */
+      background: #EEEEEE; /* 버블 배경이 흰색이므로 전체 배경을 흰색으로 변경 */
     }
 
     .chat-container {
@@ -93,16 +93,16 @@
 
     /* 아티스트 말풍선 */
     .artist-bubble {
-      background: #F1F1F1;
+      background: #white;
       color: #000000;
       border-radius: 4px 14px 14px 14px;
     }
 
     /* 내 말풍선 */
     .my-bubble {
-      background: #8A6BFF;
+      background: #A584F9;
       color: #FFFFFF;
-      border-radius: 14px 14px 4px 14px;
+      border-radius: 14px 14px 14px 5px;
     }
 
     /* 이미지 말풍선 */
@@ -130,11 +130,11 @@
   <script>
     // 1. 데이터 구조 변경: 보낸 사람(sender), 메시지 타입(type) 추가
     const messages = [
-      { sender: 'artist', name: '陸', profile: 'https://via.placeholder.com/36', type: 'text', content: '나한테 칭찬하는 것처럼 유진이한테도 칭찬해줘용', time: '오후 2:24' },
-      { sender: 'artist', name: '陸', profile: 'https://via.placeholder.com/36', type: 'text', content: '셀프 쓰담쓰담', time: '오후 2:24' },
+      { sender: 'artist', name: '陸', profile: '../profile/profile_riku_color.jpg', type: 'text', content: '나한테 칭찬하는 것처럼 유진이한테도 칭찬해줘용', time: '오후 2:24' },
+      { sender: 'artist', name: '陸', profile: '../profile/profile_riku_color.jpg', type: 'text', content: '셀프 쓰담쓰담', time: '오후 2:24' },
       { sender: 'me', type: 'text', content: '알아써🫶 리쿠는 내가 많이 쓰담쓰담해줄게', time: '오후 2:25' },
       { type: 'date', content: '2025년 9월 7일 일요일' },
-      { sender: 'artist', name: '陸', profile: 'https://via.placeholder.com/36', type: 'image', content: 'https://i.ibb.co/6P6XypZ/1000042163.jpg', time: '오후 2:28' },
+      { sender: 'artist', name: '陸', profile: '../profile/profile_riku_color.jpg', type: 'image', content: '../profile/profile_riku_color.jpg', time: '오후 2:28' },
     ];
 
     const chatContainer = document.getElementById('chat-container');
