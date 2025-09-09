@@ -182,6 +182,9 @@
         return; // 날짜를 표시하고 다음 메시지로 넘어감
       }
 
+      const chatMsg = document.createElement("div");
+      chatMsg.className = "chat-message";
+
       chatMsg.innerHTML = `
         <div class="profile"></div>
         <div class="message-content">
