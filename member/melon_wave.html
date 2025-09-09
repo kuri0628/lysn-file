@@ -86,20 +86,8 @@
     .date-divider {
       text-align: center;
       font-size: 12px;
-      color: #666;
-      margin: 18px 0;
-      position: relative;
-    }
-    
-    .date-divider::before,
-    .date-divider::after {
-      content: "";
-      display: inline-block; 
-      width: 30%;
-      height: 1px;
-      background: #ccc;
-      vertical-align: middle;
-      margin: 0 5px;
+      color: #AAAAAA;
+      margin: 16px 0;
     }
     
   </style>
@@ -110,7 +98,8 @@
   <script>
     // 채팅 내용
     const messages = [
-      { text: "안녕하시온", name: "시온", img: "../profile/songbird_sion.jpg", time: "14:19", date: "2025-09-08" },
+      { type: 'date', content: '2025년 9월 8일' },
+      { text: "안녕하시온", name: "시온", img: "../profile/songbird_sion.jpg", time: "14:19" },
       { text: "안녕하시온", name: "시온", img: "../profile/songbird_sion.jpg", time: "14:19" },
       { text: "안녕하세요", name: "사쿠야", img: "../profile/songbird_sakuya.jpg" },
       { text: "", name: "", img: "../profile/_.jpg" },
@@ -137,7 +126,7 @@
       { text: "핫앤그레이트러브인월드", name: "시온", img: "../profile/surf_sion.jpg" },
       { text: "궁서체가 없네 여긴", name: "시온", img: "../profile/surf_sion.jpg" },
       { text: "머가 그렇게 길어", name: "재희", img: "../profile/surf_jaehee.jpg" },
-      { text: "zㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", name: "시온", img: "../profile/surf_sion.jpg" },
+      { text: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", name: "시온", img: "../profile/surf_sion.jpg" },
       { text: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
       { text: "투더월드여긴엔시티 누구야", name: "시온", img: "../profile/surf_sion.jpg" },
       { text: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", name: "재희", img: "../profile/surf_jaehee.jpg" },
@@ -163,7 +152,7 @@
       { text: "늦은 시간에 와줘서 고마워요 🙏", name: "유우시", img: "../profile/surf_yushi.jpg" },
       { text: "푹 자요〜^_^", name: "유우시", img: "../profile/surf_yushi.jpg" },
       { text: "잘자요〜", name: "유우시", img: "../profile/surf_yushi.jpg" },
-      
+      { type: 'date', content: '2025년 9월 1일' },
       { text: "", name: "", img: "../profile/surf_.jpg" },
       { text: "이렇게 많이 사람도 와주시고🤭", name: "유우시", img: "../profile/color_yushi.jpg" },
       { text: "내일도 좋은 하루 되길 바라고", name: "유우시", img: "../profile/color_yushi.jpg" },
@@ -183,20 +172,15 @@
     ];
 
     const chatContainer = document.getElementById("chat");
-    let lastDate = "";
     messages.forEach(msg => {
-      if (msg.date !== lastDate) {
-        const dateDivider = document.createElement("div");
-        dateDivider.className = "date-divider";
-        dateDivider.textContent = msg.date;
-        chatContainer.appendChild(dateDivider);
-        lastDate = msg.date;
+      // 1. 날짜 타입 처리 로직 추가
+      if (msg.type === 'date') {
+        const dateEl = document.createElement('div');
+        dateEl.className = 'date-divider';
+        dateEl.textContent = msg.content;
+        chatContainer.appendChild(dateEl);
+        return; // 날짜를 표시하고 다음 메시지로 넘어감
       }
-    });
-
-    messages.forEach(msg => {
-      const chatMsg = document.createElement("div");
-      chatMsg.className = "chat-message";
 
       chatMsg.innerHTML = `
         <div class="profile"></div>
