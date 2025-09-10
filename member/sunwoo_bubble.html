@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bubble</title>
+  <title>아티스트 채팅</title>
 
   <!-- Inter 폰트 불러오기 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -14,11 +14,11 @@
       /* font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
       font-family: -apple-system,    /* iOS, Mac 기본 폰트 (San Francisco) */
                       'Inter',
-                    /*"Roboto",      / Android 기본 폰트 /
-                      sans-serif;    / 나머지 */
-  /* font-weight: 400;
+                      "Roboto",      /* Android 기본 폰트 */
+                      sans-serif;    /* 나머지 */
+      font-weight: 400;
       font-size: 14px;
-      line-height: 1.5;*/
+      line-height: 1.5;
       margin: 0;
       background: #F1F1F1;
     }
@@ -35,111 +35,44 @@
       margin-bottom: 12px; /* 메시지 간 각격 */
       gap: 5px             /* 메시지-프로필 간격 */
     }
-
-    /* ⭐️ 3. 날짜 구분선 수정 */
-    .date-divider {
-      text-align: center;
-      font-size: 12px;
-      color: #AAAAAA;
-      margin: 32px 0 24px 0; /* 위쪽 마진을 늘려 선 공간 확보 */
-      position: relative;
-    }
-
-    /* ::before 가상 요소를 사용해 위에 선 추가 */
-    .date-divider::before {
-      content: '';
-      position: absolute;
-      top: -16px; /* 텍스트 위로 16px 이동 */
-      left: 0;
-      right: 0;
-      height: 1px;
-      background-color: #EFEFEF;
-    }
-
-    /* 모든 메시지 공통 컨테이너 */
-    .message-row {
-      display: flex;
-      margin-bottom: 4px;
-    }
-
-    /* 아티스트 메시지 (왼쪽 정렬) */
-    .artist-message {
-      justify-content: flex-start; /* 왼쪽 정렬 */
-    }
-
-    /* 내 메시지 (오른쪽 정렬) */
-    .my-message {
-      justify-content: flex-end; /* 오른쪽 정렬 */
-    }
-    
     .profile {
-      width: 41px;
-      height: 41px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background-size: cover;
       background-position: center;
       margin-top: 7px;
+      /* background: linear-gradient(90deg, #D28AFD, #E141FD); / 테두리 /
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; */
     }
-
     .message-content {
       display: flex;
       flex-direction: column;
-      max-width: calc(100% - 44px); /*리쿠 버전은 95%*/
+      max-width: 95%;
     }
-
-    .my-message .message-content {
-      align-items: flex-end; 
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3px;
     }
-    
-    .artist-name {
+    .name {
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 400;
       color: #171718;
-   /* margin-bottom: 3px; 리쿠버전은 없어 */
-    }
-
-    .bubble-wrapper {
-        display: flex;
-        align-items: flex-end; 
     }
     
-    /* ⭐️ 1. 내 메시지 시간 위치 수정 */
-    /* 아래의 flex-direction: row-reverse; 속성을 삭제 */
-    /* .my-message .bubble-wrapper {
-        flex-direction: row-reverse;
-    } */
-
-    /* 말풍선 */
+/* 말풍선 */
     .bubble {
-      padding: 10px 12px;
-      font-size: 15px;
-      line-height: 1.4; /* 리쿠 버전은 1 */
-      max-width: 250px;
-      word-break: break-word; 
-    }
-
-    /* 아티스트 말풍선 */
-    .artist-bubble {
       background: #FFFFFF;
-      color: #000000;
-      border-radius: 4px 14px 14px 14px;
+      border-radius: 4px 13px 13px 13px;
+      padding: 11px 12px;  /* 상하-좌우 여백 */
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1;
     }
-
-    /* 내 말풍선 */
-    .my-bubble {
-      background: #A584F9;
-      color: #FFFFFF;
-      border-radius: 14px 14px 7px 14px;
-    }
-
-    /* ⭐️ 4. 이미지 말풍선 비율 수정 */
-    .image-bubble img {
-      width: 100%;
-      max-width: 240px;
-      border-radius: 4px 14px 14px 14px;
-      display: block;
-    }
-
     .time {
       font-size: 10px;
       font-weight: 450;
@@ -149,81 +82,142 @@
       position: relative;
       top: 2px;
     }
-    
+    /* 1. 날짜 구분선 스타일 */
+    .date-divider {
+      text-align: center;
+      font-size: 12px;
+      color: #AAAAAA;
+      margin: 32px 0 16px; /* 선이 들어갈 위쪽 공간(margin-top) 확보 */
+      position: relative;  /* 선(::before)을 위치시킬 기준점 */
+    }
+    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
+   .date-divider::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
+      width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
+      height: 1px;
+      background: #E5E5E5;
+      transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
+    }
+
+    /* 2. 내가 보낸 메시지 스타일 */
+    .my-chat-message {
+      display: flex;
+      justify-content: flex-end; /* 오른쪽 정렬 */
+      margin-bottom: 12px;
+    }
+
+    .my-bubble {
+      background: #A584F9;
+      color: #FFFFFF;
+      border-radius: 13px 13px 4px 13px;
+    }
+
+    /* 내가 보낸 메시지는 시간을 왼쪽에 표시 */
+    .my-chat-message .time {
+      margin-left: 0;
+      margin-right: 6px;
+    }
+
+    /* 3. 사진 메시지 스타일 */
+    .image-bubble {
+      padding: 0; /* 이미지 자체에 여백이 있으므로 bubble의 padding 제거 */
+      background: none;
+    }
+    .image-bubble img {
+      max-width: 287px;
+      border-radius: 4px 13px 13px 13px;
+      display: block;
+    }
   </style>
 </head>
 <body>
-
-  <div class="chat-container" id="chat-container"></div>
+  <div class="chat-container" id="chat"></div>
 
   <script>
-    const messages = [
-      { sender: 'artist', name: '陸', profile: '../profile/profile_riku_color.jpg', type: 'text', content: '나한테 칭찬하는 것처럼 유진이한테도 칭찬해줘용', time: '오후 2:24' },
-      { sender: 'artist', name: '陸', profile: '../profile/profile_riku_color.jpg', type: 'text', content: '셀프 쓰담쓰담', time: '오후 2:24' },
-      { sender: 'me', type: 'text', content: '알아써🫶 리쿠는 내가 많이 쓰담쓰담해줄게', time: '오후 2:25' },
-      { type: 'date', content: '2025년 9월 7일 일요일' },
-      { sender: 'artist', name: '陸', profile: '../profile/profile_riku_color.jpg', type: 'image', content: '../pic/riku_250907_3.jpg', time: '오후 2:28' },
+    // 아티스트 정보
+    const artistProfile = [
+      {img: "../profile/riku_first.jpg", name: "RIKU"},
+      {img: "../profile/riku_baby.jpg", name:"陸"},
+      {img: "../profile/profile_riku_color.jpg", name:"陸"},
+      {img: "../profile/profile_riku_color.jpg", name:"띵"}
     ];
 
-    const chatContainer = document.getElementById('chat-container');
+    // 메시지 배열
+    const messages = [
+      { type: 'date', content: '2025년 9월 7일 일요일' },
+      { sender: 'artist', type: 'text', content: "컬러 음방 봣어요???", time: "14:19", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "퍼포먼스 멋잇죠", time: "14:19" },
+      { sender: 'artist', type: 'text', content: "료한테 칭찬받앗어", time: "14:20", profileIndex: 1 },
+      { sender: 'artist', type: 'image', content: '../pic/riku_250907_3.jpg', time: '14:28', profileIndex: 2 },
+      { sender: 'me', type: 'text', content: '웅 봤어! 리쿠 파트 진짜 멋있더라!!👍', time: '14:29' },
+      { type: 'date', content: '2025년 9월 8일 월요일' },
+      { sender: 'me', type: 'text', content: '리쿠 보고싶어', time: '17:32' },
+      { sender: 'artist', type: 'image', content: '../pic/jisung_250907_3.jpg', time: '02:13', profileIndex: 3 },
+      { sender: 'artist', type: 'image', content: '../pic/jisung_250907_3.jpg', time: '02:13', profileIndex: 3 },
+      { sender: 'artist', type: 'text', content: "잘자여☺️ ☺️", time: "02:13", profileIndex: 3 },
+    ];
 
-    messages.forEach((msg, index) => {
+    let currentProfileIndex = 0;
+    const chatContainer = document.getElementById("chat");
+
+    messages.forEach(msg => {
+      // ▼▼▼ 기능 추가를 위한 로직 ▼▼▼
+
+      // 1. 날짜 타입 처리
       if (msg.type === 'date') {
         const dateEl = document.createElement('div');
         dateEl.className = 'date-divider';
         dateEl.textContent = msg.content;
         chatContainer.appendChild(dateEl);
-        return; 
+        return; // 날짜를 표시하고 함수 종료
+      }
+
+      // 2. 내가 보낸 메시지 타입 처리
+      if (msg.sender === 'me') {
+        const myMsg = document.createElement("div");
+        myMsg.className = "my-chat-message"; // 오른쪽 정렬을 위한 새 클래스
+        myMsg.innerHTML = `
+          <div style="display:flex; align-items:flex-end;">
+            <div class="time">${msg.time}</div>
+            <div class="bubble my-bubble">${msg.content}</div>
+          </div>
+        `;
+        chatContainer.appendChild(myMsg);
+        return; // 내 메시지를 표시하고 함수 종료
+      }
+
+      if (msg.profileIndex !== undefined) {
+        currentProfileIndex = msg.profileIndex;
       }
       
-      const messageRow = document.createElement('div');
-      messageRow.className = 'message-row';
+      const chatMsg = document.createElement("div");
+      chatMsg.className = "chat-message";
 
-      let messageHTML = '';
-      const isArtist = msg.sender === 'artist';
+      // 3. 사진 메시지 처리를 위해 bubble 내용만 분기
+      const bubbleHTML = msg.type === 'image'
+        ? `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`
+        : `<div class="bubble">${msg.content}</div>`;
 
-      // 내가 보낸 메시지
-      if (!isArtist) {
-        messageRow.classList.add('my-message');
-        messageHTML = `
-          <div class="message-content">
-            <div class="bubble-wrapper">
-              <span class="time">${msg.time}</span>
-              <div class="bubble my-bubble">${msg.content}</div>
-            </div>
+      chatMsg.innerHTML = `
+        <div class="profile"></div>
+        <div class="message-content">
+          <div class="header">
+            <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
-        `;
-      } 
-      // 아티스트가 보낸 메시지
-      else {
-        messageRow.classList.add('artist-message');
-        
-        /* ⭐️ 2. 연속 메시지 처리 로직 제거 */
-        // const isContinuation = ... 부분과 삼항연산자를 제거하고, 항상 프로필과 이름을 표시하도록 수정
-        const profileAndName = `
-          <div class="profile" style="background-image: url('${msg.profile}')"></div>
-          <div class="message-content">
-            <div class="artist-name">${msg.name}</div>
-        `;
-
-        const bubbleContent = msg.type === 'text' 
-          ? `<div class="bubble artist-bubble">${msg.content}</div>`
-          : `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
-
-        messageHTML = `
-          ${profileAndName}
-            <div class="bubble-wrapper">
-              ${bubbleContent}
-              <span class="time">${msg.time}</span>
-            </div>
+          <div style="display:flex; align-items:flex-end;">
+            ${bubbleHTML}
+            <div class="time">${msg.time}</div>
           </div>
-        `;
-      }
+        </div>
+      `;
+      chatMsg.querySelector(".profile").style.backgroundImage =
+        `url('${artistProfile[currentProfileIndex].img}')`;
 
-      messageRow.innerHTML = messageHTML;
-      chatContainer.appendChild(messageRow);
+      chatContainer.appendChild(chatMsg);
     });
   </script>
-
 </body>
 </html>
