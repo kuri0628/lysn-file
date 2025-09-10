@@ -132,7 +132,7 @@
       display: block;
     }
 /* --- 디데이 패널 --- */
-    .top-header {
+        .top-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -141,6 +141,7 @@
       border-bottom: 1px solid #F1F1F1;
       position: sticky; /* 스크롤해도 상단에 고정 */
       top: 0;
+      z-index: 10; /* 디데이가 늘 최상위 레이어에 있도록 함 */
     }
     .header-left, .header-right {
       display: flex;
