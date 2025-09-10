@@ -155,7 +155,7 @@
     }
     .header-center {
       display: flex;
-      flex-direction: column-reverse; /* bubble이랑 아티스트 네임 위치 역순으로 배치한다는 뜻 */
+      flex-direction: column;
       align-items: center;
     }
     .header-title {
@@ -164,6 +164,7 @@
       font-size: 13px;
       color: #A584F9;
       letter-spacing: 1px; /* 자간 살짝 넓게 */
+      order: 2;
     }
     .header-name {
       display: flex;
@@ -171,6 +172,7 @@
       gap: 4px;
       font-size: 16px;
       font-weight: 500;
+      order: 1;
     }
     .header-name svg {
       width: 13px;
