@@ -32,7 +32,7 @@
     .chat-message {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 12.5px; /* 메시지 간 각격 */
+      margin-bottom: 12px; /* 메시지 간 각격 */
       gap: 5px             /* 메시지-프로필 간격 */
     }
     .profile {
@@ -76,7 +76,7 @@
     .time {
       font-size: 10px;
       font-weight: 450;
-      color: #ABABAB;
+      color: #AAAAAA;
       margin-left: 6px;
       white-space: nowrap;
       position: relative;
@@ -86,7 +86,7 @@
     .date-divider {
       text-align: center;
       font-size: 11px;
-      color: #AAAAAA;
+      color: #8A8A8A;
       margin: 32px 0 16px; /* 선이 들어갈 위쪽 공간(margin-top) 확보 */
       position: relative;  /* 선(::before)을 위치시킬 기준점 */
     }
@@ -98,7 +98,7 @@
       left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
       width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
       height: 1px;
-      background: #E5E5E5;
+      background: #AAAAAA;
       transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
     }
 
@@ -154,6 +154,14 @@
       { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "17:05", profileIndex: 3 },
       { sender: 'artist', type: 'text', content: "약간 시즈니 맞춤용은 아니긴한데", time: "17:07", profileIndex: 3 },
       { sender: 'artist', type: 'text', content: "ㅎㅎ오랜만에 행사니까 잘해볼게여어", time: "17:07", profileIndex: 3 },
+      { sender: 'artist', type: 'text', content: "1시!!", time: "13:00", profileIndex: 3 },
+      { sender: 'artist', type: 'text', content: "😄", time: "13:13", profileIndex: 3 },
+      { sender: 'artist', type: 'text', content: "드뎌 리치맨 나왔다😝⛄️", time: "20:54", profileIndex: 3 },
+      { sender: 'artist', type: 'text', content: "언니가 좋아해줘서 기분이 좋구만 .....🙃🙃😊", time: "20:54", profileIndex: 3 },
+      { type: 'date', content: '2025년 9월 6일 토요일' },
+      { sender: 'artist', type: 'text', content: "뮤플리 봤어..?😄", time: "23:01", profileIndex: 3 },
+      { sender: 'artist', type: 'text', content: "안봤다면 당장보구와...😳", time: "23:01", profileIndex: 3 },
+      
       { sender: 'artist', type: 'image', content: '../pic/riku_250907_3.jpg', time: '14:28', profileIndex: 0 },
       { sender: 'me', type: 'text', content: '웅 봤어! 리쿠 파트 진짜 멋있더라!!👍', time: '14:29' },
       { type: 'date', content: '2025년 9월 8일 월요일' },
