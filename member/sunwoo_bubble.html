@@ -23,6 +23,35 @@
       background: #F1F1F1;
     }
 
+      <header class="top-header">
+    <div class="header-left">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.5 19L8.5 12L15.5 5" stroke="#171718" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  </div>
+    <div class="header-center">
+    <span class="header-title">bubble</span>
+    <div class="header-name">
+    <span>陸</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#A584F9" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+  </svg>
+    <span>+135</span>
+  </div>
+  </div>
+    <div class="header-right">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#171718" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M21 21L16.65 16.65" stroke="#171718" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#171718" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" stroke="#171718" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12 19C13.1046 19 14 18.1046 14 17C14 15.8954 13.1046 15 12 15C10.8954 15 10 15.8954 10 17C10 18.1046 10.8954 19 12 19Z" stroke="#171718" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  </div>
+  </header>
+
     .chat-container {
       max-width: 500px;
       margin: 0;
@@ -97,7 +126,7 @@
       top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
       left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
       width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
-      height: 1px;
+      height: 0.8px; /* 선 두께 */
       background: #E0E0E0;
       transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
     }
@@ -131,6 +160,59 @@
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
+/* --- 구독일 패널 --- */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #F1F1F1;
+      position: sticky; /* 스크롤해도 상단에 고정 */
+      top: 0;
+    }
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      flex: 1; /* 양쪽 영역이 동일한 너비를 갖도록 설정 */
+    }
+    .header-right {
+      justify-content: flex-end;
+      gap: 8px; /* 아이콘 사이 간격 */
+    }
+    .header-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: bold;
+      font-size: 13px;
+      color: #A584F9;
+      letter-spacing: 1px; /* 자간 살짝 넓게 */
+    }
+    .header-name {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .header-name svg {
+      width: 13px;
+      height: 13px;
+    }
+    .header-name span:last-child {
+      font-size: 13px;
+      font-weight: 400;
+      color: #666666;
+    }
+    .header-left svg, .header-right svg {
+      width: 22px;
+      height: 22px;
+    }
+
   </style>
 </head>
 <body>
@@ -151,9 +233,6 @@
       { sender: 'artist', type: 'text', content: "오늘 일본 행사 뭔가 되게", time: "17:05", profileIndex: 3 },
       { sender: 'artist', type: 'text', content: "신기한 형식인데", time: "17:05" },
       { sender: 'artist', type: 'text', content: "재밌네", time: "17:05", profileIndex: 3 },
-      { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "17:05", profileIndex: 3 },
-      { sender: 'artist', type: 'text', content: "약간 시즈니 맞춤용은 아니긴한데", time: "17:07", profileIndex: 3 },
-      { sender: 'artist', type: 'text', content: "ㅎㅎ오랜만에 행사니까 잘해볼게여어", time: "17:07", profileIndex: 3 },
       { sender: 'artist', type: 'image', content: '../pic/riku_250907_3.jpg', time: '14:28', profileIndex: 0 },
       { sender: 'me', type: 'text', content: '웅 봤어! 리쿠 파트 진짜 멋있더라!!👍', time: '14:29' },
       { type: 'date', content: '2025년 9월 8일 월요일' },
