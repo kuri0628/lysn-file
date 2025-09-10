@@ -94,7 +94,7 @@
    .date-divider::before {
       content: '';
       position: absolute;
-      top: -16px;
+      top: -12px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
       left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
       width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
       height: 1px;
@@ -147,10 +147,13 @@
 
     // 메시지 배열
     const messages = [
-      { type: 'date', content: '2025년 9월 7일 일요일' },
-      { sender: 'artist', type: 'text', content: "컬러 음방 봣어요???", time: "14:19", profileIndex: 0 },
-      { sender: 'artist', type: 'text', content: "퍼포먼스 멋잇죠", time: "14:19" },
-      { sender: 'artist', type: 'text', content: "료한테 칭찬받앗어", time: "14:20", profileIndex: 1 },
+      { type: 'date', content: '2025년 9월 9일 화요일' },
+      { sender: 'artist', type: 'text', content: "오늘 일본 행사 뭔가 되게", time: "17:05", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "신기한 형식인데", time: "17:05" },
+      { sender: 'artist', type: 'text', content: "재밌네", time: "17:05", profileIndex: 1 },
+      { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "17:05", profileIndex: 1 },
+      { sender: 'artist', type: 'text', content: "약간 시즈니 맞춤용은 아니긴한데", time: "17:07", profileIndex: 1 },
+      { sender: 'artist', type: 'text', content: "ㅎㅎ오랜만에 행사니까 잘해볼게여어", time: "17:07", profileIndex: 1 },
       { sender: 'artist', type: 'image', content: '../pic/riku_250907_3.jpg', time: '14:28', profileIndex: 2 },
       { sender: 'me', type: 'text', content: '웅 봤어! 리쿠 파트 진짜 멋있더라!!👍', time: '14:29' },
       { type: 'date', content: '2025년 9월 8일 월요일' },
