@@ -132,16 +132,17 @@
       display: block;
     }
 /* --- 디데이 패널 --- */
-        .top-header {
+    .top-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px;
+      padding: 12px 8px; /* ▼▼▼ 높이 조절 (기존 8px) ▼▼▼ */
       background: #FFFFFF;
       border-bottom: 1px solid #F1F1F1;
-      position: sticky; /* 스크롤해도 상단에 고정 */
+      position: sticky;
       top: 0;
-      z-index: 10; /* 디데이가 늘 최상위 레이어에 있도록 함 */
+      z-index: 10;
+      border-radius: 0 0 15px 15px; /* ▼▼▼ 하단 모서리 둥글게 추가 ▼▼▼ */
     }
     .header-left, .header-right {
       display: flex;
