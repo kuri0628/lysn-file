@@ -65,6 +65,7 @@
       font-size: 13px;
       font-weight: 400;
       line-height: 1;
+      max-width: 300px;
     }
     .time {
       font-size: 9px;
@@ -130,10 +131,10 @@
       bottom: 0;       /* 화면 맨 아래에 붙이기 */
       left: 0;
       width: 100%;
-      /*background-color: #ffffff; 이미지 배경이 투명할 경우 대비해서 흰색 배경 추가 */
+    /*background-color: #ffffff; 이미지 배경이 투명할 경우 대비해서 흰색 배경 추가 */
       text-align: center; /* 이미지를 가운데 정렬 */
-      /*padding: 0px 0; 이미지 위아래 여백 */
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.05); /* 경계선이 부드럽게 보이도록 그림자 추가 */
+    /*padding: 0px 0; 이미지 위아래 여백 */
+    /*box-shadow: 0 -2px 5px rgba(0,0,0,0.05); / 경계선이 부드럽게 보이도록 그림자 추가 */
     }
     .fixed-bottom-image img {
       max-width: 500px; /* 채팅창 최대 너비와 맞추기 */
@@ -172,7 +173,7 @@
     // 메시지 배열
     const messages = [
       { type: 'date', content: '2025년 9월 9일 화요일' },
-      { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "17:05", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이렇게 많은 선배님들이 있는 주에 1위 후보에", time: "오후 7:05", profileIndex: 0 },
       { sender: 'artist', type: 'text', content: "약간 시즈니 맞춤용은 아니긴한데", time: "17:07", profileIndex: 0 },
       { type: 'date', content: '2025년 9월 9일 화요일' },
       { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
@@ -184,7 +185,9 @@
       { sender: 'artist', type: 'text', content: "おれもそうするから", time: "오후 10:26", profileIndex: 2 },
       { sender: 'artist', type: 'text', content: "わかった？", time: "오후 10:26", profileIndex: 2 },
       { sender: 'artist', type: 'text', content: "うん！いい子いい子", time: "오후 10:27", profileIndex: 2 },
+      { sender: 'artist', type: 'text', content: "야식 맛있는거 드시고", time: "오후 10:06", profileIndex: 1 },
       { sender: 'artist', type: 'emote', content: "🥰", time: "오후 10:06", profileIndex: 1 },
+      { sender: 'artist', type: 'text', content: "푹쉬어요ㅇ", time: "오후 10:06", profileIndex: 1 },
       { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
     ];
     let currentProfileIndex = 0;
