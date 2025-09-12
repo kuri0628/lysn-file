@@ -143,7 +143,7 @@
     }
 /* 단독 이모티콘 스타일 (글자 크기 키우기) */
     .standalone-emoji {
-      font-size: 50px;
+      font-size: 90px;
       line-height: 1;
       background: none;
     }
@@ -165,7 +165,7 @@
     // 아티스트 정보
     const artistProfile = [
       {img: "../profile/riku_first.jpg", name: "RIKU"},
-      {img: "../profile/riku_baby.jpg", name:"陸"},
+      {img: "../profile/riku_baby.jpg", name:"사쿠"},
       {img: "../profile/profile_riku_color.jpg", name:"陸"}
     ];
 
@@ -174,8 +174,6 @@
       { type: 'date', content: '2025년 9월 9일 화요일' },
       { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "17:05", profileIndex: 0 },
       { sender: 'artist', type: 'text', content: "약간 시즈니 맞춤용은 아니긴한데", time: "17:07", profileIndex: 0 },
-      { sender: 'artist', type: 'emote', content: "🥰", time: "13:13", profileIndex: 0 },
-      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "13:13", profileIndex: 0 },
       { type: 'date', content: '2025년 9월 9일 화요일' },
       { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
       { sender: 'me', type: 'text', content: '리쿠야아ㅏ', time: '오후 10:22' },
@@ -186,6 +184,8 @@
       { sender: 'artist', type: 'text', content: "おれもそうするから", time: "오후 10:26", profileIndex: 2 },
       { sender: 'artist', type: 'text', content: "わかった？", time: "오후 10:26", profileIndex: 2 },
       { sender: 'artist', type: 'text', content: "うん！いい子いい子", time: "오후 10:27", profileIndex: 2 },
+      { sender: 'artist', type: 'emote', content: "🥰", time: "오후 10:06", profileIndex: 1 },
+      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
     ];
     let currentProfileIndex = 0;
     const chatContainer = document.getElementById("chat");
