@@ -123,11 +123,34 @@
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
+    
+    /* ▼▼▼ 아래 스타일 전체 추가 ▼▼▼ */
+  .fixed-bottom-image {
+    position: fixed; /* 화면에 위치 고정 */
+    bottom: 0;       /* 화면 맨 아래에 붙이기 */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; /* 이미지 배경이 투명할 경우를 대비해 흰색 추가 */
+    text-align: center; /* 이미지를 가운데 정렬 */
+    padding: 10px 0; /* 이미지 위아래 여백 */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05); /* 경계선이 부드럽게 보이도록 그림자 추가 */
+  }
+
+  .fixed-bottom-image img {
+    max-width: 500px; /* 채팅창 최대 너비와 맞추기 */
+    width: 100%;      /* 화면 너비에 맞게 조절 */
+    display: block;   /* 불필요한 여백 제거 */
+    margin: 0 auto;   /* 가운데 정렬 */
+  }
+    
   </style>
 </head>
 <body>
   <div class="chat-container" id="chat"></div>
-
+  <div class="fixed-bottom-image">
+    <img src="../pic/input_bar.jpg" alt="채팅 입력창 이미지">
+  </div>
+  
   <script>
     // 아티스트 정보
     const artistProfile = [
