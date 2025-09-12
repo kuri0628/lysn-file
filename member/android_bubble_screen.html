@@ -124,25 +124,34 @@
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
-    
     /* ▼▼▼ 아래 스타일 전체 추가 ▼▼▼ */
-  .fixed-bottom-image {
-    position: fixed; /* 화면에 위치 고정 */
-    bottom: 0;       /* 화면 맨 아래에 붙이기 */
-    left: 0;
-    width: 100%;
-  /*background-color: #ffffff; 이미지 배경이 투명할 경우 대비해서 흰색 배경 추가 */
-    text-align: center; /* 이미지를 가운데 정렬 */
-  /*padding: 0px 0; 이미지 위아래 여백 */
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.05); /* 경계선이 부드럽게 보이도록 그림자 추가 */
-  }
-
-  .fixed-bottom-image img {
-    max-width: 500px; /* 채팅창 최대 너비와 맞추기 */
-    width: 100%;      /* 화면 너비에 맞게 조절 */
-    display: block;   /* 불필요한 여백 제거 */
-    margin: 0 auto;   /* 가운데 정렬 */
-  }
+    .fixed-bottom-image {
+      position: fixed; /* 화면에 위치 고정 */
+      bottom: 0;       /* 화면 맨 아래에 붙이기 */
+      left: 0;
+      width: 100%;
+      /*background-color: #ffffff; 이미지 배경이 투명할 경우 대비해서 흰색 배경 추가 */
+      text-align: center; /* 이미지를 가운데 정렬 */
+      /*padding: 0px 0; 이미지 위아래 여백 */
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.05); /* 경계선이 부드럽게 보이도록 그림자 추가 */
+    }
+    .fixed-bottom-image img {
+      max-width: 500px; /* 채팅창 최대 너비와 맞추기 */
+      width: 100%;      /* 화면 너비에 맞게 조절 */
+      display: block;   /* 불필요한 여백 제거 */
+      margin: 0 auto;   /* 가운데 정렬 */
+    }
+/* 단독 이모티콘 스타일 (글자 크기 키우기) */
+    .standalone-emoji {
+      font-size: 50px;
+      line-height: 1;
+      background: none;
+    }
+/* 스티커 이미지 스타일 (이미지 크기 지정) */
+    .sticker-image {
+      width: 110px;
+      height: auto;
+    }
     
   </style>
 </head>
@@ -165,6 +174,8 @@
       { type: 'date', content: '2025년 9월 9일 화요일' },
       { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "17:05", profileIndex: 0 },
       { sender: 'artist', type: 'text', content: "약간 시즈니 맞춤용은 아니긴한데", time: "17:07", profileIndex: 0 },
+      { sender: 'artist', type: 'emote', content: "🥰", time: "13:13", profileIndex: 0 },
+      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "13:13", profileIndex: 0 },
       { type: 'date', content: '2025년 9월 9일 화요일' },
       { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
       { sender: 'me', type: 'text', content: '리쿠야아ㅏ', time: '오후 10:22' },
@@ -176,14 +187,10 @@
       { sender: 'artist', type: 'text', content: "わかった？", time: "오후 10:26", profileIndex: 2 },
       { sender: 'artist', type: 'text', content: "うん！いい子いい子", time: "오후 10:27", profileIndex: 2 },
     ];
-
     let currentProfileIndex = 0;
     const chatContainer = document.getElementById("chat");
-
     messages.forEach(msg => {
-      // ▼▼▼ 기능 추가를 위한 로직 ▼▼▼
-
-      // 1. 날짜 타입 처리
+// 1. 날짜 타입 처리
       if (msg.type === 'date') {
         const dateEl = document.createElement('div');
         dateEl.className = 'date-divider';
@@ -191,8 +198,7 @@
         chatContainer.appendChild(dateEl);
         return; // 날짜를 표시하고 함수 종료
       }
-
-      // 2. 내가 보낸 메시지 타입 처리
+// 2. 내가 보낸 메시지 타입 처리
       if (msg.sender === 'me') {
         const myMsg = document.createElement("div");
         myMsg.className = "my-chat-message"; // 오른쪽 정렬을 위한 새 클래스
@@ -202,6 +208,7 @@
             <div class="bubble my-bubble">${msg.content}</div>
           </div>
         `;
+        
         chatContainer.appendChild(myMsg);
         return; // 내 메시지를 표시하고 함수 종료
       }
@@ -209,32 +216,39 @@
       if (msg.profileIndex !== undefined) {
         currentProfileIndex = msg.profileIndex;
       }
-      
       const chatMsg = document.createElement("div");
       chatMsg.className = "chat-message";
-
-      // 3. 사진 메시지 처리를 위해 bubble 내용만 분기
-      const bubbleHTML = msg.type === 'image'
-        ? `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`
-        : `<div class="bubble">${msg.content}</div>`;
-
+      let messageBodyHTML = '';
+      if (msg.type === 'emote') {
+        if (msg.isImage) {
+          // emote + 이미지 = 스티커
+          messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
+        } else {
+          // emote + 텍스트 = 단독 이모티콘
+          messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
+        }
+      } else if (msg.type === 'image') {
+        // 일반 사진
+        messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+      } else {
+        // 일반 텍스트
+        messageBodyHTML = `<div class="bubble">${msg.content}</div>`;
+      }
       chatMsg.innerHTML = `
-        <div class="profile"></div>
-        <div class="message-content">
-          <div class="header">
-            <div class="name">${artistProfile[currentProfileIndex].name}</div>
-          </div>
-          <div style="display:flex; align-items:flex-end;">
-            ${bubbleHTML}
-            <div class="time">${msg.time}</div>
-          </div>
-        </div>
+      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+      <div class="message-content">
+      <div class="header">
+      <div class="name">${artistProfile[currentProfileIndex].name}</div>
+      </div>
+      <div style="display:flex; align-items:flex-end;">
+      ${messageBodyHTML}
+      <div class="time">${msg.time}</div>
+      </div>
+      </div>
       `;
-      chatMsg.querySelector(".profile").style.backgroundImage =
-        `url('${artistProfile[currentProfileIndex].img}')`;
-
+      
       chatContainer.appendChild(chatMsg);
     });
   </script>
-</body>
+ </body>
 </html>
