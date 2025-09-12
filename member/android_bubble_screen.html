@@ -76,26 +76,10 @@
       background: #E0E0E0;
       transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
     }
-
-    /* 2. 내가 보낸 메시지 스타일 */
-    .my-chat-message {
-      display: flex;
-      justify-content: flex-end; /* 오른쪽 정렬 */
-      margin-bottom: 12px;
-    }
-
-    .my-bubble {
-      background: #A584F9;
-      color: #FFFFFF;
-      border-radius: 13px 13px 4px 13px;
-    }
-
-    /* 내가 보낸 메시지는 시간을 왼쪽에 표시 */
-    .my-chat-message .time {
-      margin-left: 0;
-      margin-right: 6px;
-    }
-
+    /* 내가 보내는 메시지 스타일  오른쪽배치 - 메시지 색 - 시간 */
+    .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+    .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 13px 13px 4px 13px; }
+    .my-chat-message .time { margin-left: 0; margin-right: 6px; }
     /* 3. 사진 메시지 스타일 */
     .image-bubble {
       padding: 0; /* 이미지 자체에 여백이 있으므로 bubble의 padding 제거 */
