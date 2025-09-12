@@ -16,7 +16,11 @@
       padding-bottom: 70px; /* 하단 이미지 높이에 맞춰 여백 주기 */
     }
     .message-content { display: flex; flex-direction: column; max-width: 95%; }
-    .header { display: flex; align-items: center; margin-bottom: 3px; }
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px; /* 이름 - 메시지 간격 */
+    }
     /* ▼▼▼ input-bar ▼▼▼ */
     .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
     .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
@@ -66,7 +70,7 @@
     /* 1. 날짜 구분선 스타일 */
     .date-divider { text-align: center;        
       font-size: 10px; color: #8A8A8A;
-      margin: 25px 0 19px; /* 날짜 - 메시지 간격 */
+      margin: 23px 0 21px; /* 날짜 - 메시지 간격 */
       position: relative;  /* 선(::before)을 위치시킬 기준점 */
     }
     /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
@@ -85,12 +89,9 @@
     .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
     .my-chat-message .time { margin-left: 0; margin-right: 6px; }
     /* 3. 사진 메시지 스타일 */
-    .image-bubble {
-      padding: 0; /* 이미지 자체에 여백이 있으므로 bubble의 padding 제거 */
-      background: none;
-    }
+    .image-bubble { padding: 0; background: none; margin-left: 1px; }
     .image-bubble img {
-      max-width: 245px;
+      max-width: 244px;
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
