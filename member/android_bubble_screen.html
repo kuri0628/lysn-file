@@ -38,7 +38,7 @@
       border-radius: 50%;
       background-size: cover;
       background-position: center;
-      margin-top: 3px; /* 숫자↓ 위치↑ */
+      margin-top: 2px; /* 숫자↓ 위치↑ */
     }
     .name {
       font-size: 11px;
@@ -81,7 +81,7 @@
       transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
     }
     /* 내가 보내는 메시지 스타일  오른쪽배치 - 메시지 색 - 시간 */
-    .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 17px; margin-top: 19px; }
+    .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
     .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
     .my-chat-message .time { margin-left: 0; margin-right: 6px; }
     /* 3. 사진 메시지 스타일 */
@@ -125,7 +125,7 @@
     // 메시지 배열
     const messages = [
       { type: 'date', content: '2025년 9월 9일 화요일' },
-      { sender: 'artist', type: 'text', content: "이렇게 많은 선배님들이 있는 주에 1위&nbsp;&nbsp;&nbsp;<br>후보에", time: "오후 7:05", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이렇게 많은 선배님들이 있는 주에 1위&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>후보에", time: "오후 7:05", profileIndex: 0 },
       { type: 'date', content: '2025년 9월 9일 화요일' },
       { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
       { sender: 'me', type: 'text', content: '리쿠야아ㅏ', time: '오후 10:22' },
