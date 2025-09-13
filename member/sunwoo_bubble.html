@@ -129,6 +129,31 @@
     .bubble.has-translation {
       padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
     }
+        /* ▼▼▼ 이 코드를 CSS 맨 아래에 추가 ▼▼▼ */
+    /* 답장 박스가 포함된 말풍선 스타일 */
+    .bubble.has-reply {
+      padding: 10px 12px; /* 답장 있을 때 내부 여백 조정 */
+    }
+    /* 답장 박스 전체 스타일 */
+    .reply-box {
+      background-color: #F5F5F5;
+      border-radius: 8px;
+      padding: 9px 11px;
+      margin-bottom: 8px; /* 답장 박스와 메인 메시지 사이 간격 */
+    }
+    /* "ARTIST의 답장" 제목 스타일 */
+    .reply-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: #8A8A8A;
+      margin-bottom: 3px; /* 제목과 내용 사이 간격 */
+    }
+    /* 답장 내용 스타일 */
+    .reply-content {
+      font-size: 13.5px;
+      color: #333333;
+    }
+
 
     
   </style>
@@ -339,7 +364,12 @@
       { sender: 'artist', type: 'text', content: "알라뷰 그래도 애정이 두껍게<br>기반하고 있으니까 편하게 할 수 있는 거 알지", time: "오후 11:25", profileIndex: 0 },
       { sender: 'artist', type: 'text', content: "사랑은 늘 표현해주께", time: "오후 11:25", profileIndex: 0 },
       { sender: 'artist', type: 'text', content: "이상한 소리 햌ㅅ더니 배고파", time: "오후 11:27", profileIndex: 0 },
-      
+
+      { sender: 'artist', type: 'reply', replyContent: '노래에 진심인 여자', mainContent: '아무래도', time: '오후 11:57', profileIndex: 0 },
+      { sender: 'artist', type: 'reply', replyContent: '쿠죠노 하나비👍', mainContent: '오오오오오오', time: '오후 11:58', profileIndex: 0 },
+      { sender: 'artist', type: 'reply', replyContent: '일찍 쉬세요. 늦었어요.', mainContent: '보내버리시네요. 주무실건가요.', time: '오후 11:59', profileIndex: 0 },
+      { sender: 'artist', type: 'reply', replyContent: '아니 가지마', mainContent: '앙', time: '오후 11:59', profileIndex: 0 },
+
       { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
       { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
     ];
@@ -382,6 +412,16 @@
         }
       } else if (msg.type === 'image') {
         messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+      } else if (msg.type === 'reply') {
+        messageBodyHTML = `
+          <div class="bubble has-reply">
+            <div class="reply-box">
+              <div class="reply-title">ARTIST의 답장</div>
+              <div class="reply-content">${msg.replyContent}</div>
+            </div>
+            ${msg.mainContent}
+          </div>
+        `;
       } else {
         let bubbleContent = msg.content;
         let bubbleClass = 'bubble'; // ◀ 1. 기본 클래스 이름을 변수로 만들기
