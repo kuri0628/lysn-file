@@ -5,77 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>아티스트 채팅</title>
 
-  <!-- Inter 폰트 불러오기 -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
   <style>
-    /* 전체 페이지 기본 폰트 적용 */
     body {
-      /* font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
-      font-family: -apple-system,    /* iOS, Mac 기본 폰트 (San Francisco) */
-                      'Inter',
-                      "Roboto",      /* Android 기본 폰트 */
-                      sans-serif;    /* 나머지 */
+      font-family: "Roboto", /* sans-serif; */
       font-weight: 400;
       font-size: 14px;
       line-height: 1.5;
       margin: 0;
-      background: #F1F1F1;
+      background: #EEEEEE;
+      padding-bottom: 70px; /* 하단 이미지 높이에 맞춰 여백 주기 */
     }
-
+    .message-content { display: flex; flex-direction: column; max-width: 95%; }
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3.9px; /* 이름 - 메시지 간격 */
+    }
+    /* ▼▼▼ input-bar ▼▼▼ */
+    .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
+    .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
+    
     .chat-container {
       max-width: 500px;
       margin: 0;
       padding: 8px;
     }
-
     .chat-message {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 12px; /* 메시지 간 각격 */
-      gap: 5px             /* 메시지-프로필 간격 */
+      margin-bottom: 16.9px; /* 메시지 간 간격 */
+      gap: 6px             /* 메시지-프로필 간격 */
     }
     .profile {
-      width: 40px;
-      height: 40px;
+      width: 39.6px;
+      height: 39.6px;
       border-radius: 50%;
       background-size: cover;
       background-position: center;
-      margin-top: 7px;
-      /* background: linear-gradient(90deg, #D28AFD, #E141FD); / 테두리 /
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden; */
-    }
-    .message-content {
-      display: flex;
-      flex-direction: column;
-      max-width: 95%;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 3px;
+      margin-top: 2px; /* 숫자↓ 위치↑ */
+      border: 0.3px solid #cdcdcd; /* 테두리 */
     }
     .name {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 400;
       color: #171718;
     }
-    
 /* 말풍선 */
     .bubble {
       background: #FFFFFF;
-      border-radius: 4px 13px 13px 13px;
-      padding: 11px 12px;  /* 상하-좌우 여백 */
-      font-size: 15px;
+      border-radius: 4px 14.5px 14.5px 14.5px;
+      padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
+      font-size: 13.7px;
       font-weight: 400;
-      line-height: 1;
+      line-height: 1.2;
     }
     .time {
-      font-size: 10px;
-      font-weight: 450;
+      font-size: 9px;
+      font-weight: 350;
       color: #AAAAAA;
       margin-left: 6px;
       white-space: nowrap;
@@ -83,100 +69,294 @@
       top: 2px;
     }
     /* 1. 날짜 구분선 스타일 */
-    .date-divider {
-      text-align: center;
-      font-size: 11px;
-      color: #8A8A8A;
-      margin: 32px 0 16px; /* 선이 들어갈 위쪽 공간(margin-top) 확보 */
+    .date-divider { text-align: center;        
+      font-size: 10px; color: #8A8A8A;
+      margin: 21px 0 22px; /* 날짜 - 메시지 간격 */
       position: relative;  /* 선(::before)을 위치시킬 기준점 */
     }
     /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
    .date-divider::before {
       content: '';
       position: absolute;
-      top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+      top: -7px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
       left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
       width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
       height: 0.8px; /* 선 두께 */
       background: #E0E0E0;
       transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
     }
-
-    /* 2. 내가 보낸 메시지 스타일 */
-    .my-chat-message {
-      display: flex;
-      justify-content: flex-end; /* 오른쪽 정렬 */
-      margin-bottom: 12px;
-    }
-
-    .my-bubble {
-      background: #A584F9;
-      color: #FFFFFF;
-      border-radius: 13px 13px 4px 13px;
-    }
-
-    /* 내가 보낸 메시지는 시간을 왼쪽에 표시 */
-    .my-chat-message .time {
-      margin-left: 0;
-      margin-right: 6px;
-    }
-
+    /* 내가 보내는 메시지 스타일  오른쪽배치 - 메시지 색 - 시간 */
+    .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
+    .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
+    .my-chat-message .time { margin-left: 0; margin-right: 6px; }
     /* 3. 사진 메시지 스타일 */
-    .image-bubble {
-      padding: 0; /* 이미지 자체에 여백이 있으므로 bubble의 padding 제거 */
-      background: none;
-    }
+    .image-bubble { padding: 0; background: none; margin-left: 1.4px; }
     .image-bubble img {
-      max-width: 287px;
+      max-width: 244px;
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
+/* 단독 이모티콘 스타일 (글자 크기 키우기) */
+    .standalone-emoji {
+      font-size: 66px;
+      line-height: 1.5;
+      background: none;
+    }
+/* 스티커 이미지 스타일 (이미지 크기 지정) */
+    .sticker-image {
+      width: 110px;
+      height: auto;
+    }
+    
+    /* ▼▼▼ [수정] 아래 스타일들을 추가하고, 기존 .translation은 삭제! ▼▼▼ */
+    /* 점선 스타일 */
+    .dotted-divider {
+      border: none; 
+      background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
+      background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
+      background-repeat: repeat-x;
+      background-position: left;
+      height: 1px; /* 선의 높이(두께) 지정 */
+      margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
+    }
+    /* 말풍선 내부 번역 텍스트 */
+    .translation-inner {
+      font-size: 13.5px;
+      color: #9050F3;
+      line-height: 1.2;
+    }
+    /* ▼▼▼ 이 코드를 CSS 맨 아래에 추가 ▼▼▼ */
+    .bubble.has-translation {
+      padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+    }
+
+    
   </style>
 </head>
 <body>
   <div class="chat-container" id="chat"></div>
-
+  <div class="fixed-bottom-image">
+    <img src="../pic/input_bar.jpg" alt="채팅 입력창 이미지">
+  </div>
+  
   <script>
+    const showTranslations = true; // 번역을 보려면 true, 숨기려면 false로 변경
+
     // 아티스트 정보
     const artistProfile = [
       {img: "../profile/riku_first.jpg", name: "RIKU"},
-      {img: "../profile/riku_baby.jpg", name:"陸"},
-      {img: "../profile/profile_riku_color.jpg", name:"陸"},
-      {img: "../profile/profile_riku_color.jpg", name:"띵"}
+      {img: "../profile/riku_baby.jpg", name:"YUSHI"},
+      {img: "../profile/profile_riku_color.jpg", name:"陸"}
     ];
 
-    // 메시지 배열
+    // 메시지 배열 (translation 속성은 그대로 유지)
     const messages = [
-      { type: 'date', content: '2025년 9월 9일 화요일' },
-      { sender: 'artist', type: 'text', content: "😄", time: "13:13", profileIndex: 3 },
-      { sender: 'artist', type: 'image', content: '../pic/riku_250907_3.jpg', time: '14:28', profileIndex: 0 },
-      { sender: 'me', type: 'text', content: '❤️❤️❤️', time: '14:29' },
-      { type: 'date', content: '2025년 9월 8일 월요일' },
-      { sender: 'me', type: 'text', content: '리쿠 보고싶어', time: '17:32' },
-      { sender: 'artist', type: 'image', content: '../pic/jisung_250907_3.jpg', time: '02:13', profileIndex: 1 },
-      { sender: 'artist', type: 'image', content: '../pic/jisung_250907_3.jpg', time: '02:13', profileIndex: 3 },
-      { sender: 'artist', type: 'text', content: "잘자여☺️ ☺️", time: "02:13", profileIndex: 3 },
+      { type: 'date', content: '2024년 8월 10일 토요일' },
+      { sender: 'artist', type: 'text', content: "유진! 많이 기다렸어~🫶", time: "오후 2:05", profileIndex: 0 },
+      { sender: 'me', type: 'text', content: '선우야 버블을 보내 보아라', time: '오후 6:29' },
+      { type: 'date', content: '2024년 8월 12일 월요일' },
+      { sender: 'me', type: 'text', content: '김선우 버블 존버중', time: '오후 8:12' },
+      { type: 'date', content: '2024년 8월 13일 화요일' },
+      { sender: 'me', type: 'text', content: '선우야 퍼뜩 안온나.', time: '오후 12:17' },
+      { type: 'date', content: '2024년 8월 14일 수요일' },
+      { sender: 'artist', type: 'text', content: "오늘 진짜 너어어어어어어어ㅓ무 더우니까", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더위 조심하고", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "밖에 되도록이면 나가지마!!!", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "걱정되게 하지마~!", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "물 많이 먹구 ㅎㅎ", time: "오후 2:34", profileIndex: 0 },
+      { type: 'date', content: '2024년 8월 20일 화요일' },
+      { sender: 'artist', type: 'text', content: "좋은 하루 보내 오늘도 ㅎㅎㅎ", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "많이 덥지 ㅜ", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "방콕 더비들 넘 넘 미안하구 담에 갈 땐 못 춘 만큼 몸이 부숴져라 출게 약속!", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더비들도 걱정말고 나 회복력 울버린 급이라서 나아지고 있어 ㅋ", time: "오후 2:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "암튼 사랑한다!", time: "오후 2:33", profileIndex: 0 },
+      { type: 'date', content: '2024년 8월 24일 토요일' },
+      { sender: 'artist', type: 'text', content: "유진~", time: "오후 12:49", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "나 염색했어", time: "오후 12:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이미 알고 있겠지만 ㅋ", time: "오후 12:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "애쉬 브라운으로 했어 그냥 갈발이 아니라!", time: "오후 12:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "좀 더 퇴폐적인 느낌의 브라운으로 하려구", time: "오후 12:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "헤헤 많이 예뻐해주ㅓ", time: "오후 12:51", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "눈썹도 탈색하구", time: "오후 12:51", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "배고파 밥 먹었음?", time: "오후 12:54", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "난 곧 먹으려구", time: "오후 12:56", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "뭐 있는지 메뉴가서 봐야해 ㅋㅋㅋㅋㅋ", time: "오후 12:56", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "아직 나두 몰룽", time: "오후 12:56", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "갈비찜이당", time: "오후 1:11", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "우아아아아ㅏ", time: "오후 1:11", profileIndex: 0 },
+      { sender: 'artist', type: 'emote', content: "🥺", time: "오후 1:11", profileIndex: 0 },
+      { type: 'date', content: '2024년 8월 31일 토요일' },
+      { sender: 'artist', type: 'text', content: "이 물고기 뭐냐?", time: "오전 1:23", profileIndex: 0 },
+      { sender: 'artist', type: 'image', content: '../pic/sunwoo_240831_1.jpg', time: '오전 1:23', profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "쿠로미나 구경해야지 하고 들어갔는데", time: "오전 1:24", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "저 큰눈이랑 부담스러운 입술로 날 쳐다보길래", time: "오전 1:25", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "홀리듯이 데려와버렸는데", time: "오전 1:26", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "얘 어케 데리고 가냐", time: "오전 1:26", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "홀린듯이*", time: "오전 1:26", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이 물고기 이름 뭐임?", time: "오전 1:27", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "한교동...", time: "오전 1:28", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "한교동ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오전 1:28", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이름이 한교동 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오전 1:28", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "얘 묘해", time: "오전 1:29", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "교동이 인기 많았네 다 알고 있던 거 보니까", time: "오전 1:30", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "쿠로미 잘 가", time: "오전 1:30", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "바츠마루랑 쿠로미였는데 교동이 갑자기 번개맞듯이 내게 와버렸다", time: "오전 1:34", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "날 최애 삼은 그대들이 이런 마음이었을까...?", time: "오전 1:34", profileIndex: 0 },
+      { sender: 'artist', type: 'image', content: '../pic/sunwoo_240831_2.jpg', time: '오전 1:36', profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "하.... 신경쓰여..", time: "오전 1:36", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "바보같애", time: "오전 1:36", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "근데 얘 진짜 어떻게 데려가지 너무 뒷생각도 안 하고 데려왔어", time: "오전 1:40", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "아미리 가방에 일단", time: "오전 1:40", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "넣어볼게", time: "오전 1:40", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "얘 좀 찾아보니까 데리고 다니는 문어 친구도 있네", time: "오전 1:42", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "그 문어도 이름 있어?", time: "오전 1:42", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "혹시 떤코", time: "오전 1:43", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "?", time: "오전 1:43", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "사유리라고 문어가?", time: "오전 1:43", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "그니까 저 물고기 이름이 하필 한교동이고 같이 다니는 문어 이름이 사유리짱이라는 거지", time: "오전 1:44", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "얘네 이상해", time: "오전 1:45", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "뭔가 이상해서 더 알고 싶어", time: "오전 1:45", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "하지만 니가 제일 좋아", time: "오전 1:45", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "늦었냐?", time: "오전 1:46", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "일단 두고볼게", time: "오전 1:49", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "그래도 나한텐 쿠로미와 바츠마루가 조금 더 익숙해", time: "오전 1:49", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "구오빠를 떠나보내는 과정의 마음이 이런 건가", time: "오전 1:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "어렵다 어려워", time: "오전 1:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "일단 오늘은 안고 안 잘 거고 며칠 좀 보려고", time: "오전 1:57", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "한국은 벌써 두시네!?!", time: "오전 1:57", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "난 밥도 배부르게 먹었구 씻었구 이제 누워서", time: "오전 1:58", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "슬슬 자볼게🤭", time: "오전 1:58", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "낼 콘서트 힘내서 할 테니 많관부~!💕", time: "오전 1:58", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "굿나잇", time: "오전 1:58", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: '"꼬마아가씨"', time: "오전 1:59", profileIndex: 0 },
+      { type: 'date', content: '2024년 9월 7일 토요일' },
+      { sender: 'artist', type: 'text', content: "하이", time: "오후 10:08", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "공연 끝", time: "오후 10:09", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "몸에 힘이 한나한나한난도 없어", time: "오후 10:10", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "난 공공즈인데요", time: "오후 10:12", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "빵빵즈 함 가겠슴다~", time: "오후 10:13", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "아니면 혼자 함 가께", time: "오후 10:15", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "염색하고", time: "오후 10:15", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "라이브 안 켞으니까", time: "오후 10:15", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "유럽에서 킬게 좀만 기달 ㅋ", time: "오후 10:16", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "나 그리고 언박싱 할 것도 있어서 그것두 해야하는데 좀만 기다려방 ㅎㅎ 대박인 거 누가 보내줘서 회사에서 켜야해 그건", time: "오후 10:18", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "나 뱅기에서 어제", time: "오후 10:19", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "30일? 그 영화 보면서 왔는데", time: "오후 10:19", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "킬링 타임용으로 넘 재밌더라 ㅋ", time: "오후 10:19", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "올해 투어도 끝나고 컴백하고 하면 또 다양한", time: "오후 10:20", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "모습들 보여줄 거 생각하니까", time: "오후 10:20", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "두근두근 거리는 구만 ㅎㅎ", time: "오후 10:21", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "컴백스포 해주까", time: "오후 10:21", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "근데 스포하면 재미없어서 안돼", time: "오후 10:21", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "알면 식어", time: "오후 10:22", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "몰라야 좋아", time: "오후 10:22", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "제목에", time: "오후 10:24", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "알파벳 g가 들어가.,,", time: "오후 10:24", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "딱 요정도까지가 괜찮겠다", time: "오후 10:24", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "스포면서 전혀 모르겠는 정도", time: "오후 10:24", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "너 남아", time: "오후 10:25", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "너도 남아", time: "오후 10:25", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "kim 이니까 넌 .. 하..", time: "오후 10:26", profileIndex: 0 },
+      { sender: 'artist', type: 'image', content: '../pic/sunwoo_240907.jpg', time: '오후 10:29', profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "자 흑발 선우도 보라고 보내", time: "오후 10:29", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "g로 시작하진 않아", time: "오후 10:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "히히", time: "오후 10:33", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "나 조는 중이야 😪 ...", time: "오후 10:37", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "너는 모해", time: "오후 10:38", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "뱅기에서 밥도 안 먹구 바로 자야겠다", time: "오후 10:38", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "한국 날씨는 어때 괜차나?", time: "오후 10:38", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "근데 더비 중에 배그 하는 사람 없음?", time: "오후 10:42", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "모바일 말고", time: "오후 10:42", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "난 롤은 안한지 1년 훨씬 넘었구 배그만 해 시간나면", time: "오후 10:43", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "몇 명 나 만났었을 지도", time: "오후 10:44", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "롤은 이제 재미없구", time: "오후 10:45", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "아이디도 없어서 안 하고", time: "오후 10:45", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "배그에서 내 목소리 같으면", time: "오후 10:45", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "나 더비에요 하고 말하면 그 판 치킨 먹여드림", time: "오후 10:45", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "쉬는 날이 없긴했지만", time: "오후 10:46", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "시간 뜰 때", time: "오후 10:46", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "하긴 하니까 ㅎㅎ", time: "오후 10:46", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:46", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더비들 배그 마니 마니 해조", time: "오후 10:47", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "나랑 같이 하장", time: "오후 10:47", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "대부분이 다 포기하겠지만...", time: "오후 10:47", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "아 ㅋㅋㅋㅋㅋ 좋다", time: "오후 10:48", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "배그할 때 알려줄게 버블로", time: "오후 10:48", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "랜덤 듀오만 돌릴 테니까 운좋으먄 나랑 팀되겠지!", time: "오후 10:48", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "공정성을 위해 친추는 못 받겠지만 가끔 하먄 재밌을 듯 헤헤", time: "오후 10:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "같이 취미도 공유하면 좋자나", time: "오후 10:50", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "못하면 이제 총 줍지말고 약만 줍고 집 같은 곳도 먼저 들어가게 하고 내가 유용하게 부려먹으면 되니까 괜찮아", time: "오후 10:51", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: '"더비. 먼저 들어가봐."', time: "오후 10:52", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: '"괜찮을 거야"', time: "오후 10:52", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "사망플래그", time: "오후 10:52", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "인간 탐지기..", time: "오후 10:53", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "현실이면 내가 더비 지키지 ㅋㅋ", time: "오후 10:58", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "게임에선 날 위해 희생해줄 수 있겠니", time: "오후 10:58", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "ㄹㅇ 현실에서 더비가 누구한테 삥 뜯기거나 거리에서 시비 걸리면", time: "오후 10:59", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "가서 구해줄 거임", time: "오후 10:59", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "내 돈... 주면 되겠지", time: "오후 11:00", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더 얹어드릴 테니까 가주세염..", time: "오후 11:00", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "영화처럼 휘리릭 팍 퍽 슉 이런 거 했다간 내가 잡혀가거나 내가 얻어맞으니까", time: "오후 11:02", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "어떻게 해야 멋있게 막아줄 수 있을까", time: "오후 11:02", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "그대로 부르면서 문워크로 옆으로 갈길간다면 그래도 나 좋아해줄 거야?", time: "오후 11:03", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: ".. 왠지 그 방법이 먹힐 것 같아서 짜증나네", time: "오후 11:05", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "ㅋㅋ 넌 나중에 보자", time: "오후 11:05", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "근데 그럴 일 없게 이상한 사람들 있는 곳 막 술에 취한 사람들은 근처도 가지마", time: "오후 11:07", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "그 취한게 너라면... 할 말은 없지만..", time: "오후 11:08", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "클럽도 걍 가지마 그런 곳", time: "오후 11:09", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "돈까스 클럽이나 가라", time: "오후 11:09", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "블루클럽이나", time: "오후 11:09", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "둘 중 한 곳만 허락", time: "오후 11:09", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "헬스클럽도 가능", time: "오후 11:09", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "아 미안", time: "오후 11:10", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "흠... 그럴싸해 고민되네 그건", time: "오후 11:10", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "ㅋㅋ 넌 블루클럽 데려가줄게 내가", time: "오후 11:11", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "클럽은 덥즈 샤릿아웃 틀어줄 테니까 콘서트나 와라", time: "오후 11:11", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더보이즈 팬클럽은 케큰환영💕💕", time: "오후 11:12", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "헌팅포차도 가지마 거긴 대놓고 헌팅하러 가는 곳 아님?", time: "오후 11:14", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "유교남 김선우 결사반대", time: "오후 11:14", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "사랑은 운명처럼 다가오는 거야", time: "오후 11:14", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "길가다 만나는 거 아니면 아무데도 가지마셈", time: "오후 11:14", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "걍 집에서 배그해 맛난 밥 먹고;", time: "오후 11:14", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "내 아이돌 커리어를 끝내고 싶다면 번호 따라... 난 ... 그 이후로 백수가 될 거니까..", time: "오후 11:16", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "오히랴 좋아 같은 소리하고 있네", time: "오후 11:17", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더빈 거 딱 봐도 티나는데 번호 따는 사람 있으면 꿀밤을 놓아줄 것임", time: "오후 11:17", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "근데 알고 보니 더비 아니여서 압구정 꿀밤남으로 소문나면 어떡해", time: "오후 11:17", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "반대로 생각해보면 너가 아이돌이고.. 길가다가 번호 물어보는데... 그걸 줄 수 있겠니 바로 아이돌 모드 on 하고 인스타 보여주면서", time: "오후 11:19", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더비.. 되실래요 하고 갈 길 가는 거지", time: "오후 11:19", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "더비한테나 다정 눈 뜨지 나 밖에선 완전", time: "오후 11:20", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "개눈이야 ~", time: "오후 11:20", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "눈 뒤에 하나 더 붙이려구 했는데 그건 넘 과격해성><", time: "오후 11:20", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "어쨌든", time: "오후 11:22", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "뭔 얘기하다가 여까지 왔냐", time: "오후 11:22", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "배그 얘기하다가 압구정 꿀밤남까지 온 거지?", time: "오후 11:22", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "미안 두서 없지?", time: "오후 11:22", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이게 보내고 까먹고 보내고 까먹고 해서 내가 뭔 얘기하는지 나도 몰라 잘", time: "오후 11:23", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이해해줘 사랑에 대한 거 말고는 뇌빼고 말하는 중", time: "오후 11:23", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "그래야 신박한 주제가 나오거든", time: "오후 11:23", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "힝 뇌에 힘주고 사는 거 넘 힘두로!!ㅠㅜ", time: "오후 11:24", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "여기서만큼은 .. 아무 말이나 막 하고 드립치고 놀고 싶다..", time: "오후 11:24", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "알라뷰 그래도 애정이 두껍게 기반하고 있으니까 편하게 할 수 있는 거 알지", time: "오후 11:25", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "사랑은 늘 표현해주께", time: "오후 11:25", profileIndex: 0 },
+      { sender: 'artist', type: 'text', content: "이상한 소리 햌ㅅ더니 배고파", time: "오후 11:27", profileIndex: 0 },
+      
+      { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
+      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
     ];
-
     let currentProfileIndex = 0;
     const chatContainer = document.getElementById("chat");
 
     messages.forEach(msg => {
-      // ▼▼▼ 기능 추가를 위한 로직 ▼▼▼
-
-      // 1. 날짜 타입 처리
       if (msg.type === 'date') {
         const dateEl = document.createElement('div');
         dateEl.className = 'date-divider';
         dateEl.textContent = msg.content;
         chatContainer.appendChild(dateEl);
-        return; // 날짜를 표시하고 함수 종료
+        return;
       }
-
-      // 2. 내가 보낸 메시지 타입 처리
       if (msg.sender === 'me') {
         const myMsg = document.createElement("div");
-        myMsg.className = "my-chat-message"; // 오른쪽 정렬을 위한 새 클래스
+        myMsg.className = "my-chat-message";
         myMsg.innerHTML = `
           <div style="display:flex; align-items:flex-end;">
             <div class="time">${msg.time}</div>
@@ -184,38 +364,53 @@
           </div>
         `;
         chatContainer.appendChild(myMsg);
-        return; // 내 메시지를 표시하고 함수 종료
+        return;
       }
 
       if (msg.profileIndex !== undefined) {
         currentProfileIndex = msg.profileIndex;
       }
-      
       const chatMsg = document.createElement("div");
       chatMsg.className = "chat-message";
+      let messageBodyHTML = '';
 
-      // 3. 사진 메시지 처리를 위해 bubble 내용만 분기
-      const bubbleHTML = msg.type === 'image'
-        ? `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`
-        : `<div class="bubble">${msg.content}</div>`;
+      if (msg.type === 'emote') {
+        if (msg.isImage) {
+          messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
+        } else {
+          messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
+        }
+      } else if (msg.type === 'image') {
+        messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+      } else {
+        let bubbleContent = msg.content;
+        let bubbleClass = 'bubble'; // ◀ 1. 기본 클래스 이름을 변수로 만들기
 
+        if (showTranslations && msg.translation) {
+          bubbleContent += `
+            <hr class="dotted-divider">
+            <div class="translation-inner">${msg.translation}</div>
+          `;
+          bubbleClass += ' has-translation'; // ◀ 2. 번역이 있을 때만 클래스 이름 추가!
+        }
+        messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`; // ◀ 3. 변수를 클래스로 사용
+      }
+      
       chatMsg.innerHTML = `
-        <div class="profile"></div>
-        <div class="message-content">
-          <div class="header">
-            <div class="name">${artistProfile[currentProfileIndex].name}</div>
-          </div>
-          <div style="display:flex; align-items:flex-end;">
-            ${bubbleHTML}
-            <div class="time">${msg.time}</div>
-          </div>
+      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+      <div class="message-content">
+        <div class="header">
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
         </div>
+        <div style="display:flex; align-items:flex-end;">
+          ${messageBodyHTML}
+          <div class="time">${msg.time}</div>
+        </div>
+      </div>
       `;
-      chatMsg.querySelector(".profile").style.backgroundImage =
-        `url('${artistProfile[currentProfileIndex].img}')`;
-
+      
       chatContainer.appendChild(chatMsg);
     });
   </script>
-</body>
+ </body>
 </html>
