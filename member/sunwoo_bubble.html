@@ -26,7 +26,7 @@
       align-items: center;
       margin-bottom: 3.9px; /* 이름 - 메시지 간격 */
     }
-    /* ▼▼▼ input-bar ▼▼▼ */
+/* ▼▼▼ [input bar] ▼▼▼ */
     .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
     .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
     
@@ -73,6 +73,7 @@
       position: relative;
       top: 2px;
     }
+/* ▼▼▼ [날짜] ▼▼▼ */
     /* 1. 날짜 구분선 스타일 */
     .date-divider { text-align: center;        
       font-size: 10px; color: #8A8A8A;
@@ -90,10 +91,12 @@
       background: #E0E0E0;
       transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
     }
-    /* 내가 보내는 메시지 스타일  오른쪽배치 - 메시지 색 - 시간 */
+/* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
+    /* 오른쪽배치 - 메시지 색 - 시간 */
     .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
     .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
     .my-chat-message .time { margin-left: 0; margin-right: 6px; }
+/* ▼▼▼ [사진] ▼▼▼ */
     /* 3. 사진 메시지 스타일 */
     .image-bubble { padding: 0; background: none; margin-left: 1.4px; }
     .image-bubble img {
@@ -101,18 +104,18 @@
       border-radius: 4px 13px 13px 13px;
       display: block;
     }
-/* 단독 이모티콘 스타일 (글자 크기 키우기) */
+/* ▼▼▼ [이모지] ▼▼▼ */
+/* 진짜 이모지 */
     .standalone-emoji {
       font-size: 66px;
       line-height: 1.5;
       background: none;
     }
-/* 스티커 이미지 스타일 (이미지 크기 지정) */
+/* 버블 이모티콘 */
     .sticker-image {
       width: 110px;
       height: auto;
-    }
-    
+    } 
 /* ▼▼▼ [번역] ▼▼▼ */
     /* 점선 스타일 */
     .dotted-divider {
@@ -135,20 +138,21 @@
     }
 /* ▼▼▼ [ARTIST 답장] ▼▼▼ */
     .reply-bubble {
-      background-color: #F5F5F5;
-      padding: 9px 11px;
-      margin-bottom: 4px;
-      border-radius: 4px 14.5px 14.5px 4px;
+      background-color: #FCFCFC; /* 🌷배경 */
+      padding: 13px 11px 17px 11px; /* 🌷위 오른 아래 왼쪽 간격 */
+      margin-bottom: 6px; /* 🌷두 말풍선 간격 */
+      border-radius: 14.5px 14.5px 14.5px 14.5px; /* 🌷 */
     }
     .reply-title {
-      font-size: 11px;
-      font-weight: 500;
-      color: #8A8A8A;
+      font-family: sans-serif; /* 🌷 */
+      font-size: 10px; /* 🌷 */
+      font-weight: 700; /* 🌷 */
+      color: #020202; /* 🌷ARTIST의 답장 */
       margin-bottom: 3px;
     }
     .reply-content {
-      font-size: 13.5px;
-      color: #333333;
+      font-size: 12px; /* 🌷 */
+      color: #00000080; /* 🌷팬 버블 7E7E7E */
     }
     .bubble-after-reply {
       border-top-left-radius: 4px;
