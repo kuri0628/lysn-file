@@ -1,73 +1,3 @@
-: 13.7px;
-      font-weight: 400;
-      line-height: 1.2;
-    }
-    .time {
-      font-size: 9px;
-      font-weight: 350;
-      color: #AAAAAA;
-      margin-left: 6px;
-      white-space: nowrap;
-      position: relative;
-      top: 2px;
-    }
-    /* 1. 날짜 구분선 스타일 */
-    .date-divider { text-align: center;        
-      font-size: 10px; color: #8A8A8A;
-      margin: 21px 0 22px; /* 날짜 - 메시지 간격 */
-      position: relative;  /* 선(::before)을 위치시킬 기준점 */
-    }
-    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
-   .date-divider::before {
-      content: '';
-      position: absolute;
-      top: -7px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-      left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
-      width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
-      height: 0.8px; /* 선 두께 */
-      background: #E0E0E0;
-      transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
-    }
-    /* 내가 보내는 메시지 스타일  오른쪽배치 - 메시지 색 - 시간 */
-    .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
-    .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
-    .my-chat-message .time { margin-left: 0; margin-right: 6px; }
-    /* 3. 사진 메시지 스타일 */
-    .image-bubble { padding: 0; background: none; margin-left: 1.4px; }
-    .image-bubble img {
-      max-width: 244px;
-      border-radius: 4px 13px 13px 13px;
-      display: block;
-    }
-/* 단독 이모티콘 스타일 (글자 크기 키우기) */
-    .standalone-emoji {
-      font-size: 66px;
-      line-height: 1.5;
-      background: none;
-    }
-/* 스티커 이미지 스타일 (이미지 크기 지정) */
-    .sticker-image {
-      width: 110px;
-      height: auto;
-    }
-    
-    /* ▼▼▼ [수정] 아래 스타일들을 추가하고, 기존 .translation은 삭제! ▼▼▼ */
-    /* 점선 스타일 */
-    .dotted-divider {
-      border: none; 
-      background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
-      background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
-      background-repeat: repeat-x;
-      background-position: left;
-      height: 1px; /* 선의 높이(두께) 지정 */
-      margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
-    }
-    /* 말풍선 내부 번역 텍스트 */
-    .translation-inner {
-      font-size: 13.5px;
-      color: #9050F3;
-      line-height: 1.2;
-    }
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -80,24 +10,23 @@
 
   <style>
     body {
-      font-family: "Roboto"; /* sans-serif; */
-      font-weight: 400;
+      font-family: "Roboto";
       font-size: 14px;
       line-height: 1.5;
       margin: 0;
       background: #EEEEEE;
-      padding-bottom: 70px; /* 하단 이미지 높이에 맞춰 여백 주기 */
+      padding-bottom: 70px; /* input bar 높이에 맞춰 여백 주기 */
     }
     .message-content { 
       display: flex; 
       flex-direction: column; 
       max-width: 95%;
-      align-items: flex-start; /* 🌷다른 말풍선 비율에 따라가지 않도록 */
+      align-items: flex-start; /* 말퓽선이 다른 말풍선 비율에 따라가지 않도록 */
     }
     .header {
       display: flex;
       align-items: center;
-      margin-bottom: 3.9px; /* 이름 - 메시지 간격 */
+      margin-bottom: 3.9px; /* 이름-메시지 간격 */
     }
 /* ▼▼▼ [input bar] ▼▼▼ */
     .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
@@ -112,7 +41,7 @@
       display: flex;
       align-items: flex-start;
       margin-bottom: 16.9px; /* 메시지 간 간격 */
-      gap: 6px             /* 메시지-프로필 간격 */
+      gap: 6px /* 메시지-프로필 간격 */
     }
     .profile {
       width: 39.6px;
@@ -171,7 +100,7 @@
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
     /* 오른쪽배치 - 메시지 색 - 시간 */
     .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
-    .my-bubble { background: #646464; /* 보라 A584F9; */ color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
+    .my-bubble { background: #A584F9; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
     .my-chat-message .time { margin-left: 0; margin-right: 6px; }
 /* ▼▼▼ [사진] ▼▼▼ */
     /* 3. 사진 메시지 스타일 */
