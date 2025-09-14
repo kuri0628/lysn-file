@@ -146,13 +146,8 @@
    /* 버블 이모티콘 */
   .sticker-image {
     width: 110px;
-    height: auto;
+    height: 1px;
   }
-  .sticker-image::before {
-    content: '';
-    display: block;
-    height: 7px; /* 여기서 원하는 만큼 간격 조절 */
-}
 /* ▼▼▼ [번역] ▼▼▼ */
    /* 점선 스타일 */
   .dotted-divider {
@@ -181,13 +176,14 @@
     border-radius: 14px;
   }
   .reply-title {
-    font-size: 9.5px;
+    font-size: 11px;
     font-weight: 700;
     color: #020202; /* ARTIST의 답장 */
-    margin-bottom: 7px; /* ARTIST의 답장-팬버블 간격 */
+    margin-bottom: 15px; /* ARTIST의 답장-팬버블 간격 */
   }
   .reply-content {
     font-size: 13px;
+    line-height: 1;
     color: #00000080; /* 팬 버블 7E7E7E */
   }
   .bubble-after-reply {
