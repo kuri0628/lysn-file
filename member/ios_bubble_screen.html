@@ -46,13 +46,17 @@
     background-position: center;
     margin-top: 5px; /* 숫자↓ 위치↑ */
     border: 0.3px solid #cdcdcd; /* 테두리 */
+    /* background: linear-gradient(90deg, #D28AFD, #E141FD);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; */
   }
   .artist-tag {
     font-weight: 900;
     font-size: 8px;
     lin-height: 0.8;
-    color: #fff;
-    진한보라: #6040FF , 연보라: #DA87FE #D28AFD
+    color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
     background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
     padding: 1px 6px; /* 상하 좌우 여백 */
     border-radius: 999px;
@@ -270,7 +274,6 @@
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
-// 바로 다음 1줄 아티스트 태그 관련 코드
           <span class="artist-tag">ARTIST</span>
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
@@ -311,7 +314,6 @@
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
-// 바로 다음 1줄 아티스트 태그 관련 코드
           <span class="artist-tag">ARTIST</span>
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
