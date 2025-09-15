@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     max-width: 95%;
-    align-items: flex-start; /* 말퓽선이 다른 말풍선 비율에 따라가지 않도록 */
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
   }
   .header {
     display: flex;
@@ -48,6 +48,19 @@
     margin-top: 2px; /* 숫자↓ 위치↑ */
     border: 0.3px solid #cdcdcd; /* 테두리 */
   }
+  /*.artist-tag {
+    transform: scaleX(1.1); / 장평 : 숫자↑ 너비↑ /
+    transform-origin: left; / 왼쪽을 기준으로 조절 (글자 시작점 고정) /
+    font-weight: 750;
+    font-size: 7px;
+    letter-spacing: 0.1px; / 자간 /
+    lin-height: 0.8;
+    color: #fff; / 진한보라: #6040FF , 연보라: #DA87FE #D28AFD /
+    background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
+    padding: 2px 5.5px 1px 5.5px;  / 위 오른 아래 왼쪽 여백 /
+    border-radius: 999px;
+    margin-right: 10px;
+  } */
   .name {
     font-size: 11px;
     font-weight: 400;
@@ -244,6 +257,7 @@
   const chatContainer = document.getElementById("chat");
   
   messages.forEach(msg => {
+// 1. 날짜
     if (msg.type === 'date') {
       const dateEl = document.createElement('div');
       dateEl.className = 'date-divider';
@@ -251,7 +265,7 @@
       chatContainer.appendChild(dateEl);
       return;
     }
-    
+// 2. 내가 보내는 버블
     if (msg.sender === 'me') {
       const myMsg = document.createElement("div");
       myMsg.className = "my-chat-message";
@@ -271,12 +285,13 @@
     
     const chatMsg = document.createElement("div");
     chatMsg.className = "chat-message";
-    
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>    
     if (msg.type === 'reply') {
       chatMsg.innerHTML = `
       <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
       <div class="message-content">
       <div class="header">
+      <span class="artist-tag">ARTIST</span>
       <div class="name">${artistProfile[currentProfileIndex].name}</div>
       </div>
       <div class="bubble reply-bubble">
@@ -313,10 +328,12 @@
         }
         messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
       }
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
       chatMsg.innerHTML = `
       <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
       <div class="message-content">
       <div class="header">
+      <span class="artist-tag">ARTIST</span>
       <div class="name">${artistProfile[currentProfileIndex].name}</div>
       </div>
       <div style="display:flex; align-items:flex-end;">
