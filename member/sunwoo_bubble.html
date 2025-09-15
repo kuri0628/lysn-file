@@ -1,168 +1,188 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
-  <title>아티스트 채팅</title>
-
-  <style>
-    body {
-      font-family: "Roboto"; /* sans-serif; */
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0;
-      background: #EEEEEE;
-      padding-bottom: 70px; /* 하단 이미지 높이에 맞춰 여백 주기 */
-    }
-    .message-content { 
-      display: flex; 
-      flex-direction: column; 
-      max-width: 95%;
-      align-items: flex-start; /* 🌷다른 말풍선 비율에 따라가지 않도록 */
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 3.9px; /* 이름 - 메시지 간격 */
-    }
-/* ▼▼▼ [input bar] ▼▼▼ */
-    .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
-    .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+    <title>아티스트 채팅</title>
     
-    .chat-container {
-      max-width: 500px;
-      margin: 0;
-      padding: 8px;
+<style>
+  body {
+    font-family: "Roboto";
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    background: #EEEEEE;
+    padding-bottom: 70px; /* input bar 높이에 맞춰 여백 주기 */
+  }
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 95%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.9px; /* 이름-메시지 간격 */
+  }
+  .chat-container {
+    max-width: 500px;
+    margin: 0;
+    padding: 8px;
     }
-    .chat-message {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 16.9px; /* 메시지 간 간격 */
-      gap: 6px             /* 메시지-프로필 간격 */
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16.9px; /* 메시지 간 간격 */
+    gap: 6px /* 메시지-프로필 간격 */
     }
-    .profile {
-      width: 39.6px;
-      height: 39.6px;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      margin-top: 2px; /* 숫자↓ 위치↑ */
-      border: 0.3px solid #cdcdcd; /* 테두리 */
-    }
-    .name {
-      font-size: 11px;
-      font-weight: 400;
-      color: #171718;
-    }
+  .profile {
+    width: 39.5px;
+    height: 39.6px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-top: 2px; /* 숫자↓ 위치↑ */
+    border: 0.2px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+  }
+  /*.artist-tag {
+    transform: scaleX(1.1); / 장평 : 숫자↑ 너비↑ /
+    transform-origin: left; / 왼쪽을 기준으로 조절 (글자 시작점 고정) /
+    font-weight: 750;
+    font-size: 7px;
+    letter-spacing: 0.1px; / 자간 /
+    lin-height: 0.8;
+    color: #fff; / 진한보라: #6040FF , 연보라: #DA87FE #D28AFD /
+    background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
+    padding: 2px 5.5px 1px 5.5px;  / 위 오른 아래 왼쪽 여백 /
+    border-radius: 999px;
+    margin-right: 10px;
+  } */
+  .name {
+    font-size: 11px;
+    font-weight: 400;
+    color: #171718;
+  }
 /* 말풍선 */
-    .bubble {
-      background: #FFFFFF;
-      border-radius: 4px 14.5px 14.5px 14.5px;
-      padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
-      font-size: 13.7px;
-      font-weight: 400;
-      line-height: 1.2;
-    }
-    .time {
-      font-size: 9px;
-      font-weight: 350;
-      color: #AAAAAA;
-      margin-left: 6px;
-      white-space: nowrap;
-      position: relative;
-      top: 2px;
-    }
-    .time .colon {
-      position: relative;
-      top: -2px; /* 숫자↓ 콜론 위치↑ */
-    }
+  .bubble {
+    background: #FFFFFF;
+    border-radius: 4px 14.5px 14.5px 14.5px;
+    padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
+    font-size: 13.7px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .time {
+    font-size: 9px;
+    font-weight: 350;
+    color: #AAAAAA;
+    margin-left: 6px;
+    white-space: nowrap;
+    position: relative;
+    top: 2px;
+  }
+  .time .colon {
+    position: relative;
+    top: -2px; /* 숫자↓ 콜론 위치↑ */
+  }
 /* ▼▼▼ [날짜] ▼▼▼ */
-    /* 1. 날짜 구분선 스타일 */
-    .date-divider { text-align: center;        
-      font-size: 10px; color: #8A8A8A;
-      margin: 21px 0 22px; /* 날짜 - 메시지 간격 */
-      position: relative;  /* 선(::before)을 위치시킬 기준점 */
-    }
-    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
-   .date-divider::before {
-      content: '';
-      position: absolute;
-      top: -7px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-      left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
-      width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
-      height: 0.8px; /* 선 두께 */
-      background: #E0E0E0;
-      transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
-    }
+   /* 1. 날짜 구분선 스타일 */
+  .date-divider {
+    text-align: center;
+    font-size: 10px; color: #777777; /* 기존 색: 8A8A8A; 날짜 */
+    font-weight: 400;
+    margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
+    position: relative;
+  }
+   /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
+  .date-divider::before {
+    content: '';
+    position: absolute;
+    top: -6.5px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+    left: 50%; /* 선 시작점이 화면 중앙 */
+    width: 100vw;
+    height: 0.7px; /* 선 두께 */
+    background: #D6D6D6; /* 기존 색: E0E0E0; 날짜 선 */
+    transform: translateX(-50%);
+  }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
-    /* 오른쪽배치 - 메시지 색 - 시간 */
-    .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
-    .my-bubble { background: #646464; /* 보라 A584F9; */ color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
-    .my-chat-message .time { margin-left: 0; margin-right: 6px; }
+   /* 오른쪽배치 - 메시지 색 - 시간 */
+  .my-chat-message { display: flex; justify-content: flex-end; margin-bottom: 18px; margin-top: 19px; }
+  .my-bubble { background: #646464; color: #FFFFFF; border-radius: 14.5px 14.5px 4px 14.5px; }
+  .my-chat-message .time { margin-left: 0; margin-right: 6px; }
+  
 /* ▼▼▼ [사진] ▼▼▼ */
-    /* 3. 사진 메시지 스타일 */
-    .image-bubble { padding: 0; background: none; margin-left: 1.4px; }
-    .image-bubble img {
-      max-width: 244px;
-      border-radius: 4px 13px 13px 13px;
-      display: block;
-    }
+  .image-bubble {
+    padding: 0;
+    background: none;
+    margin-left: 1px;
+    margin-top: 2px;
+  }
+  .image-bubble img {
+    max-width: 244px;
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+  
 /* ▼▼▼ [이모지] ▼▼▼ */
-/* 진짜 이모지 */
-    .standalone-emoji {
-      font-size: 66px;
-      line-height: 1.5;
-      background: none;
-    }
-/* 버블 이모티콘 */
-    .sticker-image {
-      width: 110px;
-      height: auto;
-    } 
+   /* 진짜 이모지 */
+  .standalone-emoji {
+    font-size: 66px;
+    line-height: 1.5;
+    background: none;
+  }
+   /* 버블 이모티콘 */
+  .sticker-image {
+    width: 110px;
+    height: auto;
+  }
+  
 /* ▼▼▼ [번역] ▼▼▼ */
-    /* 점선 스타일 */
-    .dotted-divider {
-      border: none; 
-      background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
-      background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
-      background-repeat: repeat-x;
-      background-position: left;
-      height: 1px; /* 선의 높이(두께) 지정 */
-      margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
-    }
-    /* 말풍선 내부 번역 텍스트 */
-    .translation-inner {
-      font-size: 13.5px;
-      color: #9050F3;
-      line-height: 1.2;
-    }
-    .bubble.has-translation {
-      padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
-    }
+   /* 점선 스타일 */
+  .dotted-divider {
+    border: none; 
+    background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
+    background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
+    background-repeat: repeat-x;
+    background-position: left;
+    height: 1px; /* 선의 높이(두께) 지정 */
+    margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
+  }
+   /* 말풍선 내부 번역 텍스트 */
+  .translation-inner {
+    font-size: 13.5px;
+    color: #9050F3;
+    line-height: 1.2;
+  }
+  .bubble.has-translation {
+    padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+  }
+  
 /* ▼▼▼ [ARTIST 답장] ▼▼▼ */
-    .reply-bubble {
-      background-color: #FCFCFC; /* 배경 색 */
-      padding: 13.7px 12px 19px 12px; /* 위 오른 아래 왼쪽 간격 */
-      margin-bottom: 6px; /* 두 말풍선 간격 */
-      border-radius: 14px;
-    }
-    .reply-title {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 9.5px;
-      color: #020202; /* ARTIST의 답장 */
-      margin-bottom: 5px; /* ARTIST의 답장-팬버블 간격 */
-    }
-    .reply-content {
-      font-size: 11.9px;
-      color: #00000080; /* 팬 버블 7E7E7E */
-    }
-    .bubble-after-reply {
-      border-top-left-radius: 4px;
-    }
+  .reply-bubble {
+    background-color: #FCFCFC; /* 배경 색 */
+    padding: 13.7px 12px 19px 12px; /* 위 오른 아래 왼쪽 간격 */
+    margin-bottom: 6px; /* 두 말풍선 간격 */
+    border-radius: 14px;
+  }
+  .reply-title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 9.5px;
+    color: #020202; /* ARTIST의 답장 */
+    margin-bottom: 5px; /* ARTIST의 답장-팬버블 간격 */
+  }
+  .reply-content {
+    font-size: 11.9px;
+    color: #00000080; /* 팬 버블 7E7E7E */
+  }
+  .bubble-after-reply {
+    border-top-left-radius: 4px;}
+/* ▼▼▼ [input bar] ▼▼▼ */
+  .fixed-bottom-image { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; }
+  .fixed-bottom-image img { max-width: 500px; width: 100%; display: block; margin: 0 auto; }
   </style>
 </head>
   <body>
