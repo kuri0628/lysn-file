@@ -94,14 +94,14 @@
     text-align: center;
     font-size: 10px; color: #777777; /* 기존 색: 8A8A8A; */
     font-weight: 400;
-    margin: 21px 0 22px; /* 날짜 - 메시지 간격 */
+    margin: 22px 0 22px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
     position: relative;  /* 선(::before)을 위치시킬 기준점 */
   }
    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
   .date-divider::before {
     content: '';
     position: absolute;
-    top: -7px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+    top: -6.5px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
     left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
     width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
     height: 0.7px; /* 선 두께 */
@@ -119,7 +119,7 @@
     padding: 0;
     background: none;
     margin-left: 1px;
-    margin-top: 0.5px;
+    margin-top: -0.5px;
   }
   .image-bubble img {
     max-width: 244px;
