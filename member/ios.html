@@ -189,6 +189,15 @@
   .bubble-after-reply {
     border-top-left-radius: 4px;
   }
+/* ▼▼▼ [음성] ▼▼▼ */
+  .voice-bubble {
+    display: flex;
+    padding: 8px 18px 7px 10px; !important; /* 위 오른 아래 왼쪽 여백 */
+  }
+  .voice-bubble img {
+    width: auto;
+    height: 22.3px;
+  }
 /* ▼▼▼ [input bar] ▼▼▼ */
   .fixed-bottom-image { 
     position: fixed; 
@@ -231,8 +240,9 @@
      { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '22:00', profileIndex: 0 },
      { sender: 'artist', type: 'emote', content: "🥰", time: "22:06", profileIndex: 0 },
      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "22:13", profileIndex: 0 },
+     { sender: 'artist', type: 'voice', time: "오후 8:20", profileIndex: 0 },
      { sender: 'me', type: 'text', content: '리쿠야아ㅏ', time: '22:22' },
-// ▲▲▲ [유형 8개 정리] ▲▲▲
+// ▲▲▲ [유형 9개 정리] ▲▲▲
      { sender: 'artist', type: 'image', content: '../pic/jisung_250909.jpg', time: '오후 05:11', profileIndex: 3 },
      { sender: 'artist', type: 'text', content: "오늘 오랜만에 요드링도 꼈다구", time: "오후 05:11", profileIndex: 3 },
      { sender: 'artist', type: 'text', content: "끝났다이", time: "오후 10:23", profileIndex: 3 },
@@ -278,7 +288,7 @@
         }
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
-// ▼ 수정된 내용
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
         if (msg.type === 'reply') {
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
@@ -307,6 +317,12 @@
             }
           } else if (msg.type === 'image') {
             messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
+// ▼▼▼ [음성 메시지] 렌더링 로직 추가 ▼▼▼
+          } else if (msg.type === 'voice') {
+// 이미지 파일 이름 적기
+            messageBodyHTML = `<div class="bubble voice-bubble">
+            <img src="voice/voice.jpg" alt="voice icon">
+            </div>`;
           } else {
             let bubbleContent = msg.content;
             let bubbleClass = 'bubble';
@@ -319,7 +335,7 @@
             }
             messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
-// ▲ 수정된 내용          
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
