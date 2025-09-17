@@ -6,60 +6,71 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
   <title>Artist Profile</title>
   
-  <style>
-/* body에는 이제 기본적인 배경색과 글꼴만 설정 */
-   body {
-    margin: 0;
-    font-family: -apple-system;
-    background-color: #f0f2f5; /* 콘텐츠 영역의 배경색 */
-   }
-/* 배사 */
-   .hero-header {
-     aspect-ratio: 9 / 19.5;
-     width: 100%;
-     background-image: url('../profile/colorsakuya.jpg');
-     background-size: cover;
-     background-position: center;
-/* 프로필 콘텐츠를 중앙에 배치하기 위한 설정 */
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     position: relative; /* 닫기 버튼의 기준점 */
-  }
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system;
+  background-color: #f0f2f5;
+ }
+.name {
+  color: white;
+   font-size: 16px;
+   margin-left: 8px; /* 태그-이름 간격 */
+   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.message {
+   font-size: 10px;
+   line-height: 1;
+   color: white;
+   margin-top: 10px;
+   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.background {
+   aspect-ratio: 9 / 19.5;
+   width: 100%;
+/* 배사 이미지 */
+   background-image: url('../profile/colorsakuya.jpg');
+   background-size: cover;
+   background-position: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative; /* 닫기 버튼의 기준점 */
+}
 /* 프로필 콘텐츠를 담는 컨테이너 */ 
-   .container {
-     width: 100%;
-     height: 100%;
-     position: relative;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     background-color: rgba(0, 0, 0, 0.2); /* 이미지 위 콘텐츠가 잘 보이도록 살짝 어둡게 */
-   }
+.container {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(0, 0, 0, 0.2); /* 이미지 위 콘텐츠가 잘 보이도록 살짝 어둡게 */
+}
 /* 닫기 버튼 */
-   .close-button {
-     position: absolute;
-     top: 30px;
-     left: 30px;
-     color: white;
-     font-size: 28px;
-     cursor: pointer;
-     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-   }
+.close-button {
+   position: absolute;
+   top: 30px;
+   left: 30px;
+   color: white;
+   font-size: 28px;
+   cursor: pointer;
+   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
 /* 프로필 섹션은 이전과 동일 */
-   .profile-section {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     text-align: center;
-   }
-   .profile-image {
-     width: 120px;
-     height: 120px;
-     border-radius: 50%;
-     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-     transform: translateY(60px) scale(0.8); /* 아래로 20px 옮기고 0.8 작게 */
-   }
+.profile-section {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+}
+.profile-image {
+   width: 120px;
+   height: 120px;
+   border-radius: 50%;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+   transform: translateY(60px) scale(0.8); /* 아래로 20px 옮기고 0.8 작게 */
+}
    .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
@@ -78,24 +89,9 @@
     display: flex; /* 자식 요소들을 가로로 정렬 */
     align-items: center; /* 세로 방향에서 중앙 정렬 */
     margin-top: 13px; /* 프로필 이미지와의 간격 */
-}
-
-/* 태그 옆에 추가될 글씨 스타일 */
-.side-text {
-    color: white;
-    font-size: 16px;
-    margin-left: 8px; /* 태그와의 간격 */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-   .message { /* 여기를 수정했어 */
-    font-size: 10px;
-    line-height: 1;
-    
-     color: white;
-     margin-top: 10px;
-     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
    }
-   /* 헤더 아래에 이어질 콘텐츠 영역 */
+
+   /* 밑에 내용 */
    .content-area {
      padding: 40px 20px;
      line-height: 1.6;
@@ -107,24 +103,24 @@
   </style>
  </head>
  <body>
-  <header class="hero-header">
-   <div class="container">
+  <header class="background"> <div class="container">
     <div class="close-button">×</div>
     <div class="profile-section">
      <img src="../profile/color_sakuya.jpg" alt="아티스트 프로필 이미지" class="profile-image">
      <div class="tag-container">
       <div class="artist-tag">ARTIST</div>
-      <span class="side-text">사쿠</span>
+      <span class="name">사쿠</span>
      </div>
-     <p class="message">상태메시지</p> </div>
+     <p class="message">상태메시지</p>
+    </div>
    </div>
-   
   </header>
+  
   <main class="content-area">
    <h2>About Artist</h2>
    <p>이곳에 아티스트에 대한 설명을 자유롭게 추가할 수 있습니다. 페이지는 이 아래로 계속 이어집니다.</p>
    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim.</p>
-   <p>스크롤 테스트를 위한 추가 문단입니다. 내용이 길어지면 페이지가 아래로 스크롤됩니다.</p>
+   <p>스크롤 테스트를 위한 추가 문단입니다. 내용이 길어지면 페이지가 아래로 스croll됩니다.</p>
   </main>
  </body>
 </html>
