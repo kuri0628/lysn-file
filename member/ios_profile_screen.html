@@ -6,39 +6,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
   <title>Artist Profile</title>
   
-  <style>
-   body {
+ <style>
+  body {
     margin: 0;
     font-family: -apple-system;
     background-color: #f0f2f5;
-   }
-   .profile-section {
+  }
+  .profile-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding-top: 180px;
-   }
-   .profile-image {
+  }
+  .profile-image {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transform: scale(0.87);
-   }
-   .name {
+  }
+  .name {
     color: white;
     font-size: 18px;
     margin-left: 4px; /* 태그-이름 간격 */
-   }
-   .message {
+  }
+  .message {
     font-size: 10px;
     line-height: 1;
     color: white;
     margin-top: 10px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
    }
-   .artist-tag {
+  .artist-tag {
     font-family: 'Inter';
     font-size: 7px;
     font-weight: 750;
@@ -52,6 +52,11 @@
     padding: 4px 5.5px 3px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
     background: linear-gradient(90deg, #6340FE 0%, #9145FF 50%, #DE89FF 100%);
     /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+   }
+  .tag-container {
+    display: flex; /* 자식 요소들을 가로로 정렬 */
+    align-items: center; /* 세로 방향에서 중앙 정렬 */
+    margin-top: 10px; /* 프사-아티스트 태그 간격 */
    }
 
    
@@ -87,11 +92,7 @@
    cursor: pointer;
    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }   
-   .tag-container {
-    display: flex; /* 자식 요소들을 가로로 정렬 */
-    align-items: center; /* 세로 방향에서 중앙 정렬 */
-    margin-top: 13px; /* 프로필 이미지와의 간격 */
-   }
+   
 
    /* 밑에 내용 */
    .content-area {
