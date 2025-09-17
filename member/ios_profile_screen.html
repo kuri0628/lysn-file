@@ -17,11 +17,11 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-top: 150px;
+    padding-top: 170px;
    }
    .name {
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     margin-left: 8px; /* 태그-이름 간격 */
    }
    .message {
@@ -31,6 +31,22 @@
     margin-top: 10px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
    }
+   .artist-tag {
+    font-family: 'Inter';
+    font-size: 7px;
+    font-weight: 750;
+    transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
+    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+    letter-spacing: 0.1px; /* 자간 */
+    line-height: 0.8;
+    color: #FFFFFF; 
+    border-radius: 999px;
+    margin-right: 10px;
+    padding: 3px 5.5px 3px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
+    background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
+    /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+   }
+
    
 .background {
    aspect-ratio: 9 / 19.5;
@@ -71,20 +87,7 @@
    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
    transform: scale(0.9);
 }
-   .artist-tag {
-    transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
-    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
-    font-weight: 750;
-    font-size: 7px;
-    letter-spacing: 0.1px; /* 자간 */
-    line-height: 0.8;
-    color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
-    background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
-    padding: 2px 5.5px 1px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
-    border-radius: 999px;
-    margin-right: 10px;
-     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-   }
+   
    .tag-container {
     display: flex; /* 자식 요소들을 가로로 정렬 */
     align-items: center; /* 세로 방향에서 중앙 정렬 */
