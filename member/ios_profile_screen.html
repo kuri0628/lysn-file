@@ -20,7 +20,7 @@
      aspect-ratio: 9 / 19.5; /* S25 울트라 비율 고정 */
      width: 100%; /* 너비는 100% */
 /* 배경 이미지 설정 */
-     background-image: url('../profile/color_sakuya.jpg');
+     background-image: url('../profile/colorsakuya.jpg');
      background-size: cover;
      background-position: center;
 /* 프로필 콘텐츠를 중앙에 배치하기 위한 설정 */
@@ -73,6 +73,19 @@
      margin-top: 15px;
      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
    }
+   .tag-container {
+    display: flex; /* 자식 요소들을 가로로 정렬 */
+    align-items: center; /* 세로 방향에서 중앙 정렬 */
+    margin-top: 15px; /* 프로필 이미지와의 간격 */
+}
+
+/* 태그 옆에 추가될 글씨 스타일 */
+.side-text {
+    color: white;
+    font-size: 16px;
+    margin-left: 8px; /* 태그와의 간격 */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
    .artist-name {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     /* transform-origin: left; / 왼쪽을 기준으로 조절 (글자 시작점 고정) */
@@ -101,13 +114,16 @@
    <div class="container">
     <div class="close-button">×</div>
     <div class="profile-section">
-     <img src="../profile/profile_riku_color.jpg" alt="아티스트 프로필 이미지" class="profile-image">
-     <div class="artist-tag">ARTIST</div>
-     <p class="artist-name">사쿠</p>
+     <img src="../profile/color_sakuya.jpg" alt="아티스트 프로필 이미지" class="profile-image">
+     <div class="tag-container">
+      <div class="artist-tag">ARTIST</div>
+      <span class="side-text">사쿠</span>
+     </div>
+     <p class="artist-name">상태메시지</p>
     </div>
    </div>
+   
   </header>
-  
   <main class="content-area">
    <h2>About Artist</h2>
    <p>이곳에 아티스트에 대한 설명을 자유롭게 추가할 수 있습니다. 페이지는 이 아래로 계속 이어집니다.</p>
