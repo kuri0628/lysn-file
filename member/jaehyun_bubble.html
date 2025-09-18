@@ -1,240 +1,130 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+ <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>아티스트 채팅</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <title>Artist Profile</title>
+  
+ <style>
+  body {
+    margin: 0;
+    font-family: -apple-system;
+    background-color: #f0f2f5;
+  }
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 173px;
+  }
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(0.83);
+  }
+  .name {
+    color: white;
+    font-size: 18px;
+   font-weight: 350;
+    margin-left: 1.5px; /* 태그-이름 간격 */
+  }
+  .artist-tag {
+    font-family: 'Inter';
+    font-size: 7px;
+    font-weight: 750;
+    letter-spacing: 0.1px; /* 자간 */
+    line-height: 0.8;
+    color: #FFFFFF; 
+    border-radius: 999px;
+    margin-right: 10px;
+    padding: 4px 5.5px 4px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
+    background: linear-gradient(90deg, #6340FF 0%, #7B40FF 25%, #B760FC 75%, #DE89FF 100%);
+    /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+  }
+  .tag-container {
+    display: flex; /* 자식 요소들을 가로로 정렬 */
+    align-items: center; /* 세로 방향에서 중앙 정렬 */
+    margin-top: 1.5px; /* 프사-아티스트 태그 간격 */
+  }
+  .message {
+    font-size: 10px;
+    line-height: 1;
+    color: white;
+    margin-top: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+ }
+ .close-button {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: white;
+    font-size: 28px;
+    font-weight: 300;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px #00000080;
+  }
 
-  <!-- Inter 폰트 불러오기 -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+   
+.background {
+   aspect-ratio: 9 / 19.5;
+   width: 100%;
+/* 배사 이미지 */
+   background-image: url('../profile/colorsakuya.jpg');
+   background-size: cover;
+   background-position: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative; /* 닫기 버튼의 기준점 */
+}
+/* 프로필 콘텐츠를 담는 컨테이너 */ 
+.container {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(0, 0, 0, 0.2); /* 이미지 위 콘텐츠가 잘 보이도록 살짝 어둡게 */
+}
+/* 닫기 버튼 */
+   
+   
 
-  <style>
-    /* 전체 페이지 기본 폰트 적용 */
-    body {
-      /* font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
-      font-family: -apple-system,    /* iOS, Mac 기본 폰트 (San Francisco) */
-                      'Inter',
-                      "Roboto",      /* Android 기본 폰트 */
-                      sans-serif;    /* 나머지 */
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0;
-      background: #F1F1F1;
-    }
-
-    .chat-container {
-      max-width: 500px;
-      margin: 0;
-      padding: 8px;
-    }
-
-    .chat-message {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 12px; /* 메시지 간 각격 */
-      gap: 5px             /* 메시지-프로필 간격 */
-    }
-    .profile {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      margin-top: 7px;
-      /* background: linear-gradient(90deg, #D28AFD, #E141FD); / 테두리 /
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden; */
-    }
-    .message-content {
-      display: flex;
-      flex-direction: column;
-      max-width: 95%;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 3px;
-    }
-    .name {
-      font-size: 12px;
-      font-weight: 400;
-      color: #171718;
-    }
-    
-/* 말풍선 */
-    .bubble {
-      background: #FFFFFF;
-      border-radius: 4px 13px 13px 13px;
-      padding: 11px 12px;  /* 상하-좌우 여백 */
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1;
-    }
-    .time {
-      font-size: 10px;
-      font-weight: 450;
-      color: #AAAAAA;
-      margin-left: 6px;
-      white-space: nowrap;
-      position: relative;
-      top: 2px;
-    }
-    /* 1. 날짜 구분선 스타일 */
-    .date-divider {
-      text-align: center;
-      font-size: 11px;
-      color: #8A8A8A;
-      margin: 32px 0 16px; /* 선이 들어갈 위쪽 공간(margin-top) 확보 */
-      position: relative;  /* 선(::before)을 위치시킬 기준점 */
-    }
-    /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
-   .date-divider::before {
-      content: '';
-      position: absolute;
-      top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-      left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
-      width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
-      height: 0.8px; /* 선 두께 */
-      background: #E0E0E0;
-      transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
-    }
-
-    /* 2. 내가 보낸 메시지 스타일 */
-    .my-chat-message {
-      display: flex;
-      justify-content: flex-end; /* 오른쪽 정렬 */
-      margin-bottom: 12px;
-    }
-
-    .my-bubble {
-      background: #A584F9;
-      color: #FFFFFF;
-      border-radius: 13px 13px 4px 13px;
-    }
-
-    /* 내가 보낸 메시지는 시간을 왼쪽에 표시 */
-    .my-chat-message .time {
-      margin-left: 0;
-      margin-right: 6px;
-    }
-
-    /* 3. 사진 메시지 스타일 */
-    .image-bubble {
-      padding: 0; /* 이미지 자체에 여백이 있으므로 bubble의 padding 제거 */
-      background: none;
-    }
-    .image-bubble img {
-      max-width: 287px;
-      border-radius: 4px 13px 13px 13px;
-      display: block;
-    }
-
-/* 단독 이모티콘 스타일 (글자 크기 키우기) */
-    .standalone-emoji {
-      font-size: 50px;
-      line-height: 1;
-      background: none;
-    }
-/* 스티커 이미지 스타일 (이미지 크기 지정) */
-    .sticker-image {
-      width: 110px;
-      height: auto;
-    }
-
+   /* 밑에 내용 */
+   .content-area {
+     padding: 40px 20px;
+     line-height: 1.6;
+   }
+   .content-area h2 {
+     margin-top: 0;
+   }
+   
   </style>
-</head>
-<body>
-  <div class="chat-container" id="chat"></div>
-
-  <script>
-    // 아티스트 정보
-    const artistProfile = [
-      {img: "../profile/riku_first.jpg", name: "RIKU"},
-      {img: "../profile/riku_baby.jpg", name:"陸"},
-      {img: "../profile/profile_riku_color.jpg", name:"陸"},
-      {img: "../profile/profile_riku_color.jpg", name:"띵"}
-    ];
-
-    // 메시지 배열
-    const messages = [
-      { type: 'date', content: '2025년 9월 9일 화요일' },
-      { sender: 'artist', type: 'emote', content: "😄", time: "13:13", profileIndex: 3 },
-      { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "13:13", profileIndex: 3 },
-      { sender: 'artist', type: 'image', content: '../pic/riku_250907_3.jpg', time: '14:28', profileIndex: 0 },
-      { sender: 'me', type: 'text', content: '❤️❤️❤️', time: '14:29' },
-      { type: 'date', content: '2025년 9월 8일 월요일' },
-      { sender: 'me', type: 'text', content: '리쿠 보고싶어', time: '17:32' },
-      { sender: 'artist', type: 'image', content: '../pic/jisung_250907_3.jpg', time: '02:13', profileIndex: 1 },
-      { sender: 'artist', type: 'image', content: '../pic/jisung_250907_3.jpg', time: '02:13', profileIndex: 3 },
-      { sender: 'artist', type: 'text', content: "잘자여☺️ ☺️", time: "02:13", profileIndex: 3 },
-    ];
-
-    let currentProfileIndex = 0;
-    const chatContainer = document.getElementById("chat");
-
-    messages.forEach(msg => {
-      // 1. 날짜 타입 처리
-      if (msg.type === 'date') {
-        const dateEl = document.createElement('div');
-        dateEl.className = 'date-divider';
-        dateEl.textContent = msg.content;
-        chatContainer.appendChild(dateEl);
-        return; // 날짜를 표시하고 함수 종료
-      }
-      // 2. 내가 보낸 메시지 타입 처리
-      if (msg.sender === 'me') {
-        const myMsg = document.createElement("div");
-        myMsg.className = "my-chat-message"; // 오른쪽 정렬을 위한 새 클래스
-        myMsg.innerHTML = `
-          <div style="display:flex; align-items:flex-end;">
-            <div class="time">${msg.time}</div>
-            <div class="bubble my-bubble">${msg.content}</div>
-          </div>
-        `;
-        
-        chatContainer.appendChild(myMsg);
-        return; // 내 메시지를 표시하고 함수 종료
-      }
-
-      if (msg.profileIndex !== undefined) {
-        currentProfileIndex = msg.profileIndex;
-      }
-      const chatMsg = document.createElement("div");
-      chatMsg.className = "chat-message";
-      let messageBodyHTML = '';
-      if (msg.type === 'emote') {
-        if (msg.isImage) {
-          // emote + 이미지 = 스티커
-          messageBodyHTML = `<img src="${msg.content}" class="sticker-image" alt="sticker">`;
-        } else {
-          // emote + 텍스트 = 단독 이모티콘
-          messageBodyHTML = `<div class="standalone-emoji">${msg.content}</div>`;
-        }
-      } else if (msg.type === 'image') {
-        // 일반 사진
-        messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="image message"></div>`;
-      } else {
-        // 일반 텍스트
-        messageBodyHTML = `<div class="bubble">${msg.content}</div>`;
-      }
-      chatMsg.innerHTML = `
-      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
-      <div class="message-content">
-      <div class="header">
-      <div class="name">${artistProfile[currentProfileIndex].name}</div>
-      </div>
-      <div style="display:flex; align-items:flex-end;">
-      ${messageBodyHTML}
-      <div class="time">${msg.time}</div>
-      </div>
-      </div>
-      `;
-      
-      chatContainer.appendChild(chatMsg);
-    });
-  </script>
+ </head>
+ <body>
+  <header class="background"> <div class="container">
+    <div class="close-button">×</div>
+    <div class="profile-section">
+     <img src="../profile/color_sakuya.jpg" alt="아티스트 프로필 이미지" class="profile-image">
+     <div class="tag-container">
+      <div class="artist-tag">ARTIST</div>
+      <span class="name">사쿠</span>
+     </div>
+     <p class="message">상태메시지</p>
+    </div>
+   </div>
+  </header>
+  
+  <main class="content-area">
+   <h2>About Artist</h2>
+   <p>이곳에 아티스트에 대한 설명을 자유롭게 추가할 수 있습니다. 페이지는 이 아래로 계속 이어집니다.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim.</p>
+   <p>스크롤 테스트를 위한 추가 문단입니다. 내용이 길어지면 페이지가 아래로 스croll됩니다.</p>
+  </main>
  </body>
 </html>
