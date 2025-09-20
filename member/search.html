@@ -22,7 +22,7 @@
       background: #F1F1F1;
     }
 
-    /* --- 검색창 스타일 (추가) --- */
+    /* --- 검색창 스타일 --- */
     .search-bar {
       position: sticky; /* 스크롤해도 상단에 고정 */
       top: 0;
@@ -39,7 +39,6 @@
       font-size: 14px;
       box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 */
     }
-    /* --- 검색창 스타일 끝 --- */
 
 
     .chat-container {
@@ -92,13 +91,6 @@
       line-height: 1;
       word-break: break-all; /* 긴 텍스트 자동 줄바꿈 */
     }
-
-    /* --- 하이라이트 스타일 (추가) --- */
-    .highlight {
-      background-color: #FFD700; /* 노란색 배경 */
-      border-radius: 2px;
-    }
-    /* --- 하이라이트 스타일 끝 --- */
 
     .time { font-size: 10px; font-weight: 450; color: #ABABAB;  margin-left: 6px;  white-space: nowrap;  position: relative; top: 2px; }
 
@@ -316,7 +308,7 @@
 
     const chatContainer = document.getElementById("chat");
 
-    // --- 메시지 생성 로직 (수정) ---
+    // 메시지 생성 로직
     messages.forEach(msg => {
       // 1. 날짜 타입 처리
       if (msg.type === 'date') {
@@ -330,7 +322,6 @@
       const chatMsg = document.createElement("div");
       chatMsg.className = "chat-message";
 
-      // bubble 클래스를 가진 div에 data-original-text 속성을 추가하여 원본 텍스트 저장
       chatMsg.innerHTML = `
         <div class="profile"></div>
         <div class="message-content">
@@ -338,7 +329,7 @@
             <div class="name">${msg.name}</div>
           </div>
           <div style="display:flex; align-items:flex-end;">
-            <div class="bubble" data-original-text="${msg.text}">${msg.text}</div>
+            <div class="bubble">${msg.text}</div>
             <div class="time">${msg.time ?? ""}</div>
           </div>
         </div>
@@ -349,14 +340,13 @@
     });
 
 
-    // --- 검색 기능 스크립트 (추가) ---
+    // --- 검색 기능 스크립트 (수정) ---
     const searchInput = document.getElementById('searchInput');
 
     // 검색 함수
     const searchMessages = () => {
-      const searchTerm = searchInput.value.toLowerCase(); // 검색어를 소문자로 변환
+      const searchTerm = searchInput.value.toLowerCase();
 
-      // 모든 메시지와 날짜 구분선을 가져옴
       const allMessages = chatContainer.querySelectorAll('.chat-message');
       const allDividers = chatContainer.querySelectorAll('.date-divider');
 
@@ -364,23 +354,13 @@
         const bubble = message.querySelector('.bubble');
         if (!bubble) return;
 
-        const originalText = bubble.dataset.originalText;
-        const textToSearch = originalText.toLowerCase();
+        const textToSearch = bubble.textContent.toLowerCase();
 
-        // 검색어가 비어있거나, 메시지에 검색어가 포함된 경우
+        // 검색어가 비어있거나, 메시지에 검색어가 포함된 경우 보이기
         if (searchTerm === "" || textToSearch.includes(searchTerm)) {
-          message.style.display = 'flex'; // 메시지 보이기
-
-          // 하이라이트 처리
-          if (searchTerm !== "") {
-            const regex = new RegExp(searchTerm, 'gi'); // g: 전체, i: 대소문자 무시
-            const highlightedText = originalText.replace(regex, (match) => `<span class="highlight">${match}</span>`);
-            bubble.innerHTML = highlightedText;
-          } else {
-            bubble.innerHTML = originalText; // 검색어가 없으면 원본 텍스트로 복원
-          }
+          message.style.display = 'flex';
         } else {
-          message.style.display = 'none'; // 메시지 숨기기
+          message.style.display = 'none';
         }
       });
       
@@ -389,21 +369,16 @@
         let nextElement = divider.nextElementSibling;
         let hasVisibleMessage = false;
 
-        // 해당 날짜 구분선 다음에 오는 요소들을 순회
         while(nextElement) {
-          // 다음 날짜 구분선을 만나면 순회 중지
           if (nextElement.classList.contains('date-divider')) {
             break;
           }
-          // 보이는 메시지를 찾으면 플래그를 true로 바꾸고 순회 중지
           if (nextElement.classList.contains('chat-message') && nextElement.style.display !== 'none') {
             hasVisibleMessage = true;
             break;
           }
           nextElement = nextElement.nextElementSibling;
         }
-
-        // 보이는 메시지가 하나라도 있으면 날짜 구분선 보이기, 없으면 숨기기
         divider.style.display = hasVisibleMessage ? 'block' : 'none';
       });
     };
