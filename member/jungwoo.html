@@ -503,8 +503,7 @@
         chatContainer.appendChild(chatMsg);
       });
       
-// ▼▼▼ 검색 기능 스크립트 ('X' 버튼 제거 버전) ▼▼▼
-      // --- DOM 요소 가져오기 ---
+      //검색 기능 관련 각각 이름 호명하기
       const searchBar = document.querySelector('.search');
       const searchIcon = document.getElementById('search-icon');
       // 'X' 버튼 관련 변수 삭제
@@ -513,11 +512,11 @@
       const nextBtn = document.getElementById('nextBtn');
       const searchCounter = document.getElementById('searchCounter');
       
-      // --- 상태 변수 ---
+      // 결과 도출에 대한 함수
       let searchResults = [];
       let currentResultIndex = -1;
       
-      // --- 함수 정의 ---
+      // 검색 과정 시 행동 명령
       const openSearch = () => {
         searchBar.classList.add('visible');
         searchInput.focus();
@@ -573,9 +572,9 @@
         navigateToResult(newIndex);
       };
       
-      // --- 이벤트 리스너 설정 ---
+      // 돋보기 누르면 검색창 열기
       searchIcon.addEventListener('click', openSearch);
-      // 'X' 버튼 관련 이벤트 리스너 삭제
+      // 검색창에 치는 거 실시간 반영시키는 코드
       searchInput.addEventListener('input', performSearch);
       
       prevBtn.addEventListener('click', () => handleNavigation(-1));
@@ -586,12 +585,6 @@
           searchBar.classList.remove('visible');
           searchInput.value = "";
           performSearch();
-        }
-      });
-      
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && searchBar.classList.contains('visible')) {
-          closeSearch();
         }
       });
     </script>
