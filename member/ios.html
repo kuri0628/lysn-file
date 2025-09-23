@@ -12,31 +12,10 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 1.5;
-    margin: 0;
+    margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
     background: #F1F1F1;
-    padding-bottom: 70px; /* input bar와 겹치지 않도록 */
-  }
-  .message-content { 
-    display: flex; 
-    flex-direction: column; 
-    max-width: 95%;
-    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-  }
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 3.5px; /* 이름-메시지 간격 */
-  }
-  .chat-container {
-    max-width: 500px;
-    margin: 0;
-    padding: 8px;
-  }
-  .chat-message {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 14.5px; /* 메시지 간 간격 */
-    gap: 6.5px /* 메시지-프로필 간격 */
+    padding-top: 70px; /* 구독일 패널 */
+    padding-bottom: 80px; /* input bar와 겹치지 않도록 */
   }
   .profile {
     width: 41px;
@@ -52,41 +31,28 @@
     justify-content: center;
     overflow: hidden; */
   }
+/* 프사랑 아티스트 뱃지 그룹 */
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.5px; /* 이름-메시지 간격 */
+  }
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
     font-weight: 750;
     font-size: 7px;
     letter-spacing: 0.1px; /* 자간 */
-    lin-height: 0.8;
     color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
     background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
     padding: 2px 5.5px 1px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
     border-radius: 999px;
     margin-right: 10px;
-    }
+  }
   .name {
     font-size: 12px;
     font-weight: 600;
     color: #171718;
-  }
-/* 말풍선 */
-  .bubble {
-    background: #FFFFFF;
-    border-radius: 4px 13px 13px 13px;
-    padding: 11px 12px 11px 11px;  /* 위 오른 아래 왼쪽 여백 */
-    font-size: 15.5px;
-    font-weight: 400;
-    line-height: 1;
-  }
-  .time {
-    font-size: 10px;
-    font-weight: 400;
-    color: #AAAAAA;
-    margin-left: 6px;
-    white-space: nowrap;
-    position: relative;
-    top: 2px;
   }
 /* ▼▼▼ [날짜] ▼▼▼ */
    /* 1. 날짜 구분선 스타일 */
@@ -108,13 +74,47 @@
     background: #E0E0E0;
     transform: translateX(-50%);
   }
+  .message-content { 
+    display: flex; 
+    flex-direction: column; 
+    max-width: 95%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .chat-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 8px;
+  }
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14.5px; /* 메시지 간 간격 */
+    gap: 6.5px /* 메시지-프로필 간격 */
+  }
+/* 말풍선 */
+  .bubble {
+    background: #FFFFFF;
+    border-radius: 4px 13px 13px 13px;
+    padding: 11px 12px 11px 11px;  /* 위 오른 아래 왼쪽 여백 */
+    font-size: 15.5px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .time {
+    font-size: 10px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.3)
+    margin-left: 6px;
+    white-space: nowrap;
+    position: relative;
+    top: 2px;
+  }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
    /* 오른쪽배치 - 메시지 색 - 시간 */
   .my-chat-message { 
     display: flex; 
     justify-content: flex-end; 
-    margin-bottom: 12px; 
-    /* margin-top: 19px; */
+    margin-bottom: 12px;
   }
   .my-bubble { 
     background: #A584F9; 
