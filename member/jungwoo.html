@@ -290,6 +290,27 @@
       .search.visible {
         display: flex;
       }
+      #search-icon {
+        position: absolute;
+        top: 18px;
+        right: 46px;
+        width: 40px;
+        height: 40px;
+        opacity: 0.5;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .search-img {
+        max-width: 100%; /* 부모 (#search-icon) 너비에 맞춤 */
+        max-height: 100%; /* 부모 (#search-icon) 높이에 맞춤 */
+        object-fit: contain; /* 이미지 비율을 유지하며 컨테이너에 맞춤 */
+        display: block; /* 이미지 하단의 불필요한 여백 제거 */
+      }
       #searchInput {
         flex-grow: 1;
         padding: 10px;
@@ -323,22 +344,6 @@
         min-width: 40px;
         text-align: center;
       }
-      #search-icon {
-        position: absolute;
-        top: 18px;
-        right: 46px;
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        opacity: 0;
-        background: transparent;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
       
     </style>
   </head>
@@ -351,7 +356,9 @@
     </div>
     <div class="title-bar">
       <img src="../pic/title_bar.jpg" alt="상단 고정 이미지">
-      <div id="search-icon">🔍</div>
+      <div id="search-icon">
+        <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
+      </div>
     </div>
     
     <div class="search">
