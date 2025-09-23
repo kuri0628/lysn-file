@@ -429,10 +429,8 @@
           const myMsg = document.createElement("div");
           myMsg.className = "my-chat-message";
           myMsg.innerHTML = `
-          <div style="display:flex; align-items:flex-end;">
           <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
           <div class="bubble my-bubble">${msg.content}</div>
-          </div>
           `;
           chatContainer.appendChild(myMsg);
           return;
