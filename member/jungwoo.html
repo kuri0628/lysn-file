@@ -43,7 +43,7 @@
         /* transform-origin: left;  왼쪽을 기준으로 조절 (글자 시작점 고정) */
         font-family: 'Noto Sans KR';
         font-weight: 750;
-        font-size: 10px;
+        font-size: 9px;
         letter-spacing: 0.1px; /* 자간 */
         color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
         background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
@@ -103,7 +103,7 @@
         line-height: 1.2;
       }
       .time {
-        font-family: sans-serif;
+        /* font-family: sans-serif; */
         font-size: 9px;
         font-weight: 400;
         color: rgba(0, 0, 0, 0.3);
@@ -129,7 +129,7 @@
         background: #A584F9;
         color: #FFFFFF;
         border-radius: 14.5px 14.5px 4px 14.5px;
-        max-width: 95%;
+        max-width: 90%;
       }
   /* 메시지 시간 */
       .my-chat-message .time {
@@ -213,9 +213,10 @@
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
-        font-size: 15px;
+        font-size: 15.5px;
         font-weight: 600;
         color: #000000;
+        padding-top: 16.5px;
         position: fixed;
         top: 0;
         left: 0;
@@ -223,7 +224,6 @@
         /* transform: translateX(-1px); */
         max-width: 550px;
         margin: 0 auto;
-        padding-top: 16px;
         text-align: center;
         z-index: 1001;
         pointer-events: none;
@@ -241,7 +241,7 @@
         text-align: center;
         z-index: 1001;
         font-size: 11px;
-        font-weight: 500;
+        font-weight: 600;
         color: #000000;
         pointer-events: none;
       }
@@ -296,7 +296,7 @@
       }
       #search-icon {
         position: absolute;
-        top: 18.1px;
+        top: 18.2px;
         right: 64px;
         width: 21px;
         height: 21px;
