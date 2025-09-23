@@ -49,6 +49,8 @@
         background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
         padding: 1px 5.5px 1.5px 6px;  /* 위 오른 아래 왼쪽 여백 */
         border-radius: 999px;
+        position: relative; /* <-- 기준점을 현재 위치로 설정 */
+        top: -0.5px;          /* <-- 현재 위치에서 위로 2px 이동 (음수 값 사용) */
         margin-right: 6px; /* 아티스트 - 이름 간격 */
       }
       .name {
