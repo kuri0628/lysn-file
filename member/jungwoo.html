@@ -276,10 +276,13 @@
         width: 100%;
         background: #F1F1F1;
         z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        /* _| 그림자 | 퍼지는 정도 | 그림자 색상 */
       }
       .title-bar img {
         width: 100%;
         display: block;
+        border-radius: 0 0 2px 2px; /* 좌상 우상 우하 좌하 */
       }
 /* ▼▼▼ [검색] ▼▼▼ */
       .search {
@@ -398,7 +401,7 @@
 // 메시지 배열
       const messages = [
         { type: 'date', content: '2024년 8월 10일 토요일' },
-        { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 0 },
+        { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 1 },
         { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
         { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 0 },
         { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 1 },
