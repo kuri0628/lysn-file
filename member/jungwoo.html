@@ -403,8 +403,8 @@
         min-width: 40px;
         text-align: center;
       }
-      
-    </style>
+    
+</style>
   </head>
   <body>
     <div class="nickname">
@@ -419,7 +419,6 @@
         <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
       </div>
     </div>
-    
     <div class="search">
       <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
@@ -428,24 +427,23 @@
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-    
     <div class="chat-container" id="chat"></div>
     
     <div class="input-bar">
       <img src="../pic/input_bar.jpg" alt="메시지 보내기">
     </div>
     
-    <script>
+<script>
 // 번역을 보려면 true, 숨기려면 false로 변경
-      const showTranslations = true;
+  const showTranslations = true;
 // 아티스트 정보
-      const artistProfile = [
-        {img: "../profile/riku_first.jpg", name: "RIKU"},
-        {img: "../profile/riku_baby.jpg", name:"陸"},
-        {img: "../profile/profile_riku_color.jpg", name:"陸"}
-      ];
+  const artistProfile = [
+    {img: "../profile/riku_first.jpg", name: "RIKU"},
+    {img: "../profile/riku_baby.jpg", name:"陸"},
+    {img: "../profile/profile_riku_color.jpg", name:"陸"}
+  ];
 // 메시지 배열
-      const messages = [
+  const messages = [
         { type: 'date', content: '2025년 5월 6일 화요일' },
         
         { sender: 'artist', type: 'poll', title: 'bubble 투표 시작', mainTitle: '투표 시작', subTitle: 'bubble poll', question: 'Q. 이름', endDate: '25/5/6 오후 8:29 까지', time: '오후 8:19', profileIndex: 1 },
@@ -525,25 +523,8 @@
           } else if (msg.type === 'poll') {
             messageBodyHTML = `
             <div class="poll-bubble">
-              <div class="poll-header">
-                <span class="poll-title-text">${msg.title}</span>
-                <span class="poll-icon">
-                  <svg viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="4" fill="#FFEB3B" />
-                    <path d="M10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" fill="#333"/>
-                  </svg>
-                </span>
-              </div>
-              <div class="poll-main-title">${msg.mainTitle}</div>
-              <div class="poll-sub-title">${msg.subTitle}</div>
               <div class="poll-image-container">
                 <img src="../pic/poll.jpg" alt="투표 시작">
-              </div>
-              <div class="poll-question">${msg.question}</div>
-              <div class="poll-end-date">${msg.endDate}</div>
-              <div class="poll-action">
-                <span>투표하기</span>
-                <span>&gt;</span>
               </div>
             </div>
             `;
@@ -659,4 +640,3 @@
     </script>
   </body>
 </html>
-
