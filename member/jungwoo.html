@@ -447,17 +447,8 @@
 // 메시지 배열
       const messages = [
         { type: 'date', content: '2025년 5월 6일 화요일' },
-        { 
-          sender: 'artist', 
-          type: 'poll', 
-          title: 'bubble 투표 시작', 
-          mainTitle: '투표 시작',
-          subTitle: 'bubble poll',
-          question: 'Q. 이름',
-          endDate: '25/5/6 오후 8:29 까지',
-          time: '오후 8:19', 
-          profileIndex: 1 
-        },
+        
+        { sender: 'artist', type: 'poll', title: 'bubble 투표 시작', mainTitle: '투표 시작', subTitle: 'bubble poll', question: 'Q. 이름', endDate: '25/5/6 오후 8:29 까지', time: '오후 8:19', profileIndex: 1 },
         { sender: 'artist', type: 'text', content: "해줘", time: "오후 8:20", profileIndex: 1 },
         { sender: 'me', type: 'text', content: '응ㅇ 나 투표해써', time: '오후 8:20' },
         { sender: 'artist', type: 'text', content: "근데 陸도 조은거 아냐", time: "오후 8:25", profileIndex: 1 },
@@ -546,7 +537,7 @@
               <div class="poll-main-title">${msg.mainTitle}</div>
               <div class="poll-sub-title">${msg.subTitle}</div>
               <div class="poll-image-container">
-                <img src="../pic/fixed_poll_image.jpg" alt="투표 이미지">
+                <img src="../pic/poll.jpg" alt="투표 시작">
               </div>
               <div class="poll-question">${msg.question}</div>
               <div class="poll-end-date">${msg.endDate}</div>
