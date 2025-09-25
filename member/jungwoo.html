@@ -210,31 +210,6 @@
         width: 240px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       }
-      .poll-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-      }
-      .poll-title-text {
-        color: #8A8A8A;
-        font-size: 11px;
-        font-weight: 500;
-      }
-      .poll-icon svg {
-        width: 28px;
-        height: 28px;
-      }
-      .poll-main-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: #000;
-      }
-      .poll-sub-title {
-        font-size: 12px;
-        color: #8A8A8A;
-        margin-bottom: 16px;
-      }
       .poll-image-container {
         margin-bottom: 16px;
       }
@@ -242,28 +217,6 @@
         width: 100%;
         border-radius: 8px;
         display: block;
-      }
-      .poll-question {
-        font-size: 14px;
-        color: #000;
-        font-weight: 500;
-        margin-bottom: 4px;
-      }
-      .poll-end-date {
-        font-size: 11px;
-        color: #BDBDBD;
-        margin-bottom: 16px;
-      }
-      .poll-action {
-        border-top: 1px solid #F0F0F0;
-        padding-top: 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 13px;
-        font-weight: 500;
-        color: #333;
-        cursor: pointer;
       }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
@@ -444,34 +397,35 @@
   ];
 // 메시지 배열
   const messages = [
-        { type: 'date', content: '2025년 5월 6일 화요일' },
-        
-        { sender: 'artist', type: 'poll', title: 'bubble 투표 시작', mainTitle: '투표 시작', subTitle: 'bubble poll', question: 'Q. 이름', endDate: '25/5/6 오후 8:29 까지', time: '오후 8:19', profileIndex: 1 },
-        { sender: 'artist', type: 'text', content: "해줘", time: "오후 8:20", profileIndex: 1 },
-        { sender: 'me', type: 'text', content: '응ㅇ 나 투표해써', time: '오후 8:20' },
-        { sender: 'artist', type: 'text', content: "근데 陸도 조은거 아냐", time: "오후 8:25", profileIndex: 1 },
-        { sender: 'me', type: 'text', content: '맞아ㅠㅠ', time: '오후 8:26' },
-        { type: 'date', content: '2024년 8월 10일 토요일' },
-        { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 1 },
-        { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
-        { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 0 },
-        { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 1 },
-        { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
-        { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
-        { sender: 'artist', type: 'voice', content: '../voice/0.07.jpg', time: "오후 10:23", profileIndex: 0 },
-        { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
-        ];
-      let currentProfileIndex;
-      const chatContainer = document.getElementById("chat");
-      messages.forEach(msg => {
+    { type: 'date', content: '2025년 5월 6일 화요일' },
+    
+    { sender: 'artist', type: 'poll', time: '오후 8:19', profileIndex: 1 },
+    
+    { sender: 'artist', type: 'text', content: "해줘", time: "오후 8:20", profileIndex: 1 },
+    { sender: 'me', type: 'text', content: '응ㅇ 나 투표해써', time: '오후 8:20' },
+    { sender: 'artist', type: 'text', content: "근데 陸도 조은거 아냐", time: "오후 8:25", profileIndex: 1 },
+    { sender: 'me', type: 'text', content: '맞아ㅠㅠ', time: '오후 8:26' },
+    { type: 'date', content: '2024년 8월 10일 토요일' },
+    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 1 },
+    { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
+    { sender: 'artist', type: 'voice', content: '../voice/0.07.jpg', time: "오후 10:23", profileIndex: 0 },
+    { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
+  ];
+  let currentProfileIndex;
+  const chatContainer = document.getElementById("chat");
+  messages.forEach(msg => {
 // 1. 날짜
-        if (msg.type === 'date') {
-          const dateEl = document.createElement('div');
-          dateEl.className = 'date';
-          dateEl.textContent = msg.content;
-          chatContainer.appendChild(dateEl);
-          return;
-        }
+    if (msg.type === 'date') {
+      const dateEl = document.createElement('div');
+      dateEl.className = 'date';
+      dateEl.textContent = msg.content;
+      chatContainer.appendChild(dateEl);
+      return;
+    }
 // 2. 내가 보내는 버블
         if (msg.sender === 'me') {
           const myMsg = document.createElement("div");
