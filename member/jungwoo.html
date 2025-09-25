@@ -408,6 +408,7 @@
 <script>
 // 번역을 보려면 true, 숨기려면 false로 변경
   const showTranslations = true;
+  const pollImagePath = '../pic/poll.jpg';
 // 아티스트 정보
   const artistProfile = [
     {img: "../profile/riku_first.jpg", name: "RIKU"},
@@ -418,7 +419,7 @@
   const messages = [
     { type: 'date', content: '2025년 5월 6일 화요일' },
     
-    { sender: 'artist', type: 'poll', time: '오후 8:19', profileIndex: 1 },
+    { sender: 'artist', type: 'poll', text: '프로필 사진<br>뭐가 좋아?', time: '오후 8:19', profileIndex: 1 },
     
     { sender: 'artist', type: 'text', content: "해줘", time: "오후 8:20", profileIndex: 1 },
     { sender: 'me', type: 'text', content: '응ㅇ 나 투표해써', time: '오후 8:20' },
@@ -493,11 +494,10 @@
             messageBodyHTML = `<div class="bubble voice">
             <img src="${msg.content}" alt="음성메시지">
             </div>`;
-          } else if (msg.type === 'poll') {
+                    } else if (msg.type === 'poll') {
             messageBodyHTML = `
-            <div class="poll-bubble">
-              <div class="poll-container">
-              <img src="${msg.image}" alt="투표 시작">
+            <div class="poll-container">
+              <img src="${pollImagePath}" alt="투표 이미지">
               <div class="poll-text">${msg.text}</div>
             </div>
             `;
