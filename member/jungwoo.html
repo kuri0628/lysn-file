@@ -235,6 +235,14 @@
         color: #8A8A8A;
         margin-bottom: 16px;
       }
+      .poll-image-container {
+        margin-bottom: 16px;
+      }
+      .poll-image-container img {
+        width: 100%;
+        border-radius: 8px;
+        display: block;
+      }
       .poll-question {
         font-size: 14px;
         color: #000;
@@ -523,7 +531,7 @@
             messageBodyHTML = `<div class="bubble voice">
             <img src="${msg.content}" alt="음성메시지">
             </div>`;
-          } else if (msg.type === 'poll') { // ▼▼▼ [투표 기능 로직 추가] ▼▼▼
+          } else if (msg.type === 'poll') {
             messageBodyHTML = `
             <div class="poll-bubble">
               <div class="poll-header">
@@ -537,6 +545,9 @@
               </div>
               <div class="poll-main-title">${msg.mainTitle}</div>
               <div class="poll-sub-title">${msg.subTitle}</div>
+              <div class="poll-image-container">
+                <img src="../pic/fixed_poll_image.jpg" alt="투표 이미지">
+              </div>
               <div class="poll-question">${msg.question}</div>
               <div class="poll-end-date">${msg.endDate}</div>
               <div class="poll-action">
@@ -657,3 +668,4 @@
     </script>
   </body>
 </html>
+
