@@ -151,7 +151,7 @@
         background: none;
       }
       .sticker {
-        width: 150px;
+        width: 152px;
         height: auto;
         /* margin-top: 5px;  / 숫자↑ 위치↓ */
         margin-left: -5px; /* 숫자↑ 위치→ */
@@ -223,7 +223,7 @@
         display: flex;
         justify-content: center;
         align-items: center; 
-        transform: translate(-75px, 65px); /* 음수←↑ */
+        transform: translate(-76px, 62px); /* 음수←↑ */
         color: #ff17e4;
         font-size: 14px;
         /* font-weight: 400; */
@@ -455,12 +455,13 @@
         }
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
         if (msg.type === 'reply') {
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
-          <span class="artist-tag">ARTIST</span>
+          
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
           <div class="bubble reply-bubble">
@@ -506,12 +507,12 @@
             }
             messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
-
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
-          <span class="artist-tag">ARTIST</span>
+          
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
           <div style="display:flex; align-items:flex-end;">
