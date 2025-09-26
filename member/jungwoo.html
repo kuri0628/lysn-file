@@ -217,22 +217,17 @@
       }
       .poll-text {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-/* --- 이 부분을 추가/수정 --- */
+        inset: 0;
         display: flex;
-        justify-content: center; /* 수평 가운데 정렬 */
-        align-items: center;    /* 수직 가운데 정렬 */
-/* ---------------------- */
-        color: #000000;
-        font-size: 15px;
-        font-weight: 400;
-        text-align: center; /* 여러 줄일 때를 대비해 유지하면 좋음 */
-        line-height: 1.4;
-        box-sizing: border-box; 
-      }
+        justify-content: center;
+        align-items: center; 
+    /* ↓↓↓ 이 줄을 추가! ↓↓↓ */
+        transform: translate(-10px, 15px); /* 음수←↑ */
+    /* 폰트 관련 스타일은 그대로 유지 */
+    color: #000000;
+    font-size: 14px;
+    font-weight: 400;
+}
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
