@@ -204,7 +204,7 @@
         height: 22.8px;
       }
 /* ▼▼▼ [투표] ▼▼▼ */
-      .poll-container {
+      .poll {
         position: relative; /* 글자를 이미지 위에 올리기 위한 기준점 */
         max-width: 244px; /* 사진 메시지와 동일한 최대 너비 */
         /* border-radius: 4px 13px 13px 13px; */
@@ -213,11 +213,11 @@
         margin-left: 1px; /* 다른 사진과 위치 맞춤 */
         margin-top: 2px;
       }
-      .poll-container img {
+      .poll img {
         width: 100%;
         display: block; /* 이미지 아래 작은 여백 제거 */
       }
-      .poll-title-text {
+      .poll-period {
         position: absolute;
         inset: 0;
         display: flex;
@@ -229,7 +229,7 @@
         /* font-weight: 600; */
       }
       /* 주제 */
-      .poll-text {
+      .poll-topic {
         position: absolute;
         inset: 0;
         display: flex;
@@ -501,12 +501,12 @@
             <img src="${msg.content}" alt="음성메시지">
             </div>`;
           } else if (msg.type === 'poll') {
-            let pollTitleHTML = msg.pollTitle ? `<div class="poll-title-text">${msg.pollTitle}</div>` : '';
+            let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
             messageBodyHTML = `
-            <div class="poll-container">
+            <div class="poll">
               <img src="${pollImagePath}" alt="투표 이미지">
               ${pollTitleHTML}
-              <div class="poll-text">${msg.text}</div>
+              <div class="poll-topic">${msg.text}</div>
             </div>
             `;
           } else { // 기본 텍스트 버블
