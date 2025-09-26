@@ -217,6 +217,17 @@
         width: 100%;
         display: block; /* 이미지 아래 작은 여백 제거 */
       }
+      .poll-title-text {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translate(-76px, 40px); /* 음수←↑ */
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+      }
       .poll-text {
         position: absolute;
         inset: 0;
@@ -227,7 +238,7 @@
         color: #ff17e4;
         font-size: 14px;
         /* font-weight: 400; */
-}
+      }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
@@ -410,7 +421,7 @@
   const messages = [
     { type: 'date', content: '2025년 5월 6일 화요일' },
     
-    { sender: 'artist', type: 'poll', text: '이름', time: '오후 8:19', profileIndex: 2 },
+    { sender: 'artist', type: 'poll', pollTitle: '너의', text: '이름', time: '오후 8:19', profileIndex: 2 },
     
     { sender: 'artist', type: 'text', content: "해줘", time: "오후 8:20", profileIndex: 1 },
     { sender: 'me', type: 'text', content: '응ㅇ 나 투표해써', time: '오후 8:20' },
@@ -489,9 +500,11 @@
             <img src="${msg.content}" alt="음성메시지">
             </div>`;
           } else if (msg.type === 'poll') {
+            let pollTitleHTML = msg.pollTitle ? `<div class="poll-title-text">${msg.pollTitle}</div>` : '';
             messageBodyHTML = `
             <div class="poll-container">
               <img src="${pollImagePath}" alt="투표 이미지">
+              ${pollTitleHTML}
               <div class="poll-text">${msg.text}</div>
             </div>
             `;
