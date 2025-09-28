@@ -68,12 +68,13 @@
     /* margin-top: 3px; 숫자↑ 위치↓ */
   } 
 /* 말풍선과 이름의 세로 정렬 */
-      .message-content {
-        display: flex;
-        flex-direction: column;
-        max-width: 95%;
-        align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-      }
+  .message-content {
+    display: flex;
+    max-width: 95%;
+    flex-direction: column;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+    gap: 3px; /* 숫자↑ 말풍선의 위치↓ */
+  }
       .chat-container {
         max-width: 500px;
         margin: 0 auto;
@@ -718,6 +719,7 @@
     </script>
   </body>
 </html>
+
 
 
 
