@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
     <title>아티스트 채팅</title>
-    
+
 <style>
   body {
     font-family: "Roboto";
@@ -15,8 +15,8 @@
     line-height: 1.5;
     margin: 0;
     background: #EEEEEE;
-    padding-top: 70px; /* 구독일 패널 */
-    padding-bottom: 50px; /* 64 input bar와 겹치지 않도록 */
+        padding-top: 70px; /* 구독일 패널 */
+        padding-bottom: 50px; /* 64 input bar와 겹치지 않도록 */
   }
   .profile {
     width: 39.5px;
@@ -34,39 +34,39 @@
   }
   .artist-tag {
     font-family: 'Noto Sans KR';
-    color: #fff;
     font-size: 8px;
+    color: #fff;
     font-weight: 800;
     transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
-    position: relative; /* <-- 기준점을 현재 위치로 설정 */
     border-radius: 999px;
-    top: 1px; /* 숫자↑ 위치↓ */
-    margin-right: 4.2px; /* 아티스트 - 이름 간격 */
+    position: relative; /* <-- 기준점을 현재 위치로 설정 */
+    top: 1px;          /* 숫자↑ 위치↓ */
+    margin-right: 4.2px; /* 아티스트 - 이름 간격 */    
     background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
-    padding: 0.7px 5.6px 1.3px 6.6px; /* 위 오른 아래 왼쪽 여백 */
+    padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
   }
-      .name {
-        font-family: 'Noto Sans KR';
-        font-size: 12px;
-        font-weight: 400; /* 아티스트 태그 on → 600 */
-        color: #171718;
-        position: relative; /* 위치 조정을 위해 추가 */
-        bottom: 4px; /* 숫자↑ 위치↑ */
-        transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
-        letter-spacing: -1.07px;
-      }
+  .name {
+    font-family: 'Noto Sans KR';
+    color: #171718;
+    font-size: 12px;
+    font-weight: 400; /* 아티스트 태그 on → 600 */
+    transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
+    letter-spacing: -1.07px;
+    position: relative; /* 위치 조정을 위해 추가 */
+    bottom: 4px; /* 숫자↑ 위치↑ */
+  }
 /* ▼▼▼ [날짜] ▼▼▼ */
-      .date {
-        text-align: center;
-        font-size: 10px;
-        color: #777777; /* 기존 색: 8A8A8A; 날짜 */
-        font-weight: 400;
-        margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
-        position: relative;
-      }
+  .date {  
+    color: #777777; /* 기존 색: 8A8A8A; 날짜 */
+    font-size: 10px;
+    font-weight: 400;
+    text-align: center;
+    position: relative;
+    margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
+  }
 /* 날짜 선 */
-      .date::before {
+  .date::before {
         content: '';
         position: absolute;
         top: -6.5px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
@@ -418,110 +418,14 @@
 // 아티스트 정보
   const artistProfile = [
     {img: "../profile/riku_first.jpg", name: "RIKU"},
-    {img: "../profile/riku_baby.jpg", name:"ㅇㅅㅇ"},
-    {img: "../profile/profile_riku_color.jpg", name:"ㅇㅅㅇ"}
+    {img: "../profile/riku_baby.jpg", name:"陸"},
+    {img: "../profile/profile_riku_color.jpg", name:"陸"}
   ];
 // 메시지 배열
   const messages = [
     { type: 'date', content: '2025년 7월 30일 수요일' },
     { sender: 'artist', type: 'text', content: "今日暑かった〜", time: "오전 12:03", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "けど最高だった", time: "오전 12:03", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "また来たいな", time: "오전 12:04", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "君は今日1日どーだった？", time: "오전 12:05", profileIndex: 1 },
-    { sender: 'me', type: 'text', content: '今日な、めっちゃええ日やったわ〜', time: '오전 12:07' },
-    { sender: 'me', type: 'text', content: 'リクがな、アホほどかわいかってん😚🩷', time: '오전 12:07' },
-    { sender: 'artist', type: 'text', content: "あ！", time: "오전 12:33", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "花火みた？？", time: "오전 12:33", profileIndex: 1 },
-    { sender: 'me', type: 'text', content: 'うんうん！', time: '오전 12:34' },
-    { sender: 'artist', type: 'text', content: "俺らステージの上やったからあんまり<br>見えんかった", time: "오전 12:34", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "ぴえん", time: "오전 12:34", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "今度また一緒に見よーね", time: "오전 12:34", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "ユジンと浴衣デートとかしてみたいね", time: "오전 12:34", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "絶対きれい", time: "오전 12:35", profileIndex: 1 },
-    { sender: 'me', type: 'text', content: 'ほんとに？浴衣デートほんとに&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>してくれるの？', time: '오전 12:35' },
-    { sender: 'artist', type: 'text', content: "やくそく", time: "오전 12:35", profileIndex: 1 },
-    { sender: 'me', type: 'text', content: 'わたしもした〜い！絶対だよ？', time: '오전 12:35' },
-    { sender: 'me', type: 'text', content: '大好きだよ、まえだくん💗', time: '오전 12:35' },
-    { sender: 'artist', type: 'text', content: "だいすきだよ", time: "오전 12:35", profileIndex: 1 },
-    { sender: 'artist', type: 'text', content: "へへ", time: "오전 12:35", profileIndex: 1 },
-    { type: 'date', content: '2025년 9월 9일 화요일' },
-    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "이 의상 최애데스", time: "오후 10:23", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "오늘도 오츠카레사마데스", time: "오후 10:23", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "다음주도 의상 예쁠 것 같아", time: "오후 10:24", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "아", time: "오후 10:24", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "이번주", time: "오후 10:24", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "오후 10:25", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "みんなお仕事かな？", translation: "다들 일하시나?", time: "오후 10:25", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "頑張ろうね", translation: "잘 해 보자.", time: "오후 10:25", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "いつも応援してます☺️", translation: "항상 응원하고 있어요☺️", time: "오후 10:26", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "つらかったら辛いって周りの人に<br>助け求めるんだよ", translation: "힘들면 힘들다고 주위 사람들에게 도움을&nbsp;&nbsp;&nbsp;&nbsp;<br>청하는 거야", time: "오후 10:26", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "おれもそうするから", translation: "나도 그럴 테니까", time: "오후 10:26", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "わかった？", translation: "알았지?", time: "오후 10:26", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "うん！いい子いい子", translation: "응! 아이, 아이, 아이", time: "오후 10:27", profileIndex: 2 },
-    
-    { type: 'date', content: '2025년 9월 12일 금요일' },
-    { sender: 'artist', type: 'image', content: '../pic/riku_250912.jpg', time: '오후 8:39', profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "컬러 2위할 수 잇엇어!!", time: "오후 8:40", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "항상 고마웡", time: "오후 8:40", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "더 멋진 사람 될겡", time: "오후 8:40", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "오늘도 수고햇엉", time: "오후 8:41", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "푹 장", time: "오후 8:41", profileIndex: 2 },
-    { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
-      
-    { type: 'date', content: '2025년 9월 14일 일요일' },
-    { sender: 'artist', type: 'image', content: '../pic/riku_250914_1.jpg', time: '오후 12:42', profileIndex: 2 },
-    { sender: 'artist', type: 'image', content: '../pic/riku_250914_2.jpg', time: '오후 12:42', profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "어제 예뻣죠", time: "오후 12:42", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "피어싱 멋잇더라", time: "오후 12:43", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "오늘도 예뻐용", time: "오후 12:43", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "어제가 악마면", time: "오후 12:43", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "오늘 천사", time: "오후 12:43", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "멋잇는", time: "오후 12:44", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "기대 해주세용", time: "오후 12:44", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "원래 천사야??ㅋㅋㅋ", time: "오후 12:44", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "나 악마가 잘 어울릴 것 같은데", time: "오후 12:45", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "아니면 약간 어두운 천사", time: "오후 12:45", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 12:45", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "뭐 둘다 할게", time: "오후 12:47", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "상상은 자유라서", time: "오후 12:47", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "자기가 다 정해", time: "오후 12:48", profileIndex: 2 },
-    
-    { type: 'date', content: '2025년 9월 18일 목요일' },
-    { sender: 'artist', type: 'text', content: "유진아", time: "오후 10:27", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "なにしてるのーん", translation: "뭐하고 있는거야", time: "오후 10:27", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "最近ちゃんと寝れてる？？", translation: "요즘 잘 자고 있어??", time: "오후 10:27", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "寝れなかったらスマホとか見ずに", translation: "잠을 못 자면 스마트폰 같은 거 안 보고", time: "오후 10:28", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "目つぶってなさい", translation: "눈 감아요", time: "오후 10:28", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "わかりましたか？", translation: "알겠습니까?", time: "오후 10:28", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "はい、いい子です", translation: "네, 착한 아이입니다", time: "오후 10:28", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "100点", translation: "백 점", time: "오후 10:28", profileIndex: 2 },
-    { sender: 'artist', type: 'image', content: '../pic/riku_250918.jpg', time: '오후 10:29', profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "ご褒美", translation: "보상", time: "오후 10:29", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "へへ", translation: "헤헤", time: "오후 10:29", profileIndex: 2 },
-    
-    { type: 'date', content: '2025년 9월 21일 일요일' },
-    { sender: 'artist', type: 'text', content: "오늘 상 받앗다!", time: "오전 1:28", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "진짜 항상 고마워어 ㅠㅠㅠ", time: "오전 1:29", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "콘서트에서도 더 더 멋잇는 모습 보여줄게", time: "오전 1:30", profileIndex: 2 },
-    { sender: 'me', type: 'text', content: '리쿠양', time: '오전 12:35' },
-    { sender: 'artist', type: 'text', content: "열심히 해볼게", time: "오전 1:30", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "がんばります", translation: "열심히 하겠습니다", time: "오전 1:30", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "きたいしてね", translation: "키타이시테네", time: "오전 1:31", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "今日もお疲れ", translation: "오늘도 수고했어요", time: "오전 1:31", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "맛있는 거 먹고 푹 자", time: "오전 1:31", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "잘장", time: "오전 1:31", profileIndex: 2 },
-    { sender: 'me', type: 'text', content: '리쿠양', time: '오전 12:35' },
-    { sender: 'artist', type: 'text', content: "나두 밥먹구 잘겡", time: "오전 1:31", profileIndex: 2 },
-    
-    { type: 'date', content: '2025년 9월 25일 목요일' },
-    { sender: 'artist', type: 'image', content: '../pic/riku_250925_1.jpg', time: '오후 3:13', profileIndex: 2 },
-    { sender: 'artist', type: 'image', content: '../pic/riku_250925_2.jpg', time: '오후 3:13', profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "아침부터 춤데스", time: "오후 3:14", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "아", time: "오후 3:14", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "아침 아니구나", time: "오후 3:14", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "けど最高だった", time: "오전 12:03", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "また来たいな", time: "오전 12:04", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "君は今日1日どーだった？", time: "오전 12:05", profileIndex: 1 },    { sender: 'me', type: 'text', content: '今日な、めっちゃええ日やったわ〜', time: '오전 12:07' },    { sender: 'me', type: 'text', content: 'リクがな、アホほどかわいかってん😚🩷', time: '오전 12:07' },    { sender: 'artist', type: 'text', content: "あ！", time: "오전 12:33", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "花火みた？？", time: "오전 12:33", profileIndex: 1 },    { sender: 'me', type: 'text', content: 'うんうん！', time: '오전 12:34' },    { sender: 'artist', type: 'text', content: "俺らステージの上やったからあんまり<br>見えんかった", time: "오전 12:34", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "ぴえん", time: "오전 12:34", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "今度また一緒に見よーね", time: "오전 12:34", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "ユジンと浴衣デートとかしてみたいね", time: "오전 12:34", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "絶対きれい", time: "오전 12:35", profileIndex: 1 },    { sender: 'me', type: 'text', content: 'ほんとに？浴衣デートほんとに&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>してくれるの？', time: '오전 12:35' },    { sender: 'artist', type: 'text', content: "やくそく", time: "오전 12:35", profileIndex: 1 },    { sender: 'me', type: 'text', content: 'わたしもした〜い！絶対だよ？', time: '오전 12:35' },    { sender: 'me', type: 'text', content: '大好きだよ、まえだくん💗', time: '오전 12:35' },    { sender: 'artist', type: 'text', content: "だいすきだよ", time: "오전 12:35", profileIndex: 1 },    { sender: 'artist', type: 'text', content: "へへ", time: "오전 12:35", profileIndex: 1 },    { type: 'date', content: '2025년 9월 9일 화요일' },    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },    { sender: 'artist', type: 'text', content: "이 의상 최애데스", time: "오후 10:23", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "오늘도 오츠카레사마데스", time: "오후 10:23", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "다음주도 의상 예쁠 것 같아", time: "오후 10:24", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "아", time: "오후 10:24", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "이번주", time: "오후 10:24", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "오후 10:25", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "みんなお仕事かな？", translation: "다들 일하시나?", time: "오후 10:25", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "頑張ろうね", translation: "잘 해 보자.", time: "오후 10:25", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "いつも応援してます☺️", translation: "항상 응원하고 있어요☺️", time: "오후 10:26", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "つらかったら辛いって周りの人に<br>助け求めるんだよ", translation: "힘들면 힘들다고 주위 사람들에게 도움을&nbsp;&nbsp;&nbsp;&nbsp;<br>청하는 거야", time: "오후 10:26", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "おれもそうするから", translation: "나도 그럴 테니까", time: "오후 10:26", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "わかった？", translation: "알았지?", time: "오후 10:26", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "うん！いい子いい子", translation: "응! 아이, 아이, 아이", time: "오후 10:27", profileIndex: 2 },    { type: 'date', content: '2025년 9월 12일 금요일' },    { sender: 'artist', type: 'image', content: '../pic/riku_250912.jpg', time: '오후 8:39', profileIndex: 2 },    { sender: 'artist', type: 'text', content: "컬러 2위할 수 잇엇어!!", time: "오후 8:40", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "항상 고마웡", time: "오후 8:40", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "더 멋진 사람 될겡", time: "오후 8:40", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "오늘도 수고햇엉", time: "오후 8:41", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "푹 장", time: "오후 8:41", profileIndex: 2 },    { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },    { type: 'date', content: '2025년 9월 14일 일요일' },    { sender: 'artist', type: 'image', content: '../pic/riku_250914_1.jpg', time: '오후 12:42', profileIndex: 2 },    { sender: 'artist', type: 'image', content: '../pic/riku_250914_2.jpg', time: '오후 12:42', profileIndex: 2 },    { sender: 'artist', type: 'text', content: "어제 예뻣죠", time: "오후 12:42", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "피어싱 멋잇더라", time: "오후 12:43", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "오늘도 예뻐용", time: "오후 12:43", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "어제가 악마면", time: "오후 12:43", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "오늘 천사", time: "오후 12:43", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "멋잇는", time: "오후 12:44", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "기대 해주세용", time: "오후 12:44", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "원래 천사야??ㅋㅋㅋ", time: "오후 12:44", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "나 악마가 잘 어울릴 것 같은데", time: "오후 12:45", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "아니면 약간 어두운 천사", time: "오후 12:45", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 12:45", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "뭐 둘다 할게", time: "오후 12:47", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "상상은 자유라서", time: "오후 12:47", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "자기가 다 정해", time: "오후 12:48", profileIndex: 2 },        { type: 'date', content: '2025년 9월 18일 목요일' },    { sender: 'artist', type: 'text', content: "유진아", time: "오후 10:27", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "なにしてるのーん", translation: "뭐하고 있는거야", time: "오후 10:27", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "最近ちゃんと寝れてる？？", translation: "요즘 잘 자고 있어??", time: "오후 10:27", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "寝れなかったらスマホとか見ずに", translation: "잠을 못 자면 스마트폰 같은 거 안 보고", time: "오후 10:28", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "目つぶってなさい", translation: "눈 감아요", time: "오후 10:28", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "わかりましたか？", translation: "알겠습니까?", time: "오후 10:28", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "はい、いい子です", translation: "네, 착한 아이입니다", time: "오후 10:28", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "100点", translation: "백 점", time: "오후 10:28", profileIndex: 2 },    { sender: 'artist', type: 'image', content: '../pic/riku_250918.jpg', time: '오후 10:29', profileIndex: 2 },    { sender: 'artist', type: 'text', content: "ご褒美", translation: "보상", time: "오후 10:29", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "へへ", translation: "헤헤", time: "오후 10:29", profileIndex: 2 },        { type: 'date', content: '2025년 9월 21일 일요일' },    { sender: 'artist', type: 'text', content: "오늘 상 받앗다!", time: "오전 1:28", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "진짜 항상 고마워어 ㅠㅠㅠ", time: "오전 1:29", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "콘서트에서도 더 더 멋잇는 모습 보여줄게", time: "오전 1:30", profileIndex: 2 },    { sender: 'me', type: 'text', content: '리쿠양', time: '오전 12:35' },    { sender: 'artist', type: 'text', content: "열심히 해볼게", time: "오전 1:30", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "がんばります", translation: "열심히 하겠습니다", time: "오전 1:30", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "きたいしてね", translation: "키타이시테네", time: "오전 1:31", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "今日もお疲れ", translation: "오늘도 수고했어요", time: "오전 1:31", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "맛있는 거 먹고 푹 자", time: "오전 1:31", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "잘장", time: "오전 1:31", profileIndex: 2 },    { sender: 'me', type: 'text', content: '리쿠양', time: '오전 12:35' },    { sender: 'artist', type: 'text', content: "나두 밥먹구 잘겡", time: "오전 1:31", profileIndex: 2 },        { type: 'date', content: '2025년 9월 25일 목요일' },    { sender: 'artist', type: 'image', content: '../pic/riku_250925_1.jpg', time: '오후 3:13', profileIndex: 2 },    { sender: 'artist', type: 'image', content: '../pic/riku_250925_2.jpg', time: '오후 3:13', profileIndex: 2 },    { sender: 'artist', type: 'text', content: "아침부터 춤데스", time: "오후 3:14", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "아", time: "오후 3:14", profileIndex: 2 },    { sender: 'artist', type: 'text', content: "아침 아니구나", time: "오후 3:14", profileIndex: 2 },
     { sender: 'artist', type: 'text', content: "헤헤", time: "오후 3:14", profileIndex: 2 },
     { sender: 'artist', type: 'image', content: '../pic/riku_250925_3.jpg', time: '오후 3:15', profileIndex: 2 },
     { sender: 'artist', type: 'text', content: "이거 좀더", time: "오후 3:16", profileIndex: 2 },
