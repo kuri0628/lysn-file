@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>아티스트 채팅</title>
+    
+    <style>
+      body {
+        font-family: "Roboto";
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0;
+        background: #EEEEEE;
+        padding-top: 70px; /* 구독일 패널 */
+        padding-bottom: 50px; /* 64 input bar와 겹치지 않도록 */
+      }
+      .profile {
+        width: 39.5px;
+        height: 39.6px;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+        margin-top: 2px; /* 숫자↓ 위치↑ */
+        border: 0.2px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+        /* background: linear-gradient(90deg, #D28AFD, #E141FD);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; */
+      }
+/* 프사랑 아티스트 뱃지 그룹 */
+      .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
+      }
+      .artist-tag {
+        transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
+        transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+        font-family: 'Noto Sans KR';
+        font-weight: 800;
+        font-size: 8px;
+        /* letter-spacing: -0.01em;  자간 0.01em = 1% */
+        color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+        background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
+        padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
+        border-radius: 999px;
+        position: relative; /* <-- 기준점을 현재 위치로 설정 */
+        top: 1px;          /* 숫자↑ 위치↓ */
+        margin-right: 4.2px; /* 아티스트 - 이름 간격 */
+      }
+      .name {
+        font-family: 'Noto Sans KR';
+        font-size: 10.5px;
+        font-weight: 400; /* 아티스트 태그 on → 600 */
+        color: #171718;
+      }
+/* ▼▼▼ [] ▼▼▼ */
+      .message-content {
+        display: flex;
+        flex-direction: column;
+        max-width: 95%;
+        align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+      }
+      .chat-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 8px;
+      }
+      .chat-message {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 16.9px; /* 메시지 간 간격 */
+        gap: 6px /* 메시지-프로필 간격 */
+      }
+/* 말풍선 */
+      .bubble {
+        font-family: 'Kosugi Maru';
+        background: #FFFFFF;
+        border-radius: 4px 14.5px 14.5px 14.5px;
+        padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
+        font-size: 13.7px;
+        font-weight: 400;
+        line-height: 1.2;
+      }
+/* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
+  /* 오른쪽배치 */
+      .my-chat-message {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 18px;
+        margin-top: 19px;
+        width: 100%;
+        align-items: flex-end;   /* 내용물을 아래쪽 기준으로 정렬 (시간-말풍선 높이 맞춤) */
+        gap: 6px;                  /* 시간과 말풍선 사이 간격을 줌 */
+      }
+  /* 메시지 색 */
+      .my-bubble {
+        background: #A584F9;
+        color: #FFFFFF;
+        border-radius: 14.5px 14.5px 4px 14.5px;
+        max-width: 60%;
+      }
+  /* 메시지 시간 */
+      .my-chat-message .time {
+        margin-left: 0;
+        /* margin-right: 6px; */
+      }
+/* ▼▼▼ [시간] ▼▼▼ */
+      .time {
+        font-family: sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.3);
+        margin-left: 6px;
+        white-space: nowrap;
+        position: relative;
+        top: 2px;
+      }
+      .time .colon {
+        position: relative;
+        top: -2px; /* 숫자↓ 콜론 위치↑ */
+      }
+/* ▼▼▼ [날짜] ▼▼▼ */
+      .date {
+        text-align: center;
+        font-size: 10px;
+        color: #777777; /* 기존 색: 8A8A8A; 날짜 */
+        font-weight: 400;
+        margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
+        position: relative;
+      }
+/* 날짜 선 */
+      .date::before {
+        content: '';
+        position: absolute;
+        top: -6.5px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+        left: 50%; /* 선 시작점이 화면 중앙 */
+        width: 100vw;
+        height: 0.7px; /* 선 두께 */
+        background: #D6D6D6; /* 기존 색: E0E0E0; 날짜 선 */
+        transform: translateX(-50%);
+      }
+/* ▼▼▼ [사진] ▼▼▼ */
+  /* 3. 사진 메시지 스타일 */
+      .picture {
+        padding: 0;
+        background: none;
+        margin-left: 1px;
+        margin-top: 0px;
+      }
+      .picture img {
+        max-width: 235px;
+        border-radius: 4px 13px 13px 13px;
+        display: block;
+      }
+/* ▼▼▼ [이모지] ▼▼▼ */
+  /* 진짜 이모지 */
+      .emoji {
+        font-size: 66px;
+        line-height: 1.5;
+        background: none;
+      }
+  /* 버블 이모티콘 */
+      .sticker {
+        width: 110px;
+        height: auto;
+      }
+/* ▼▼▼ [번역] ▼▼▼ */
+  /* 점선 스타일 */
+      .dotted-divider {
+        border: none;
+        background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
+        background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
+        background-repeat: repeat-x;
+        background-position: left;
+        height: 1px; /* 선의 높이(두께) 지정 */
+        margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
+      }
+  /* 말풍선 내부 번역 텍스트 */
+      .translation-inner {
+        font-size: 13.5px;
+        color: #9050F3;
+        line-height: 1.2;
+      }
+      .bubble.has-translation {
+        padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+      }
+/* ▼▼▼ [ARTIST 답장] ▼▼▼ */
+      .reply-bubble {
+        background-color: #FFFFFF80; /* 배경 색 */
+        padding: 13.7px 12px 19px 12px; /* 위 오른 아래 왼쪽 간격 */
+        margin-bottom: 6px; /* 두 말풍선 간격 */
+        border-radius: 14px;
+      }
+      .reply-title {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 9.5px;
+        color: #020202; /* ARTIST의 답장 */
+        margin-bottom: 5px; /* ARTIST의 답장-팬버블 간격 */
+      }
+      .reply-content {
+        font-size: 11.9px;
+        color: #00000080; /* 팬 버블 7E7E7E */
+      }
+      .bubble-after-reply {
+        border-top-left-radius: 4px;
+      }
+/* ▼▼▼ [음성] ▼▼▼ */
+      .voice {
+        display: flex;
+        padding: 8px 14px 8px 10px; !important; /* 위, 오른쪽, 아래, 왼쪽 */
+      }
+      .voice img {
+        width: auto;
+        height: 22.8px;
+      }
+/* ▼▼▼ [채팅방 이름] ▼▼▼ */
+      .nickname {
+        font-family: 'Noto Sans KR';
+        font-size: 15.5px;
+        font-weight: 650;
+        color: #000000;
+        padding-top: 16.5px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        /* transform: translateX(-1px); */
+        max-width: 550px;
+        margin: 0 auto;
+        text-align: center;
+        z-index: 1001;
+        pointer-events: none;
+      }
+/* ▼▼▼ [구독일 하트] ▼▼▼ */
+      .d-day {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        max-width: 600px;
+        margin: 0 auto;
+        padding-top: 62px;
+        transform: translateX(30px); /* 숫자↑ 위치→ */
+        text-align: center;
+        z-index: 1001;
+        font-size: 11px;
+        font-weight: 600;
+        color: #000000;
+        pointer-events: none;
+      }
+/* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
+      .input-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+      .input-bar img {
+        max-width: 500px;
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+      }
+/* ▼▼▼ [구독일 패널] ▼▼▼ */
+      .title-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+        background: #F1F1F1;
+        z-index: 1000;
+        /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+        /* _| 그림자 | 퍼지는 정도 | 그림자 색상 */
+      }
+      .title-bar img {
+        width: 100%;
+        display: block;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+        /* border-radius: 0 0 11px 10px;  좌상 우상 우하 좌하 */
+      }
+/* ▼▼▼ [검색] ▼▼▼ */
+      .search {
+        position: fixed;
+        top: 0;
+        background: white;
+        padding: 10px 8px;
+        z-index: 1002;
+        display: none;
+        align-items: center;
+        gap: 5px;
+        max-width: 500px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        left: 0;
+        right: 0;
+      }
+      .search.visible {
+        display: flex;
+      }
+      #search-icon {
+        position: absolute;
+        top: 18.5px;
+        right: 64px;
+        width: 20.5px;
+        height: 20.5px;
+        opacity: 0.5;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .search-img {
+        max-width: 100%; /* 부모 (#search-icon) 너비에 맞춤 */
+        max-height: 100%; /* 부모 (#search-icon) 높이에 맞춤 */
+        object-fit: contain; /* 이미지 비율을 유지하며 컨테이너에 맞춤 */
+        display: block; /* 이미지 하단의 불필요한 여백 제거 */
+      }
+      #searchInput {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      #searchInput:focus {
+        outline: none;
+        border-color: #A584F9;
+        box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
+      }
+      .search-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .search-controls button {
+        width: 38px;
+        height: 38px;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        background: white;
+        font-size: 18px;
+        padding: 0;
+      }
+      #searchCounter {
+        font-size: 12px;
+        color: #8A8A8A;
+        min-width: 40px;
+        text-align: center;
+      }
+      
+</style>
+  </head>
+  <body>
+    <div class="nickname">
+      리쿠
+    </div>
+    <div class="d-day">
+      149
+    </div>
+    
+    <div class="title-bar">
+      <img src="../pic/구독일패널.png" alt="상단 고정 이미지">
+      
+      <div id="search-icon">
+        <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
+      </div>
+    </div>
+    
+    <div class="search">
+      <input type="text" id="searchInput" placeholder="채팅 검색">
+      <div class="search-controls">
+        <button id="prevBtn">↑</button>
+        <button id="nextBtn">↓</button>
+        <span id="searchCounter">0 / 0</span>
+      </div>
+    </div>
+    <div class="chat-container" id="chat"></div>
+    
+    <div class="input-bar">
+      <img src="../pic/input_bar.jpg" alt="메시지 보내기">
+    </div>
+    
+<script>
+// 번역을 보려면 true, 숨기려면 false로 변경
+  const showTranslations = true;
+// 아티스트 정보
+  const artistProfile = [
+    {img: "../profile/riku_first.jpg", name: "RIKU"},
+    {img: "../profile/riku_baby.jpg", name:"陸"},
+    {img: "../profile/profile_riku_color.jpg", name:"陸"}
+  ];
+// 메시지 배열
+  const messages = [
+    { type: 'date', content: '2025년 7월 30일 수요일' },
+    { sender: 'artist', type: 'text', content: "今日暑かった〜", time: "오전 12:03", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "けど最高だった", time: "오전 12:03", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "また来たいな", time: "오전 12:04", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "君は今日1日どーだった？", time: "오전 12:05", profileIndex: 1 },
+    { sender: 'me', type: 'text', content: '今日な、めっちゃええ日やったわ〜', time: '오전 12:07' },
+    { sender: 'me', type: 'text', content: 'リクがな、アホほどかわいかってん😚🩷', time: '오전 12:07' },
+    { sender: 'artist', type: 'text', content: "あ！", time: "오전 12:33", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "花火みた？？", time: "오전 12:33", profileIndex: 1 },
+    { sender: 'me', type: 'text', content: 'うんうん！', time: '오전 12:34' },
+    { sender: 'artist', type: 'text', content: "俺らステージの上やったからあんまり<br>見えんかった", time: "오전 12:34", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "ぴえん", time: "오전 12:34", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "今度また一緒に見よーね", time: "오전 12:34", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "ユジンと浴衣デートとかしてみたいね", time: "오전 12:34", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "絶対きれい", time: "오전 12:35", profileIndex: 1 },
+    { sender: 'me', type: 'text', content: 'ほんとに？浴衣デートほんとに&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>してくれるの？', time: '오전 12:35' },
+    { sender: 'artist', type: 'text', content: "やくそく", time: "오전 12:35", profileIndex: 1 },
+    { sender: 'me', type: 'text', content: 'わたしもした〜い！絶対だよ？', time: '오전 12:35' },
+    { sender: 'me', type: 'text', content: '大好きだよ、まえだくん💗', time: '오전 12:35' },
+    { sender: 'artist', type: 'text', content: "だいすきだよ", time: "오전 12:35", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "へへ", time: "오전 12:35", profileIndex: 1 },
+    { type: 'date', content: '2025년 9월 9일 화요일' },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "이 의상 최애데스", time: "오후 10:23", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 10:23", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "오늘도 오츠카레사마데스", time: "오후 10:23", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "다음주도 의상 예쁠 것 같아", time: "오후 10:24", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "아", time: "오후 10:24", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "이번주", time: "오후 10:24", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "曜日感覚なくなっちゃう", translation: "요일감각이 없어져버려", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "みんなお仕事かな？", translation: "다들 일하시나?", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "頑張ろうね", translation: "잘 해 보자.", time: "오후 10:25", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "いつも応援してます☺️", translation: "항상 응원하고 있어요☺️", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "つらかったら辛いって周りの人に<br>助け求めるんだよ", translation: "힘들면 힘들다고 주위 사람들에게 도움을&nbsp;&nbsp;&nbsp;&nbsp;<br>청하는 거야", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "おれもそうするから", translation: "나도 그럴 테니까", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "わかった？", translation: "알았지?", time: "오후 10:26", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "うん！いい子いい子", translation: "응! 아이, 아이, 아이", time: "오후 10:27", profileIndex: 2 },
+    
+    { type: 'date', content: '2025년 9월 12일 금요일' },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250912.jpg', time: '오후 8:39', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "컬러 2위할 수 잇엇어!!", time: "오후 8:40", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "항상 고마웡", time: "오후 8:40", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "더 멋진 사람 될겡", time: "오후 8:40", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "오늘도 수고햇엉", time: "오후 8:41", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "푹 장", time: "오후 8:41", profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '리쿠도 오늘 푸우우욱 자고 사랑해애❤️', time: '오후 8:40' },
+      
+    { type: 'date', content: '2025년 9월 14일 일요일' },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250914_1.jpg', time: '오후 12:42', profileIndex: 2 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250914_2.jpg', time: '오후 12:42', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "어제 예뻣죠", time: "오후 12:42", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "피어싱 멋잇더라", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "오늘도 예뻐용", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "어제가 악마면", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "오늘 천사", time: "오후 12:43", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "멋잇는", time: "오후 12:44", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "기대 해주세용", time: "오후 12:44", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "원래 천사야??ㅋㅋㅋ", time: "오후 12:44", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "나 악마가 잘 어울릴 것 같은데", time: "오후 12:45", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "아니면 약간 어두운 천사", time: "오후 12:45", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 12:45", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "뭐 둘다 할게", time: "오후 12:47", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "상상은 자유라서", time: "오후 12:47", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "자기가 다 정해", time: "오후 12:48", profileIndex: 2 },
+    
+    { type: 'date', content: '2025년 9월 18일 목요일' },
+    { sender: 'artist', type: 'text', content: "유진아", time: "오후 10:27", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "なにしてるのーん", translation: "뭐하고 있는거야", time: "오후 10:27", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "最近ちゃんと寝れてる？？", translation: "요즘 잘 자고 있어??", time: "오후 10:27", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "寝れなかったらスマホとか見ずに", translation: "잠을 못 자면 스마트폰 같은 거 안 보고", time: "오후 10:28", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "目つぶってなさい", translation: "눈 감아요", time: "오후 10:28", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "わかりましたか？", translation: "알겠습니까?", time: "오후 10:28", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "はい、いい子です", translation: "네, 착한 아이입니다", time: "오후 10:28", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "100点", translation: "백 점", time: "오후 10:28", profileIndex: 2 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250918.jpg', time: '오후 10:29', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "ご褒美", translation: "보상", time: "오후 10:29", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "へへ", translation: "헤헤", time: "오후 10:29", profileIndex: 2 },
+    
+    { type: 'date', content: '2025년 9월 21일 일요일' },
+    { sender: 'artist', type: 'text', content: "오늘 상 받앗다!", time: "오전 1:28", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "진짜 항상 고마워어 ㅠㅠㅠ", time: "오전 1:29", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "콘서트에서도 더 더 멋잇는 모습 보여줄게", time: "오전 1:30", profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '리쿠양', time: '오전 12:35' },
+    { sender: 'artist', type: 'text', content: "열심히 해볼게", time: "오전 1:30", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "がんばります", translation: "열심히 하겠습니다", time: "오전 1:30", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "きたいしてね", translation: "키타이시테네", time: "오전 1:31", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "今日もお疲れ", translation: "오늘도 수고했어요", time: "오전 1:31", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "맛있는 거 먹고 푹 자", time: "오전 1:31", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "잘장", time: "오전 1:31", profileIndex: 2 },
+    { sender: 'me', type: 'text', content: '리쿠양', time: '오전 12:35' },
+    { sender: 'artist', type: 'text', content: "나두 밥먹구 잘겡", time: "오전 1:31", profileIndex: 2 },
+    
+    { type: 'date', content: '2025년 9월 25일 목요일' },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250925_1.jpg', time: '오후 3:13', profileIndex: 2 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250925_2.jpg', time: '오후 3:13', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "아침부터 춤데스", time: "오후 3:14", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "아", time: "오후 3:14", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "아침 아니구나", time: "오후 3:14", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "헤헤", time: "오후 3:14", profileIndex: 2 },
+    { sender: 'artist', type: 'image', content: '../pic/riku_250925_3.jpg', time: '오후 3:15', profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "이거 좀더", time: "오후 3:16", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "간지 나지", time: "오후 3:16", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "배경화면 이걸로 해", time: "오후 3:16", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "잘햇어", time: "오후 3:18", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "춤 릴스 찍을려고 했는데", time: "오후 3:19", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "잘 못 춰서", time: "오후 3:19", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "연습하고 잘하면 보여줄게", time: "오후 3:19", profileIndex: 2 },
+  ];
+  let currentProfileIndex;
+  const chatContainer = document.getElementById("chat");
+  messages.forEach(msg => {
+// 1. 날짜
+    if (msg.type === 'date') {
+      const dateEl = document.createElement('div');
+      dateEl.className = 'date';
+      dateEl.textContent = msg.content;
+      chatContainer.appendChild(dateEl);
+      return;
+    }
+// 2. 내가 보내는 버블
+    if (msg.sender === 'me') {
+      const myMsg = document.createElement("div");
+      myMsg.className = "my-chat-message";
+      myMsg.innerHTML = `
+      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+      <div class="bubble my-bubble">${msg.content}</div>
+      `;
+      chatContainer.appendChild(myMsg);
+      return;
+    }
+    if (msg.profileIndex !== undefined) {
+      currentProfileIndex = msg.profileIndex;
+    }
+    const chatMsg = document.createElement("div");
+    chatMsg.className = "chat-message";
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+    if (msg.type === 'reply') {
+      chatMsg.innerHTML = `
+      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+      <div class="message-content">
+      <div class="header">
+<span class="artist-tag">ARTIST</span>
+      <div class="name">${artistProfile[currentProfileIndex].name}</div>
+      </div>
+      <div class="bubble reply-bubble">
+      <div class="reply-title">ARTIST의 답장</div>
+      <div class="reply-content">${msg.replyContent}</div>
+      </div>
+      <div style="display:flex; align-items:flex-end;">
+      <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+      </div>
+      </div>
+      `;
+        } else {
+          let messageBodyHTML = '';
+          if (msg.type === 'emote') {
+            if (msg.isImage) {
+              messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
+            } else {
+              messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
+            }
+          } else if (msg.type === 'image') {
+            messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
+          } else if (msg.type === 'voice') {
+            messageBodyHTML = `<div class="bubble voice">
+            <img src="${msg.content}" alt="음성메시지">
+            </div>`;
+          } else {
+            let bubbleContent = msg.content;
+            let bubbleClass = 'bubble';
+            if (showTranslations && msg.translation) {
+              bubbleContent += `
+              <hr class="dotted-divider">
+              <div class="translation-inner">${msg.translation}</div>
+              `;
+              bubbleClass += ' has-translation';
+            }
+            messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
+          }
+// header 밑에 ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          ${messageBodyHTML}
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          </div>
+          </div>
+          `;
+        }
+        chatContainer.appendChild(chatMsg);
+      });
+      
+      //검색 기능 관련 각각 이름 호명하기
+      const searchBar = document.querySelector('.search');
+      const searchIcon = document.getElementById('search-icon');
+      // 'X' 버튼 관련 변수 삭제
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
+      
+      // 결과 도출에 대한 함수
+      let searchResults = [];
+      let currentResultIndex = -1;
+      
+      // 검색 과정 시 행동 명령
+      const openSearch = () => {
+        searchBar.classList.add('visible');
+        searchInput.focus();
+        if (location.hash !== '#search') {
+          location.hash = 'search';
+        }
+      };
+      
+      const closeSearch = () => {
+        history.back();
+      };
+      
+      const performSearch = () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        if (!searchTerm) {
+          searchResults = [];
+          currentResultIndex = -1;
+          updateCounter();
+          return;
+        }
+        
+        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+        searchResults = Array.from(allMessages).filter(message =>
+          message.textContent.toLowerCase().includes(searchTerm)
+                                                      );
+        
+        currentResultIndex = searchResults.length > 0 ? 0 : -1;
+        if (currentResultIndex !== -1) {
+          navigateToResult(currentResultIndex);
+        }
+        updateCounter();
+      };
+      
+      const navigateToResult = (index) => {
+        if (index < 0 || index >= searchResults.length) return;
+        
+        const targetMessage = searchResults[index];
+        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        currentResultIndex = index;
+        updateCounter();
+      };
+      
+      const updateCounter = () => {
+        const total = searchResults.length;
+        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
+      };
+      
+      const handleNavigation = (direction) => {
+        if (searchResults.length === 0) return;
+        const total = searchResults.length;
+        const newIndex = (currentResultIndex + direction + total) % total;
+        navigateToResult(newIndex);
+      };
+      
+      // 돋보기 누르면 검색창 열기
+      searchIcon.addEventListener('click', openSearch);
+      // 검색창에 치는 거 실시간 반영시키는 코드
+      searchInput.addEventListener('input', performSearch);
+      
+      prevBtn.addEventListener('click', () => handleNavigation(-1));
+      nextBtn.addEventListener('click', () => handleNavigation(1));
+      
+      window.addEventListener('hashchange', () => {
+        if (location.hash !== '#search') {
+          searchBar.classList.remove('visible');
+          searchInput.value = "";
+          performSearch();
+        }
+      });
+    </script>
+  </body>
+</html>
