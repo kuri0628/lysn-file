@@ -5,23 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>아티스트 채팅</title>
 
-  <!-- Inter 폰트 불러오기 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
   <style>
     /* 전체 페이지 기본 폰트 적용 */
     body {
-      /* font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
-      font-family: -apple-system,    /* iOS, Mac 기본 폰트 (San Francisco) */
-                      'Inter',
-                      "Roboto",      /* Android 기본 폰트 */
-                      sans-serif;    /* 나머지 */
+      font-family: -apple-system, 'Inter', "Roboto", sans-serif;
       font-weight: 400;
       font-size: 14px;
       line-height: 1.5;
       margin: 0;
       background: #F1F1F1;
     }
+
+    /* --- 검색창 스타일 (수정) --- */
+    .search-bar {
+      position: sticky;
+      top: 0;
+      background: #F1F1F1;
+      padding: 10px 8px;
+      z-index: 10;
+      display: flex; /* Flexbox 레이아웃 사용 */
+      align-items: center;
+      gap: 5px;
+    }
+
+    #searchInput {
+      flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
+      padding: 10px;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    .search-controls button {
+      width: 38px;
+      height: 38px;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      background: white;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    .search-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    #searchCounter {
+      font-size: 12px;
+      color: #8A8A8A;
+      min-width: 40px; /* 카운터 너비 고정 */
+      text-align: center;
+    }
+
+    /* 현재 검색 결과 하이라이트 (추가) */
+    .current-search-result .bubble {
+      animation: highlight-animation 1.2s;
+    }
+
+    @keyframes highlight-animation {
+      0% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); }
+      70% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0); }
+      100% { box-shadow: none; }
+    }
+
 
     .chat-container {
       max-width: 500px;
@@ -32,8 +84,8 @@
     .chat-message {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 12px; /* 메시지 간 각격 */
-      gap: 5px             /* 메시지-프로필 간격 */
+      margin-bottom: 12px;
+      gap: 5px
     }
 
     .profile {
@@ -44,7 +96,7 @@
       background-position: center;
       margin-top: 7px;
     }
-    
+
     .message-content {
       display: flex;
       flex-direction: column;
@@ -62,15 +114,16 @@
       font-weight: 400;
       color: #171718;
     }
-    
-/* 말풍선 */
+
+    /* 말풍선 */
     .bubble {
       background: #FFFFFF;
       border-radius: 4px 14px 14px 14px;
-      padding: 11px 12px;  /* 상하-좌우 여백 */
+      padding: 11px 12px;
       font-size: 15px;
       font-weight: 400;
       line-height: 1;
+      word-break: break-all;
     }
 
     .time { font-size: 10px; font-weight: 450; color: #ABABAB;  margin-left: 6px;  white-space: nowrap;  position: relative; top: 2px; }
@@ -81,17 +134,27 @@
    .date-divider::before {
       content: '';
       position: absolute;
-      top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-      left: 50%;                   /* 1. 선의 시작점을 화면 중앙으로 이동 */
-      width: 100vw;                /* 2. 선의 너비를 화면 전체 너비로 설정 (핵심!) */
-      height: 0.8px; /* 선 두께 */
+      top: -6px;
+      left: 50%;
+      width: 100vw;
+      height: 0.8px;
       background: #E0E0E0;
-      transform: translateX(-50%); /* 3. 자기 너비의 절반만큼 왼쪽으로 당겨서 완벽한 중앙 정렬 */
+      transform: translateX(-50%);
     }
-    
+
   </style>
 </head>
 <body>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="메시지 검색 후 Enter">
+    <div class="search-controls">
+      <button id="prevBtn">↑</button>
+      <button id="nextBtn">↓</button>
+      <span id="searchCounter">0 / 0</span>
+    </div>
+  </div>
+
   <div class="chat-container" id="chat"></div>
 
   <script>
@@ -226,7 +289,6 @@
       { text: "푹 자요〜^_^", name: "유우시", img: "../profile/surf_yushi.jpg" },
       { text: "잘자요〜", name: "유우시", img: "../profile/surf_yushi.jpg" },
       { type: 'date', content: '2025년 9월 1일' },
-
       { text: "이 채팅 영원히 할수 있지?", name: "유우시", img: "../profile/color_yushi.jpg" },
       { text: "응", name: "사쿠야", img: "../profile/color_sakuya.jpg" },
       { text: "그럼 영원히 해", name: "유우시", img: "../profile/color_yushi.jpg" },
@@ -284,19 +346,18 @@
     ];
 
     const chatContainer = document.getElementById("chat");
+
+    // 메시지 생성 로직
     messages.forEach(msg => {
-      // 1. 날짜 타입 처리 로직 추가
       if (msg.type === 'date') {
         const dateEl = document.createElement('div');
         dateEl.className = 'date-divider';
         dateEl.textContent = msg.content;
         chatContainer.appendChild(dateEl);
-        return; // 날짜를 표시하고 다음 메시지로 넘어감
+        return;
       }
-
       const chatMsg = document.createElement("div");
       chatMsg.className = "chat-message";
-
       chatMsg.innerHTML = `
         <div class="profile"></div>
         <div class="message-content">
@@ -309,10 +370,118 @@
           </div>
         </div>
       `;
-
       chatMsg.querySelector(".profile").style.backgroundImage = `url('${msg.img}')`;
       chatContainer.appendChild(chatMsg);
     });
+
+
+    // --- 검색 기능 스크립트 (수정) ---
+    const searchInput = document.getElementById('searchInput');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const searchCounter = document.getElementById('searchCounter');
+
+    let searchResults = []; // 검색 결과를 담을 배열 (DOM 요소)
+    let currentResultIndex = -1; // 현재 보고 있는 검색 결과의 인덱스
+
+    // 검색 실행 함수
+    const performSearch = () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      // 기존 하이라이트 제거
+      const highlighted = document.querySelector('.current-search-result');
+      if (highlighted) {
+        highlighted.classList.remove('current-search-result');
+      }
+
+      if (!searchTerm) {
+        searchResults = [];
+        currentResultIndex = -1;
+        updateCounter();
+        return;
+      }
+
+      const allMessages = document.querySelectorAll('.chat-message');
+      searchResults = Array.from(allMessages).filter(message => {
+        const bubble = message.querySelector('.bubble');
+        return bubble && bubble.textContent.toLowerCase().includes(searchTerm);
+      });
+
+      if (searchResults.length > 0) {
+        currentResultIndex = 0;
+        navigateToResult(currentResultIndex);
+      } else {
+        currentResultIndex = -1;
+      }
+      updateCounter();
+    };
+    
+    // 특정 검색 결과로 이동하는 함수
+    const navigateToResult = (index) => {
+      if (index < 0 || index >= searchResults.length) return;
+
+      // 기존 하이라이트 제거
+      const previouslyHighlighted = document.querySelector('.current-search-result');
+      if (previouslyHighlighted) {
+        previouslyHighlighted.classList.remove('current-search-result');
+      }
+
+      const targetMessage = searchResults[index];
+      
+      // 부드럽게 스크롤
+      targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // 새 메시지에 하이라이트 클래스 추가
+      targetMessage.classList.add('current-search-result');
+      
+      currentResultIndex = index;
+      updateCounter();
+    };
+
+    // 카운터 업데이트 함수
+    const updateCounter = () => {
+      if (searchResults.length > 0) {
+        searchCounter.textContent = `${currentResultIndex + 1} / ${searchResults.length}`;
+      } else {
+        searchCounter.textContent = `0 / 0`;
+      }
+    };
+    
+    // --- 이벤트 리스너 설정 ---
+
+    // Enter 키로 검색 실행
+    searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    // 이전 버튼 클릭
+    prevBtn.addEventListener('click', () => {
+      if (searchResults.length > 0) {
+        let newIndex = currentResultIndex - 1;
+        if (newIndex < 0) {
+          newIndex = searchResults.length - 1; // 마지막 결과로 순환
+        }
+        navigateToResult(newIndex);
+      } else {
+         performSearch(); // 검색된 결과가 없을때 누르면 검색 시작
+      }
+    });
+
+    // 다음 버튼 클릭
+    nextBtn.addEventListener('click', () => {
+      if (searchResults.length > 0) {
+        let newIndex = currentResultIndex + 1;
+        if (newIndex >= searchResults.length) {
+          newIndex = 0; // 처음 결과로 순환
+        }
+        navigateToResult(newIndex);
+      } else {
+        performSearch();
+      }
+    });
+
   </script>
 </body>
 </html>
