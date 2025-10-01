@@ -65,16 +65,18 @@
         font-weight: 400;
         line-height: 1.2;
       }
+/* 아티스트 - 프로필 제외 레이아웃 */
       .message-content {
         display: flex;
         flex-direction: column;
-        max-width: 90%;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+        max-width: 75%;
       }
+/* 가장 큰 채팅 레이아웃 */
       .chat-container {
         max-width: 500px;
         margin: 0 auto;
-        padding: 8px;
+        padding: 8px; /* 배경 외곽에서 프로필사진까지의 거리*/
       }
       .chat-message {
         display: flex;
