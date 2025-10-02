@@ -678,7 +678,7 @@
           message.textContent.toLowerCase().includes(searchTerm)
         );
         
-        currentResultIndex = searchResults.length > 0 ? searchResults.length - 1 : -1;
+        currentResultIndex = searchResults.length > 0 ? 0 : -1;
         if (currentResultIndex !== -1) {
           navigateToResult(currentResultIndex);
         }
