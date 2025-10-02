@@ -55,12 +55,6 @@
         color: #171718;
       }
 /* ▼▼▼ [] ▼▼▼ */
-/* 가장 큰 채팅 레이아웃 */
-      .chat-container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 8px; /* 배경 외곽에서 프로필사진까지의 거리*/
-      }
 /* 말풍선 */
       .bubble {
         /* font-family: 'Kosugi Maru'; */
@@ -71,12 +65,16 @@
         font-weight: 400;
         line-height: 1.2;
       }
-/* 아티스트 - 프로필 제외 레이아웃 */
       .message-content {
         display: flex;
         flex-direction: column;
+        max-width: 95%;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-        max-width: 78%;
+      }
+      .chat-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 8px;
       }
       .chat-message {
         display: flex;
@@ -396,7 +394,7 @@
   </head>
   <body>
     <div class="nickname">
-      닉네임
+      이제똥구리💩🤎
     </div>
     <div class="d-day">
       149
