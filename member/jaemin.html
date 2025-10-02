@@ -55,6 +55,12 @@
         color: #171718;
       }
 /* ▼▼▼ [] ▼▼▼ */
+/* 가장 큰 채팅 레이아웃 */
+      .chat-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 8px; /* 배경 외곽에서 프로필사진까지의 거리*/
+      }
 /* 말풍선 */
       .bubble {
         /* font-family: 'Kosugi Maru'; */
@@ -65,16 +71,12 @@
         font-weight: 400;
         line-height: 1.2;
       }
+/* 아티스트 - 프로필 제외 레이아웃 */
       .message-content {
         display: flex;
         flex-direction: column;
-        max-width: 95%;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-      }
-      .chat-container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 8px;
+        max-width: 78%;
       }
       .chat-message {
         display: flex;
@@ -622,6 +624,90 @@
           }
 // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
           chatMsg.innerHTML = `
+];
+  let currentProfileIndex;
+  const chatContainer = document.getElementById("chat");
+  messages.forEach(msg => {
+// 1. 날짜
+    if (msg.type === 'date') {
+      const dateEl = document.createElement('div');
+      dateEl.className = 'date';
+      dateEl.textContent = msg.content;
+      chatContainer.appendChild(dateEl);
+      return;
+    }
+// 2. 내가 보내는 버블
+    if (msg.sender === 'me') {
+      const myMsg = document.createElement("div");
+      myMsg.className = "my-chat-message";
+      myMsg.innerHTML = `
+      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+      <div class="bubble my-bubble">${msg.content}</div>
+      `;
+      chatContainer.appendChild(myMsg);
+      return;
+    }
+        if (msg.profileIndex !== undefined) {
+          currentProfileIndex = msg.profileIndex;
+        }
+        const chatMsg = document.createElement("div");
+        chatMsg.className = "chat-message";
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+        if (msg.type === 'reply') {
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+          
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div class="bubble reply-bubble">
+          <div class="reply-title">ARTIST의 답장</div>
+          <div class="reply-content">${msg.replyContent}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          </div>
+          </div>
+          `;
+        } else {
+          let messageBodyHTML = '';
+          if (msg.type === 'emote') {
+            if (msg.isImage) {
+              messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
+            } else {
+              messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
+            }
+          } else if (msg.type === 'image') {
+            messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
+          } else if (msg.type === 'voice') {
+            messageBodyHTML = `<div class="bubble voice">
+            <img src="${msg.content}" alt="음성메시지">
+            </div>`;
+          } else if (msg.type === 'poll') {
+            let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
+            messageBodyHTML = `
+            <div class="poll">
+              <img src="${pollImagePath}" alt="투표 이미지">
+              ${pollTitleHTML}
+              <div class="poll-topic">${msg.text}</div>
+            </div>
+            `;
+          } else { // 기본 텍스트 버블
+            let bubbleContent = msg.content;
+            let bubbleClass = 'bubble';
+            if (showTranslations && msg.translation) {
+              bubbleContent += `
+              <hr class="dotted-divider">
+              <div class="translation-inner">${msg.translation}</div>
+              `;
+              bubbleClass += ' has-translation';
+            }
+            messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
+          }
+// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+          chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
@@ -676,7 +762,7 @@
           message.textContent.toLowerCase().includes(searchTerm)
         );
         
-        currentResultIndex = searchResults.length > 0 ? 0 : -1;
+        currentResultIndex = searchResults.length > 0 ? searchResults.length - 1 : -1;
         if (currentResultIndex !== -1) {
           navigateToResult(currentResultIndex);
         }
