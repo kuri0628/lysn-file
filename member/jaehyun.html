@@ -233,13 +233,12 @@
       }
       .poll-period {
         position: absolute;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transform: translate(-58px, 90px); /* 음수←↑ */
         color: #ff17e4;
         font-size: 10px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 104px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 25px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
       }
       /* 주제 */
       .poll-topic {
