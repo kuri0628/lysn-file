@@ -244,13 +244,12 @@
       /* 주제 */
       .poll-topic {
         position: absolute;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center; 
-        transform: translate(-76px, 63px); /* 음수←↑ */
         color: #ff17e4;
         font-size: 14px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 77px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 25px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
       }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
@@ -483,7 +482,7 @@
     { sender: 'artist', type: 'text', content: "고맙고 축하해요", time: "오후 6:46", profileIndex: 8 },
     
     { type: 'date', content: '2024년 8월 17일 요일' },
-    { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오전 8:29 까지', text: '사진 너무 많아서 이제 찾았다', time: '오전 12:45', profileIndex: 8 },
+    { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오전 8:29 까지', text: '이름', time: '오전 12:45', profileIndex: 8 },
 
 
     
