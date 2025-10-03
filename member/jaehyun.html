@@ -231,23 +231,24 @@
         width: 100%;
         display: block; /* 이미지 아래 작은 여백 제거 */
       }
+/* 투표 기간 */
       .poll-period {
         position: absolute;
         color: #ff17e4;
         font-size: 10px;
         text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
         width: 200px;       /* 텍스트가 차지할 최대 너비 */
-        top: 104px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        top: 130px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
         left: 25px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
       }
-      /* 주제 */
+/* 투표 주제 */
       .poll-topic {
         position: absolute;
         color: #ff17e4;
         font-size: 14px;
         text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
         width: 200px;       /* 텍스트가 차지할 최대 너비 */
-        top: 77px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        top: 150px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
         left: 25px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
       }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
@@ -438,7 +439,8 @@
    {img: "../profile/jaehyun_210322.jpg", name:"JAMAL"},
    {img: "../profile/jaehyun_210322.jpg", name:"ㅇㅇ"},
    {img: "../profile/jaehyun_240907_1.jpg", name:"ㅇㅇ"},
-   {img: "../profile/jaehyun_240907_2.jpg", name:"ㅇㅇ"}
+   {img: "../profile/jaehyun_240907_2.jpg", name:"ㅇㅇ"},
+   {img: "../profile/wonbin_250731_3.jpg", name:"삐니"}
   ];
 // 메시지 배열
   const messages = [
@@ -481,7 +483,7 @@
     { sender: 'artist', type: 'text', content: "고맙고 축하해요", time: "오후 6:46", profileIndex: 8 },
     
     { type: 'date', content: '2024년 8월 17일 요일' },
-    { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오전 8:29 까지', text: '이름', time: '오전 12:45', profileIndex: 8 },
+    { sender: 'artist', type: 'poll', pollTitle: '25/9/6 오전 12:03 까지', text: '어느것이좋나요', time: '오전 12:45', profileIndex: 8 },
 
 
     
