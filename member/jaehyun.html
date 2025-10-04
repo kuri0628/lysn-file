@@ -251,6 +251,10 @@
         top: 196px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
         left: 32px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
       }
+/* 투표 메시지만 너비 키우기 */
+      .message-content:has(.poll) {
+        max-width: 80%; /*  */
+      }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
