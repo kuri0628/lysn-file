@@ -19,12 +19,12 @@
         padding-bottom: 50px; /* input bar */
       }
       .profile {
-        width: 39.5px;
-        height: 39.6px;
+        width: 40.2px;
+        height: 40.2px;
         border-radius: 50%;
         background-size: cover;
         background-position: center;
-        margin-top: 2px; /* 숫자↓ 위치↑ */
+        margin-top: 4.9px; /* 숫자↓ 위치↑ */
         border: 0.2px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
       }
 /* 프사랑 아티스트 뱃지 그룹 */
@@ -55,6 +55,12 @@
         color: #171718;
       }
 /* ▼▼▼ [] ▼▼▼ */
+/* 가장 큰 채팅 레이아웃 */
+      .chat-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 7.8px; /* 배경 외곽에서 프로필사진까지의 거리*/
+      }
 /* 말풍선 */
       .bubble {
         /* font-family: 'Kosugi Maru'; */
@@ -65,16 +71,12 @@
         font-weight: 400;
         line-height: 1.2;
       }
+/* 아티스트 - 프로필 제외 레이아웃 */
       .message-content {
         display: flex;
         flex-direction: column;
-        max-width: 95%;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-      }
-      .chat-container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 8px;
+        max-width: 78%;
       }
       .chat-message {
         display: flex;
@@ -156,8 +158,10 @@
   /* 진짜 이모지 */
       .emoji {
         font-size: 66px;
-        line-height: 1.5;
+        line-height: 1.24;
         background: none;
+        /* position: relative;
+        top: 0px; 숫자↓ 위치↑ */
       }
   /* 버블 이모티콘 */
       .sticker {
@@ -220,33 +224,32 @@
         position: relative;
         overflow: hidden; /* 둥근 모서리 밖으로 이미지가 삐져나가지 않도록 */
         display: block;
-        max-width: 246px; /* 최대 너비 */
+        max-width: 300px; /* 최대 너비 */
         margin-top: -1px; /* 숫자↓ 위치↑ */
       }
       .poll img {
         width: 100%;
         display: block; /* 이미지 아래 작은 여백 제거 */
       }
+/* 투표 기간 */
       .poll-period {
         position: absolute;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transform: translate(-58px, 90px); /* 음수←↑ */
         color: #ff17e4;
         font-size: 10px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 230px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 20px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
       }
-      /* 주제 */
+/* 투표 주제 */
       .poll-topic {
         position: absolute;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center; 
-        transform: translate(-76px, 63px); /* 음수←↑ */
         color: #ff17e4;
         font-size: 14px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 196px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 32px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
       }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
@@ -392,10 +395,10 @@
   </head>
   <body>
     <div class="nickname">
-      김조닌
+      윤오오빠❤️
     </div>
     <div class="d-day">
-      149
+      150
     </div>
     
     <div class="title-bar">
@@ -502,14 +505,14 @@
     { sender: 'artist', type: 'text', content: "", time: "오전 01:03", profileIndex: 6 },
     
     
-    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 2 },
-    { sender: 'artist', type: 'reply', replyContent: "'리쿠야<br>보고싶어'", mainContent: "나두", time: "오후 11:05", profileIndex: 0 },
-    { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 1 },
-    { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 1 },
-    { sender: 'artist', type: 'emote', content: '../emoji/다마고치프렌즈_마메치_Hello_1.png', isImage: true, time: "오후 2:31", profileIndex: 1 },
-    { sender: 'artist', type: 'emote', content: '../emoji/다마고치프렌즈_러블리치_신남.jpg', isImage: true, time: "오후 10:13", profileIndex: 1 },
+    { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 0 },
+    { sender: 'artist', type: 'reply', replyContent: "내가 쓰는 말", mainContent: "답장", time: "오후 11:05", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: "😙", time: "오후 10:06", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: '../emoji/다마고치프렌즈_마메치_Hello_1.png', isImage: true, time: "오후 2:31", profileIndex: 0 },
+    { sender: 'artist', type: 'emote', content: '../emoji/다마고치프렌즈_러블리치_신남.jpg', isImage: true, time: "오후 10:13", profileIndex: 0 },
     { sender: 'artist', type: 'voice', content: '../voice/0.07.jpg', time: "오후 10:23", profileIndex: 0 },
-    { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19', profileIndex: 2 },
+    { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19', profileIndex: 0 },
     // 11개 유형 정리
   ];
   let currentProfileIndex;
@@ -649,7 +652,7 @@
           message.textContent.toLowerCase().includes(searchTerm)
         );
         
-        currentResultIndex = searchResults.length > 0 ? 0 : -1;
+        currentResultIndex = searchResults.length > 0 ? searchResults.length - 1 : -1;
         if (currentResultIndex !== -1) {
           navigateToResult(currentResultIndex);
         }
