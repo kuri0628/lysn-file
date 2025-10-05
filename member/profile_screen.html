@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <title>Artist Profile</title>
+  
+ <style>
+  body {
+    margin: 0;
+    font-family: -apple-system;
+    background-color: #A6A6A6;
+  }
+  .background {
+    aspect-ratio: 9 / 19.5;
+    width: 100%;
+/* --- 배사 이미지 --- */
+    background-image: url('../profile/colorsakuya.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* 닫기 버튼의 기준점 */
+  }
+  .container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    /* 투명도 */
+  }
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 172.5px;
+  }
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(0.83);
+  }
+  .name {
+    color: white;
+    font-size: 18px;
+    font-weight: 350;
+    margin-left: 0.8px; /* 태그-이름 간격 */
+  }
+  .artist-tag {
+    font-family: 'Inter';
+    font-size: 7px;
+    font-weight: 750;
+    transform: scaleX(1.05); /* 장평 : 숫자↑ 너비↑ */
+    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+    letter-spacing: 0.2px; /* 자간 */
+    line-height: 0.8;
+    color: #FFFFFF; 
+    border-radius: 999px;
+    margin-right: 9.5px;
+    padding: 4px 5px 3px 5px;  /* 위 오른 아래 왼쪽 여백 */
+    background: linear-gradient(125deg, #6340FF 0%, #6340FF 18%, #9C49FD 45%, #C26BFF 60%, #DC89FF 80%, #DC89FF 100%);
+    /* background: linear-gradient(90deg, #6340FF 0%, #7B3FFF 30%, #C26BFF 70%, #DC89FF 80% #9C49FD); */
+    /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+  }
+  .tag-container {
+    display: flex; /* 자식 요소들을 가로로 정렬 */
+    align-items: center; /* 세로 방향에서 중앙 정렬 */
+    margin-top: 1px; /* 프사-아티스트 태그 간격 */
+  }
+  .message {
+    font-size: 11px;
+    line-height: 1;
+    color: #CACACA;
+    margin-top: 5px;
+    /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); */
+ }
+ .close-button {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: white;
+    font-size: 28px;
+    font-weight: 100;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px #00000080;
+  }
+
+   
+
+/* 프로필 콘텐츠를 담는 컨테이너 */ 
+   /* 밑에 내용 */
+   .content-area {
+     padding: 40px 20px;
+     line-height: 1.6;
+   }
+   .content-area h2 {
+     margin-top: 0;
+   }
+   
+  </style>
+ </head>
+ <body>
+  <header class="background"> <div class="container">
+    <div class="close-button">×</div>
+    <div class="profile-section">
+     <img src="../profile/color_sakuya.jpg" alt="아티스트 프로필 이미지" class="profile-image">
+     <div class="tag-container">
+      <div class="artist-tag">ARTIST</div>
+      <span class="name">사쿠</span>
+     </div>
+     <p class="message">쿠리</p>
+    </div>
+   </div>
+  </header>
+  
+  <main class="content-area">
+   <h2>About Artist</h2>
+   <p>이곳에 아티스트에 대한 설명을 자유롭게 추가할 수 있습니다. 페이지는 이 아래로 계속 이어집니다.</p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim.</p>
+   <p>스크롤 테스트를 위한 추가 문단입니다. 내용이 길어지면 페이지가 아래로 스croll됩니다.</p>
+  </main>
+ </body>
+</html>
