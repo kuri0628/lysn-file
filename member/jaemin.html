@@ -76,7 +76,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-        max-width: 78%;
+        max-width: 79%;
       }
       .chat-message {
         display: flex;
@@ -399,7 +399,7 @@
       나냥이🐱🐰
     </div>
     <div class="d-day">
-      149
+      561
     </div>
     
     <div class="title-bar">
@@ -431,6 +431,7 @@
 // 아티스트 정보
   const artistProfile = [
     {img: "../profile/jaemin_200207_first.jpg", name:"JAEMIN"},
+    {img: "../profile/jaemin_200531.jpg", name:"JAEMIN💚NANA💚NCTzen"},
     {img: "../profile/jaemin_200713_1.jpg", name:"JAEMIN💚NANA💚NCTzen"},
     {img: "../profile/jaemin_200713_2.jpg", name:"JAEMIN💚NANA💚NCTzen"},
     {img: "../profile/jaemin_210130.jpg", name:"NANA💚"},
@@ -455,89 +456,89 @@
   ];
 // 메시지 배열
   const messages = [
-    { type: 'date', content: '2020년 2월 7일 요일' },
+    { type: 'date', content: '2020년 2월 7일 금요일' },
     { sender: 'artist', type: 'text', content: "유진~&nbsp;<br>JAEMIN이에요!&nbsp;<br>저랑 bubble 친구가 되어줘서 고마워요 :)", time: "오후 12:08", profileIndex: 0 },
     
     { type: 'date', content: '2020년 2월 10일 월요일' },
     { sender: 'artist', type: 'text', content: "유진💚 벌써 월요일이짜나나앙! 우리 유진💚 월요일 힘들어 힘들어어😟 점심밥 하고 저녁밥만 먹으면 오늘 하루 금방 지나가니까 잘챙겨먹고 조금만 더 힘내요! 으쌰으쌰 화이티이잉!", time: "오후 2:59", profileIndex: 0 },
     
     { type: 'date', content: '2025년 5월 21일 수요일' },
-    { sender: 'artist', type: 'text', content: "굿 모니이잉", time: "오후 5:37", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "굿5시~", time: "오후 5:37", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "굿 모니이잉", time: "오후 5:37", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "굿5시~", time: "오후 5:37", profileIndex: 22 },
 
     { type: 'date', content: '2025년 5월 22일 목요일' },
-    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요~ 유진💚", time: "오전 1:42", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "근데 나 왜 대학축제 떨리지", time: "오전 2:25", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋ", time: "오전 2:25", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "열심히 하겠습니다 잘 봐주십쇼!", time: "오전 2:25", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요~ 유진💚", time: "오전 1:42", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "근데 나 왜 대학축제 떨리지", time: "오전 2:25", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋ", time: "오전 2:25", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "열심히 하겠습니다 잘 봐주십쇼!", time: "오전 2:25", profileIndex: 22 },
 
     { type: 'date', content: '2025년 5월 23일 금요일' },
-    { sender: 'artist', type: 'text', content: "우리 쮜송이 라디오 잘했넹", time: "오전 1:46", profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_1.jpg', time: '오전 2:13', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_1.jpg', time: '오전 2:13', profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "오늘의 셀카욤", time: "오전 2:13", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "리허설 하고 이제 집에 도착쿵!", time: "오전 2:38", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "아니 근데 유진💚도 유진💚인데 오늘 중앙대 남성학우분들 에너지 너무 좋앜ㅋㅋㅋㅋ 오히려 우리 유진💚보다 반쪽하트 더 많이 해주심 ㅌㅌㅌㅌㅌㅋㅌㅌㅋㅋㅋ", time: "오전 2:41", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "감사합니다 중앙대 형님들", time: "오전 2:41", profileIndex: 21 },
-    { sender: 'artist', type: 'emote', content: "💙", time: "오전 2:41", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "곧 팬미에서 보자 울 애기 유진💚", time: "오전 2:42", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "우리 쮜송이 라디오 잘했넹", time: "오전 1:46", profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_1.jpg', time: '오전 2:13', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_1.jpg', time: '오전 2:13', profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "오늘의 셀카욤", time: "오전 2:13", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "리허설 하고 이제 집에 도착쿵!", time: "오전 2:38", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "아니 근데 유진💚도 유진💚인데 오늘 중앙대 남성학우분들 에너지 너무 좋앜ㅋㅋㅋㅋ 오히려 우리 유진💚보다 반쪽하트 더 많이 해주심 ㅌㅌㅌㅌㅌㅋㅌㅌㅋㅋㅋ", time: "오전 2:41", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "감사합니다 중앙대 형님들", time: "오전 2:41", profileIndex: 22 },
+    { sender: 'artist', type: 'emote', content: "💙", time: "오전 2:41", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "곧 팬미에서 보자 울 애기 유진💚", time: "오전 2:42", profileIndex: 22 },
 
     { type: 'date', content: '2025년 5월 27일 화요일 - 내 버블에 있어' },
-    { sender: 'artist', type: 'text', content: "아 맞다 헤헤 팬미 셀카 까묵었땅", time: "오전 1:50", profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250527_1.jpg', time: '오전 1:50', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250527_2.jpg', time: '오전 1:50', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250527_3.jpg', time: '오전 1:50', profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "아 맞다 헤헤 팬미 셀카 까묵었땅", time: "오전 1:50", profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250527_1.jpg', time: '오전 1:50', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250527_2.jpg', time: '오전 1:50', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250527_3.jpg', time: '오전 1:50', profileIndex: 22 },
     
     { type: 'date', content: '2025년 8월 29일 금요일' },
-    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요 공듀💚", time: "오전 1:00", profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250829_1.jpg', time: '오전 1:01', profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "난 일본어 공부중이였당", time: "오전 1:01", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "아 근데 생각해보니까 이 셀카 보내주고 싶은거 까먹은거 있더라", time: "오전 1:01", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "캬핫", time: "오전 1:02", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "오늘은 무엇을 했냐하면 아침에 피부과 갔다가 녹음하고 운동하고 보컬수업하고 일본어 공부 했습니돠", time: "오전 1:08", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "오늘의 TMI 캬컄", time: "오전 1:09", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요 공듀💚", time: "오전 1:00", profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250829_1.jpg', time: '오전 1:01', profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "난 일본어 공부중이였당", time: "오전 1:01", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "아 근데 생각해보니까 이 셀카 보내주고 싶은거 까먹은거 있더라", time: "오전 1:01", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "캬핫", time: "오전 1:02", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "오늘은 무엇을 했냐하면 아침에 피부과 갔다가 녹음하고 운동하고 보컬수업하고 일본어 공부 했습니돠", time: "오전 1:08", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "오늘의 TMI 캬컄", time: "오전 1:09", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 2일 화요일' },
-    { sender: 'artist', type: 'text', content: "조금 늦긴했지만 ㅎㅎ 오늘 하루도 수고했어요 오늘 하루도 화이팅이야❤️자기💚", time: "오전 3:13", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "조금 늦긴했지만 ㅎㅎ 오늘 하루도 수고했어요 오늘 하루도 화이팅이야❤️자기💚", time: "오전 3:13", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 4일 목요일' },
-    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요 자기💚 요즘 너무 늦게 끝나서 끝나고 와서 씻고 공부하고 내일 준비하고 이것저것 하느라 맨날 늦는다아 지금 자구 있겠지만 푸욱 자구 꿈꾸지 말고 일어나서 문자 보면 힘내🩷", time: "오전 4:55", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요 자기💚 요즘 너무 늦게 끝나서 끝나고 와서 씻고 공부하고 내일 준비하고 이것저것 하느라 맨날 늦는다아 지금 자구 있겠지만 푸욱 자구 꿈꾸지 말고 일어나서 문자 보면 힘내🩷", time: "오전 4:55", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 9일 화요일' },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_1.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_2.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_3.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_4.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_5.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_6.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_7.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_8.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_9.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_10.jpg', time: '오후 11:37', profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "우리 뚱냥이 루시까지 헤헿", time: "오후 11:37", profileIndex: 21 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_1.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_2.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_3.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_4.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_5.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_6.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_7.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_8.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_9.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'image', content: '../pic/jaemin_250909_10.jpg', time: '오후 11:37', profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "우리 뚱냥이 루시까지 헤헿", time: "오후 11:37", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 15일 월요일' },
-    { sender: 'artist', type: 'text', content: "요즘 바빠서", time: "오후 9:35", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "버블도 많이 못보냈네", time: "오후 9:35", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "힝구 잘 지내구 있어요?", time: "오후 9:35", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "요즘 바빠서", time: "오후 9:35", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "버블도 많이 못보냈네", time: "오후 9:35", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "힝구 잘 지내구 있어요?", time: "오후 9:35", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 20일 토요일' },
-    { sender: 'artist', type: 'text', content: "드디어 비가 안오는구나.. 곧 가을..이 오고 있다 환절기 감기 조심 건조함 조심", time: "오후 3:02", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어 우리 유진이💚", time: "오후 11:43", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "드디어 비가 안오는구나.. 곧 가을..이 오고 있다 환절기 감기 조심 건조함 조심", time: "오후 3:02", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어 우리 유진이💚", time: "오후 11:43", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 21일 일요일' },
-    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요 유진아💚 내가 내일은 기필코 인스타 올리고 만다", time: "오후 11:39", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요 유진아💚 내가 내일은 기필코 인스타 올리고 만다", time: "오후 11:39", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 23일 화요일' },
-    { sender: 'artist', type: 'text', content: "오늘 하루도 수고 했어용 울 공주님💚", time: "오전 12:16", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "내일도 인스타 하나 올려야겠당", time: "오전 12:16", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "오늘 하루도 수고 했어용 울 공주님💚", time: "오전 12:16", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "내일도 인스타 하나 올려야겠당", time: "오전 12:16", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 24일 수요일' },
-    { sender: 'artist', type: 'text', content: "오늘도 수고했어요 유진💚", time: "오전 3:43", profileIndex: 21 },
-    { sender: 'artist', type: 'text', content: "나 이제 드뎌 할 일을 끝내구 잘수 있엉 ㅎㅎ", time: "오전 3:43", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "오늘도 수고했어요 유진💚", time: "오전 3:43", profileIndex: 22 },
+    { sender: 'artist', type: 'text', content: "나 이제 드뎌 할 일을 끝내구 잘수 있엉 ㅎㅎ", time: "오전 3:43", profileIndex: 22 },
     
     { type: 'date', content: '2025년 9월 28일 일요일' },
-    { sender: 'artist', type: 'text', content: "오늘의 추천곡 DIE FOR YOU - JOJI", time: "오후 6:54", profileIndex: 21 },
+    { sender: 'artist', type: 'text', content: "오늘의 추천곡 DIE FOR YOU - JOJI", time: "오후 6:54", profileIndex: 22 },
     
     { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19', profileIndex: 0 },
     { sender: 'artist', type: 'text', content: "笑笑", translation: "웃다", time: "오후 10:25", profileIndex: 0 },
