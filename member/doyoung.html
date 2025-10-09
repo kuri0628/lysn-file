@@ -430,9 +430,7 @@
   const pollImagePath = '../pic/vote.jpg';
 // 아티스트 정보
   const artistProfile = [
-    {img: "../profile/doyoung_200207_first.jpg", name:"DOYOUNG"},
-    
-    
+    {img: "../profile/doyoung_first_superhuman.png", name:"DOYOUNG"},
     {img: "../profile/doyoung_200713.jpg", name:"DOYOUNG💚"},
     {img: "../profile/doyoung_영웅프사.jpg", name:"DOYOUNG💚"},
     {img: "../profile/doyoung_200715.jpg", name:"DOYOUNG"},
@@ -471,7 +469,7 @@
     {img: "../profile/doyoung_230610-.jpg", name:"(ᓀ‸ᓂ)"},
     {img: "../profile/doyoung_231211-240601.jpg", name:"동영이"},
     {img: "../profile/doyoung_240602-250228.jpg", name:"동"},
-    {img: "../profile/doyoung_250302-.jpg", name:"동"}
+    {img: "../profile/doyoung_250302.jpg", name:"동"}
   ];
 // 메시지 배열
   const messages = [
@@ -487,8 +485,10 @@
     { sender: 'artist', type: 'text', content: "난 뭔가 삐져있나 ㅋㅋㅋ", time: "오후 10:51", profileIndex: 0 },
     { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋ", time: "오후 10:55", profileIndex: 0 },
     { sender: 'artist', type: 'text', content: "바꿨엉", time: "오후 10:55", profileIndex: 0 },
-    { sender: 'me', type: 'text', content: '안뇽', time: '오후 8:40' },
-    // 11개 유형 정리
+    
+    { type: 'date', content: '2025년 월 일 요일' },
+    { sender: 'artist', type: 'text', content: "", time: "오후 10:48", profileIndex: 40 },
+    { sender: 'me', type: 'text', content: '도영씨', time: '오후 8:40' },
   ];
   let currentProfileIndex;
   const chatContainer = document.getElementById("chat");
