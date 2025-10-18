@@ -452,13 +452,11 @@
         
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
-// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
         if (msg.type === 'reply') {
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${profile.img}')"></div>
           <div class="message-content">
           <div class="header">
-          
           <div class="name">${profile.name}</div>
           </div>
           <div class="bubble reply-bubble">
@@ -507,12 +505,10 @@
             let langAttr = msg.lang ? ` lang="${msg.lang}"` : '';
             messageBodyHTML = `<div class="${bubbleClass}"${langAttr}>${bubbleContent}</div>`;
           }
-// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${profile.img}')"></div>
           <div class="message-content">
           <div class="header">
-          
           <div class="name">${profile.name}</div>
           </div>
           <div style="display:flex; align-items:flex-end;">
