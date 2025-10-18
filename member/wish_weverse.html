@@ -259,72 +259,6 @@
       .message-content:has(.poll) {
         max-width: 79%; /*  */
       }
-/* ▼▼▼ [채팅방 이름] ▼▼▼ */
-      .nickname {
-        font-family: 'Noto Sans KR';
-        font-size: 15.5px;
-        font-weight: 650;
-        color: #000000;
-        padding-top: 16.5px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        max-width: 550px;
-        margin: 0 auto;
-        text-align: center;
-        z-index: 1001;
-        pointer-events: none;
-      }
-/* ▼▼▼ [구독일 하트] ▼▼▼ */
-      .d-day {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        max-width: 600px;
-        margin: 0 auto;
-        padding-top: 62px;
-        transform: translateX(30px); /* 숫자↑ 위치→ */
-        text-align: center;
-        z-index: 1001;
-        font-size: 11px;
-        font-weight: 600;
-        color: #000000;
-        pointer-events: none;
-      }
-/* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
-      .input-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-      }
-      .input-bar img {
-        max-width: 500px;
-        width: 100%;
-        display: block;
-        margin: 0 auto;
-      }
-/* ▼▼▼ [구독일 패널] ▼▼▼ */
-      .title-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        max-width: 500px;
-        margin: 0 auto;
-        width: 100%;
-        background: #F1F1F1;
-        z-index: 1000;
-      }
-      .title-bar img {
-        width: 100%;
-        display: block;
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
-        /* border-radius: 0 0 11px 10px;  좌상 우상 우하 좌하 */
-      }
 /* ▼▼▼ [검색] ▼▼▼ */
       .search {
         position: fixed;
@@ -402,21 +336,6 @@
 </style>
   </head>
   <body>
-    <div class="nickname">
-      윤오오빠❤️
-    </div>
-    <div class="d-day">
-      153
-    </div>
-    
-    <div class="title-bar">
-      <img src="../pic/구독일패널.png" alt="상단 고정 이미지">
-      
-      <div id="search-icon">
-        <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
-      </div>
-    </div>
-    
     <div class="search">
       <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
@@ -437,8 +356,30 @@
   const pollImagePath = '../pic/vote.jpg';
 // 아티스트 정보
   const artistProfile = [
-   {img: "../profile/jaehyun_200207_first.png", name:"JAEHYUN"},
-   {img: "../profile/wonbin_250731_3.jpg", name:"삐니"}
+   {img: "../profile/weverse_sion_231023.jpg", name:"SION"},
+   {img: "../profile/weverse_sion_240119.jpg", name:"SION"},
+   {img: "../profile/weverse_sion_240229_wish.jpg", name:"SION"},
+   {img: "../profile/weverse_sion_240701_songbird.jpg", name:"SION"},
+   {img: "../profile/weverse_sion_240701_songbird.jpg", name:"오う지"},
+   {img: "../profile/weverse_sion_240807.jpg", name:"오う지"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"오う지"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"오시온"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"위시풀46분남음"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 40분 남음"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 30분 남음"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 20분 남음"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 10분 남음"},
+   {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 5분 남음"},
+   {img: "../profile/weverse_sion_241206.jpg", name:"오시온"},
+   {img: "../profile/weverse_sion_241221.jpg", name:"오시온"},
+   {img: "../profile/weverse_sion_250116.jpg", name:"오시온"},
+   {img: "../profile/weverse_sion_250119.jpg", name:"오시온"},
+   {img: "../profile/weverse_sion_250122.jpg", name:"오시온"},
+   {img: "../profile/weverse_sion_250122.jpg", name:"SION"},
+   {img: "../profile/weverse_sion_250329.jpg", name:"SION"},
+   {img: "../profile/weverse_sion_250329.jpg", name:"위시 팝팝 오늘 오후 6시"},
+   {img: "../profile/weverse_sion_250329.jpg", name:"오시온"},
+   {img: "../profile/weverse_sion_250329.jpg", name:"시온"}
   ];
 // 메시지 배열
   const messages = [
