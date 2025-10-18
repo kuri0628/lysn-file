@@ -60,44 +60,7 @@
     font-size: 12px;
     /* font-weight: 600; 아티스트 태그 있을 때는 600*/
     color: #171718;
-  }
-/* ▼▼▼ [날짜] ▼▼▼ */
-   /* 1. 날짜 구분선 스타일 */
-  .date-divider { 
-    text-align: center;        
-    font-size: 11px; 
-    color: #8A8A8A;
-    margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
-    position: relative;
-  }
-   /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
-  .date-divider::before {
-    content: '';
-    position: absolute;
-    top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-    left: 50%;
-    width: 100vw;
-    height: 0.8px; /* 선 두께 */
-    background: #E0E0E0;
-    transform: translateX(-50%);
-  }
-  .message-content { 
-    display: flex; 
-    flex-direction: column; 
-    max-width: 85%;
-    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-  }
-  .framework {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 8px;
-  }
-  .chat-message {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 14.5px; /* 메시지 간 간격 */
-    gap: 6.5px /* 메시지-프로필 간격 */
-  }
+  
 /* 말풍선 */
   .bubble {
     background: #FFFFFF;
@@ -112,15 +75,25 @@
     font-family: 'Kosugi Maru', 'Noto Sans JP', sans-serif;
     font-size: 13.5px;
   }
-  
-  .time {
-    font-size: 10px;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.3);
-    margin-left: 6px;
-    white-space: nowrap;
-    position: relative;
-    top: 2px;
+
+  .message-content { 
+    display: flex; 
+    flex-direction: column; 
+    max-width: 85%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .framework {
+    max-width: 500px; /* 채팅방 크기 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 8px; /* 프로필(+다른 내용물)과 외곽 거리 */
+  }
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14.5px; /* 메시지 간 간격 */
+    gap: 6.5px /* 메시지-프로필 간격 */
+  }
+
   }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
    /* 오른쪽배치 - 메시지 색 - 시간 */
@@ -139,6 +112,37 @@
     margin-left: 0; 
     margin-right: 6px; 
   }
+  
+  /* ▼▼▼ [날짜] ▼▼▼ */
+  .date-divider { 
+    text-align: center;        
+    font-size: 11px; 
+    color: #8A8A8A;
+    margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
+    position: relative;
+  }
+  .date-divider::before {
+    content: '';
+    position: absolute;
+    top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+    left: 50%;
+    width: 100vw;
+    height: 0.8px; /* 선 두께 */
+    background: #E0E0E0;
+    transform: translateX(-50%);
+  }
+
+/* ▼▼▼ [시간] ▼▼▼ */
+  .time {
+    font-size: 10px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.3);
+    margin-left: 6px;
+    white-space: nowrap;
+    position: relative;
+    top: 2px;
+  }
+
 /* ▼▼▼ [사진] ▼▼▼ */
    /* 3. 사진 메시지 스타일 */
   .image-bubble {
