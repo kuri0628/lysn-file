@@ -15,8 +15,7 @@
         line-height: 1.5;
         margin: 0;
         background: #EEEEEE;
-        padding-top: 70px; /* 구독일 패널 */
-        padding-bottom: 50px; /* input bar */
+        padding-bottom: 50px;
       }
       .profile {
         width: 40.2px;
@@ -260,13 +259,13 @@
         max-width: 79%; /*  */
       }
 /* ▼▼▼ [검색] ▼▼▼ */
-      .search {
-        position: fixed;
+      .search-bar {
+        position: sticky;
         top: 0;
         background: white;
         padding: 10px 8px;
-        z-index: 1002;
-        display: none;
+        z-index: 10;
+        display: flex;
         align-items: center;
         gap: 5px;
         max-width: 500px;
@@ -275,75 +274,66 @@
         left: 0;
         right: 0;
       }
-      .search.visible {
-        display: flex;
-      }
-      #search-icon {
-        position: absolute;
-        top: 18.5px;
-        right: 64px;
-        width: 20.5px;
-        height: 20.5px;
-        opacity: 0.5;
-        background: transparent;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .search-img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        display: block;
-      }
       #searchInput {
-        flex-grow: 1;
-        padding: 10px;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        font-size: 14px;
-        box-sizing: border-box;
-      }
-      #searchInput:focus {
-        outline: none;
-        border-color: #A584F9;
-        box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
-      }
-      .search-controls {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-      .search-controls button {
-        width: 38px;
-        height: 38px;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        background: white;
-        font-size: 18px;
-        padding: 0;
-      }
-      #searchCounter {
-        font-size: 12px;
-        color: #8A8A8A;
-        min-width: 40px;
-        text-align: center;
-      }
-    
+  flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
+  padding: 10px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+#searchInput:focus {
+    outline: none;
+    border-color: #A584F9;
+    box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
+}
+
+.search-controls button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  background: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#searchCounter {
+  font-size: 12px;
+  color: #8A8A8A;
+  min-width: 40px; /* 카운터 너비 고정 */
+  text-align: center;
+}
+
+/* 현재 검색 결과 하이라이트 (추가) */
+.current-search-result .bubble {
+  animation: highlight-animation 1.2s;
+}
+
+@keyframes highlight-animation {
+  0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); } /* 포커스 색상과 맞춤 */
+  70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+  100% { box-shadow: none; }
+  
 </style>
   </head>
   <body>
-    <div class="search">
-      <input type="text" id="searchInput" placeholder="채팅 검색">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="메시지 검색 후 Enter">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
         <button id="nextBtn">↓</button>
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
+    
     <div class="chat-container" id="chat"></div>
     
 <script>
@@ -492,84 +482,121 @@
       });
       
       //검색 기능 관련
-      const searchBar = document.querySelector('.search');
-      const searchIcon = document.getElementById('search-icon');
-      const searchInput = document.getElementById('searchInput');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const searchCounter = document.getElementById('searchCounter');
+  // --- 검색 기능 스크립트 (수정) ---
+const searchInput = document.getElementById('searchInput');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const searchCounter = document.getElementById('searchCounter');
+
+let searchResults = []; // 검색 결과를 담을 배열 (DOM 요소)
+let currentResultIndex = -1; // 현재 보고 있는 검색 결과의 인덱스
+
+// 검색 실행 함수
+const performSearch = () => {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+
+  // 기존 하이라이트 제거
+  const highlighted = document.querySelector('.current-search-result');
+  if (highlighted) {
+    highlighted.classList.remove('current-search-result');
+  }
+
+  if (!searchTerm) {
+    searchResults = [];
+    currentResultIndex = -1;
+    updateCounter();
+    return;
+  }
+
+  // ★★★ 중요 ★★★
+  // 'my-chat-message'도 검색 대상에 포함해야 함
+  const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+
+  searchResults = Array.from(allMessages).filter(message => {
+    // 'picture', 'voice' 등 텍스트가 아닌 버블도 있으므로 .bubble을 찾아서 확인
+    const bubble = message.querySelector('.bubble'); 
+    return bubble && bubble.textContent.toLowerCase().includes(searchTerm);
+  });
+
+  if (searchResults.length > 0) {
+    // '새 코드'는 0(첫번째)부터 시작, '기존 코드'는 마지막(length - 1)부터 시작
+    // 0부터 시작하는 것이 더 직관적이므로 0으로 설정
+    currentResultIndex = 0; 
+    navigateToResult(currentResultIndex);
+  } else {
+    currentResultIndex = -1;
+  }
+  updateCounter();
+};
+
+// 특정 검색 결과로 이동하는 함수
+const navigateToResult = (index) => {
+  if (index < 0 || index >= searchResults.length) return;
+
+  // 기존 하이라이트 제거
+  const previouslyHighlighted = document.querySelector('.current-search-result');
+  if (previouslyHighlighted) {
+    previouslyHighlighted.classList.remove('current-search-result');
+  }
+
+  const targetMessage = searchResults[index];
+
+  // 부드럽게 스크롤
+  targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // 새 메시지에 하이라이트 클래스 추가
+  targetMessage.classList.add('current-search-result');
+
+  currentResultIndex = index;
+  updateCounter();
+};
+
+// 카운터 업데이트 함수
+const updateCounter = () => {
+  if (searchResults.length > 0) {
+    searchCounter.textContent = `${currentResultIndex + 1} / ${searchResults.length}`;
+  } else {
+    searchCounter.textContent = `0 / 0`;
+  }
+};
+
+// --- 이벤트 리스너 설정 ---
+
+// Enter 키로 검색 실행
+searchInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // Enter로 인한 줄바꿈/전송 방지
+    performSearch();
+  }
+});
+
+// 이전 버튼 클릭
+prevBtn.addEventListener('click', () => {
+  if (searchResults.length > 0) {
+    let newIndex = currentResultIndex - 1;
+    if (newIndex < 0) {
+      newIndex = searchResults.length - 1; // 마지막 결과로 순환
+    }
+    navigateToResult(newIndex);
+  } else {
+     performSearch(); // 검색된 결과가 없을때 누르면 검색 시작
+  }
+});
+
+// 다음 버튼 클릭
+nextBtn.addEventListener('click', () => {
+  if (searchResults.length > 0) {
+    let newIndex = currentResultIndex + 1;
+    if (newIndex >= searchResults.length) {
+      newIndex = 0; // 처음 결과로 순환
+    }
+    navigateToResult(newIndex);
+  } else {
+    performSearch();
+  }
+});
+
       
-      let searchResults = [];
-      let currentResultIndex = -1;
-      
-      const openSearch = () => {
-        searchBar.classList.add('visible');
-        searchInput.focus();
-        if (location.hash !== '#search') {
-          location.hash = 'search';
-        }
-      };
-      
-      const closeSearch = () => {
-        history.back();
-      };
-      
-      const performSearch = () => {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (!searchTerm) {
-          searchResults = [];
-          currentResultIndex = -1;
-          updateCounter();
-          return;
-        }
-        
-        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-        searchResults = Array.from(allMessages).filter(message =>
-          message.textContent.toLowerCase().includes(searchTerm)
-        );
-        
-        currentResultIndex = searchResults.length > 0 ? searchResults.length - 1 : -1;
-        if (currentResultIndex !== -1) {
-          navigateToResult(currentResultIndex);
-        }
-        updateCounter();
-      };
-      
-      const navigateToResult = (index) => {
-        if (index < 0 || index >= searchResults.length) return;
-        
-        const targetMessage = searchResults[index];
-        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        currentResultIndex = index;
-        updateCounter();
-      };
-      
-      const updateCounter = () => {
-        const total = searchResults.length;
-        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
-      };
-      
-      const handleNavigation = (direction) => {
-        if (searchResults.length === 0) return;
-        const total = searchResults.length;
-        const newIndex = (currentResultIndex + direction + total) % total;
-        navigateToResult(newIndex);
-      };
-      
-      searchIcon.addEventListener('click', openSearch);
-      searchInput.addEventListener('input', performSearch);
-      
-      prevBtn.addEventListener('click', () => handleNavigation(-1));
-      nextBtn.addEventListener('click', () => handleNavigation(1));
-      
-      window.addEventListener('hashchange', () => {
-        if (location.hash !== '#search') {
-          searchBar.classList.remove('visible');
-          searchInput.value = "";
-          performSearch();
-        }
-      });
     </script>
   </body>
 </html>
