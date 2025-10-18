@@ -106,6 +106,10 @@
     line-height: 1;
     font-family: Pretendard, 'Kosugi Maru', sans-serif;
   }
+  .bubble:lang(ja) {
+    font-family: 'Kosugi Maru', Pretendard, sans-serif;
+  }
+  
   .time {
     font-size: 10px;
     font-weight: 400;
@@ -267,7 +271,7 @@
     { sender: 'artist', type: 'text', content: "그치", time: "오후 06:37", profileIndex: 2 },
     { sender: 'artist', type: 'text', content: "생각해봐야겟다", time: "오후 06:38", profileIndex: 2 },
     { sender: 'artist', type: 'voice', time: "오후 09:12", profileIndex: 2 },
-    { sender: 'artist', type: 'text', content: "おやちゅみ", translation: "오야츄미", time: "오후 09:12", profileIndex: 2 },
+    { sender: 'artist', type: 'text', content: "おやちゅみ", translation: "오야츄미", time: "오후 09:12", profileIndex: 2, lang: 'ja' },
   ];
       let currentProfileIndex = 0;
       const chatContainer = document.getElementById("chat");
@@ -343,7 +347,8 @@
               `;
               bubbleClass += ' has-translation';
             }
-            messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
+            let langAttr = msg.lang ? ` lang="${msg.lang}"` : '';
+            messageBodyHTML = `<div class="${bubbleClass}"${langAttr}>${bubbleContent}</div>`;
           }
 // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span> 을 <div class="header"> 바로 아래에 넣어주기
           chatMsg.innerHTML = `
