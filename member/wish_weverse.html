@@ -313,32 +313,17 @@
   text-align: center;
 }
 
-    /* (NEW) 일반 검색 결과 하이라이트 */
-    .search-highlight .bubble {
-      background-color: #FFFDE7; /* 연한 노란색 */
-      border: 1px solid #FFEB3B;
-      border-radius: 4px 14.5px 14.5px 14.5px; /* 말풍선 모양 유지 */
-    }
-    .my-chat-message.search-highlight .bubble {
-      border-radius: 14.5px 14.5px 4px 14.5px; /* 내 말풍선 모양 유지 */
-    }
-
-    /* (MODIFIED) 현재 포커스된 검색 결과 */
+    /* 현재 검색 결과 하이라이트 (수정) */
     .current-search-result .bubble {
-      background-color: #FFFFFF; /* 일반 하이라이트(노란색) 덮어쓰기 */
-      border: none; /* 일반 하이라이트(테두리) 덮어쓰기 */
-      animation: highlight-animation 1.2s infinite; /* 펄스 효과 계속 반복 */
-      box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.5); /* 기본 보라색 테두리 */
+      animation: highlight-animation 1.2s;
     }
 
-    /* (MODIFIED) 펄스 애니메이션 */
     @keyframes highlight-animation {
-      0% { box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.5); }
-      50% { box-shadow: 0 0 0 4px rgba(165, 132, 249, 0.2); }
-      100% { box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.5); }
+      0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); } /* 포커스 색상과 맞춤 */
+      70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+      100% { box-shadow: none; }
     }
 
-  
 </style>
   </head>
   <body>
@@ -501,6 +486,7 @@
       
       //검색 기능 관련    
       // --- 검색 기능 스크립트 (수정) ---
+          // --- 검색 기능 스크립트 (수정) ---
     const searchInput = document.getElementById('searchInput');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -513,18 +499,11 @@
     const performSearch = () => {
       const searchTerm = searchInput.value.trim().toLowerCase();
       
-      // --- (MODIFIED) 기존 하이라이트 모두 제거 ---
-      // 1. '현재' 포커스 하이라이트 제거
-      const currentHighlighted = document.querySelector('.current-search-result');
-      if (currentHighlighted) {
-        currentHighlighted.classList.remove('current-search-result');
+      // 기존 하이라이트 제거
+      const highlighted = document.querySelector('.current-search-result');
+      if (highlighted) {
+        highlighted.classList.remove('current-search-result');
       }
-      // 2. '일반' 검색 하이라이트 모두 제거
-      const allHighlighted = document.querySelectorAll('.search-highlight');
-      allHighlighted.forEach(el => {
-        el.classList.remove('search-highlight');
-      });
-      // --- (수정 끝) ---
 
       if (!searchTerm) {
         searchResults = [];
@@ -533,6 +512,7 @@
         return;
       }
       
+      // 'my-chat-message'도 검색 대상에 포함
       const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
       
       searchResults = Array.from(allMessages).filter(message => {
@@ -540,15 +520,9 @@
         return bubble && bubble.textContent.toLowerCase().includes(searchTerm);
       });
 
-      // --- (NEW) 모든 검색 결과에 '일반' 하이라이트 추가 ---
-      searchResults.forEach(message => {
-        message.classList.add('search-highlight');
-      });
-      // --- (추가 끝) ---
-
       if (searchResults.length > 0) {
-        currentResultIndex = 0; 
-        navigateToResult(currentResultIndex); // 첫 번째 결과로 이동
+        currentResultIndex = 0; // 첫 번째 결과로 이동
+        navigateToResult(currentResultIndex);
       } else {
         currentResultIndex = -1;
       }
@@ -559,20 +533,19 @@
     const navigateToResult = (index) => {
       if (index < 0 || index >= searchResults.length) return;
 
-      // --- (MODIFIED) '현재' 포커스만 이동 ---
-      // 1. 기존 '현재' 포커스 제거
+      // 기존 하이라이트 제거
       const previouslyHighlighted = document.querySelector('.current-search-result');
       if (previouslyHighlighted) {
         previouslyHighlighted.classList.remove('current-search-result');
       }
 
-      // 2. 새 메시지에 '현재' 포커스 추가
       const targetMessage = searchResults[index];
-      targetMessage.classList.add('current-search-result');
       
-      // 3. 스크롤
+      // 부드럽게 스크롤
       targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // --- (수정 끝) ---
+      
+      // 새 메시지에 하이라이트 클래스 추가
+      targetMessage.classList.add('current-search-result');
       
       currentResultIndex = index;
       updateCounter();
@@ -622,6 +595,7 @@
         performSearch();
       }
     });
+
 </script>
   </body>
 </html>
