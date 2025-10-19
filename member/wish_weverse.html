@@ -461,6 +461,7 @@
       let currentArtistProfiles = {};
       const chatContainer = document.getElementById("chat");
       messages.forEach(msg => {
+        
         // 1. 날짜
         if (msg.type === 'date') {
           const dateEl = document.createElement('div');
@@ -471,138 +472,126 @@
         }
         // 2. 내가 보내는 버블
         if (msg.sender === 'me') {
-      const myMsg = document.createElement("div");
-      myMsg.className = "my-chat-message";
-      myMsg.innerHTML = `
-      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-      <div class="bubble my-bubble">${msg.content}</div>
-      `;
-      chatContainer.appendChild(myMsg);
-      return;
-    }
-
-// 3. 아티스트 버블 (핵심 로직 수정)
-    if (msg.sender === 'artist') {
+          const myMsg = document.createElement("div");
+          myMsg.className = "my-chat-message";
+          myMsg.innerHTML = `
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          <div class="bubble my-bubble">${msg.content}</div>
+          `;
+          chatContainer.appendChild(myMsg);
+          return;
+        }
         
-        // 3-1. 이 메시지의 아티스트 ID 가져오기
-        const artistId = msg.artistId;
-        if (!artistId) {
+        // 3. 아티스트 버블 (핵심 로직 수정)
+        if (msg.sender === 'artist') {
+          // 3-1. 이 메시지의 아티스트 ID 가져오기
+          const artistId = msg.artistId;
+          if (!artistId) {
             console.error('메시지에 artistId가 없습니다:', msg);
             return; // artistId가 없으면 이 메시지 건너뛰기
-        }
-
-        // 3-2. 이 메시지에서 프로필을 변경하는지 확인
-        if (msg.profileIndex !== undefined) {
+          }
+          // 3-2. 이 메시지에서 프로필을 변경하는지 확인
+          if (msg.profileIndex !== undefined) {
             // 해당 아티스트의 현재 프로필 인덱스를 업데이트
             currentArtistProfiles[artistId] = msg.profileIndex;
-        }
-
-        // 3-3. 사용할 프로필 인덱스 결정
-        // 저장된 값이 없으면(첫 등장이면) 0번 사용
-        const profileIndexToUse = currentArtistProfiles[artistId] !== undefined ? currentArtistProfiles[artistId] : 0;
-
-        // 3-4. artists 객체에서 실제 프로필 정보 가져오기
-        if (!artists[artistId] || !artists[artistId][profileIndexToUse]) {
+          }
+          // 3-3. 사용할 프로필 인덱스 결정
+          // 저장된 값이 없으면(첫 등장이면) 0번 사용
+          const profileIndexToUse = currentArtistProfiles[artistId] !== undefined ? currentArtistProfiles[artistId] : 0;
+          // 3-4. artists 객체에서 실제 프로필 정보 가져오기
+          if (!artists[artistId] || !artists[artistId][profileIndexToUse]) {
             console.error(`프로필 정보를 찾을 수 없습니다: artistId=${artistId}, index=${profileIndexToUse}`);
             return; // 프로필 정보 없으면 건너뛰기
-        }
-        const profile = artists[artistId][profileIndexToUse];
-
-
-        // --- 얘는 뭘까요 ---
-        
-        const chatMsg = document.createElement("div");
-        chatMsg.className = "chat-message";
-        if (msg.isContinuation) {
-          chatMsg.classList.add('continuation');
-        }
-      
-        if (msg.type === 'reply') {
-          chatMsg.innerHTML = `
-          <div class="profile" style="background-image: url('${profile.img}')"></div>
-          <div class="message-content">
-          <div class="header">
-          <div class="name">${profile.name}</div>
-          </div>
-          <div class="bubble reply-bubble">
-          <div class="reply-title">ARTIST의 답장</div>
-          <div class="reply-content">${msg.replyContent}</div>
-          </div>
-          <div style="display:flex; align-items:flex-end;">
-          <div class="bubble bubble-after-reply">${msg.mainContent}</div>
-          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-          </div>
-          </div>
-          `;
-        } else {
-          let messageBodyHTML = '';
-
-          
-          if (msg.type === 'emote') {
-            if (msg.isImage) {
-              messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
-            } else {
-              messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
-            }
-          } else if (msg.type === 'image') {
-            messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
-          } else if (msg.type === 'voice') {
-            messageBodyHTML = `<div class="bubble voice">
-            <img src="${msg.content}" alt="음성메시지">
-            </div>`;
-          } else if (msg.type === 'poll') {
-            let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
-            messageBodyHTML = `
-            <div class="poll">
+          }
+          const profile = artists[artistId][profileIndexToUse];
+          // --- 얘는 뭘까요 ---
+          const chatMsg = document.createElement("div");
+          chatMsg.className = "chat-message";
+          if (msg.isContinuation) {
+            chatMsg.classList.add('continuation');
+          }
+          if (msg.type === 'reply') {
+            chatMsg.innerHTML = `
+            <div class="profile" style="background-image: url('${profile.img}')"></div>
+            <div class="message-content">
+            <div class="header">
+            <div class="name">${profile.name}</div>
+            </div>
+            <div class="bubble reply-bubble">
+            <div class="reply-title">ARTIST의 답장</div>
+            <div class="reply-content">${msg.replyContent}</div>
+            </div>
+            <div style="display:flex; align-items:flex-end;">
+            <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+            <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+            </div>
+            </div>
+            `;
+          } else {
+            let messageBodyHTML = '';
+            
+            if (msg.type === 'emote') {
+              if (msg.isImage) {
+                messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
+              } else {
+                messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
+              }
+            } else if (msg.type === 'image') {
+              messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
+            } else if (msg.type === 'voice') {
+              messageBodyHTML = `<div class="bubble voice">
+              <img src="${msg.content}" alt="음성메시지">
+              </div>`;
+            } else if (msg.type === 'poll') {
+              let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
+              messageBodyHTML = `
+              <div class="poll">
               <img src="${pollImagePath}" alt="투표 이미지">
               ${pollTitleHTML}
               <div class="poll-topic">${msg.text}</div>
-            </div>
-            `;
-          } else { // 기본 텍스트 버블
-            let bubbleContent = msg.content;
-            let bubbleClass = 'bubble';
-            if (showTranslations && msg.translation) {
-              bubbleContent += `
-              <hr class="dotted-divider">
-              <div class="translation-inner">${msg.translation}</div>
+              </div>
               `;
-              bubbleClass += ' has-translation';
+            } else { // 기본 텍스트 버블
+              let bubbleContent = msg.content;
+              let bubbleClass = 'bubble';
+              if (showTranslations && msg.translation) {
+                bubbleContent += `
+                <hr class="dotted-divider">
+                <div class="translation-inner">${msg.translation}</div>
+                `;
+                bubbleClass += ' has-translation';
+              }
+              let langAttr = msg.lang ? ` lang="${msg.lang}"` : '';
+              messageBodyHTML = `<div class="${bubbleClass}"${langAttr}>${bubbleContent}</div>`;
             }
-            let langAttr = msg.lang ? ` lang="${msg.lang}"` : '';
-            messageBodyHTML = `<div class="${bubbleClass}"${langAttr}>${bubbleContent}</div>`;
-          }
-          let messageContentClass = 'message-content';
-    if (msg.isContinuation) {
-        messageContentClass += ' message-continuation';
-    }
-
-
-
-          
-          chatMsg.innerHTML = `
-    <div class="profile" style="background-image: url('${profile.img}')"></div>
-    <div class="${messageContentClass}"> 
-        <div class="header">
+            let messageContentClass = 'message-content';
+            if (msg.isContinuation) {
+              messageContentClass += ' message-continuation';
+            }
+            
+            chatMsg.innerHTML = `
+            <div class="profile" style="background-image: url('${profile.img}')"></div>
+            <div class="${messageContentClass}"> 
+            <div class="header">
             <div class="name">${profile.name}</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
+            </div>
+            <div style="display:flex; align-items:flex-end;">
             ${messageBodyHTML}
             <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-        </div>
-    </div>
-    `;
-}
-chatContainer.appendChild(chatMsg);
-    } // if (msg.sender === 'artist') 끝
-  });
-  //검색 기능 관련
-  // --- 검색 기능 스크립트 (수정) ---
-  // --- 검색 기능 스크립트 (수정) ---
-  const searchInput = document.getElementById('searchInput');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const searchCounter = document.getElementById('searchCounter');
+            </div>
+            </div>
+            `;
+          }
+          chatContainer.appendChild(chatMsg);
+        } // if (msg.sender === 'artist') 끝
+      });
+      //검색 기능 관련
+      // --- 검색 기능 스크립트 (수정) ---
+      // --- 검색 기능 스크립트 (수정) ---
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
   
   let searchResults = []; // 검색 결과를 담을 배열 (DOM 요소)
   let currentResultIndex = -1; // 현재 보고 있는 검색 결과의 인덱스
