@@ -309,29 +309,20 @@
 /* ▼▼▼ [대화 연결] ▼▼▼ */
   /* 연결된 대화의 내용 컨테이너 */
       .message-continuation {
-        /* 첫 메시지의 프로필과 동일한 높이에 맞추기 위해 약간 조정 */
-        margin-left: 10px; /* 프로필 공간을 비우고 오른쪽으로 이동 */
         padding-left: 10px; /* 세로줄과 메시지 내용 사이 간격 */
         border-left: 3px solid #E0E0E0; /* 얇은 세로줄 */
         max-width: 76%; /* 전체 메시지 너비 조정 (선 추가로 인해) */
       }
-  /* 대화 연결 메시지에서는 프로필과 이름이 표시되지 않도록 숨김 */
+  /* 대화 연결 메시지에서는 이름이 표시되지 않도록 숨김 */
       .message-continuation .header {
         display: none;
       }
-      .message-continuation .profile {
-        display: none;
-      }
-  /* 연속 메시지 전체 레이아웃 (프로필 사라짐) */
+  /* 연속 메시지 전체 레이아웃 */
       .chat-message.continuation {
-        /* 프로필 간격(6px)을 제거하고, 메시지 자체가 왼쪽으로 붙도록 */
-        gap: 0;
-        margin-left: 46px; /* 원래 프로필 너비(40px) + gap(6px) 만큼 왼쪽 여백 추가 */
-        align-items: flex-start; /* 프로필 없이 시작 */
+        gap: 6px; /* 6px 간격 */
+        margin-left: 0;
+        align-items: flex-start;
       }
-  /* 버블 자체의 모서리를 더 둥글게 */
-      .chat-message.continuation .bubble {
-        border-radius: 14.5px 14.5px 14.5px 14.5px;}
     
     </style>
   </head>
