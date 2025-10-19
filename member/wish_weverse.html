@@ -451,32 +451,68 @@
       const messages = [
         { type: 'date', content: '2023년 10월 23일 월요일' },
         { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "안녕하세요 시온이에요<br>여러분 드디어 저희의 위버스가 오픈됐는데요!!!<br>이렇게 또 소통할 수 있는 공간이 하나 더 생겨서 기뻐요", time: "오후 09:00"},
+        { sender: 'artist', artistId: 'yushi', profileIndex: 0, type: 'text', content: "", time: "오후 09:07"},
         { sender: 'artist', artistId: 'riku', profileIndex: 0, type: 'text', content: "드디어 저희 위버스가 오픈되었습니다!!🥳🥰<br>앞으로 여러분과 다양한 소통을 할 수 있다고 생각하니 행복하고 두근두근합니다😊<br>잘 부탁드립니다🙇☺️<br>ついに僕たちのWeverseがオープンしました！！🥳🥰<br>これからみなさんとたくさん交流できると思うと幸せでワクワクします😊<br>よろしくお願いします🙇‍♂☺", time: "오후 09:18"},
+        { sender: 'artist', artistId: 'jaehee', profileIndex: 0, type: 'text', content: "", time: "오후 09:26"},
+        { sender: 'artist', artistId: 'ryo', profileIndex: 0, type: 'text', content: "", time: "오후 09:40"},
+        { sender: 'artist', artistId: 'sakuya', profileIndex: 0, type: 'text', content: "", time: "오후 09:40"},
         
         { type: 'date', content: '2024년 1월 19일 금요일' },
+        { sender: 'artist', artistId: 'yushi', profileIndex: 1, type: 'image', content: '../pic/yushi_240119.jpg', time: '오후 06:16' },
         { sender: 'artist', artistId: 'riku', profileIndex: 1, type: 'text', content: "😘", time: "오후 11:46"},
         { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240119.jpg', time: '오후 11:46' },
+        
+        { type: 'date', content: '2024년 1월 20일 토요일' },
+        { sender: 'artist', artistId: 'sakuya', profileIndex: 1, type: 'text', content: "", time: "오전 02:02"},
         
         { type: 'date', content: '2024년 2월 28일 수요일' },
         { sender: 'artist', artistId: 'riku', profileIndex: 2, type: 'text', content: "오늘도 감사합니다😊 또 봐용😉", time: "오후 11:12"},
         { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240228.jpg', time: '오후 11:12' },
+        
+        { type: 'date', content: '2024년 2월 29일 목요일' },
+        { sender: 'artist', artistId: 'yushi', profileIndex: 2, type: 'text', content: "", time: "오전 01:02"},
+        
+        { type: 'date', content: '2024년 3월 8일 금요일' },
+        { sender: 'artist', artistId: 'sakuya', profileIndex: 2, type: 'text', content: "", time: "오후 09:59"},
         
         { type: 'date', content: '2024년 7월 2일 화요일' },
         { sender: 'artist', artistId: 'riku', profileIndex: 3, type: 'text', content: "송버드 많이 사랑해줘용🐈‍⬛<br>잘자요😴", time: "오전 12:11"},
         { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240702-1.jpg', time: '오전 12:11' },
         { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240702-2.jpg', time: '오전 12:11' },
         
+        { type: 'date', content: '2024년 7월 3일 수요일' },
+        { sender: 'artist', artistId: 'sakuya', profileIndex: 3, type: 'text', content: "", time: "오후 02:38"},
+        
+        { type: 'date', content: '2024년 7월 12일 금요일' },
+        { sender: 'artist', artistId: 'yushi', profileIndex: 3, type: 'text', content: "", time: "오후 09:17"},
+        
         { type: 'date', content: '2024년 9월 1일 일요일' },
         { sender: 'artist', artistId: 'riku', type: 'text', content: "今日みなさんのおかげでほんとに最高の思い出できました！！😊<br>ちょうど１年前くらいにnct new teamとして立った舞台にまたこうしてnct wishとしてまた立たせていただいてなんか込み上げてくるものがありました！<br>また立てるよう頑張ります！<br>今日もお疲れ様でした☺️おやすみなさい💤😴<br><br>夏が似合う黒猫🐈‍⬛🤭", time: "오후 10:41"},
         { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240901.jpg', time: '오후 10:41' },
         
+        { type: 'date', content: '2024년 9월 8일 일요일' },
+        { sender: 'artist', artistId: 'yushi', profileIndex: 4, type: 'text', content: "", time: "오후 09:38"},
+        { sender: 'artist', artistId: 'sakuya', profileIndex: 4, type: 'text', content: "", time: "오후 10:21"},
+        
         { type: 'date', content: '2024년 9월 28일 토요일' },
-        { sender: 'artist', artistId: 'riku', profileIndex: 4, type: 'text', content: "🐈‍⬛💚", time: "오후 6:31"},
-        { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240928-1.jpg', time: '오후 6:31' },
-        { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240928-2.jpg', time: '오후 6:31' },
+        { sender: 'artist', artistId: 'riku', profileIndex: 4, type: 'text', content: "🐈‍⬛💚", time: "오후 06:31"},
+        { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240928-1.jpg', time: '오후 06:31' },
+        { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_240928-2.jpg', time: '오후 06:31' },
+        
+        { type: 'date', content: '2025년 4월 16일 수요일' },
+        { sender: 'artist', artistId: 'yushi', profileIndex: 5, type: 'text', content: "", time: "오후 05:16"},
+        
+        { type: 'date', content: '2025년 4월 18일 금요일' },
+        { sender: 'artist', artistId: 'riku', profileIndex: 5, type: 'text', content: "", time: "오후 09:31"},
+        
+        { type: 'date', content: '2025년 4월 23일 수요일' },
+        { sender: 'artist', artistId: 'sakuya', profileIndex: 5, type: 'text', content: "", time: "오후 09:49"},
+        
+        { type: 'date', content: '2025년 5월 3일 토요일' },
+        { sender: 'artist', artistId: 'sakuya', type: 'text', content: "", time: "오후 11:01"},
         
         { type: 'date', content: '2025년 5월 4일 일요일' },
-        { sender: 'artist', artistId: 'riku', profileIndex: 5, type: 'text', content: "", time: "오전 12:33"},
+        { sender: 'artist', artistId: 'riku', type: 'text', content: "", time: "오전 12:33"},
         { sender: 'artist', artistId: 'riku', type: 'image', content: '../pic/riku_250504.jpg', time: '오전 12:33' },
         
         { type: 'date', content: '2025년 6월 17일 화요일' },
@@ -488,6 +524,9 @@
         { sender: 'artist', artistId: 'sakuya', profileIndex: 6, type: 'text', content: "컬러 어때요오???!<br>앞으로 더 멋진 우리의 컬러 보여드릴게욥❤️‍🔥❤️‍🔥", time: "오전 01:17"},
         { sender: 'artist', artistId: 'sakuya', type: 'image', content: '../pic/sakuya_250903.jpg', time: '오전 01:17' },
         { sender: 'artist', artistId: 'sakuya', type: 'reply', replyContent: "우리집 고양이돼지기니", mainContent: "🐱🐷🐹", time: "오전 01:19" },
+        
+        { type: 'date', content: '2025년 9월 6일 토요일' },
+        { sender: 'artist', artistId: 'yushi', profileIndex: 6, type: 'text', content: "", time: "오후 05:26"},
         
         { type: 'date', content: '2025년 9월 21일 일요일' },
         { sender: 'artist', artistId: 'riku', profileIndex: 6, type: 'text', content: "시즈니~항상 말하지만 진짜 너무 너무 고맙고 사랑해요!<br>저희 더 열심히 할 수 있을 것 같애요☺️<br>ありがとう〜！ツアー期待してねん", time: "오전 01:36"},
@@ -551,7 +590,7 @@
         { sender: 'artist', artistId: 'sion', type: 'text', content: "오늘도 💚위시가 사랑한다잉", time: "오후 10:05", isContinuation: true },
         { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나도 사랑해💚", time: "오후 10:05", isContinuation: true },
         { sender: 'artist', artistId: 'ryo', type: 'text', content: "와아아아ㅏ아아아아아", time: "오후 10:05", isContinuation: true },
-        { sender: 'artist', artistId: 'riku', profileIndex: 6, type: 'text', content: "고백타임💚", time: "오후 10:07", isContinuation: true },
+        { sender: 'artist', artistId: 'riku', type: 'text', content: "고백타임💚", time: "오후 10:07", isContinuation: true },
         
         { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19' },
         { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "", time: "오후 10:23", },
