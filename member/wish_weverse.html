@@ -306,6 +306,32 @@
         70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
         100% { box-shadow: none; }
       }
+/* ▼▼▼ [대화 연결] ▼▼▼ */
+  /* 연결된 대화의 내용 컨테이너 */
+      .message-continuation {
+        /* 첫 메시지의 프로필과 동일한 높이에 맞추기 위해 약간 조정 */
+        margin-left: 10px; /* 프로필 공간을 비우고 오른쪽으로 이동 */
+        padding-left: 10px; /* 세로줄과 메시지 내용 사이 간격 */
+        border-left: 3px solid #E0E0E0; /* 얇은 세로줄 */
+        max-width: 76%; /* 전체 메시지 너비 조정 (선 추가로 인해) */
+      }
+  /* 대화 연결 메시지에서는 프로필과 이름이 표시되지 않도록 숨김 */
+      .message-continuation .header {
+        display: none;
+      }
+      .message-continuation .profile {
+        display: none;
+      }
+  /* 연속 메시지 전체 레이아웃 (프로필 사라짐) */
+      .chat-message.continuation {
+        /* 프로필 간격(6px)을 제거하고, 메시지 자체가 왼쪽으로 붙도록 */
+        gap: 0;
+        margin-left: 46px; /* 원래 프로필 너비(40px) + gap(6px) 만큼 왼쪽 여백 추가 */
+        align-items: flex-start; /* 프로필 없이 시작 */
+      }
+  /* 버블 자체의 모서리를 더 둥글게 */
+      .chat-message.continuation .bubble {
+        border-radius: 14.5px 14.5px 14.5px 14.5px;}
     
     </style>
   </head>
@@ -417,7 +443,7 @@
         
         { type: 'date', content: '2025년 10월 18일 토요일' },
         { sender: 'artist', artistId: 'sakuya', profileIndex: 0, type: 'reply', replyContent: "시온 리쿠 유우시 재희 료 사쿠야 오늘도 사랑해", mainContent: "오늘도 위시가 💚사랑해", time: "오후 10:04" },
-        { sender: 'artist', artistId: 'riku', profileIndex: 7, type: 'text', content: "고백타임💚", time: "오후 10:07", },
+        { sender: 'artist', artistId: 'riku', profileIndex: 7, type: 'text', content: "고백타임💚", time: "오후 10:07", isContinuation: true },
         
         { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "sion 리쿠야 보고싶어 안뇽 10:23 나두 저는 강한", time: "오후 10:23"},
         
@@ -483,10 +509,14 @@
         const profile = artists[artistId][profileIndexToUse];
 
 
-        // --- 여기서부터는 기존 HTML 생성 로직과 거의 동일 ---
+        // --- 얘는 뭘까요 ---
         
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
+        if (msg.isContinuation) {
+          chatMsg.classList.add('continuation');
+        }
+      
         if (msg.type === 'reply') {
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${profile.img}')"></div>
@@ -506,6 +536,8 @@
           `;
         } else {
           let messageBodyHTML = '';
+
+          
           if (msg.type === 'emote') {
             if (msg.isImage) {
               messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
@@ -540,20 +572,28 @@
             let langAttr = msg.lang ? ` lang="${msg.lang}"` : '';
             messageBodyHTML = `<div class="${bubbleClass}"${langAttr}>${bubbleContent}</div>`;
           }
+          let messageContentClass = 'message-content';
+    if (msg.isContinuation) {
+        messageContentClass += ' message-continuation';
+    }
+
+
+
+          
           chatMsg.innerHTML = `
-          <div class="profile" style="background-image: url('${profile.img}')"></div>
-          <div class="message-content">
-          <div class="header">
-          <div class="name">${profile.name}</div>
-          </div>
-          <div style="display:flex; align-items:flex-end;">
-          ${messageBodyHTML}
-          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-          </div>
-          </div>
-          `;
-        }
-        chatContainer.appendChild(chatMsg);
+    <div class="profile" style="background-image: url('${profile.img}')"></div>
+    <div class="${messageContentClass}"> 
+        <div class="header">
+            <div class="name">${profile.name}</div>
+        </div>
+        <div style="display:flex; align-items:flex-end;">
+            ${messageBodyHTML}
+            <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+        </div>
+    </div>
+    `;
+}
+chatContainer.appendChild(chatMsg);
     } // if (msg.sender === 'artist') 끝
   });
   //검색 기능 관련
