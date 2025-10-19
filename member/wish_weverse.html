@@ -21,8 +21,8 @@
         padding-bottom: 50px;
       }
       .profile {
-        width: 40.2px;
-        height: 40.2px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         background-size: cover;
         background-position: center;
@@ -41,14 +41,7 @@
         font-weight: 400; /* 아티스트 태그 on → 600 */
         color: #171718;
       }
-/* ▼▼▼ [] ▼▼▼ */
-/* 가장 큰 채팅 레이아웃 */
-      .chat-container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 7.8px; /* 배경 외곽에서 프로필사진까지의 거리*/
-      }
-/* 말풍선 */
+/* ▼▼▼ [채팅] ▼▼▼ */
       .bubble {
         /* font-family: 'Kosugi Maru'; */
         background: #FFFFFF;
@@ -62,7 +55,13 @@
         font-family: 'Kosugi Maru', sans-serif;
         font-size: 13.5px;
       }
-/* 아티스트 - 프로필 제외 레이아웃 */
+  /* 가장 큰 채팅 레이아웃 */
+      .chat-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 7.8px; /* 배경 외곽에서 프로필사진까지의 거리*/
+      }
+  /* 아티스트 - 프로필 제외 레이아웃 */
       .message-content {
         display: flex;
         flex-direction: column;
@@ -264,55 +263,51 @@
         right: 0;
       }
       #searchInput {
-  flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
-  padding: 10px;
-  border: 1px solid #E0E0E0;
-  border-radius: 8px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-#searchInput:focus {
-    outline: none;
-    border-color: #A584F9;
-    box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
-}
-
-.search-controls button {
-  width: 38px;
-  height: 38px;
-  border: 1px solid #E0E0E0;
-  border-radius: 8px;
-  background: white;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 0;
-}
-
-.search-controls {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-#searchCounter {
-  font-size: 12px;
-  color: #8A8A8A;
-  padding: 0 8px;
-  text-align: center;
-}
-
-    /* 현재 검색 결과 하이라이트 (수정) */
-    .current-search-result .bubble {
-      animation: highlight-animation 1.2s;
-    }
-
-    @keyframes highlight-animation {
-      0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); } /* 포커스 색상과 맞춤 */
-      70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
-      100% { box-shadow: none; }
-    }
-
-</style>
+        flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
+        padding: 10px;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      #searchInput:focus {
+        outline: none;
+        border-color: #A584F9;
+        box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
+      }
+      .search-controls button {
+        width: 38px;
+        height: 38px;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        background: white;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0;
+      }
+      .search-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      #searchCounter {
+        font-size: 12px;
+        color: #8A8A8A;
+        padding: 0 8px;
+        text-align: center;
+      }
+  /* 현재 검색 결과 하이라이트 (수정) */
+      .current-search-result .bubble {
+        animation: highlight-animation 1.2s;
+      }
+      
+      @keyframes highlight-animation {
+        0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); } /* 포커스 색상과 맞춤 */
+        70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+        100% { box-shadow: none; }
+      }
+    
+    </style>
   </head>
   <body>
     <div class="search-bar">
@@ -323,96 +318,119 @@
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-    
     <div class="chat-container" id="chat"></div>
     
-<script>
-// 번역을 보려면 true, 숨기려면 false로 변경
-  const showTranslations = true;
-  const pollImagePath = '../pic/vote.jpg';
-// 아티스트 정보
-  const artists = {
-    'sion':[
-      {img: "../profile/weverse_sion_231023.jpg", name:"SION"},
-      {img: "../profile/weverse_sion_240119.jpg", name:"SION"},
-      {img: "../profile/weverse_sion_240229_wish.jpg", name:"SION"},
-      {img: "../profile/weverse_sion_240701_songbird.jpg", name:"SION"},
-      {img: "../profile/weverse_sion_240701_songbird.jpg", name:"오う지"},
-      {img: "../profile/weverse_sion_240807.jpg", name:"오う지"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"오う지"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"오시온"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"위시풀46분남음"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 40분 남음"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 30분 남음"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 20분 남음"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 10분 남음"},
-      {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 5분 남음"},
-      {img: "../profile/weverse_sion_241206.jpg", name:"오시온"},
-      {img: "../profile/weverse_sion_241221.jpg", name:"오시온"},
-      {img: "../profile/weverse_sion_250116.jpg", name:"오시온"},
-      {img: "../profile/weverse_sion_250119.jpg", name:"오시온"},
-      {img: "../profile/weverse_sion_250122.jpg", name:"오시온"},
-      {img: "../profile/weverse_sion_250122.jpg", name:"SION"},
-      {img: "../profile/weverse_sion_250329.jpg", name:"SION"},
-      {img: "../profile/weverse_sion_250329.jpg", name:"위시 팝팝 오늘 오후 6시"},
-      {img: "../profile/weverse_sion_250329.jpg", name:"오시온"},
-      {img: "../profile/weverse_sion_250329.jpg", name:"시온"}
-    ],
-    'riku':[
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"},
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"}
-    ],
-    'yushi':[
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"},
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"}
-    ],
-    'jaehee':[
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"},
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"}
-    ],
-    'ryo':[
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"},
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"}
-    ],
-    'sakuya':[
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"},
-      {img: "../profile/weverse_riku.jpg", name:"RIKU"}
-    ],
-  };
-// 메시지 배열
-  const messages = [
-    { type: 'date', content: '2023년 10월 23일 월요일' },
-    
-    { type: 'date', content: '2025년 10월 18일 토요일' },
-    { sender: 'artist', artistId: 'sakuya', profileIndex: 0, type: 'reply', replyContent: "시온 리쿠 유우시 재희 료 사쿠야 오늘도 사랑해", mainContent: "오늘도 위시가 💚사랑해", time: "오후 10:04" },
-    
-    { sender: 'artist', artistld: 'sion', profileIndex: 0, type: 'text', content: "sion 리쿠야 보고싶어 안뇽 10:23 나두 저는 강한", time: "오후 10:23"},
-    
-    { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19' },
-    { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "", time: "오후 10:23", },
-    { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "僕は強いメンバーたちが一緒に居てくれるので大丈夫です", translation: "저는 강한 멤버들이 같이 있어주기 때문에 괜찮습니다", time: "오후 10:20", lang: 'ja' },
-    { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'emote', content: "😙", time: "오후 10:06", },
-    { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13" },
-    { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22' },
-    { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'voice', content: '../voice/0.07.jpg', time: "오후 10:23" },
-    { sender: 'me', type: 'text', content: '안뇽', time: '오후 8:40' },
-  ];
-    // 아티스트별 현재 프로필 인덱스를 저장할 객체
-  let currentArtistProfiles = {};
-
-  const chatContainer = document.getElementById("chat");
-
-  messages.forEach(msg => {
-// 1. 날짜
-    if (msg.type === 'date') {
-      const dateEl = document.createElement('div');
-      dateEl.className = 'date';
-      dateEl.textContent = msg.content;
-      chatContainer.appendChild(dateEl);
-      return;
-    }
-// 2. 내가 보내는 버블
-    if (msg.sender === 'me') {
+    <script>
+      // 번역을 보려면 true, 숨기려면 false로 변경
+      const showTranslations = true;
+      const pollImagePath = '../pic/vote.jpg';
+      
+      // 아티스트 정보
+      const artists = {
+        'sion':[
+          {img: "../profile/weverse_sion_231023.jpg", name:"SION"},
+          {img: "../profile/weverse_sion_240119.jpg", name:"SION"},
+          {img: "../profile/weverse_sion_240229_wish.jpg", name:"SION"},
+          {img: "../profile/weverse_sion_240701_songbird.jpg", name:"SION"},
+          {img: "../profile/weverse_sion_240701_songbird.jpg", name:"오う지"},
+          {img: "../profile/weverse_sion_240807.jpg", name:"오う지"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"오う지"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"위시풀46분남음"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 40분 남음"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 30분 남음"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 20분 남음"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 10분 남음"},
+          {img: "../profile/weverse_sion_240824.jpg", name:"위시풀 약 5분 남음"},
+          {img: "../profile/weverse_sion_241206.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_241221.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_250116.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_250119.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_250122.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_250122.jpg", name:"SION"},
+          {img: "../profile/weverse_sion_250329.jpg", name:"SION"},
+          {img: "../profile/weverse_sion_250329.jpg", name:"위시 팝팝 오늘 오후 6시"},
+          {img: "../profile/weverse_sion_250329.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_250329.jpg", name:"시온"},
+          
+          {img: "../profile/weverse_sion_250329_탈색모에 브이셀카.jpg", name:"SION"},
+          {img: "../profile/weverse_sion_250329_탈색모에 브이셀카.jpg", name:"위시 팝팝 하루남음"},
+          {img: "../profile/weverse_sion_250329_탈색모에 브이셀카.jpg", name:"위시 팝팝 오늘"},
+          {img: "../profile/weverse_sion_250329_탈색모에 브이셀카.jpg", name:"오시온"},
+          {img: "../profile/weverse_sion_250329_탈색모에 브이셀카.jpg", name:"시온"},
+          {img: "../profile/weverse_sion_250914_코코사진.jpg", name:"시온"},
+          {img: "../profile/weverse_sion_251008_강아지 안아들고 있는 사진.jpg", name:"시온"}
+        ],
+        'riku':[
+          {img: "../profile/weverse_riku_231023.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku_240119.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku_240229_wish.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku_240701_songbird.jpg", name:"RIKU"},
+          
+          {img: "../profile/weverse_riku_25_poppop.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku_25_poppop.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku_25_surf.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku_25_color.jpg", name:"RIKU"}
+        ],
+        'yushi':[
+          {img: "../profile/weverse_riku.jpg", name:"YUSHI"},
+          {img: "../profile/weverse_riku.jpg", name:"YUSHI"}
+        ],
+        'jaehee':[
+          {img: "../profile/weverse_riku.jpg", name:"DAEYOUNG"},
+          {img: "../profile/weverse_riku.jpg", name:"JAEHEE"},
+          {img: "../profile/weverse_jaehee_안경 셀카.jpg", name:"재희"},
+          
+          {img: "../profile/weverse_jaehee_회색옷 엄지척셀카.jpg", name:"재희"}
+        ],
+        'ryo':[
+          {img: "../profile/weverse_riku.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku.jpg", name:"RIKU"},
+          
+          {img: "../profile/weverse_ryo_25_얼빡셀카.jpg", name:"료"},
+          {img: "../profile/weverse_ryo_.jpg", name:"율율"},
+        ],
+        'sakuya':[
+          {img: "../profile/weverse_riku.jpg", name:"RIKU"},
+          {img: "../profile/weverse_riku.jpg", name:"RIKU"},
+          {img: "../profile/weverse_sakuya_25_color.jpg", name:"SAKUYA"},
+        ],
+      };
+      
+      // 메시지 배열
+      const messages = [
+        { type: 'date', content: '2023년 10월 23일 월요일' },
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "안녕하세요 시온이에요<br>여러분 드디어 저희의 위버스가 오픈됐는데요!!!<br>이렇게 또 소통할 수 있는 공간이 하나 더 생겨서 기뻐요", time: "오후 9:00"},
+        
+        { type: 'date', content: '2025년 10월 18일 토요일' },
+        { sender: 'artist', artistId: 'sakuya', profileIndex: 0, type: 'reply', replyContent: "시온 리쿠 유우시 재희 료 사쿠야 오늘도 사랑해", mainContent: "오늘도 위시가 💚사랑해", time: "오후 10:04" },
+        
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "sion 리쿠야 보고싶어 안뇽 10:23 나두 저는 강한", time: "오후 10:23"},
+        
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19' },
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "", time: "오후 10:23", },
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "僕は強いメンバーたちが一緒に居てくれるので大丈夫です", translation: "저는 강한 멤버들이 같이 있어주기 때문에 괜찮습니다", time: "오후 10:20", lang: 'ja' },
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'emote', content: "😙", time: "오후 10:06", },
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "오후 10:13" },
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'image', content: '../pic/riku_250909.jpg', time: '오후 10:22' },
+        { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'voice', content: '../voice/0.07.jpg', time: "오후 10:23" },
+        { sender: 'me', type: 'text', content: '안뇽', time: '오후 8:40' },
+      ];
+      
+      // 아티스트별 현재 프로필 인덱스를 저장할 객체
+      let currentArtistProfiles = {};
+      const chatContainer = document.getElementById("chat");
+      messages.forEach(msg => {
+        // 1. 날짜
+        if (msg.type === 'date') {
+          const dateEl = document.createElement('div');
+          dateEl.className = 'date';
+          dateEl.textContent = msg.content;
+          chatContainer.appendChild(dateEl);
+          return;
+        }
+        // 2. 내가 보내는 버블
+        if (msg.sender === 'me') {
       const myMsg = document.createElement("div");
       myMsg.className = "my-chat-message";
       myMsg.innerHTML = `
