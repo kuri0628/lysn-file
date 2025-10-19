@@ -166,6 +166,15 @@
     width: 110px;
     height: auto;
   }
+/* ios emoji */
+  .ios-emoji {
+    height: 1.2em; /* 폰트 크기에 비례해서 높이 조절 */
+    width: auto;   /* 가로 비율 자동 */
+    vertical-align: middle; /* 텍스트와 세로 중앙 정렬 */
+    position: relative;
+    top: -1px; /* 정렬 미세 조정 (필요시 수정) */
+    margin: 0 1px; /* 텍스트와 살짝 여백 */
+  }
 /* ▼▼▼ [번역] ▼▼▼ */
    /* 점선 스타일 */
   .dotted-divider {
@@ -297,7 +306,7 @@
     { sender: 'artist', type: 'text', content: "낼 피곤해져", time: "오전 02:57" },
     { sender: 'artist', type: 'text', content: "휴대폰 두고 얼른 자", time: "오전 02:58" },
     { sender: 'artist', type: 'text', content: "난 씻고 잘게", time: "오전 02:58" },
-    { sender: 'artist', type: 'text', content: "푹 자💚", time: "오전 02:59" },
+    { sender: 'artist', type: 'text', content: "푹 자<img src='../emoji/ios_heart_green.png' alt='💚' class='ios-emoji'>", time: "오전 02:59" },
   ];
       let currentProfileIndex = 0;
       const chatContainer = document.getElementById("chat");
