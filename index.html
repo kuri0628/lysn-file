@@ -12,15 +12,39 @@
       margin: 0;
       background: #f5f5f5;
     }
-    .chat-list {
+
+    /* --- 1. 전체를 감싸는 컨테이너 추가 --- */
+    .container {
       max-width: 500px;
       margin: 0 auto;
-      padding: 50px 15px; /* 외각 여백 상하 좌우 */
+      padding: 50px 15px; /* 기존 chat-list의 여백을 여기로 이동 */
+    }
+    
+    .chat-list {
       display: grid;
       /* --- 여기만 수정 --- */
-      grid-template-columns: repeat(4, 1fr); /* 한 줄 3칸 */
-      gap: 14px; 간격
+      grid-template-columns: repeat(4, 1fr); /* 한 줄 4칸 (기존과 동일) */
+      gap: 14px;
+      /* max-width, margin, padding은 .container로 이동 */
     }
+
+    /* --- 2. 새 카테고리 제목 스타일 --- */
+    .category-title {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #333;
+      margin-top: 40px; /* 위 섹션과 간격 띄우기 */
+      margin-bottom: 12px;
+      padding-left: 5px;
+    }
+
+    /* --- 3. 새 카테고리 리스트 스타일 --- */
+    .other-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 여긴 3개니까 3칸으로 */
+      gap: 14px;
+    }
+    
     .chat-item {
       background: #C4B2FF;
       padding: 15px;
@@ -35,70 +59,74 @@
   </style>
 </head>
 <body>
-  <div class="chat-list">
-    <div class="chat-item" onclick="location.href='member/suho.html'">
-      수호</div>
-    <div class="chat-item" onclick="location.href='member/kai.html'">
-      카이</div>
-    <div class="chat-item" onclick="location.href='member/doyoung.html'">
-      김도영</div>
-    <div class="chat-item" onclick="location.href='member/jaehyun.html'">
-      정재현</div>
-    <div class="chat-item" onclick="location.href='member/jungwoo.html'">
-      쩡우</div>
-    <div class="chat-item" onclick="location.href='member/mark.html'">
-      이민형</div>
-    <div class="chat-item" onclick="location.href='member/renjun.html'">
-      황인준</div>
-    <div class="chat-item" onclick="location.href='member/jeno.html'">
-      이제노</div>
-    <div class="chat-item" onclick="location.href='member/haechan.html'">
-      이해찬</div>
-    <div class="chat-item" onclick="location.href='member/jaemin.html'">
-      나재민</div>
-    <div class="chat-item" onclick="location.href='member/eunseok.html'">
-      송은석</div>
-    <div class="chat-item" onclick="location.href='member/sungchan.html'">
-      정성찬</div>
-    <div class="chat-item" onclick="location.href='member/chenle.html'">
-      종천러</div>
-    <div class="chat-item" onclick="location.href='member/jisung.html'">
-      지송이</div>
-    <div class="chat-item" onclick="location.href='member/riku.html'">
-      前田陸</div>
-    <div class="chat-item" onclick="location.href='member/sohee.html'">
-      소희</div>
-    <div class="chat-item" onclick="location.href='member/ryo.html'">
-      율율이</div>
-    <div class="chat-item" onclick="location.href='member/sakuya.html'">
-      사쿠짱</div>
-    <div class="chat-item" onclick="location.href='member/sunwoo.html'">
-      김선우</div>
-    <div class="chat-item" onclick="location.href='member/wonyoung.html'">
-      장원영</div>
-    <div class="chat-item" onclick="location.href='member/kyehoon.html'">
-      이계훈</div>
-    <div class="chat-item" onclick="location.href='member/wish_weverse.html'">
-      WISH 위버스</div>
-    <div class="chat-item" onclick="location.href='member/melon.html'">
-      뮤직웨이브</div>
-    <div class="chat-item" onclick="location.href='member/ios_profile_screen_img.html'">
-      ios 프사 이미지</div>
-    <div class="chat-item" onclick="location.href='member/ios_profile_screen.html'">
-      ios 프사</div>
-    <div class="chat-item" onclick="location.href='member/profile_screen.html'">
-      프사 화면</div>
-    <div class="chat-item" onclick="location.href='member/riku_iphone.html'">
-      리쿠 아이폰</div>
-    <div class="chat-item" onclick="location.href='member/android.html'">
-      android</div>
-    <div class="chat-item" onclick="location.href='member/ios.html'">
-      ios</div>
-    <div class="chat-item" onclick="location.href='member/iphoneyy.html'">
-      아이폰</div>
-</div>
-</body>
+
+  <div class="container">
+
+    <div class="chat-list">
+      <div class="chat-item" onclick="location.href='member/suho.html'">
+        수호</div>
+      <div class="chat-item" onclick="location.href='member/kai.html'">
+        카이</div>
+      <div class="chat-item" onclick="location.href='member/doyoung.html'">
+        김도영</div>
+      <div class="chat-item" onclick="location.href='member/jaehyun.html'">
+        정재현</div>
+      <div class="chat-item" onclick="location.href='member/jungwoo.html'">
+        쩡우</div>
+      <div class="chat-item" onclick="location.href='member/mark.html'">
+        이민형</div>
+      <div class="chat-item" onclick="location.href='member/renjun.html'">
+        황인준</div>
+      <div class="chat-item" onclick="location.href='member/jeno.html'">
+        이제노</div>
+      <div class="chat-item" onclick="location.href='member/haechan.html'">
+        이해찬</div>
+      <div class="chat-item" onclick="location.href='member/jaemin.html'">
+        나재민</div>
+      <div class="chat-item" onclick="location.href='member/eunseok.html'">
+        송은석</div>
+      <div class="chat-item" onclick="location.href='member/sungchan.html'">
+        정성찬</div>
+      <div class="chat-item" onclick="location.href='member/chenle.html'">
+        종천러</div>
+      <div class="chat-item" onclick="location.href='member/jisung.html'">
+        지송이</div>
+      <div class="chat-item" onclick="location.href='member/riku.html'">
+        前田陸</div>
+      <div class="chat-item" onclick="location.href='member/sohee.html'">
+        소희</div>
+      <div class="chat-item" onclick="location.href='member/ryo.html'">
+        율율이</div>
+      <div class="chat-item" onclick="location.href='member/sakuya.html'">
+        사쿠짱</div>
+      <div class="chat-item" onclick="location.href='member/sunwoo.html'">
+        김선우</div>
+      <div class="chat-item" onclick="location.href='member/wonyoung.html'">
+        장원영</div>
+      <div class="chat-item" onclick="location.href='member/kyehoon.html'">
+        이계훈</div>
+      <div class="chat-item" onclick="location.href='member/wish_weverse.html'">
+        WISH 위버스</div>
+      <div class="chat-item" onclick="location.href='member/melon.html'">
+        뮤직웨이브</div>
+      <div class="chat-item" onclick="location.href='member/ios_profile_screen_img.html'">
+        ios 프사 이미지</div>
+      <div class="chat-item" onclick="location.href='member/ios_profile_screen.html'">
+        ios 프사</div>
+      <div class="chat-item" onclick="location.href='member/profile_screen.html'">
+        프사 화면</div>
+      <div class="chat-item" onclick="location.href='member/riku_iphone.html'">
+        리쿠 아이폰</div>
+      </div> <div class="category-title">
+      시스템 / 기타
+    </div>
+
+    <div class="other-list">
+      <div class="chat-item" onclick="location.href='member/android.html'">
+        android</div>
+      <div class="chat-item" onclick="location.href='member/ios.html'">
+        ios</div>
+      <div class="chat-item" onclick="location.href='member/iphoneyy.html'">
+        아이폰</div>
+    </div> </div> </body>
 </html>
-
-
-
