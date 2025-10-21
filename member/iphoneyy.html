@@ -361,6 +361,14 @@
               `;
               bubbleClass += ' has-translation';
             }
+            // ▼▼▼ [Kosugi Maru 폰트 적용하는 것] ▼▼▼
+            // msg.lang 값이 있으면 lang 속성을, 없으면 빈 문자열을 추가
+            let langAttr = msg.lang ? `lang="${msg.lang}"` : '';
+            
+            // div 태그에 langAttr 변수를 추가
+            messageBodyHTML = `<div class="${bubbleClass}" ${langAttr}>${bubbleContent}</div>`;
+            // ▲▲▲ [여기까지 수정] ▲▲▲
+          }
             messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
 // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
