@@ -44,6 +44,7 @@
     margin-bottom: 3.5px; /* 이름-메시지 간격 */
   }
   .artist-tag {
+    font-family: 'Inter', sans-serif;;
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
     transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
     font-weight: 750;
@@ -395,7 +396,7 @@
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="name_n_tag">
-          
+          <span class="artist-tag">ARTIST</span>
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
           <div style="display:flex; align-items:flex-end;">
