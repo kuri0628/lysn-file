@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아티스트 채팅</title>
-    <!-- Inter 폰트 불러오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;800;900&family=Kosugi+Maru&display=swap" rel="stylesheet">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
     
@@ -368,8 +367,6 @@
             // div 태그에 langAttr 변수를 추가
             messageBodyHTML = `<div class="${bubbleClass}" ${langAttr}>${bubbleContent}</div>`;
             // ▲▲▲ [여기까지 수정] ▲▲▲
-          }
-            messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
 // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
           chatMsg.innerHTML = `
