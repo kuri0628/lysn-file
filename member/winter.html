@@ -430,12 +430,39 @@
 // 아티스트 정보
 const artistProfile = [
   {img: "../profile/winter_first.jpg", name:"WINTER"},
+  {img: "../profile/winter_210510.jpg", name:"민정이"},
   {img: "../profile/winter_.jpg", name:"민정"}
 ];
 // 메시지 배열
 
   const messages = [
-    { type: 'date', content: '2020년 2월 7일 금요일' },];
+    { type: 'date', content: '2021년 5월 6일 목요일' },
+    { sender: 'artist', type: 'text', content: "안녕하세요 윈터입니다~~~~~~~~~~~~~<br>자주 연락해요 우리!!!!!!!!!!😝", time: "오전 11:00", profileIndex: 0 },
+
+    { type: 'date', content: '2021년 5월 8일 토요일' },
+    { sender: 'artist', type: 'text', content: "유진아 유진아 유진아!! 칭찬칭찬!!!!!", time: "오후 12:11" },
+    { sender: 'artist', type: 'image', content: '../pic/bubble_img_winter_20210508_pod.jpg', time: '오후 12:23' },
+
+    { type: 'date', content: '2021년 5월 9일 일요일' },
+    { sender: 'artist', type: 'image', content: '../pic/bubble_img_winter_20210509_pod.jpg', time: '오후 4:10' },
+    { sender: 'artist', type: 'image', content: '../pic/bubble_img_winter_20210509_pod.jpg', time: '오후 4:10' },
+    { sender: 'artist', type: 'image', content: '../pic/bubble_img_winter_20210509_pod.jpg', time: '오후 4:10' },
+
+    { type: 'date', content: '2021년 5월 10일 월요일' },
+    { sender: 'artist', type: 'image', content: '../pic/bubble_img_winter_20210510_pod_빨간고양이.jpg', time: '오후 12:01' },
+    { sender: 'artist', type: 'text', content: "유진 말 잘듣지이ㅣ이ㅣ", time: "오후 12:42" },
+    { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ칭찬칭찬칭찬!!!!!!!!!!!!", time: "오후 12:4" },
+
+    { type: 'date', content: '2021년 5월 15일 요일' },
+    { sender: 'artist', type: 'text', content: "나도 사랑해 유진❤️❤️❤️❤️❤️❤️🤫🙄", time: "오후 12:", profileIndex: 1 },
+    
+    { type: 'date', content: '2021년 5월 21일 요일' },
+    { sender: 'artist', type: 'text', content: "5시 주간아이돌 my love 오또케송 나오면 뭐해야되는지 알지", time: "오후 3:22" },
+
+    { type: 'date', content: '2021년 6월 10일 요일' },
+    { sender: 'artist', type: 'text', content: "발있는건 괜찮아... 발없으면 안대", time: "오후 4:25" },
+    { sender: 'artist', type: 'text', content: "엉 카리나언니는 뱀이라도 발있어서 괜찮아", time: "오후 4:25" },
+  ];
   let currentProfileIndex;
   const chatContainer = document.getElementById("chat");
   messages.forEach(msg => {
