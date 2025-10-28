@@ -27,8 +27,8 @@
     padding-bottom: 80px; /* input bar와 겹치지 않도록 */
   }
   .profile {
-    width: 9.95vw;
-    height: 9.95vw;
+    width: calc(100vw * 120 / 1206);
+    height: calc(100vw * 120 / 1206);
     border-radius: 50%;
     background-size: cover;
     background-position: center;
@@ -40,7 +40,7 @@
   .header {
     display: flex;
     align-items: center;
-    margin-bottom: 3.5px; /* 이름-메시지 간격 */
+    margin-bottom: calc(100vw * 25 / 1206); /* 이름-메시지 간격 */
   }
   .artist-tag {
     transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
@@ -59,7 +59,7 @@
     font-size: 12px;
     /* font-weight: 600; 아티스트 태그 있을 때는 600*/
     color: #171718;
-    /* margin-left: 0.42vw; 이름 오른쪽으로 이동*/
+    margin-left: calc(100vw * 5 / 1206); /* 이름 오른쪽으로 이동 */
   }
 /* ▼▼▼ [날짜] ▼▼▼ */
    /* 1. 날짜 구분선 스타일 */
@@ -91,7 +91,7 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: 14.5px; /* 메시지 간 간격 */
-    gap: 1.49vw; /* 메시지-프로필&이름 간격 */
+    gap: calc(100vw * 18 / 1206); /* 메시지-프로필&이름 간격 */
   }
 /* 말풍선 */
   .bubble {
