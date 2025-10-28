@@ -12,6 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
 <style>
+  /* ▼▼▼ [수정 1] CSS 변수 추가 ▼▼▼ */
+  :root {
+    --page-padding: calc(100vw * 24 / 1206);
+  }
+  
   body {
     font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif;
     font-weight: 400;
@@ -19,8 +24,9 @@
     line-height: 1.5;
     margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
     background: #F1F1F1;
-    padding-left: calc(100vw * 24 / 1206);
-    padding-right: calc(100vw * 24 / 1206);
+    /* ▼▼▼ [수정 1] 변수 사용 ▼▼▼ */
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
     /* padding을 썼을 때 가로 스크롤바 안 생기게 box-sizing 추가 */
     box-sizing: border-box; 
     padding-top: 70px; /* 구독일 패널 */
@@ -113,16 +119,16 @@
     margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
     position: relative;
   }
-   /* 날짜 위에 선을 그리기 위한 가상 요소 추가 */
+   /* ▼▼▼ [수정 1] 날짜 구분선 스타일 수정 ▼▼▼ */
   .date-divider::before {
     content: '';
     position: absolute;
     top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-    left: 50%;
-    width: 100vw;
     height: 0.8px; /* 선 두께 */
     background: #E0E0E0;
-    transform: translateX(-50%);
+    /* body의 padding 값만큼 좌우로 밀어내서 꽉 차게 만듦 */
+    left: calc(-1 * var(--page-padding));
+    right: calc(-1 * var(--page-padding));
   }
   .time {
     font-size: 10px;
@@ -414,7 +420,8 @@
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-    <body id="chat">
+
+    <div id="chat">
       <div>
         
     <div class="input-bar">
@@ -542,5 +549,5 @@ const artistProfile = [
         chatContainer.appendChild(chatMsg);
       });
     </script>
-  </body>
+  </div></body>
 </html>
