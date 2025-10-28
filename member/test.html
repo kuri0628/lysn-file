@@ -519,7 +519,16 @@ const artistProfile = [
             messageBodyHTML = `<div class="bubble voice-bubble">
             <img src="../voice/ios_voice.jpg" alt="voice icon">
             </div>`;
-          } else {
+          } else if (msg.type === 'poll') {
+            let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
+            messageBodyHTML = `
+            <div class="poll">
+              <img src="${pollImagePath}" alt="투표 이미지">
+              ${pollTitleHTML}
+              <div class="poll-topic">${msg.text}</div>
+            </div>
+            `;
+          } else { // 기본 텍스트 버블
             let bubbleContent = msg.content;
             let bubbleClass = 'bubble';
             if (showTranslations && msg.translation) {
@@ -548,6 +557,86 @@ const artistProfile = [
         }
         chatContainer.appendChild(chatMsg);
       });
+      
+      //검색 기능 관련
+      const searchBar = document.querySelector('.search');
+      const searchIcon = document.getElementById('search-icon');
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
+      
+      let searchResults = [];
+      let currentResultIndex = -1;
+      
+      const openSearch = () => {
+        searchBar.classList.add('visible');
+        searchInput.focus();
+        if (location.hash !== '#search') {
+          location.hash = 'search';
+        }
+      };
+      
+      const closeSearch = () => {
+        history.back();
+      };
+      
+      const performSearch = () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        if (!searchTerm) {
+          searchResults = [];
+          currentResultIndex = -1;
+          updateCounter();
+          return;
+        }
+        
+        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+        searchResults = Array.from(allMessages).filter(message =>
+          message.textContent.toLowerCase().includes(searchTerm)
+        );
+        
+        currentResultIndex = searchResults.length > 0 ? searchResults.length - 1 : -1;
+        if (currentResultIndex !== -1) {
+          navigateToResult(currentResultIndex);
+        }
+        updateCounter();
+      };
+      
+      const navigateToResult = (index) => {
+        if (index < 0 || index >= searchResults.length) return;
+        
+        const targetMessage = searchResults[index];
+        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        currentResultIndex = index;
+        updateCounter();
+      };
+      
+      const updateCounter = () => {
+        const total = searchResults.length;
+        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
+      };
+      
+      const handleNavigation = (direction) => {
+        if (searchResults.length === 0) return;
+        const total = searchResults.length;
+        const newIndex = (currentResultIndex + direction + total) % total;
+        navigateToResult(newIndex);
+      };
+      
+      searchIcon.addEventListener('click', openSearch);
+      searchInput.addEventListener('input', performSearch);
+      
+      prevBtn.addEventListener('click', () => handleNavigation(-1));
+      nextBtn.addEventListener('click', () => handleNavigation(1));
+      
+      window.addEventListener('hashchange', () => {
+        if (location.hash !== '#search') {
+          searchBar.classList.remove('visible');
+          searchInput.value = "";
+          performSearch();
+        }
+      });
     </script>
-  </div></body>
+  </body>
 </html>
