@@ -591,18 +591,32 @@ const artistProfile = [
           return;
         }
         
-        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-        searchResults = Array.from(allMessages).filter(message =>
-          message.textContent.toLowerCase().includes(searchTerm)
-        );
-        
+        // 검색 대상에 날짜 포함
+        const allElements = document.querySelectorAll('.chat-message, .my-chat-messeage, .date-divider');
+
+        searchResults = Array.from(allMessages).filter(element => {
+          if (element.classList.contains('date-divider')) {
+            return element.textContent.toLowerCase().includes(searchTerm);
+          }
+          // 말풍선 안 검색이면 시간 제외하고 검색
+          const clone = element.cloneNode(true);
+          const timeEl = clone.querySelector('.time');
+
+          if (timeEl) {
+            timeEl.remove();
+          }
+
+          const searchableText = clone.textContent.toLowerCase();
+          return searchableText.includes(searchTerm);
+        });
+
         currentResultIndex = searchResults.length > 0 ? searchResults.length - 1 : -1;
         if (currentResultIndex !== -1) {
           navigateToResult(currentResultIndex);
         }
         updateCounter();
       };
-      
+
       const navigateToResult = (index) => {
         if (index < 0 || index >= searchResults.length) return;
         
