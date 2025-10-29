@@ -38,7 +38,7 @@
     overflow: hidden; */
   }
 /* 프사랑 아티스트 뱃지 그룹 */
-  .name_n_tag {
+  .header {
     display: flex;
     align-items: center;
     margin-bottom: 3.5px; /* 이름-메시지 간격 */
@@ -83,7 +83,7 @@
     max-width: 85%;
     align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
   }
-  .framework {
+  .chat-container {
     max-width: 500px; /* 채팅방 크기 제한 */
     margin: 0 auto; /* 가운데 정렬 */
     padding: 8px; /* 프로필(+다른 내용물)과 외곽 거리 */
@@ -434,7 +434,7 @@
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
-          <div class="name_n_tag">
+          <div class="header">
           <span class="artist-tag">ARTIST</span>
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
@@ -481,7 +481,7 @@
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
-          <div class="name_n_tag">
+          <div class="header">
           
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
