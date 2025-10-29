@@ -19,12 +19,12 @@
         line-height: 1.5;
         margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
         background: #F1F1F1;
-        padding-top: 70px; /* 구독일 패널 */
-        padding-bottom: 80px; /* input bar와 겹치지 않도록 */
+        padding-top: 32.42vw;
+        padding-bottom: 25.53vw;
       }
       .profile {
-        width: 41px;
-        height: 41px;
+        width: calc(100vw * 120 / 1206); /* 120 1206 100 = 9.95 */
+        height: calc(100vw * 120 / 1206);
         border-radius: 50%;
         background-size: cover;
         background-position: center;
@@ -36,7 +36,7 @@
       .header {
         display: flex;
         align-items: center;
-        margin-bottom: 3.5px; /* 이름-메시지 간격 */
+        margin-bottom: 2.07vw; /* 이름-메시지 간격 */
       }
       .artist-tag {
         transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
@@ -79,13 +79,13 @@
       .chat-container {
         max-width: 500px; /* 채팅방 크기 제한 */
         margin: 0 auto; /* 가운데 정렬 */
-        padding: 8px; /* 프로필(+다른 내용물)과 외곽 거리 */
+        padding: 1.99vw; /* 프로필(+다른 내용물)과 외곽 거리 */
       }
       .chat-message {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 14.5px; /* 메시지 간 간격 */
-        gap: 6.5px /* 메시지-프로필 간격 */
+        margin-bottom: 8.45vw; /* 메시지 간 간격 */
+        gap: 1.49vw; /* 메시지-프로필 간격 */
       }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
   /* 오른쪽배치 - 메시지 색 - 시간 */
@@ -270,19 +270,18 @@
       }
 /* ▼▼▼ [구독일 하트] ▼▼▼ */
       .d-day {
+        font-size: 11px;
+        font-weight: 600;
+        color: #000000;
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        max-width: 600px;
+        max-width: 500px;
         margin: 0 auto;
-        padding-top: 62px;
-        transform: translateX(30px); /* 숫자↑ 위치→ */
+        padding-top: 27.36vw;
         text-align: center;
         z-index: 1001;
-        font-size: 11px;
-        font-weight: 600;
-        color: #000000;
         pointer-events: none;
       }
 /* ▼▼▼ [구독일 패널] ▼▼▼ */
