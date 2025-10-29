@@ -12,80 +12,108 @@
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
 <style>
-  /* ▼▼▼ [수정 1] CSS 변수 추가 ▼▼▼ */
   :root {
-    --page-padding: calc(100vw * 24 / 1206);
+    --page-padding: calc(100% * 24 / 1206);
   }
   
+  /* ▼▼▼ body 중앙/상단 정렬 및 배경색 처리 ▼▼▼ */
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: flex-start; /* 세로 상단 정렬 */
+    background: #000; /* 빈 공간(레터박스) 배경색 */
+  }
+
+  /* ▼▼▼ 앱 전체를 감싸는 컨테이너 ▼▼▼ */
+  .app-container {
+    /* ▼▼▼ [수정됨] 비율 고정 1206 / 1961 ▼▼▼ */
+    aspect-ratio: 1206 / 1961;
+    
+    /* 화면 크기에 맞게 제한 */
+    max-width: 100vw;
+    max-height: 100vh;
+    
+    /* 부모(body)의 flex 설정에 맞춰 크기 조절 */
+    width: 100%;
+    height: 100%;
+
+    /* 원래 body의 스타일 (배경, 패딩) */
+    background: #F1F1F1;
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+    box-sizing: border-box; 
+    padding-top: 70px; /* 구독일 패널 */
+    padding-bottom: 80px; /* input bar와 겹치지 않도록 */
+    
+    /* 자식 요소(absolute)의 기준점 */
+    position: relative; 
+    
+    /* 내용이 길어질 때 이 안에서 스크롤 */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* ▼▼▼ body에서 패딩, 배경 등 제거 (font만 남김) ▼▼▼ */
   body {
     font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.5;
-    margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
-    background: #F1F1F1;
-    /* ▼▼▼ [수정 1] 변수 사용 ▼▼▼ */
-    padding-left: var(--page-padding);
-    padding-right: var(--page-padding);
-    /* padding을 썼을 때 가로 스크롤바 안 생기게 box-sizing 추가 */
-    box-sizing: border-box; 
-    padding-top: 70px; /* 구독일 패널 */
-    padding-bottom: 80px; /* input bar와 겹치지 않도록 */
   }
+  
   .profile {
-    width: calc(100vw * 120 / 1206);
-    height: calc(100vw * 120 / 1206);
+    width: calc(100% * 120 / 1206);
+    height: calc(100% * 120 / 1206);
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    /* margin-top: 4.8px;  숫자↓ 위치↑ */
-    /* border: 0.3px solid #cdcdcd;  테두리 */
     flex-shrink: 0;
   }
 /* ▼▼▼ [이름] ▼▼▼ */
-/* 프사랑 아티스트 뱃지 그룹 */
   .header {
     display: flex;
     align-items: flex-start;
-    /* margin-bottom: calc(100vw * 25 / 1206); 이름-메시지 간격 */
+    /* margin-bottom: calc(100% * 25 / 1206); 이름-메시지 간격 */
   }
   .artist-tag {
-    transform: scaleX(1.1); /* 장평 : 숫자↑ 너비↑ */
-    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+    transform: scaleX(1.1); 
+    transform-origin: left; 
     font-weight: 750;
     font-size: 7px;
-    letter-spacing: 0.1px; /* 자간 */
-    color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+    letter-spacing: 0.1px; 
+    color: #fff; 
     background: linear-gradient(90deg, #633DFD 0%, #9342FF 50%, #E183FF 100%);
-    padding: 2px 5.5px 1px 5.5px;  /* 위 오른 아래 왼쪽 여백 */
+    padding: 2px 5.5px 1px 5.5px;  
     border-radius: 999px;
     margin-right: 10px;
   }
   .name {
     font-family: 'Kosugi Maru', Pretendard, 'Noto Sans JP', sans-serif;
     font-size: 12px;
-    /* font-weight: 600; 아티스트 태그 있을 때는 600*/
     color: #171718;
-    margin-left: calc(100vw * 5 / 1206); /* 이름 오른쪽으로 이동 */
+    margin-left: calc(100% * 5 / 1206); /* 이름 오른쪽으로 이동 */
   }
 /* ▼▼▼ [버블] ▼▼▼ */
   .message-content { 
     display: flex; 
     flex-direction: column; 
     max-width: 95%;
-    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+    align-items: flex-start; 
   }
   .chat-message {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 14.5px; /* 메시지 간 간격 */
-    gap: calc(100vw * 18 / 1206); /* 메시지-프로필&이름 간격 */
+    margin-bottom: 14.5px; 
+    gap: calc(100% * 18 / 1206); 
   }
 /* 말풍선 */
   .bubble {
     background: #FFFFFF;
     border-radius: 4px 13px 13px 13px;
-    padding: 11px 12px 11px 11px;  /* 위 오른 아래 왼쪽 여백 */
+    padding: 11px 12px 11px 11px;  
     font-size: 15.5px;
     font-weight: 400;
     line-height: 1;
@@ -95,7 +123,6 @@
     font-size: 13.5px;
   }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
-   /* 오른쪽배치 - 메시지 색 - 시간 */
   .my-chat-message { 
     display: flex; 
     justify-content: flex-end; 
@@ -111,22 +138,19 @@
     margin-right: 6px; 
   }
 /* ▼▼▼ [날짜] ▼▼▼ */
-   /* 1. 날짜 구분선 스타일 */
   .date-divider { 
     text-align: center;        
     font-size: 11px; 
     color: #8A8A8A;
-    margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
+    margin: 32px 0 16px; 
     position: relative;
   }
-   /* ▼▼▼ [수정 1] 날짜 구분선 스타일 수정 ▼▼▼ */
   .date-divider::before {
     content: '';
     position: absolute;
-    top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-    height: 0.8px; /* 선 두께 */
+    top: -6px; 
+    height: 0.8px; 
     background: #E0E0E0;
-    /* body의 padding 값만큼 좌우로 밀어내서 꽉 차게 만듦 */
     left: calc(-1 * var(--page-padding));
     right: calc(-1 * var(--page-padding));
   }
@@ -140,7 +164,6 @@
     top: 2px;
   }
 /* ▼▼▼ [사진] ▼▼▼ */
-   /* 3. 사진 메시지 스타일 */
   .image-bubble {
     padding: 0px;
     background: none;
@@ -151,62 +174,58 @@
     display: block;
   }
 /* ▼▼▼ [이모지] ▼▼▼ */
-   /* 진짜 이모지 */
   .standalone-emoji {
     font-size: 50px;
     line-height: 1;
     background: none;
   }
-   /* 버블 이모티콘 */
   .sticker-image {
     width: 110px;
     height: auto;
   }
   .ios-emoji {
-    height: 1.2em; /* 폰트 크기에 비례해서 높이 조절 */
-    width: auto;   /* 가로 비율 자동 */
-    vertical-align: middle; /* 텍스트와 세로 중앙 정렬 */
+    height: 1.2em; 
+    width: auto;   
+    vertical-align: middle; 
     position: relative;
-    top: -1px; /* 정렬 미세 조정 (필요시 수정) */
-    margin: -0.2em 1.2px; /* 텍스트와 살짝 여백 */
+    top: -1px; 
+    margin: -0.2em 1.2px; 
   }
 /* ▼▼▼ [번역] ▼▼▼ */
-   /* 점선 스타일 */
   .dotted-divider {
     border: none; 
     background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
-    background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
+    background-size: 6.5px 100%; 
     background-repeat: repeat-x;
     background-position: left;
-    height: 1px; /* 선의 높이(두께) 지정 */
-    margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
+    height: 1px; 
+    margin: 8.5px -13px; 
   }
-   /* 말풍선 내부 번역 텍스트 */
   .translation-inner {
     font-size: 13.5px;
     color: #9050F3;
     line-height: 1.2;
   }
   .bubble.has-translation {
-    padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+    padding-bottom: 9px; 
   }
 /* ▼▼▼ [ARTIST 답장] ▼▼▼ */
   .reply-bubble {
-    background-color: #FFFFFF80; /* 배경 색 */
-    padding: 13.7px 10px 12px 12px; /* 위 오른 아래 왼쪽 간격 */
-    margin-bottom: 6px; /* 두 말풍선 간격 */
+    background-color: #FFFFFF80; 
+    padding: 13.7px 10px 12px 12px; 
+    margin-bottom: 6px; 
     border-radius: 14px;
   }
   .reply-title {
     font-size: 11px;
     font-weight: 700;
-    color: #020202; /* ARTIST의 답장 */
-    margin-bottom: 6px; /* ARTIST의 답장-팬버블 간격 */
+    color: #020202; 
+    margin-bottom: 6px; 
   }
   .reply-content {
     font-size: 13px;
     line-height: 1.5;
-    color: #00000080; /* 팬 버블 7E7E7E */
+    color: #00000080; 
   }
   .bubble-after-reply {
     border-top-left-radius: 4px;
@@ -214,7 +233,7 @@
 /* ▼▼▼ [음성] ▼▼▼ */
   .voice-bubble {
     display: flex;
-    padding: 8px 18px 7px 8px; !important; /* 위 오른 아래 왼쪽 여백 */
+    padding: 8px 18px 7px 8px; !important; 
   }
   .voice-bubble img {
     width: auto;
@@ -223,36 +242,33 @@
 /* ▼▼▼ [투표] ▼▼▼ */
   .poll {
     position: relative;
-    overflow: hidden; /* 둥근 모서리 밖으로 이미지가 삐져나가지 않도록 */
+    overflow: hidden; 
     display: block;
-    max-width: 500px; /* 최대 너비 */
-    margin-top: -1.1px; /* 숫자↓ 위치↑ */
+    max-width: 500px; 
+    margin-top: -1.1px; 
   }
   .poll img {
     width: 100%;
-    display: block; /* 이미지 아래 작은 여백 제거 */
+    display: block; 
   }
-  /* 투표 기간 */
   .poll-period {
     position: absolute;
     color: #ff17e4;
     font-size: 10px;
-    text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
-    width: 200px;       /* 텍스트가 차지할 최대 너비 */
-    top: 230px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
-    left: 19px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+    text-align: left;   
+    width: 200px;       
+    top: 230px;         
+    left: 19px;         
   }
-/* 투표 주제 */
   .poll-topic {
     position: absolute;
     color: #ff17e4;
     font-size: 14px;
-    text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
-    width: 200px;       /* 텍스트가 차지할 최대 너비 */
-    top: 200px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
-    left: 33px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+    text-align: left;   
+    width: 200px;       
+    top: 200px;          
+    left: 33px;         
   }
-/* 투표 메시지만 너비 키우기 */
   .message-content:has(.poll) {
     max-width: 79%;
   }
@@ -263,7 +279,7 @@
     font-weight: 650;
     color: #000000;
     padding-top: 16.5px;
-    position: fixed;
+    position: absolute; /* fixed -> absolute */
     top: 0;
     left: 0;
     right: 0;
@@ -275,14 +291,14 @@
   }
 /* ▼▼▼ [구독일 하트] ▼▼▼ */
   .d-day {
-        position: fixed;
+        position: absolute; /* fixed -> absolute */
         top: 0;
         left: 0;
         right: 0;
         max-width: 600px;
         margin: 0 auto;
         padding-top: 62px;
-        transform: translateX(30px); /* 숫자↑ 위치→ */
+        transform: translateX(30px); 
         text-align: center;
         z-index: 1001;
         font-size: 11px;
@@ -292,7 +308,7 @@
       }
 /* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
       .input-bar {
-        position: fixed;
+        position: absolute; /* fixed -> absolute */
         bottom: 0;
         left: 0;
         width: 100%;
@@ -306,7 +322,7 @@
       }
 /* ▼▼▼ [구독일 패널] ▼▼▼ */
       .title-bar {
-        position: fixed;
+        position: absolute; /* fixed -> absolute */
         top: 0;
         left: 0;
         right: 0;
@@ -320,11 +336,10 @@
         width: 100%;
         display: block;
         filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
-        /* border-radius: 0 0 11px 10px;  좌상 우상 우하 좌하 */
       }
 /* ▼▼▼ [검색] ▼▼▼ */
       .search {
-        position: fixed;
+        position: absolute; /* fixed -> absolute */
         top: 0;
         background: white;
         padding: 10px 8px;
@@ -398,37 +413,37 @@
 </style>
   </head>
   <body>
-    <div class="nickname">
-      시온오빠💜
-    </div>
-    <div class="d-day">
-      183
-    </div>
-    
-    <div class="title-bar">
-      <img src="../pic/real_title_1140.png" alt="상단 고정 이미지">
-      <div id="search-icon">
-        <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
+    <div class="app-container">
+      <div class="nickname">
+        시온오빠💜
       </div>
-    </div>
-    
-    <div class="search">
-      <input type="text" id="searchInput" placeholder="채팅 검색">
-      <div class="search-controls">
-        <button id="prevBtn">↑</button>
-        <button id="nextBtn">↓</button>
-        <span id="searchCounter">0 / 0</span>
+      <div class="d-day">
+        183
       </div>
-    </div>
+      
+      <div class="title-bar">
+        <img src="../pic/real_title_1140.png" alt="상단 고정 이미지">
+        <div id="search-icon">
+          <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
+        </div>
+      </div>
+      
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="채팅 검색">
+        <div class="search-controls">
+          <button id="prevBtn">↑</button>
+          <button id="nextBtn">↓</button>
+          <span id="searchCounter">0 / 0</span>
+        </div>
+      </div>
 
-    <div id="chat">
-      <div>
-        
-    <div class="input-bar">
-      <img src="../pic/real_under_1440.jpg" alt="메시지 보내기">
-    </div>
-    
-    <script>
+      <div id="chat">
+        <div>
+          
+      <div class="input-bar">
+        <img src="../pic/real_under_1440.jpg" alt="메시지 보내기">
+      </div>
+    </div> <script>
 // 번역을 보려면 true, 숨기려면 false로 변경
       const showTranslations = true;
       const pollImagePath = '../pic/vote.jpg';
@@ -591,14 +606,13 @@ const artistProfile = [
           return;
         }
         
-        // 검색 대상에 날짜 포함
-        const allElements = document.querySelectorAll('.chat-message, .my-chat-messeage, .date-divider');
+        // [수정됨] .app-container 내부에서 검색
+        const allMessages = document.querySelectorAll('.app-container .chat-message, .app-container .my-chat-message, .app-container .date-divider');
 
         searchResults = Array.from(allMessages).filter(element => {
           if (element.classList.contains('date-divider')) {
             return element.textContent.toLowerCase().includes(searchTerm);
           }
-          // 말풍선 안 검색이면 시간 제외하고 검색
           const clone = element.cloneNode(true);
           const timeEl = clone.querySelector('.time');
 
