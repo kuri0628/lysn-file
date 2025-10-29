@@ -16,7 +16,7 @@
     --page-padding: calc(100% * 24 / 1206);
   }
   
-  /* ▼▼▼ body 중앙/상단 정렬 및 배경색 처리 ▼▼▼ */
+  /* ▼▼▼ body 중앙 정렬 및 배경색 처리 ▼▼▼ */
   html, body {
     width: 100%;
     height: 100%;
@@ -27,36 +27,52 @@
     background: #000; /* 빈 공간(레터박스) 배경색 */
   }
 
-  /* ▼▼▼ 앱 전체를 감싸는 컨테이너 ▼▼▼ */
+  /* ▼▼▼ 앱 전체를 감싸는 컨테이너 (수정됨) ▼▼▼ */
   .app-container {
-    /* ▼▼▼ [수정됨] 비율 고정 1206 / 1961 ▼▼▼ */
     aspect-ratio: 1206 / 1961;
-    
-    /* 화면 크기에 맞게 제한 */
     max-width: 100vw;
     max-height: 100vh;
-    
-    /* 부모(body)의 flex 설정에 맞춰 크기 조절 */
     width: 100%;
     height: 100%;
-
-    /* 원래 body의 스타일 (배경, 패딩) */
     background: #F1F1F1;
-    padding-left: var(--page-padding);
-    padding-right: var(--page-padding);
-    box-sizing: border-box; 
-    padding-top: 70px; /* 구독일 패널 */
-    padding-bottom: 80px; /* input bar와 겹치지 않도록 */
     
-    /* 자식 요소(absolute)의 기준점 */
+    /* ▼▼▼ [제거] 모든 padding 제거 ▼▼▼ */
+    /* 이 프레임은 패딩이 없어야 함 */
+    
+    box-sizing: border-box; 
     position: relative; 
     
-    /* 내용이 길어질 때 이 안에서 스크롤 */
+    /* ▼▼▼ [수정] 자식 요소가 넘치면 숨김 (스크롤 X) ▼▼▼ */
+    overflow: hidden;
+  }
+
+  /* ▼▼▼ [추가됨] 스크롤되는 채팅 영역 스타일 ▼▼▼ */
+  .chat-area {
+    /* 부모(.app-container)를 꽉 채움 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* ▼▼▼ .app-container의 padding을 여기로 가져옴 ▼▼▼ */
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+    
+    /* (상단바 공간) - 1206px 기준 70px 높이였다고 가정 */
+    padding-top: calc(100% * 70 / 1206);
+    
+    /* (하단바 공간) - 1206px 기준 80px 높이였다고 가정 */
+    padding-bottom: calc(100% * 80 / 1206);
+    
+    box-sizing: border-box; 
+    
+    /* ▼▼▼ *이 영역*이 스크롤되도록 설정 ▼▼▼ */
     overflow-y: auto;
     overflow-x: hidden;
   }
 
-  /* ▼▼▼ body에서 패딩, 배경 등 제거 (font만 남김) ▼▼▼ */
+  /* ▼▼▼ body 기본 폰트 설정 ▼▼▼ */
   body {
     font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif;
     font-weight: 400;
@@ -76,7 +92,7 @@
   .header {
     display: flex;
     align-items: flex-start;
-    /* margin-bottom: calc(100% * 25 / 1206); 이름-메시지 간격 */
+    /* margin-bottom: calc(100% * 25 / 1206); */
   }
   .artist-tag {
     transform: scaleX(1.1); 
@@ -94,7 +110,7 @@
     font-family: 'Kosugi Maru', Pretendard, 'Noto Sans JP', sans-serif;
     font-size: 12px;
     color: #171718;
-    margin-left: calc(100% * 5 / 1206); /* 이름 오른쪽으로 이동 */
+    margin-left: calc(100% * 5 / 1206); 
   }
 /* ▼▼▼ [버블] ▼▼▼ */
   .message-content { 
@@ -151,6 +167,7 @@
     top: -6px; 
     height: 0.8px; 
     background: #E0E0E0;
+    /* .chat-area의 패딩 값(--page-padding)을 기준으로 함 */
     left: calc(-1 * var(--page-padding));
     right: calc(-1 * var(--page-padding));
   }
@@ -279,19 +296,20 @@
     font-weight: 650;
     color: #000000;
     padding-top: 16.5px;
-    position: absolute; /* fixed -> absolute */
+    position: absolute; 
     top: 0;
     left: 0;
     right: 0;
     max-width: 550px;
     margin: 0 auto;
     text-align: center;
-    z-index: 1001;
+    /* ▼▼▼ z-index 수정 (chat-area보다 위에) ▼▼▼ */
+    z-index: 10;
     pointer-events: none;
   }
 /* ▼▼▼ [구독일 하트] ▼▼▼ */
   .d-day {
-        position: absolute; /* fixed -> absolute */
+        position: absolute; 
         top: 0;
         left: 0;
         right: 0;
@@ -300,7 +318,8 @@
         padding-top: 62px;
         transform: translateX(30px); 
         text-align: center;
-        z-index: 1001;
+        /* ▼▼▼ z-index 수정 (chat-area보다 위에) ▼▼▼ */
+        z-index: 10;
         font-size: 11px;
         font-weight: 600;
         color: #000000;
@@ -308,11 +327,13 @@
       }
 /* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
       .input-bar {
-        position: absolute; /* fixed -> absolute */
+        position: absolute; 
         bottom: 0;
         left: 0;
         width: 100%;
         text-align: center;
+        /* ▼▼▼ z-index 수정 (chat-area보다 위에) ▼▼▼ */
+        z-index: 10;
       }
       .input-bar img {
         max-width: 500px;
@@ -322,7 +343,7 @@
       }
 /* ▼▼▼ [구독일 패널] ▼▼▼ */
       .title-bar {
-        position: absolute; /* fixed -> absolute */
+        position: absolute; 
         top: 0;
         left: 0;
         right: 0;
@@ -330,7 +351,8 @@
         margin: 0 auto;
         width: 100%;
         background: #F1F1F1;
-        z-index: 1000;
+        /* ▼▼▼ z-index 수정 (chat-area보다 위에) ▼▼▼ */
+        z-index: 5;
       }
       .title-bar img {
         width: 100%;
@@ -339,11 +361,12 @@
       }
 /* ▼▼▼ [검색] ▼▼▼ */
       .search {
-        position: absolute; /* fixed -> absolute */
+        position: absolute; 
         top: 0;
         background: white;
         padding: 10px 8px;
-        z-index: 1002;
+        /* ▼▼▼ z-index 수정 (가장 위에) ▼▼▼ */
+        z-index: 20;
         display: none;
         align-items: center;
         gap: 5px;
@@ -370,6 +393,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        /* ▼▼▼ z-index 수정 (title-bar 위) ▼▼▼ */
+        z-index: 6; 
       }
       .search-img {
         max-width: 100%;
@@ -377,57 +402,24 @@
         object-fit: contain;
         display: block;
       }
-      #searchInput {
-        flex-grow: 1;
-        padding: 10px;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        font-size: 14px;
-        box-sizing: border-box;
-      }
-      #searchInput:focus {
-        outline: none;
-        border-color: #A584F9;
-        box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
-      }
-      .search-controls {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-      .search-controls button {
-        width: 38px;
-        height: 38px;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        background: white;
-        font-size: 18px;
-        padding: 0;
-      }
-      #searchCounter {
-        font-size: 12px;
-        color: #8A8A8A;
-        min-width: 40px;
-        text-align: center;
-      }
+      /* ( ... 나머지 .search 관련 스타일 ... ) */
 </style>
   </head>
   <body>
     <div class="app-container">
+      
       <div class="nickname">
         시온오빠💜
       </div>
       <div class="d-day">
         183
       </div>
-      
       <div class="title-bar">
         <img src="../pic/real_title_1140.png" alt="상단 고정 이미지">
         <div id="search-icon">
           <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
         </div>
       </div>
-      
       <div class="search">
         <input type="text" id="searchInput" placeholder="채팅 검색">
         <div class="search-controls">
@@ -437,12 +429,15 @@
         </div>
       </div>
 
-      <div id="chat">
-        <div>
-          
+      <div class="chat-area">
+        <div id="chat">
+          </div>
+      </div>
+      
       <div class="input-bar">
         <img src="../pic/real_under_1440.jpg" alt="메시지 보내기">
       </div>
+
     </div> <script>
 // 번역을 보려면 true, 숨기려면 false로 변경
       const showTranslations = true;
@@ -470,6 +465,9 @@ const artistProfile = [
      { sender: 'me', type: 'text', content: '바다?', time: '오후 06:31' },
      { sender: 'artist', type: 'text', content: "아 빨리 가흔이 목소리 듣고싶다", time: "02:26" },
    ];
+      
+      /* ( ... 나머지 스크립트 코드는 동일 ... ) */
+      
       let currentProfileIndex = 0;
       const chatContainer = document.getElementById("chat");
       messages.forEach(msg => {
@@ -606,8 +604,8 @@ const artistProfile = [
           return;
         }
         
-        // [수정됨] .app-container 내부에서 검색
-        const allMessages = document.querySelectorAll('.app-container .chat-message, .app-container .my-chat-message, .app-container .date-divider');
+        // [수정됨] .chat-area 내부의 메시지만 검색하도록 기준 변경
+        const allMessages = document.querySelectorAll('.chat-area .chat-message, .chat-area .my-chat-message, .chat-area .date-divider');
 
         searchResults = Array.from(allMessages).filter(element => {
           if (element.classList.contains('date-divider')) {
@@ -635,7 +633,12 @@ const artistProfile = [
         if (index < 0 || index >= searchResults.length) return;
         
         const targetMessage = searchResults[index];
+        // [수정됨] 스크롤 대상이 .chat-area가 되도록 수정
+        const scrollContainer = document.querySelector('.chat-area');
+        
+        // scrollIntoView는 스크롤 컨테이너(.chat-area) 내에서 작동함
         targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
         currentResultIndex = index;
         updateCounter();
       };
