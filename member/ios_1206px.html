@@ -227,6 +227,76 @@
     width: auto;
     height: 22.7px;
   }
+/* ▼▼▼ [투표] ▼▼▼ */
+      .poll {
+        position: relative;
+        overflow: hidden; /* 둥근 모서리 밖으로 이미지가 삐져나가지 않도록 */
+        display: block;
+        max-width: 500px; /* 최대 너비 */
+        margin-top: -1.1px; /* 숫자↓ 위치↑ */
+      }
+      .poll img {
+        width: 100%;
+        display: block; /* 이미지 아래 작은 여백 제거 */
+      }
+/* 투표 기간 */
+      .poll-period {
+        position: absolute;
+        color: #ff17e4;
+        font-size: 10px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 230px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 19px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+      }
+/* 투표 주제 */
+      .poll-topic {
+        position: absolute;
+        color: #ff17e4;
+        font-size: 14px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 200px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 33px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+      }
+/* 투표 메시지만 너비 키우기 */
+      .message-content:has(.poll) {
+        max-width: 79%; /*  */
+      }
+/* ▼▼▼ [채팅방 이름] ▼▼▼ */
+      .nickname {
+        font-family: 'Noto Sans KR';
+        font-size: 15.5px;
+        font-weight: 650;
+        color: #000000;
+        padding-top: 16.5px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        max-width: 550px;
+        margin: 0 auto;
+        text-align: center;
+        z-index: 1001;
+        pointer-events: none;
+      }
+/* ▼▼▼ [구독일 하트] ▼▼▼ */
+      .d-day {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        max-width: 600px;
+        margin: 0 auto;
+        padding-top: 62px;
+        transform: translateX(30px); /* 숫자↑ 위치→ */
+        text-align: center;
+        z-index: 1001;
+        font-size: 11px;
+        font-weight: 600;
+        color: #000000;
+        pointer-events: none;
+      }
 /* ▼▼▼ [input bar] ▼▼▼ */
   .input-bar { 
     position: fixed; 
@@ -388,7 +458,9 @@
     { sender: 'artist', type: 'emote', content: "<img src='../emoji/ios_face_smiling.png' alt='☺️' class='ios-emoji'>", time: "22:06", profileIndex: 0 },
     { sender: 'artist', type: 'emote', content: '../emoji/tamagotchi_mametchi_hello.png', isImage: true, time: "22:13", profileIndex: 0 },
     { sender: 'artist', type: 'voice', time: "오후 8:20", profileIndex: 0 },
+    { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19', profileIndex: 0 },
     { sender: 'me', type: 'text', content: '내가쓴버블', time: '22:22' },
+    // 11개 유형 정리
 
     { sender: 'artist', type: 'image', content: '../pic/sion_251022.jpg', time: '23:56', profileIndex: 6 },
     { sender: 'artist', type: 'text', content: "진짜 재밌네", time: "23:56" },
