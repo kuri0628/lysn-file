@@ -468,16 +468,12 @@
         }
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
-        
-// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+// ▼ 답장 메시지
         if (msg.type === 'reply') {
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
-          <div class="header">
-          
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
-          </div>
           <div class="bubble reply-bubble">
           <div class="reply-title">ARTIST의 답장</div>
           <div class="reply-content">${msg.replyContent}</div>
@@ -517,14 +513,11 @@
             let langAttr = msg.lang ? ` lang="${msg.lang}"` : '';
             messageBodyHTML = `<div class="${bubbleClass}"${langAttr}>${bubbleContent}</div>`;
           }
-// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span> 을 <div class="header"> 바로 아래에 넣어주기
+// ▼ 일반 메시지
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
-          <div class="header">
-          
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
-          </div>
           <div style="display:flex; align-items:flex-end;">
           ${messageBodyHTML}
           <div class="time">${msg.time}</div>
