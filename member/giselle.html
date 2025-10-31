@@ -41,7 +41,7 @@
       .header {
         display: flex;
         align-items: center;
-        margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
+        margin-bottom: 6px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
       }
       .artist-tag {
         transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
@@ -65,16 +65,16 @@
         color: #F0526880; /* #171718; */
       }
 /* ▼▼▼ [버블] ▼▼▼ */
+      .chat-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 2.1vw; /* 화면 외곽에서 내용물까지의 간격 */
+      }
       .message-content {
         display: flex;
         flex-direction: column;
         max-width: 95%;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-      }
-      .chat-container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 1.99vw;
       }
       .chat-message {
         display: flex;
