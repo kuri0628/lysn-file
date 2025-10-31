@@ -132,7 +132,7 @@
 /* ▼▼▼ [날짜] ▼▼▼ */
       .date {
         text-align: center;
-        font-size: 10px;
+        font-size: 11px;
         color: #777777; /* 기존 색: 8A8A8A; 날짜 */
         font-weight: 400;
         margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
@@ -142,10 +142,10 @@
       .date::before {
         content: '';
         position: absolute;
-        top: -6.5px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+        top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
         left: 50%; /* 선 시작점이 화면 중앙 */
         width: 100vw;
-        height: 0.7px; /* 선 두께 */
+        height: 0.5px; /* 선 두께 */
         background: #D6D6D6; /* 기존 색: E0E0E0; 날짜 선 */
         transform: translateX(-50%);
       }
