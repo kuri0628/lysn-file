@@ -76,7 +76,7 @@
       .chat-message {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 20px; /* 메시지 간 간격 */
+        margin-bottom: 18px; /* 메시지 간 간격 */
         gap: 1.52vw; /* 메시지-프로필 간격 */
       }
 /* 말풍선 */
@@ -449,7 +449,7 @@
         { sender: 'artist', type: 'text', content: "오우 레코딩 떴네", time: "오후 10:24" },
         // 여기에 메시지 내용 추가...
         ];
-  let currentProfileIndex;
+  let currentProfileIndex = 0;
   const chatContainer = document.getElementById("chat");
   messages.forEach(msg => {
 // 1. 날짜
