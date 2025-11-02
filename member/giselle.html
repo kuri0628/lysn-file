@@ -246,7 +246,8 @@
         margin-top: -1.1px; /* 숫자↓ 위치↑ */
       }
       .poll img {
-        width: 100%;
+        width: 45vw;
+        height: auto;
         opacity: 0.5;
         display: block; /* 이미지 아래 작은 여백 제거 */
       }
@@ -473,16 +474,6 @@
       // 메시지 배열
       const messages = [
         { type: 'date', content: '2025년 7월 30일 수요일' },
-        { sender: 'artist', type: 'text', content: "난 자기 생각하고 잇지", time: "오전 3:31", profileIndex: 2 },
-        { sender: 'artist', type: 'text', content: "그래서 연습도 열심히할 수 있는거자나", time: "오전 3:32" },
-        { sender: 'me', type: 'text', content: '나도 그래서 열심히 버블 돈 내고 있엉', time: '오전 3:33' },
-        { sender: 'artist', type: 'text', content: "미안 말 오래 햇나", time: "오전 3:33" },
-        { sender: 'me', type: 'text', content: '아니라고 아니라고 아니라고!!!!!!!!', time: '오전 3:33' },
-        { sender: 'artist', type: 'text', content: "늦엇는데", time: "오전 3:33" },
-        { sender: 'artist', type: 'text', content: "얼른 자☺️", time: "오전 3:33" },
-        { sender: 'me', type: 'text', content: '버블은 많을수록 좋아 도대체 누가 자꾸 그러는 거임? 너 혼자 그러는 거야? 아니 말 많이 해!!!!', time: '오전 3:33' },
-        { sender: 'artist', type: 'text', content: "나두 곧 잔다", time: "오전 3:34" },
-
         { sender: 'artist', type: 'text', content: "보고싶네진짜로", time: "오후 9:56", profileIndex: 1 },
         { sender: 'artist', type: 'text', content: "하", time: "오후 9:56" },
         { sender: 'artist', type: 'text', content: "응 내가 더 보고싶어", time: "오후 9:57" },
@@ -508,8 +499,32 @@
         { sender: 'artist', type: 'text', content: "이걸 어떻게 마시지", time: "오후 1:09" },
         { sender: 'me', type: 'text', content: '', time: '오후 8:32' },
         
-        { sender: 'artist', type: 'text', content: "원문", translation: "해석", time: "오후 10:25", profileIndex: 0 },
-        { sender: 'artist', type: 'poll', pollTitle: '25/5/6 오후 8:29 까지', text: '이름', time: '오후 8:19', profileIndex: 0 },
+        { sender: 'me', type: 'text', content: '카메랑 앵글 뭔데 ㅋㅋㅋㅋㅋㅋㅋㅋ', time: '오후 7:48' },
+        { sender: 'artist', type: 'text', content: "나 이제 세개야", time: "오후 7:48" },
+        { sender: 'artist', type: 'poll', pollTitle: '25/5/5 오후 7:59 까지', text: '자기 골라조', time: '오후 7:49' },
+        { sender: 'artist', type: 'text', content: "오 이렇게 되는구나 이거", time: "오후 7:50" },
+        { sender: 'artist', type: 'text', content: "55분은 근본 없나", time: "오후 7:52" },
+        { sender: 'me', type: 'text', content: '아니 8시까지 버블하다 가라구 눌렀지', time: '오후 7:52' },
+        
+        { sender: 'artist', type: 'text', content: "자기 모행", time: "오후 5:18", profileIndex: 2 },
+        { sender: 'artist', type: 'text', content: "쉬고 잇나??", time: "오후 5:18" },
+        { sender: 'me', type: 'text', content: '리쿠 생각해용', time: '오후 5:18' },
+        { sender: 'me', type: 'text', content: '너무 카와이(ა🩷૮)', time: '오후 5:19' },
+        { sender: 'artist', type: 'text', content: "かわいすぎてむりって笑笑", translation: "너무 귀여워서 무리해서 (웃음)", time: "오후 5:19" },
+        { sender: 'artist', type: 'text', content: "그렇게 귀엽나 ㅋㅋㅋ", time: "오후 5:19" },
+        { sender: 'artist', type: 'text', content: "이 사진은 예쁜 줄", time: "오후 5:20" },
+        { sender: 'artist', type: 'text', content: "다 귀엽구낭", time: "오후 5:20" },
+        { sender: 'me', type: 'text', content: '예쁜데 귀엽지 ㅋㅋㅋ', time: '오후 5:20' },
+        
+        { sender: 'artist', type: 'text', content: "난 자기 생각하고 잇지", time: "오전 3:31", profileIndex: 2 },
+        { sender: 'artist', type: 'text', content: "그래서 연습도 열심히할 수 있는거자나", time: "오전 3:32" },
+        { sender: 'me', type: 'text', content: '나도 그래서 열심히 버블 돈 내고 있엉', time: '오전 3:33' },
+        { sender: 'artist', type: 'text', content: "미안 말 오래 햇나", time: "오전 3:33" },
+        { sender: 'me', type: 'text', content: '아니라고 아니라고 아니라고!!!!!!!!', time: '오전 3:33' },
+        { sender: 'artist', type: 'text', content: "늦엇는데", time: "오전 3:33" },
+        { sender: 'artist', type: 'text', content: "얼른 자☺️", time: "오전 3:33" },
+        { sender: 'me', type: 'text', content: '버블은 많을수록 좋아 도대체 누가 자꾸 그러는 거임? 너 혼자 그러는 거야? 아니 말 많이 해!!!!', time: '오전 3:33' },
+        { sender: 'artist', type: 'text', content: "나두 곧 잔다", time: "오전 3:34" },
         // 여기에 메시지 내용 추가...
         ];
   let currentProfileIndex = 0;
