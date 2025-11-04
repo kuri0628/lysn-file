@@ -1,22 +1,147 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>아티스트 채팅</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아티스트 채팅</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    
+    <style>
+      body {
+        font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
+        background: #F1F1F1;
+        background-image:url('../pic/sm핑크방_시온1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        padding-top: 32.42vw;
+        padding-bottom: 25.53vw;
+      }
+      .profile {
+        width: 10.09vw;
+        height: 10.09vw;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+        margin-top: 4.8px; /* 숫자↓ 위치↑ */
+        border: 0.3px solid #cdcdcd; /* 테두리 */
+        flex-shrink: 0;
+      }
+      .name {
+        /* font-family: 'Kosugi Maru', Pretendard, 'Noto Sans JP', sans-serif; */
+        font-size: 12px;
+        /* font-weight: 600; 아티스트 태그 있을 때는 600*/
+        color: #171718;
+        top: -0.15px; /* 숫자↓ 이름↑ */
+        margin-bottom: 1.1px; /* */
+      }
+/* ▼▼▼ [버블 전체 구조] ▼▼▼ */
+      .message-content { 
+        display: flex; 
+        flex-direction: column; 
+        max-width: 85%;
+        align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+      }
+      .chat-container {
+        max-width: 500px; /* 채팅방 크기 제한 */
+        margin: 0 auto; /* 가운데 정렬 */
+        padding: 1.99vw; /* 프로필(+다른 내용물)과 외곽 거리 */
+      }
+      .chat-message {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 2px; /* 메시지 간 간격 */
+        gap: 1.52vw; /* 메시지-프로필 간격 */
+      }
+  /* 말풍선 */
+      .bubble {
+        background: #F0526880; /* #FFFFFF; */
+        border-radius: 4px 13px 13px 13px;
+        padding: 12px 12.5px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
+        font-size: 14.5px;
+        font-weight: 400;
+        line-height: 1;
+        /* font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif; */
+      }
+      .bubble:lang(ja) {
+        font-family: 'Kosugi Maru', 'Noto Sans JP', sans-serif;
+        font-size: 13.5px;
+      }
+/* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
+  /* 오른쪽 배치 */
+      .my-chat-message {
+        display: flex; 
+        justify-content: flex-end; 
+        margin-bottom: 12px;
+      }
+  /* 보라색 */
+      .my-bubble {
+        /* font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif; */
+        background: #A584F9; 
+        color: #FFFFFF; 
+        border-radius: 13px 13px 4px 13px;
+      }
+  /* 시간 */
+      .my-chat-message .time {
+        margin-left: 0; 
+        margin-right: 6px; 
+      }
+/* ▼▼▼ [날짜] ▼▼▼ */
+      .date-divider {
+        text-align: center;
+        font-size: 11px;
+        color: #8A8A8A;
+        margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
+        position: relative;
+      }
+      .date-divider::before {
+        content: '';
+        position: absolute;
+        top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+        left: 50%;
+        width: 100vw;
+        height: 0.8px; /* 선 두께 */
+        background: #E0E0E0;
+        transform: translateX(-50%);
+      }
+/* ▼▼▼ [시간] ▼▼▼ */
+      .time {
+        font-size: 10px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.3);
+        margin-left: 6px;
+        white-space: nowrap;
+        position: relative;
+        top: 2px;
+      }
+/* ▼▼▼ [사진] ▼▼▼ */
+  /* 3. 사진 메시지 스타일 */
+      .image-bubble {
+        padding: 0px;
+        background: none;
+      }
+      .image-bubble img {
+        max-width: 265px;
+        border-radius: 4px 13px 13px 13px;
+        display: block;
+      }
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-  <style>
-    /* 전체 페이지 기본 폰트 적용 */
-    body {
-      font-family: -apple-system, 'Inter', "Roboto", sans-serif;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0;
-      background: #F1F1F1;
-    }
+
+
+
+
+
+        
 
     /* --- 검색창 스타일 (수정) --- */
     .search-bar {
@@ -72,74 +197,6 @@
       0% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); }
       70% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0); }
       100% { box-shadow: none; }
-    }
-
-
-    .chat-container {
-      max-width: 500px;
-      margin: 0;
-      padding: 8px;
-    }
-
-    .chat-message {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 12px;
-      gap: 5px
-    }
-
-    .profile {
-      width: 41px;
-      height: 41px;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      margin-top: 7px;
-    }
-
-    .message-content {
-      display: flex;
-      flex-direction: column;
-      max-width: 95%;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 3px;
-    }
-
-    .name {
-      font-size: 12px;
-      font-weight: 400;
-      color: #171718;
-    }
-
-    /* 말풍선 */
-    .bubble {
-      background: #FFFFFF;
-      border-radius: 4px 14px 14px 14px;
-      padding: 11px 12px;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1;
-      word-break: break-all;
-    }
-
-    .time { font-size: 10px; font-weight: 450; color: #ABABAB;  margin-left: 6px;  white-space: nowrap;  position: relative; top: 2px; }
-
-    /* 날짜 */
-    .date-divider {text-align: center; font-size: 11px; color: #8A8A8A; margin: 32px 0 16px; position: relative; }
-    /* 날짜 선 */
-   .date-divider::before {
-      content: '';
-      position: absolute;
-      top: -6px;
-      left: 50%;
-      width: 100vw;
-      height: 0.8px;
-      background: #E0E0E0;
-      transform: translateX(-50%);
     }
 
   </style>
