@@ -1079,29 +1079,53 @@
         chatContainer.appendChild(dateEl);
         return;
       }
-      
-      // 3. 아티스트 버블 (핵심 로직 수정)
-      if (msg.sender === 'artist') {
-        // 3-1. 이 메시지의 아티스트 ID 가져오기
-        const artistId = msg.artistId;
-        if (!artistId) {
-          console.error('메시지에 artistId가 없습니다:', msg);
-          return; // artistId가 없으면 이 메시지 건너뛰기
+      
+      // 3. 아티스트 버블 (핵심 로직 수정)
+      if (msg.sender === 'artist') {
+        const artistId = msg.artistId;
+        let profile;
+
+        // ▼▼▼ [수정됨] ▼▼▼
+        // 3-1. 프로필 정보 가져오기
+        // (artists[artistId]가 없는 'unknown' 등을 처리)
+        if (!artistId || !artists[artistId]) {
+          // artistId가 없거나(ex: 'unknown') artists 객체에 정의되지 않았으면
+          // 빈 프로필과 빈 이름을 사용
+          profile = { img: "", name: "" };
+        } else {
+          // 3-2. (정상 아티스트) 이 메시지에서 프로필을 변경하는지 확인
+          if (msg.profileIndex !== undefined) {
+            currentArtistProfiles[artistId] = msg.profileIndex;
+          }
+          // 3-3. 사용할 프로필 인덱스 결정
+          const profileIndexToUse = currentArtistProfiles[artistId] !== undefined ? currentArtistProfiles[artistId] : 0;
+          
+          // 3-4. 실제 프로필 정보 할당
+          if (!artists[artistId][profileIndexToUse]) {
+            console.error(`프로필 정보를 찾을 수 없습니다: artistId=${artistId}, index=${profileIndexToUse}`);
+            // 혹시 모를 오류에 대비해 0번 프로필이라도 사용
+            profile = artists[artistId][0]; 
+          } else {
+            profile = artists[artistId][profileIndexToUse];
+          }
+        }
+        
+        // ▼▼▼ [오류 수정 지점] ▼▼▼
+        // 1. messageContentClass 변수 정의
+        const messageContentClass = "message-content";
+        
+        // 2. messageBodyHTML 변수 정의 (msg.type에 따라)
+        let messageBodyHTML = "";
+        if (msg.type === 'text' && msg.content) { // 내용이 있는 텍스트만
+          // 일본어 감지 (CSS :lang(ja) 적용을 위해)
+          const langAttr = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/.test(msg.content) ? 'lang="ja"' : '';
+          messageBodyHTML = `<div class="bubble" ${langAttr}>${msg.content}</div>`;
+        } else if (msg.type === 'image' && msg.content) { // CSS에 정의된 .image-bubble
+          messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}"></div>`;
+        } else {
+          // 내용이 없는 메시지(데이터의 "" 값)는 그리지 않음
+          return;
         }
-        // 3-2. 이 메시지에서 프로필을 변경하는지 확인
-        if (msg.profileIndex !== undefined) {
-          // 해당 아티스트의 현재 프로필 인덱스를 업데이트
-          currentArtistProfiles[artistId] = msg.profileIndex;
-        }
-        // 3-3. 사용할 프로필 인덱스 결정
-        // 저장된 값이 없으면(첫 등장이면) 0번 사용
-        const profileIndexToUse = currentArtistProfiles[artistId] !== undefined ? currentArtistProfiles[artistId] : 0;
-        // 3-4. artists 객체에서 실제 프로필 정보 가져오기
-        if (!artists[artistId] || !artists[artistId][profileIndexToUse]) {
-          console.error(`프로필 정보를 찾을 수 없습니다: artistId=${artistId}, index=${profileIndexToUse}`);
-          return; // 프로필 정보 없으면 건너뛰기
-        }
-        const profile = artists[artistId][profileIndexToUse];
         
         // --- 얘는 뭘까요 ---
         const chatMsg = document.createElement("div");
@@ -1112,7 +1136,7 @@
         
         chatMsg.innerHTML = `
         <div class="profile" style="background-image: url('${profile.img}')"></div>
-        <div class="${messageContentClass}"> 
+        <div class="${.message-content}"> 
         <div class="header">
         <div class="name">${profile.name}</div>
         </div>
