@@ -6,262 +6,386 @@
     <title>아티스트 채팅</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
     
     <style>
       body {
-        font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif;
-        font-weight: 400;
+        font-family: Pretendard, 'Kosugi Maru', sans-serif;
         font-size: 14px;
         line-height: 1.5;
-        margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
-        background: #F1F1F1;
-        background-image:url('../pic/.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        padding-top: 32.42vw;
-        padding-bottom: 25.53vw;
+        margin: 0;
+        background: #EEEEEE;
+        padding-bottom: 30px;
       }
       .profile {
-        width: 10.09vw;
-        height: 10.09vw;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         background-size: cover;
         background-position: center;
-        margin-top: 4.8px; /* 숫자↓ 위치↑ */
-        border: 0.3px solid #cdcdcd; /* 테두리 */
-        flex-shrink: 0;
+        margin-top: 4.9px; /* 숫자↓ 위치↑ */
+        border: 0.2px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+      }
+/* 프사랑 아티스트 뱃지 그룹 */
+      .header {
+        display: flex;
+        align-items: center;
+        /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
+        margin-bottom: 5.5px;
       }
       .name {
-        /* font-family: 'Kosugi Maru', Pretendard, 'Noto Sans JP', sans-serif; */
-        font-size: 12px;
-        /* font-weight: 600; 아티스트 태그 있을 때는 600*/
+        font-size: 10.5px;
+        font-weight: 400; /* 아티스트 태그 on → 600 */
         color: #171718;
-        top: -0.15px; /* 숫자↓ 이름↑ */
-        margin-bottom: 1.1px; /* */
       }
-/* ▼▼▼ [버블 전체 구조] ▼▼▼ */
-      .message-content { 
-        display: flex; 
-        flex-direction: column; 
-        max-width: 85%;
-        align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+/* ▼▼▼ [채팅] ▼▼▼ */
+      .bubble {
+        /* font-family: 'Kosugi Maru'; */
+        background: #FFFFFF;
+        border-radius: 4px 14.5px 14.5px 14.5px;
+        padding: 12px 12px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
+        font-size: 13.7px;
+        font-weight: 400;
+        line-height: 1.2;
       }
+      .bubble:lang(ja) {
+        font-family: 'Kosugi Maru', sans-serif;
+        font-size: 13.5px;
+      }
+  /* 가장 큰 채팅 레이아웃 */
       .chat-container {
-        max-width: 500px; /* 채팅방 크기 제한 */
-        margin: 0 auto; /* 가운데 정렬 */
-        padding: 1.99vw; /* 프로필(+다른 내용물)과 외곽 거리 */
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 7.8px; /* 배경 외곽에서 프로필사진까지의 거리*/
+      }
+  /* 아티스트 - 프로필 제외 레이아웃 */
+      .message-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+        max-width: 78%;
       }
       .chat-message {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 2px; /* 메시지 간 간격 */
-        gap: 1.52vw; /* 메시지-프로필 간격 */
-      }
-  /* 말풍선 */
-      .bubble {
-        background: #F0526880; /* #FFFFFF; */
-        border-radius: 4px 13px 13px 13px;
-        padding: 12px 12.5px 11px 12px;  /* 위 오른 아래 왼쪽 여백 */
-        font-size: 14.5px;
-        font-weight: 400;
-        line-height: 1;
-        /* font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif; */
-      }
-      .bubble:lang(ja) {
-        font-family: 'Kosugi Maru', 'Noto Sans JP', sans-serif;
-        font-size: 13.5px;
+        margin-bottom: 16.9px; /* 메시지 간 간격 */
+        gap: 6px /* 메시지-프로필 간격 */
       }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
-  /* 오른쪽 배치 */
+  /* 오른쪽배치 */
       .my-chat-message {
-        display: flex; 
-        justify-content: flex-end; 
-        margin-bottom: 12px;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 18px;
+        margin-top: 19px;
+        width: 100%;
+        align-items: flex-end;
+        gap: 6px; /* 시간과 말풍선 사이 간격을 줌 */
       }
-  /* 보라색 */
+  /* 메시지 색 */
       .my-bubble {
-        /* font-family: Pretendard, 'Noto Sans JP', 'Kosugi Maru', sans-serif; */
-        background: #A584F9; 
-        color: #FFFFFF; 
-        border-radius: 13px 13px 4px 13px;
+        background: #A584F9;
+        color: #FFFFFF;
+        border-radius: 14.5px 14.5px 4px 14.5px;
+        max-width: 60%;
       }
-  /* 시간 */
+  /* 메시지 시간 */
       .my-chat-message .time {
-        margin-left: 0; 
-        margin-right: 6px; 
-      }
-/* ▼▼▼ [날짜] ▼▼▼ */
-      .date-divider {
-        text-align: center;
-        font-size: 11px;
-        color: #8A8A8A;
-        margin: 32px 0 16px; /* 날짜-메시지 간격 ,  */
-        position: relative;
-      }
-      .date-divider::before {
-        content: '';
-        position: absolute;
-        top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
-        left: 50%;
-        width: 100vw;
-        height: 0.8px; /* 선 두께 */
-        background: #E0E0E0;
-        transform: translateX(-50%);
+        margin-left: 0;
       }
 /* ▼▼▼ [시간] ▼▼▼ */
       .time {
-        font-size: 10px;
+        font-family: sans-serif;
+        font-size: 9px;
         font-weight: 400;
         color: rgba(0, 0, 0, 0.3);
         margin-left: 6px;
         white-space: nowrap;
+      }
+/* ▼▼▼ [날짜] ▼▼▼ */
+      .date {
+        text-align: center;
+        font-size: 10px;
+        color: #777777; /* 기존 색: 8A8A8A; 날짜 */
+        font-weight: 400;
+        margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
         position: relative;
-        top: 2px;
+      }
+/* 날짜 선 */
+      .date::before {
+        content: '';
+        position: absolute;
+        top: -6.5px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+        left: 50%; /* 선 시작점이 화면 중앙 */
+        width: 100vw;
+        height: 0.7px; /* 선 두께 */
+        background: #D6D6D6; /* 기존 색: E0E0E0; 날짜 선 */
+        transform: translateX(-50%);
       }
 /* ▼▼▼ [사진] ▼▼▼ */
   /* 3. 사진 메시지 스타일 */
-      .image-bubble {
-        padding: 0px;
+      .picture {
+        padding: 0;
         background: none;
+        margin-left: 1px;
+        margin-top: 0px;
       }
-      .image-bubble img {
-        max-width: 265px;
+      .picture img {
+        max-width: 235px;
         border-radius: 4px 13px 13px 13px;
         display: block;
       }
-
-
-
-
-
-
-
-        
-
-    /* --- 검색창 스타일 (수정) --- */
-    .search-bar {
-      position: sticky;
-      top: 0;
-      background: #F1F1F1;
-      padding: 10px 8px;
-      z-index: 10;
-      display: flex; /* Flexbox 레이아웃 사용 */
-      align-items: center;
-      gap: 5px;
-    }
-
-    #searchInput {
-      flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
-      padding: 10px;
-      border: 1px solid #E0E0E0;
-      border-radius: 8px;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-    
-    .search-controls button {
-      width: 38px;
-      height: 38px;
-      border: 1px solid #E0E0E0;
-      border-radius: 8px;
-      background: white;
-      font-size: 18px;
-      cursor: pointer;
-      padding: 0;
-    }
-    
-    .search-controls {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    #searchCounter {
-      font-size: 12px;
-      color: #8A8A8A;
-      min-width: 40px; /* 카운터 너비 고정 */
-      text-align: center;
-    }
-
-    /* 현재 검색 결과 하이라이트 (추가) */
-    .current-search-result .bubble {
-      animation: highlight-animation 1.2s;
-    }
-
-    @keyframes highlight-animation {
-      0% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); }
-      70% { box-shadow: 0 0 0 3px rgba(0, 123, 255, 0); }
-      100% { box-shadow: none; }
-    }
-
-  </style>
-</head>
-<body>
-
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="메시지 검색 후 Enter">
-    <div class="search-controls">
-      <button id="prevBtn">↑</button>
-      <button id="nextBtn">↓</button>
-      <span id="searchCounter">0 / 0</span>
-    </div>
-  </div>
-
-  <div class="chat-container" id="chat"></div>
-
-  <script>
-    
-    // 아티스트 정보
-    const artists = {
-      'sion':[
-        {img: "../profile/songbird_sion.jpg", name: "시온"},
+/* ▼▼▼ [이모지] ▼▼▼ */
+  /* 진짜 이모지 */
+      .emoji {
+        font-size: 66px;
+        line-height: 1.24;
+        background: none;
+        position: relative;
+        top: 3px; /* 숫자↓ 위치↑ */
+      }
+  /* 버블 이모티콘 */
+      .sticker {
+        width: 152px;
+        height: auto;
+        margin-top: -11px;  /* 숫자↑ 위치↓ */
+        margin-left: -6px; /* 숫자↑ 위치→ */
+      }
+/* ▼▼▼ [번역] ▼▼▼ */
+  /* 점선 스타일 */
+      .dotted-divider {
+        border: none;
+        background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
+        background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
+        background-repeat: repeat-x;
+        background-position: left;
+        height: 1px; /* 선의 높이(두께) 지정 */
+        margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
+      }
+  /* 말풍선 내부 번역 텍스트 */
+      .translation-inner {
+        font-family: Pretendard, sans-serif;
+        font-size: 13.5px;
+        color: #9050F3;
+        line-height: 1.2;
+      }
+      .bubble.has-translation {
+        padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+      }
+/* ▼▼▼ [ARTIST 답장] ▼▼▼ */
+      .reply-bubble {
+        background-color: #FFFFFF80; /* 배경 색 */
+        padding: 13.7px 12px 19px 12px; /* 위 오른 아래 왼쪽 간격 */
+        margin-bottom: 6px; /* 두 말풍선 간격 */
+        border-radius: 14px;
+      }
+      .reply-title {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 9.5px;
+        color: #020202; /* ARTIST의 답장 */
+        margin-bottom: 5px; /* ARTIST의 답장-팬버블 간격 */
+      }
+      .reply-content {
+        font-size: 11.9px;
+        color: #00000080; /* 팬 버블 7E7E7E */
+      }
+      .bubble-after-reply {
+        border-top-left-radius: 4px;
+      }
+/* ▼▼▼ [음성] ▼▼▼ */
+      .voice {
+        display: flex;
+        padding: 8px 14px 8px 10px; /* 위, 오른쪽, 아래, 왼쪽 */
+      }
+      .voice img {
+        width: auto;
+        height: 22.8px;
+      }
+/* ▼▼▼ [투표] ▼▼▼ */
+      .poll {
+        position: relative;
+        overflow: hidden; /* 둥근 모서리 밖으로 이미지가 삐져나가지 않도록 */
+        display: block;
+        max-width: 500px; /* 최대 너비 */
+        margin-top: -1.1px; /* 숫자↓ 위치↑ */
+      }
+      .poll img {
+        width: 100%;
+        display: block; /* 이미지 아래 작은 여백 제거 */
+      }
+/* 투표 기간 */
+      .poll-period {
+        position: absolute;
+        color: #ff17e4;
+        font-size: 10px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 230px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 19px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+      }
+/* 투표 주제 */
+      .poll-topic {
+        position: absolute;
+        color: #ff17e4;
+        font-size: 14px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 200px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 33px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+      }
+/* 투표 메시지만 너비 키우기 */
+      .message-content:has(.poll) {
+        max-width: 79%; /*  */
+      }
+/* ▼▼▼ [검색] ▼▼▼ */
+      .search-bar {
+        position: sticky;
+        top: 0;
+        background: white;
+        padding: 10px 8px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        max-width: 500px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        left: 0;
+        right: 0;
+      }
+      #searchInput {
+        flex-grow: 1; /* 남은 공간을 모두 차지하도록 */
+        padding: 10px;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      #searchInput:focus {
+        outline: none;
+        border-color: #A584F9;
+        box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
+      }
+      .search-controls button {
+        width: 38px;
+        height: 38px;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        background: white;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 0;
+      }
+      .search-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      #searchCounter {
+        font-size: 12px;
+        color: #8A8A8A;
+        padding: 0 8px;
+        text-align: center;
+      }
+  /* 현재 검색 결과 하이라이트 (수정) */
+      .current-search-result .bubble {
+        animation: highlight-animation 1.2s;
+      }
+      
+      @keyframes highlight-animation {
+        0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); } /* 포커스 색상과 맞춤 */
+        70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+        100% { box-shadow: none; }
+      }
+/* ▼▼▼ [대화 연결] ▼▼▼ */
+  /* 연결된 대화의 내용 컨테이너 */
+      .message-continuation {
+        padding-left: 10px; /* 세로줄과 메시지 내용 사이 간격 */
+        border-left: 3px solid #E0E0E0; /* 얇은 세로줄 */
+        max-width: 76%; /* 전체 메시지 너비 조정 (선 추가로 인해) */
+      }
+  /* 대화 연결 메시지에서는 이름이 표시되지 않도록 숨김 */
+      .message-continuation .header {
+        display: none;
+      }
+      .chat-message.continuation .profile {
+    margin-top: 0px;
+      }
+  /* 연속 메시지 전체 레이아웃 */
+      .chat-message.continuation {
+        gap: 6px; /* 6px 간격 */
+        margin-left: 0;
+        align-items: flex-start;
+      }
+    
+    </style>
+  </head>
+  <body>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="메시지 검색 후 Enter">
+      <div class="search-controls">
+        <button id="prevBtn">↑</button>
+        <button id="nextBtn">↓</button>
+        <span id="searchCounter">0 / 0</span>
+      </div>
+    </div>
+    <div class="chat-container" id="chat"></div>
+    
+    <script>
+      // 번역을 보려면 true, 숨기려면 false로 변경
+      const showTranslations = true;
+      const pollImagePath = '../pic/vote.jpg';
+      
+      // 아티스트 정보
+      const artists = {
+        'sion':[
+          {img: "../profile/songbird_sion.jpg", name: "시온"},
         {img: "../profile/steady_sion.jpg", name: "시온"},
         {img: "../profile/surf_sion.jpg", name: "시온"}
-      ],
-      'riku':[
-        {img: "../profile/songbird_riku.jpg", name: "리쿠"},
+        ],
+        'riku':[
+          {img: "../profile/songbird_riku.jpg", name: "리쿠"},
         {img: "../profile/steady_riku.jpg", name: "리쿠"},
         {img: "../profile/surf_riku.jpg", name: "리쿠"}
-      ],
-      'yushi':[
-        {img: "../profile/songbird_yushi.jpg", name: "유우시"},
+        ],
+        'yushi':[
+          {img: "../profile/songbird_yushi.jpg", name: "유우시"},
         {img: "../profile/steady_yushi.jpg", name: "유우시"},
         {img: "../profile/surf_yushi.jpg", name: "유우시"},
         {img: "../profile/color_yushi.jpg", name: "유우시"}
-      ],
-      'jaehee':[
-        {img: "../profile/songbird_jaehee.jpg", name: "재희"},
+        ],
+        'jaehee':[
+          {img: "../profile/songbird_jaehee.jpg", name: "재희"},
         {img: "../profile/steady_jeahee.jpg", name: "재희"},
         {img: "../profile/surf_jaehee.jpg", name: "재희"}
-      ],
-      'ryo':[
-        {img: "../profile/songbird_ryo.jpg", name: "료"},
+        ],
+        'ryo':[
+          {img: "../profile/songbird_ryo.jpg", name: "료"},
         {img: "../profile/steady_ryo.jpg", name: "료"},
         {img: "../profile/surf_ryo.jpg", name: "료"}
-      ],
-      'sakuya':[
-        {img: "../profile/songbird_sakuya.jpg", name: "사쿠야"},
+        ],
+        'sakuya':[
+          {img: "../profile/songbird_sakuya.jpg", name: "사쿠야"},
         {img: "../profile/steady_sakuya.jpg", name: "사쿠야"},
         {img: "../profile/surf_sakuya.jpg", name: "사쿠야"},
         {img: "../profile/color_sakuya.jpg", name: "사쿠야"}
-      ],
-      'melon':[
-        {img: "../profile/melon.jpg", name: "멜론"}
-      ],
-      'nct wish':[
-        {img: "../profile/songbird_wish.jpg", name: "NCT WISH"},
-        {img: "../profile/color_wish.jpg", name: "NCT WISH"}
-      ],
-    };
-    
-    // 채팅 내용
-    const messages = [
-      { type: 'date', content: '2024년 7월 5일' },
+        ],
+        'melon':[
+          {img: "../profile/songbird.jpg", name: "멜론"},
+          {img: "../profile/color.jpg", name: "멜론"}
+        ],
+        'nct wish':[
+          {img: "../profile/songbird.jpg", name: "NCT WISH"},
+          {img: "../profile/color.jpg", name: "NCT WISH"}
+        ],
+      };
+      
+      // 메시지 배열
+      const messages = [
+        { type: 'date', content: '2024년 7월 5일' },
       { sender: 'artist', artistId: 'sion', profileIndex: 0, type: 'text', content: "안녕하시온" },
       { sender: 'artist', artistId: 'sakuya', profileIndex: 0, type: 'text', content: "안녕하세요" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "오늘 뮤뱅 어땠시온???????????????" },
@@ -289,7 +413,7 @@
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "내일 착장도 기대해주세요!^^" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "저메추해주세요" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "저 감튀 먹고 싶어요" },
-      { sender: 'artist', artistId: 'ryo', profileIndex: 0, type: 'text', content: "안녕하세요" },
+      { sender: 'artist', artistId: 'ryo', profileIndex: 0, type: 'text', content: "안녕하세요" },
       { sender: 'artist', artistId: 'yushi', type: 'text', content: "맛있는거 먹고싶다" },
       { sender: 'artist', artistId: 'ryo', type: 'text', content: "컴퓨터 거의 처음이라 타이핑이 느려요" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "오늘 무대 어떘어요?" },
@@ -333,7 +457,7 @@
       { sender: 'artist', artistId: 'sion', type: 'text', content: "마피아는 사람 많아야 더 재밌는데<br>같이 할 시즈니 구함" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "맞아요" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "료 마피아 하고싶다 하자마자 마피아<br>됐을 줄은 몰랐는데" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "쌀밥 먹고 싶어" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "쌀밥 먹고 싶어" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ쌀밥" },
       { sender: 'artist', artistId: 'ryo', type: 'text', content: "마피아할때 시온이형 눈빛이 잊을수가 없어" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
@@ -365,7 +489,7 @@
       { sender: 'artist', artistId: 'yushi', type: 'text', content: "오늘의 tmi 알려주세요" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "삼겹살집 차려야되나......." },
       { sender: 'artist', artistId: 'ryo', type: 'text', content: "지금 한손가락으로 열심히 타이핑하고있어요" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "오겹살 맛있는데" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "오겹살 맛있는데" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "귀여워" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "아 오겹살도 맛있지" },
@@ -377,7 +501,7 @@
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "아까 바닐라 라떼 먹었어요(tmi" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "나두우우우" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "우리 이번활동 다들 더 예뻐졌죠" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "와카리마스" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "와카리마스" },
       { sender: 'artist', artistId: 'yushi', type: 'text', content: "진짜 채팅너무 빨라서 못읽겠어요" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "다 시즈니 사랑 먹고 자라서 그래요 .. ㅎㅎㅎ" },
       { sender: 'artist', artistId: 'ryo', type: 'text', content: "사쿠 직캠 보는거 은근 재밌어" },
@@ -416,7 +540,7 @@
       { sender: 'artist', artistId: 'sion', type: 'text', content: "시즈니 채팅 진짜 빨라 지금ㅋㅋㅋㅋㅋ" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "애기 왔어요" },
       { sender: 'artist', artistId: 'jaehee', profileIndex: 1, type: 'text', content: "위시!!!!!!!!!!" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "밥 먹었어요?" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "밥 먹었어요?" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "다들 모행" },
       { sender: 'artist', artistId: 'sakuya', profileIndex: 1, type: 'text', content: "제가일빠잔아요" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "밥 먹었어요?" },
@@ -436,7 +560,7 @@
       { sender: 'artist', artistId: 'sion', type: 'text', content: "시즈니 볼 생각에 설레서 떨리네ㅎㅎㅎㅎㅎ" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "레스고 스테디" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "저 어디에 잇는지 알아요?" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "렛츠고스테디~" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "렛츠고스테디~" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "아니 사쿠야 자?" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋ" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "회사요" },
@@ -511,7 +635,7 @@
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "아아" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "룤랑" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "지금 다같이 스테디 부르는중" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "지금 다같이 스테디 부르는중" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "엔시티 왹시" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "와우" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "바로 나왔다" },
@@ -521,7 +645,7 @@
       { sender: 'artist', artistId: 'sion', type: 'text', content: "우리는 괜찮은데 시즈니 감기 조심~~~" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "숀이형 지금 웃고있어요" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "상상 속의 세상 우리가 만들거야!" },
-I     { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라킹 잘하는 시즈니 보고옴" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라킹 잘하는 시즈니 보고옴" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "락킹 천재" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "요즘 날이 많이 추운거 같아우" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "우와" },
@@ -546,7 +670,7 @@ I     { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라
       { sender: 'artist', artistId: 'sion', type: 'text', content: "다들 시오닝 데려가면 머리카락 취향대로 잘 만져주세요" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "사실 머리카락이 아니라 불꽃임" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "고구마 아니에요" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "다가올 그 어떤 날도 사랑할 수 있는 우리니까" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "다가올 그 어떤 날도 사랑할 수 있는 우리니까" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "불을 뿜는 좀 위험 할 수도 있는 시오닝이에요" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "불 뿜는 고구마" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "아니에요~" },
@@ -571,7 +695,7 @@ I     { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라
       { type: 'date', content: '2025년 1월 22일 수요일' },
       { sender: 'artist', artistId: 'unknown', profileIndex: 0, type: 'text', content: "" },
       { sender: 'artist', artistId: 'unknown', type: 'text', content: "" },
-      { sender: 'artist', artistId: 'ryo', profileIndex: 2, type: 'text', content: "아 잠만", time: "23:43" },
+      { sender: 'artist', artistId: 'ryo', profileIndex: 2, type: 'text', content: "아 잠만", time: "23:43" },
       { sender: 'artist', artistId: 'sion', profileIndex: 2, type: 'text', content: "요기가 우리", time: "23:43" },
       { sender: 'artist', artistId: 'ryo', type: 'text', content: "자컨!!!!", time: "23:43" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "단톡방이네", time: "23:43" },
@@ -605,7 +729,7 @@ I     { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라
       { sender: 'artist', artistId: 'riku', type: 'text', content: "웅웅" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "리쿠는" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "두구두구두구두구두구" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "이 정도면 서바이벌 예능 마지막화 급 끌기 ㅋ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "이 정도면 서바이벌 예능 마지막화 급 끌기 ㅋ" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "광고 보고 오시져" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "네" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "리쿠는 라일" },
@@ -659,7 +783,7 @@ I     { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "신발도 에어포스만 신고있긴 해" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "시즈니도 지어주라고..?" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅇㅇㅍㅅ은 넘어가자" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "시즈니도 지어줄겡" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "시즈니도 지어줄겡" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "포스형" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "응?" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "맛있게 지었네" },
@@ -667,7 +791,7 @@ I     { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라
       { sender: 'artist', artistId: 'sion', type: 'text', content: '"핫앤그레이트러브인월드"' },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "궁서체가 없네 여긴" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "머가 그렇게 길어" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋ" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "투더월드여긴엔시티 누구야" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
@@ -751,503 +875,560 @@ I     { sender: 'artist', artistId: 'sion', type: 'text', content: "방금 라
       { sender: 'artist', artistId: 'yushi', type: 'text', content: "오야스미〜🥴" },
       { sender: 'artist', artistId: 'yushi', type: 'text', content: "잠깐 잘자〜😚" },
 
-      { type: 'date', content: '2025년 11월 4일 화요일' },
-      { sender: 'artist', artistId: 'yushi', profileIndex: 3, type: 'text', content: "안녕하세요〜" },
-      { sender: 'artist', artistId: 'jaehee', profileIndex: 2, type: 'text', content: "안녕~~~~~~~" },
-      { sender: 'artist', artistId: 'sion', profileIndex: 2, type: 'text', content: "안농" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "감동이다 진짜" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "뭐야" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "안녕하세요요용" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "감사합니다〜" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "안녕하세요~~~" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "위시 첫 단콘 축하해 사랑해💚" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "고마워~~~♡♡♡♡♡♡" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "팀워크 잘한다아" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "축하해〜" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "고마워요오💚" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "와 벌써 2025년이 2달도 안남았어~~~" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "고마워여여" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "고마워 시즈니" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "26년까지 얼마안남았네" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "3일동안 정말 재밌었어요" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "행복한 추억💕" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "저도요〜" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "감사해요" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "단콘 너무 재밌었다" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "그니까요요" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나도~~~" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "이제 투어 시작인데" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "그니까" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "아까 회 먹었는데" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "이 행복한게 많이 남았다는게" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "맛있던데요" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "회 꿀맛" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "넘 설레" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "방어의 계절이 돌아오고있다" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "🐟" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "나 타코 먹엇엉" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "회사에서 회 사 먹었어요" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "문어??" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "문어?" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "하" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "또 시작이네" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "나도 시작해야지" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "시작해~~~~~~" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "ㄱ" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "타이밍 레전드" },
+      { type: 'date', content: '2025년 11월 4일 화요일' },
+      { sender: 'artist', artistId: 'yushi', profileIndex: 3, type: 'text', content: "안녕하세요〜" },
+      { sender: 'artist', artistId: 'jaehee', profileIndex: 2, type: 'text', content: "안녕~~~~~~~" },
+      { sender: 'artist', artistId: 'sion', profileIndex: 2, type: 'text', content: "안농" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "감동이다 진짜" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "뭐야" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "안녕하세요요용" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "감사합니다〜" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "안녕하세요~~~" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "위시 첫 단콘 축하해 사랑해💚" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "고마워~~~♡♡♡♡♡♡" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "팀워크 잘한다아" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "축하해〜" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "고마워요오💚" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "와 벌써 2025년이 2달도 안남았어~~~" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "고마워여여" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "고마워 시즈니" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "26년까지 얼마안남았네" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "3일동안 정말 재밌었어요" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "행복한 추억💕" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "저도요〜" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "감사해요" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "단콘 너무 재밌었다" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "그니까요요" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나도~~~" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "이제 투어 시작인데" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "그니까" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "아까 회 먹었는데" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "이 행복한게 많이 남았다는게" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "맛있던데요" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "회 꿀맛" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "넘 설레" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "방어의 계절이 돌아오고있다" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "🐟" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "나 타코 먹엇엉" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "회사에서 회 사 먹었어요" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "문어??" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "문어?" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "하" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "또 시작이네" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "나도 시작해야지" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "시작해~~~~~~" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "ㄱ" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "타이밍 레전드" },
       { sender: 'artist', artistId: 'sakuya', type: 'text', content: "그거아냐" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "아니" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "타코" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "시작해~~~~~~" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "타코먹고 디저트로 티코도" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "오..." },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "하하" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "나 저번에 소금빵 티코 넣어먹었는데" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "오이시~" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "티코가뭐요" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "아이스크림" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "아이스크림" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "한입에 쏙" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "티코가 아이스크림이야?" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "설레임" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "나 아님" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "아니" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "타코" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "시작해~~~~~~" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "타코먹고 디저트로 티코도" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "오..." },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "하하" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "나 저번에 소금빵 티코 넣어먹었는데" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "오이시~" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "티코가뭐요" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "아이스크림" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "아이스크림" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "한입에 쏙" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "티코가 아이스크림이야?" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "설레임" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "나 아님" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "도둑" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "료랑 닮은 거 있다 인마" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "작고 귀여운 거" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "난 숙소가 다르잖아" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "내가 도둑이야?" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "재희 딱 걸렸네" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "한명밖에 없지" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "료랑 닮은 거 있다 인마" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "작고 귀여운 거" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "난 숙소가 다르잖아" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "내가 도둑이야?" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "재희 딱 걸렸네" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "한명밖에 없지" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "어제 자컨 보다" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "터져서" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "나 상관없어" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "형밖에 없긴해" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "바로 편의점 가서" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "티코랑 엑설런트 4박스 사왔어" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "이모님이 사주신 줄 알았어" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "이모님이 사준 줄 알았다고" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "되도 않는 해명을" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "아니 진짜로" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "나였음 바로 미안해 했다" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "많이 먹어" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "아이구" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "미안하다고 했지" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "얼마나 배고팠던거야" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "바로 방문열고" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "그렇게 편의점가기 귀찮았구나" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "터져서" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "나 상관없어" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "형밖에 없긴해" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "바로 편의점 가서" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "티코랑 엑설런트 4박스 사왔어" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "이모님이 사주신 줄 알았어" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "이모님이 사준 줄 알았다고" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "되도 않는 해명을" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "아니 진짜로" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "나였음 바로 미안해 했다" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "많이 먹어" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "아이구" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "미안하다고 했지" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "얼마나 배고팠던거야" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "바로 방문열고" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "그렇게 편의점가기 귀찮았구나" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "형 아이스크림 사왔어요" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "근데 4박스면 아리가똔데?" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "하고" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "지금도" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "아니 근데" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나 몇 개 안 먹었는데" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "조금밖에 안 먹었다고 분을 토하는 중" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "원래 맛있으면 안멈춰" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "억울하네" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "근데 4박스면 아리가똔데?" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "하고" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "지금도" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "아니 근데" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나 몇 개 안 먹었는데" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "조금밖에 안 먹었다고 분을 토하는 중" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "원래 맛있으면 안멈춰" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "억울하네" },
       { sender: 'artist', artistId: 'ryo', type: 'text', content: "계속 먹게 되긴해" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "하지만 우리에겐 뉴팀 때 아이스크림 사건이 한 번 더 있었지" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "다들 새기자 가슴속에" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "이제 아이스크림 그만 사자" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "그래서 4박스 사왔자나" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "먹어도돼" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "미안하요" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "그 4박스도 형이 먹는고아냐" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "자 이제 우리 주제를 바꿔볼까" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "인정" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "사쿠한테 걸리면 못벗어남" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "재희밖에 안 먹지" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "형 나랑 베스킨 같이 먹자나" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "디자인" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "그치" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "빨리 같이 살고싶다" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "콘서트 어땠어요?" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "좋았지" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "디자인이네" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "지금" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "오우워어어ㅓㅓㅓㅓㅓㅓㅓㅓ" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "디자인" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "엄청 재밌었어요" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "1000" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "1000이다 ㅎㅎㅎㅎ" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "다 재밋엇다" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "1000 때 날았잖아" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "그니까" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나 사쿠야한테 맞았는데" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "그 구름 탈때" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "아니 근데 진짜" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "미암해요" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "미안해" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "어떻게 정확하게 얼굴을" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "맞았어요??" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅎㅎ" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "재밌었어" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "리프트 후기 : 흐미 무서운그" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "하지만 우리에겐 뉴팀 때 아이스크림 사건이 한 번 더 있었지" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "다들 새기자 가슴속에" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "이제 아이스크림 그만 사자" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "그래서 4박스 사왔자나" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "먹어도돼" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "미안하요" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "그 4박스도 형이 먹는고아냐" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "자 이제 우리 주제를 바꿔볼까" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "인정" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "사쿠한테 걸리면 못벗어남" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "재희밖에 안 먹지" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "형 나랑 베스킨 같이 먹자나" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "디자인" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "그치" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "빨리 같이 살고싶다" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "콘서트 어땠어요?" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "좋았지" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "디자인이네" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "지금" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "오우워어어ㅓㅓㅓㅓㅓㅓㅓㅓ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "디자인" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "엄청 재밌었어요" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "1000" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "1000이다 ㅎㅎㅎㅎ" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "다 재밋엇다" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "1000 때 날았잖아" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "그니까" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나 사쿠야한테 맞았는데" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "그 구름 탈때" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "아니 근데 진짜" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "미암해요" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "미안해" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "어떻게 정확하게 얼굴을" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "맞았어요??" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅎㅎ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "재밌었어" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "리프트 후기 : 흐미 무서운그" },
       { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "저렇게 많이 갈 줄 몰랏어요" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "첨에는 생각보다 높긴했어" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "노래 안 부르면 좀 무서워요" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 인정" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "생각보다 안높았어" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "별로" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "다 사랑이" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "시즈니 얼굴 잘 보여서 조앗음" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "사랑이" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "노래 부르니까 괜찮았어요" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "저렇게 많이 갈 줄 몰랏어요" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "첨에는 생각보다 높긴했어" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "노래 안 부르면 좀 무서워요" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 인정" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "생각보다 안높았어" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "별로" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "다 사랑이" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "시즈니 얼굴 잘 보여서 조앗음" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "사랑이" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "노래 부르니까 괜찮았어요" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "사랑이 다 이겨" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "다 이긴다고" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "명언" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "이야" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "근데 거리가 별로 길지 않아서" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "안멀었어서" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "리허설할때 시오니형 표정 진짜 장난아니였어" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "료 또 시작이네" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "와 료 쎈 척" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "27살이 저걸 무서워하면 안되지" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "어이 마흔두살" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "소감 잘 들었습니다" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "다 이긴다고" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "명언" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "이야" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "근데 거리가 별로 길지 않아서" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "안멀었어서" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "리허설할때 시오니형 표정 진짜 장난아니였어" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "료 또 시작이네" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "와 료 쎈 척" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "27살이 저걸 무서워하면 안되지" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "어이 마흔두살" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "소감 잘 들었습니다" },
       { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
       { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "이제 비디오후드 코러스 다 같이 따라 불러줘 시즈니" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "❤️" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "라잌 스껄도 해줘" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "❤️" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "라잌 스껄도 해줘" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "" },
       { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
       { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
-      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
+      { sender: 'artist', artistId: '', type: 'text', content: "" },
       { sender: 'artist', artistId: '', type: 'text', content: "사투리 레전드네 진짜" },
-      { sender: 'artist', artistId: '', type: 'text', content: "좋구마잉" },
-      { sender: 'artist', artistId: '', type: 'text', content: "좋은노래??" },
-      { sender: 'artist', artistId: '', type: 'text', content: "응 좋은 노래" },
-      { sender: 'artist', artistId: '', type: 'text', content: "아까 아이스크림 얘기하니까", time: ":" },
-      { sender: 'artist', artistId: '', type: 'text', content: "고양이" },
-      { sender: 'artist', artistId: '', type: 'text', content: "땡기네" },
-      { sender: 'artist', artistId: '', type: 'text', content: "이 노래도 좋아 고양이릴스❤️❤️" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "냥이" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "사쿠야 형이 아이스크림 사줄게 우리 숙소 올래" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "진짜 갈게요" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "온나" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "네 형" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "갑자기요" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "3박스 가져갈게" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋㅋ" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "너 다 못 먹으면 안재운다" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "시즈니도 온대" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "어떤 아이스크림 좋아해요?" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "민쵸" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "오호" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "아이스크림음 바닐라지" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "민초 좋아하는거구나" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "여러가지 맛 나온다" },
+      { sender: 'artist', artistId: '', type: 'text', content: "좋구마잉" },
+      { sender: 'artist', artistId: '', type: 'text', content: "좋은노래??" },
+      { sender: 'artist', artistId: '', type: 'text', content: "응 좋은 노래" },
+      { sender: 'artist', artistId: '', type: 'text', content: "아까 아이스크림 얘기하니까", time: ":" },
+      { sender: 'artist', artistId: '', type: 'text', content: "고양이" },
+      { sender: 'artist', artistId: '', type: 'text', content: "땡기네" },
+      { sender: 'artist', artistId: '', type: 'text', content: "이 노래도 좋아 고양이릴스❤️❤️" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "냥이" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "사쿠야 형이 아이스크림 사줄게 우리 숙소 올래" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "진짜 갈게요" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "온나" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "네 형" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "갑자기요" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "3박스 가져갈게" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "ㅋㅋㅋㅋㄱㅋㅋㅋㅋㅋㅋㅋㅋ" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "너 다 못 먹으면 안재운다" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "시즈니도 온대" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "어떤 아이스크림 좋아해요?" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "민쵸" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "오호" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "아이스크림음 바닐라지" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "민초 좋아하는거구나" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "여러가지 맛 나온다" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "네" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나 순수우유" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "좋아했어" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "어릴 때" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "민초도 맛있어" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "우유가 바닐라?" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "우유랑 바닐라는 다르지않나??7" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "다들 감기 조심하구" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "좀 달라" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "사쿠 민초 안 좋자나" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "나 순수우유" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "좋아했어" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "어릴 때" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "민초도 맛있어" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "우유가 바닐라?" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "우유랑 바닐라는 다르지않나??7" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "다들 감기 조심하구" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "좀 달라" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "사쿠 민초 안 좋자나" },
       { sender: 'artist', artistId: 'sion', type: 'text', content: "안녀어어엉" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "시즈니" },
-      { sender: 'artist', artistId: 'sion', type: 'text', content: "사랑해 시즈니" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "다들 이제 겨울인데 감기 조심하구" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "시즈니" },
+      { sender: 'artist', artistId: 'sion', type: 'text', content: "사랑해 시즈니" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "다들 이제 겨울인데 감기 조심하구" },
       { sender: 'artist', artistId: 'riku', type: 'text', content: "시즈니 오늘 고마웟어요용요" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "😃😀" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "와줘서" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "😃😀" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "와줘서" },
       { sender: 'artist', artistId: 'yushi', type: 'text', content: "감기조심" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "고마워" },
-      { sender: 'artist', artistId: 'yushi', type: 'text', content: "따뜻하게 입고" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "오늘 재밌어써~~" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "사랑해애" },
-      { sender: 'artist', artistId: 'riku', type: 'text', content: "사랑합니댕~🫶" },
-      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "건강 잘 챙겨요" },
-      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "바잉" },
-      { sender: 'artist', artistId: 'ryo', type: 'text', content: "고마워요~~" },
-      
-      { sender: 'artist', artistId: 'nct wish', type: 'text', content: "NCT WISH가 시즈니에게 전하는 음성 메시지와 함께" },
-section       { sender: 'artist', artistId: 'nct wish', type: 'text', content: "2025 NCT WISH.zip 들으면서 [zip들이 선물🎁]받아가세요! 💚" },
-    ];
-    
-    // 아티스트별 현재 프로필 인덱스를 저장할 객체
-    let currentArtistProfiles = {};
-    const chatContainer = document.getElementById("chat");
-    
-    // 메시지 생성 로직
-    messages.forEach(msg => {
-      
-      // 1. 날짜
-      if (msg.type === 'date') {
-        const dateEl = document.createElement('div');
-        // [수정 1] CSS 클래스명과 통일 (date -> date-divider)
-        dateEl.className = 'date-divider';
-        dateEl.textContent = msg.content;
-        chatContainer.appendChild(dateEl);
-        return;
-      }
-      
-      // 3. 아티스트 버블 (핵심 로직 수정)
-      if (msg.sender === 'artist') {
-        const artistId = msg.artistId;
-        let profile;
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "고마워" },
+      { sender: 'artist', artistId: 'yushi', type: 'text', content: "따뜻하게 입고" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "오늘 재밌어써~~" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "사랑해애" },
+      { sender: 'artist', artistId: 'riku', type: 'text', content: "사랑합니댕~🫶" },
+      { sender: 'artist', artistId: 'jaehee', type: 'text', content: "건강 잘 챙겨요" },
+      { sender: 'artist', artistId: 'sakuya', type: 'text', content: "바잉" },
+      { sender: 'artist', artistId: 'ryo', type: 'text', content: "고마워요~~" },
+      { sender: 'artist', artistId: 'nct wish', type: 'text', content: "" },
+      { sender: 'artist', artistId: 'nct wish', type: 'text', content: "" },
+      { sender: 'artist', artistId: 'nct wish', type: 'text', content: "NCT WISH가 시즈니에게 전하는 음성 메시지와 함께" },
+      { sender: 'artist', artistId: 'nct wish', type: 'text', content: "2025 NCT WISH.zip 들으면서 [zip들이 선물🎁]받아가세요! 💚" },
 
-        // 3-1. 프로필 정보 가져오기 (수정 없음, 이 로직 좋음)
-        if (!artistId || !artists[artistId]) {
-          profile = { img: "", name: "" };
-        } else {
-          // 3-2. 프로필 인덱스 업데이트
-          if (msg.profileIndex !== undefined) {
-            currentArtistProfiles[artistId] = msg.profileIndex;
-          }
-          // 3-3. 사용할 인덱스 결정
-          const profileIndexToUse = currentArtistProfiles[artistId] !== undefined ? currentArtistProfiles[artistId] : 0;
-          
-          // 3-4. 실제 프로필 정보 할당
-          if (!artists[artistId][profileIndexToUse]) {
-            console.error(`프로필 정보를 찾을 수 없습니다: artistId=${artistId}, index=${profileIndexToUse}`);
-            profile = artists[artistId][0]; 
-          } else {
-            profile = artists[artistId][profileIndexToUse];
-          }
-        }
-        
-        // 2. messageBodyHTML 변수 정의 (msg.type에 따라)
-        let messageBodyHTML = "";
+      { sender: 'artist', artistId: '', type: 'text', content: "", time: ":" },
+      ];
+      
+      // 아티스트별 현재 프로필 인덱스를 저장할 객체
+      let currentArtistProfiles = {};
+      const chatContainer = document.getElementById("chat");
+      messages.forEach(msg => {
         
-        // [수정 2] 이미지 타입과 빈 텍스트를 모두 처리하도록 로직 변경
-        if (msg.type === 'image') {
-          // 이미지 타입일 경우
-          if (msg.content) {
-            // 이미지 경로가 있으면 img 태그 생성
-            messageBodyHTML = `<div class="bubble image-bubble"><img src="${msg.content}" alt="chat image"></div>`;
-          } else {
-            // 이미지 경로가 없으면 빈 이미지 버블
-            messageBodyHTML = `<div class="bubble image-bubble"></div>`;
-          }
-        } else {
-          // 'text' 타입이거나 타입이 지정되지 않은 모든 경우
-          // (내용이 "" 이거나 null/undefined여도 ?? '' 로 처리됨)
-          const langAttr = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/.test(msg.content) ? 'lang="ja"' : '';
-          messageBodyHTML = `<div class="bubble" ${langAttr}>${msg.content ?? ''}</div>`;
-        }
-        
-        const chatMsg = document.createElement("div");
-        chatMsg.className = "chat-message";
-        
-        chatMsg.innerHTML = `
-        <div class="profile" style="background-image: url('${profile.img}')"></div>
-                <div class="message-content"> 
-        <div class="header">
-        <div class="name">${profile.name}</div>
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-        ${messageBodyHTML}
-        <div class="time">${msg.time ?? ""}</div>
-        </div>
-        </div>
-        `;
+        // 1. 날짜
+        if (msg.type === 'date') {
+          const dateEl = document.createElement('div');
+          dateEl.className = 'date';
+          dateEl.textContent = msg.content;
+          chatContainer.appendChild(dateEl);
+          return;
+        }
+        // 2. 내가 보내는 버블
+        if (msg.sender === 'me') {
+          const myMsg = document.createElement("div");
+          myMsg.className = "my-chat-message";
+          myMsg.innerHTML = `
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          <div class="bubble my-bubble">${msg.content}</div>
+          `;
+          chatContainer.appendChild(myMsg);
+          return;
+        }
         
-        // [수정 4] 스코프 오류 수정 (appendChild를 if 블록 안으로 이동)
-        chatContainer.appendChild(chatMsg);
-      }
-      // (여기 있던 appendChild는 제거됨)
-    });
-    
-    // --- 검색 기능 스크립트 (수정 없음) ---
-    const searchInput = document.getElementById('searchInput');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const searchCounter = document.getElementById('searchCounter');
-    
-    let searchResults = []; // 검색 결과를 담을 배열 (DOM 요소)
-    let currentResultIndex = -1; // 현재 보고 있는 검색 결과의 인덱스
-    
-    // 검색 실행 함수
-    const performSearch = () => {
-      const searchTerm = searchInput.value.toLowerCase();
-      
-      // 기존 하이라이트 제거
-      const highlighted = document.querySelector('.current-search-result');
-      if (highlighted) {
-        highlighted.classList.remove('current-search-result');
-      }
-      
-      if (!searchTerm) {
-        searchResults = [];
-        currentResultIndex = -1;
-        updateCounter();
-        return;
-      }
-      
-      const allMessages = document.querySelectorAll('.chat-message');
-      searchResults = Array.from(allMessages).filter(message => {
-        const bubble = message.querySelector('.bubble');
-        return bubble && bubble.textContent.toLowerCase().includes(searchTerm);
-      });
-      
-      if (searchResults.length > 0) {
-        currentResultIndex = 0;
-        navigateToResult(currentResultIndex);
-      } else {
-        currentResultIndex = -1;
-      }
-      updateCounter();
-    };
-    
-    // 특정 검색 결과로 이동하는 함수
-    const navigateToResult = (index) => {
-      if (index < 0 || index >= searchResults.length) return;
-      
-      // 기존 하이라이트 제거
-      const previouslyHighlighted = document.querySelector('.current-search-result');
-      if (previouslyHighlighted) {
-        previouslyHighlighted.classList.remove('current-search-result');
-      }
-
-      const targetMessage = searchResults[index];
-      
-      // 부드럽게 스크롤
-      targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      
-      // 새 메시지에 하이라이트 클래스 추가
-      targetMessage.classList.add('current-search-result');
-      
-      currentResultIndex = index;
-      updateCounter();
-    };
-
-    // 카운터 업데이트 함수
-    const updateCounter = () => {
-      if (searchResults.length > 0) {
-        searchCounter.textContent = `${currentResultIndex + 1} / ${searchResults.length}`;
-      } else {
-        searchCounter.textContent = `0 / 0`;
-      }
-    };
-    
-    // --- 이벤트 리스너 설정 ---
-
-    // Enter 키로 검색 실행
-    searchInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        performSearch();
-      }
-    });
-
-    // 이전 버튼 클릭
-    prevBtn.addEventListener('click', () => {
-      if (searchResults.length > 0) {
-        let newIndex = currentResultIndex - 1;
-        if (newIndex < 0) {
-          newIndex = searchResults.length - 1; // 마지막 결과로 순환
-        }
-        navigateToResult(newIndex);
-      } else {
-         performSearch(); // 검색된 결과가 없을때 누르면 검색 시작
-      }
-    });
-
-    // 다음 버튼 클릭
-    nextBtn.addEventListener('click', () => {
-      if (searchResults.length > 0) {
-        let newIndex = currentResultIndex + 1;
-        if (newIndex >= searchResults.length) {
-          newIndex = 0; // 처음 결과로 순환
-        }
-        navigateToResult(newIndex);
-      } else {
-        performSearch();
-      }
-    });
-
-  </script>
-</body>
+        // 3. 아티스트 버블 (핵심 로직 수정)
+        if (msg.sender === 'artist') {
+          // 3-1. 이 메시지의 아티스트 ID 가져오기
+          const artistId = msg.artistId;
+          if (!artistId) {
+            console.error('메시지에 artistId가 없습니다:', msg);
+            return; // artistId가 없으면 이 메시지 건너뛰기
+          }
+          // 3-2. 이 메시지에서 프로필을 변경하는지 확인
+          if (msg.profileIndex !== undefined) {
+            // 해당 아티스트의 현재 프로필 인덱스를 업데이트
+            currentArtistProfiles[artistId] = msg.profileIndex;
+          }
+          // 3-3. 사용할 프로필 인덱스 결정
+          // 저장된 값이 없으면(첫 등장이면) 0번 사용
+          const profileIndexToUse = currentArtistProfiles[artistId] !== undefined ? currentArtistProfiles[artistId] : 0;
+          // 3-4. artists 객체에서 실제 프로필 정보 가져오기
+          if (!artists[artistId] || !artists[artistId][profileIndexToUse]) {
+            console.error(`프로필 정보를 찾을 수 없습니다: artistId=${artistId}, index=${profileIndexToUse}`);
+            return; // 프로필 정보 없으면 건너뛰기
+          }
+          const profile = artists[artistId][profileIndexToUse];
+          // --- 얘는 뭘까요 ---
+          const chatMsg = document.createElement("div");
+          chatMsg.className = "chat-message";
+          if (msg.isContinuation) {
+            chatMsg.classList.add('continuation');
+          }
+          if (msg.type === 'reply') {
+            chatMsg.innerHTML = `
+            <div class="profile" style="background-image: url('${profile.img}')"></div>
+            <div class="message-content">
+            <div class="header">
+            <div class="name">${profile.name}</div>
+            </div>
+            <div class="bubble reply-bubble">
+            <div class="reply-title">ARTIST의 답장</div>
+            <div class="reply-content">${msg.replyContent}</div>
+            </div>
+            <div style="display:flex; align-items:flex-end;">
+            <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+            <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+            </div>
+            </div>
+            `;
+          } else {
+            let messageBodyHTML = '';
+            
+            if (msg.type === 'emote') {
+              if (msg.isImage) {
+                messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
+              } else {
+                messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
+              }
+            } else if (msg.type === 'image') {
+              messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
+            } else if (msg.type === 'voice') {
+              messageBodyHTML = `<div class="bubble voice">
+              <img src="${msg.content}" alt="음성메시지">
+              </div>`;
+            } else if (msg.type === 'poll') {
+              let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
+              messageBodyHTML = `
+              <div class="poll">
+              <img src="${pollImagePath}" alt="투표 이미지">
+              ${pollTitleHTML}
+              <div class="poll-topic">${msg.text}</div>
+              </div>
+              `;
+            } else { // 기본 텍스트 버블
+              let bubbleContent = msg.content;
+              let bubbleClass = 'bubble';
+              if (showTranslations && msg.translation) {
+                bubbleContent += `
+                <hr class="dotted-divider">
+                <div class="translation-inner">${msg.translation}</div>
+                `;
+                bubbleClass += ' has-translation';
+              }
+              let langAttr = msg.lang ? ` lang="${msg.lang}"` : '';
+              messageBodyHTML = `<div class="${bubbleClass}"${langAttr}>${bubbleContent}</div>`;
+            }
+            let messageContentClass = 'message-content';
+            if (msg.isContinuation) {
+              messageContentClass += ' message-continuation';
+            }
+            
+            chatMsg.innerHTML = `
+            <div class="profile" style="background-image: url('${profile.img}')"></div>
+            <div class="${messageContentClass}"> 
+            <div class="header">
+            <div class="name">${profile.name}</div>
+            </div>
+            <div style="display:flex; align-items:flex-end;">
+            ${messageBodyHTML}
+            <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+            </div>
+            </div>
+            `;
+          }
+          chatContainer.appendChild(chatMsg);
+        } // if (msg.sender === 'artist') 끝
+      });
+      //검색 기능 관련
+      // --- 검색 기능 스크립트 (수정) ---
+      // --- 검색 기능 스크립트 (수정) ---
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
+  
+  let searchResults = []; // 검색 결과를 담을 배열 (DOM 요소)
+  let currentResultIndex = -1; // 현재 보고 있는 검색 결과의 인덱스
+  
+  // 검색 실행 함수
+  const performSearch = () => {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+    
+    // 기존 하이라이트 제거
+    const highlighted = document.querySelector('.current-search-result');
+    if (highlighted) {
+      highlighted.classList.remove('current-search-result');
+    }
+    
+    if (!searchTerm) {
+      searchResults = [];
+      currentResultIndex = -1;
+      updateCounter();
+      return;
+    }
+    
+    // 'my-chat-message'도 검색 대상에 포함
+    const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+    
+    searchResults = Array.from(allMessages).filter(message => {
+      return message.textContent.toLowerCase().includes(searchTerm);
+    });
+    
+    if (searchResults.length > 0) {
+      currentResultIndex = 0; // 첫 번째 결과로 이동
+      navigateToResult(currentResultIndex);
+    } else {
+      currentResultIndex = -1;
+    }
+    updateCounter();
+  };
+  
+  // 특정 검색 결과로 이동하는 함수
+  const navigateToResult = (index) => {
+  if (index < 0 || index >= searchResults.length) return;
+    
+    // 기존 하이라이트 제거
+    const previouslyHighlighted = document.querySelector('.current-search-result');
+    if (previouslyHighlighted) {
+      previouslyHighlighted.classList.remove('current-search-result');
+    }
+    
+    const targetMessage = searchResults[index];
+    
+    // 부드럽게 스크롤
+    targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // 새 메시지에 하이라이트 클래스 추가
+    targetMessage.classList.add('current-search-result');
+    
+    currentResultIndex = index;
+    updateCounter();
+  };
+  
+  // 카운터 업데이트 함수
+  const updateCounter = () => {
+    if (searchResults.length > 0) {
+      searchCounter.textContent = `${currentResultIndex + 1} / ${searchResults.length}`;
+    } else {
+      searchCounter.textContent = `0 / 0`;
+    }
+  };
+  
+  // --- 이벤트 리스너 설정 ---
+  
+  // Enter 키로 검색 실행
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Enter로 인한 줄바꿈/전송 방지
+      performSearch();
+    }
+  });
+  
+  // 이전 버튼 클릭
+  prevBtn.addEventListener('click', () => {
+    if (searchResults.length > 0) {
+      let newIndex = currentResultIndex - 1;
+      if (newIndex < 0) {
+        newIndex = searchResults.length - 1; // 마지막 결과로 순환
+      }
+      navigateToResult(newIndex);
+    } else {
+      performSearch(); // 검색된 결과가 없을때 누르면 검색 시작
+    }
+  });
+  
+  // 다음 버튼 클릭
+  nextBtn.addEventListener('click', () => {
+    if (searchResults.length > 0) {
+      let newIndex = currentResultIndex + 1;
+      if (newIndex >= searchResults.length) {
+        newIndex = 0; // 처음 결과로 순환
+      }
+      navigateToResult(newIndex);
+    } else {
+      performSearch();
+    }
+  });
+</script>
+  </body>
 </html>
