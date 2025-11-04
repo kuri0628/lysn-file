@@ -1311,7 +1311,7 @@
             </div>
             <div style="display:flex; align-items:flex-end;">
             ${messageBodyHTML}
-            <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+            <div class="time">${msg.time?.replace(':', '<span class="colon">:</span>') ?? ''}</div>
             </div>
             </div>
             `;
