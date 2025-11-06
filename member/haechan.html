@@ -15,7 +15,7 @@
         line-height: 1.2;
         margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
         background: #EEEEEE;
-        background-image:url('../pic/번역.jpg');
+        background-image:url('../pic/.jpg');
         background-position: center;
         background-size: 100% auto;
         background-repeat: no-repeat;
@@ -58,7 +58,7 @@
         /* font-family: 'Noto Sans KR'; */
         font-size: 11px;
         font-weight: 400; /* 아티스트 태그 on → 600 */
-        color: #F0526880; /* #171718; */
+        color: #000000;
         top: 0.3vw; /* 숫자↓ 위치↑*/
       }
 /* ▼▼▼ [버블] ▼▼▼ */
@@ -82,9 +82,10 @@
 /* 말풍선 */
       .bubble {
         /* font-family: 'Kosugi Maru'; */
-        background: #F0526880; /* #FFFFFF; */
+        background: #ffffff;
         border-radius: 4px 14.5px 14.5px 14.5px;
-        padding: 11.4px 12.4px 9.8px 12.5px;  /* 위 오른 아래 왼쪽 여백 */
+        /* 위 오른 아래 왼쪽 여백 */
+        padding: 11.4px 12.4px 9.8px 12.5px;
         font-size: 13.7px;
         font-weight: 400;
         line-height: 1.4;
@@ -95,18 +96,22 @@
         display: flex;
         justify-content: flex-end;
         margin-top: -1.5px;
-        margin-bottom: 18px; /* 메시지 아래 간격 */
+        /* 메시지 아래 간격 */
+        margin-bottom: 18px;
         width: 100%;
-        align-items: flex-end; /* 내용물을 아래쪽 기준으로 정렬 (시간-말풍선 높이 맞춤) */
-        gap: 0.41vw;              /* 시간과 말풍선 사이 간격을 줌 */
+        /* 내용물을 아래쪽 기준으로 정렬 (시간-말풍선 높이 맞춤) */
+        align-items: flex-end;
+        /* 시간과 말풍선 사이 간격을 줌 */
+        gap: 0.41vw;
       }
   /* 메시지 색 */
       .my-bubble {
-        background: #F0526880; /* #A584F9; */
+        background: #A584F9;
         color: #FFFFFF;
         line-height: 1.1;
         border-radius: 14.5px 14.5px 4px 14.5px;
-        padding: 11.8px 13px 11.1px 12.5px;  /* 위 오른 아래 왼쪽 여백 */
+        /* 위 오른 아래 왼쪽 여백 */
+        padding: 11.8px 13px 11.1px 12.5px;
         max-width: 60%;
       }
   /* 메시지 시간 */
@@ -209,7 +214,7 @@
       }
 /* ▼▼▼ [ARTIST 답장] ▼▼▼ */
       .reply-bubble {
-        background-color: #FFFFFF80; /* 배경 색 */
+        background-color: #FFFFFFCC; /* 배경 색 */
         padding: 13.7px 12px 17px 12px; /* 위 오른 아래 왼쪽 간격 */
         margin-bottom: 4.5px; /* 두 말풍선 간격 */
         border-radius: 14px;
@@ -218,12 +223,12 @@
         /* font-family: 'Noto Sans KR', sans-serif; */
         font-size: 9.5px;
         font-weight: 600;
-        color: #020202; /* ARTIST의 답장 */
+        color: #000000; /* ARTIST의 답장 */
         margin-bottom: 4px; /* ARTIST의 답장-팬버블 간격 */
       }
       .reply-content {
         font-size: 11.9px;
-        color: #00000080; /* 팬 버블 7E7E7E */
+        color: #00000078; /* 팬 버블 7E7E7E */
       }
       .bubble-after-reply {
         border-top-left-radius: 4px;
@@ -254,7 +259,7 @@
 /* 투표 기간 */
       .poll-period {
         position: absolute;
-        color: #ff17e4;
+        color: #b2b2b2;
         font-size: 10px;
         text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
         width: 200px;       /* 텍스트가 차지할 최대 너비 */
@@ -264,7 +269,7 @@
 /* 투표 주제 */
       .poll-topic {
         position: absolute;
-        color: #ff17e4;
+        color: #000000;
         font-size: 14px;
         text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
         width: 200px;       /* 텍스트가 차지할 최대 너비 */
@@ -815,14 +820,27 @@
     });
     
     // ▼▼▼ 최신 대화부터 시작 ▼▼▼
-    // 페이지 로드 후 채팅을 맨 아래로 스크롤
-    window.addEventListener('load', () => {
-        const chatContainer = document.getElementById("chat");
-        chatContainer.scrollTo({
-            top: chatContainer.scrollHeight,
-            behavior: 'auto'
+    // 기존의 window.addEventListener('load', ...) 부분을 완전히 대체합니다.
+// window.addEventListener('load', ...)는 삭제하세요.
+
+// DOM 구조가 완전히 로드된 후에 스크롤을 맨 아래로 이동
+document.addEventListener('DOMContentLoaded', () => {
+    const chatContainer = document.getElementById("chat");
+    
+    // 1. 메시지 컨테이너의 마지막 자식 요소를 찾음 (가장 최근 메시지)
+    const lastMessage = chatContainer.lastElementChild;
+
+    if (lastMessage) {
+        // 2. 해당 요소로 스크롤 이동 (block: 'end'는 요소의 바닥이 화면의 바닥에 맞춰지게 함)
+        lastMessage.scrollIntoView({
+            behavior: 'auto',
+            block: 'end' // 요소를 화면의 끝(아래)에 배치
         });
-    });
+    }
+    
+    // 참고: 만약 위에 고정된 '구독일 패널' 때문에 마지막 메시지가 가려진다면,
+    // 이 방법 대신 '해결책 2'의 `scrollTop` 방법이 더 깔끔할 수 있어.
+});
     // ▲▲▲ 최신 대화부터 시작 ▲▲▲
 
 </script>
