@@ -1164,52 +1164,56 @@
         { sender: 'artist', type: 'text', content: "오늘 하루도 수고많았어오요 내일 부터 난 콘서트우웅 유진💚", time: "오전 01:49" },
         { sender: 'me', type: 'text', content: '웅 나나도 잘자아', time: '오전 01:49' },
         ];
-  let currentProfileIndex = 0;
-  const chatContainer = document.getElementById("chat");
-  messages.forEach(msg => {
-// 1. 날짜
-    if (msg.type === 'date') {
-      const dateEl = document.createElement('div');
-      dateEl.className = 'date';
-      dateEl.textContent = msg.content;
-      chatContainer.appendChild(dateEl);
-      return;
-    }
-// 2. 내가 보내는 버블
-    if (msg.sender === 'me') {
-      const myMsg = document.createElement("div");
-      myMsg.className = "my-chat-message";
-      myMsg.innerHTML = `
-      <div class="time">${msg.time}</div>
-      <div class="bubble my-bubble">${msg.content}</div>
-      `;
-      chatContainer.appendChild(myMsg);
-      return;
-    }
-    if (msg.profileIndex !== undefined) {
-      currentProfileIndex = msg.profileIndex;
-    }
-    const chatMsg = document.createElement("div");
-    chatMsg.className = "chat-message";
-// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
-    if (msg.type === 'reply') {
-      chatMsg.innerHTML = `
-      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
-      <div class="message-content">
-      <div class="header">
       
-      <div class="name">${artistProfile[currentProfileIndex].name}</div>
-      </div>
-      <div class="bubble reply-bubble">
-      <div class="reply-title">ARTIST의 답장</div>
-      <div class="reply-content">${msg.replyContent}</div>
-      </div>
-      <div style="display:flex; align-items:flex-end;">
-      <div class="bubble bubble-after-reply">${msg.mainContent}</div>
-      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-      </div>
-      </div>
-      `;
+      let currentProfileIndex = 0;
+      const chatContainer = document.getElementById("chat");
+      messages.forEach(msg => {
+        
+        // 1. 날짜
+        if (msg.type === 'date') {
+          const dateEl = document.createElement('div');
+          dateEl.className = 'date';
+          dateEl.textContent = msg.content;
+          chatContainer.appendChild(dateEl);
+          return;
+        }
+        
+        // 2. 내가 보내는 버블
+        if (msg.sender === 'me') {
+          const myMsg = document.createElement("div");
+          myMsg.className = "my-chat-message";
+          myMsg.innerHTML = `
+          <div class="time">${msg.time}</div>
+          <div class="bubble my-bubble">${msg.content}</div>
+          `;
+          chatContainer.appendChild(myMsg);
+          return;
+        }
+        if (msg.profileIndex !== undefined) {
+          currentProfileIndex = msg.profileIndex;
+        }
+        const chatMsg = document.createElement("div");
+        chatMsg.className = "chat-message";
+        
+        // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+        if (msg.type === 'reply') {
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+          
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div class="bubble reply-bubble">
+          <div class="reply-title">ARTIST의 답장</div>
+          <div class="reply-content">${msg.replyContent}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          </div>
+          </div>
+          `;
         } else {
           let messageBodyHTML = '';
           if (msg.type === 'emote') {
@@ -1228,9 +1232,9 @@
             let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
             messageBodyHTML = `
             <div class="poll">
-              <img src="${pollImagePath}" alt="투표 이미지">
-              ${pollTitleHTML}
-              <div class="poll-topic">${msg.text}</div>
+            <img src="${pollImagePath}" alt="투표 이미지">
+            ${pollTitleHTML}
+            <div class="poll-topic">${msg.text}</div>
             </div>
             `;
           } else {
@@ -1245,12 +1249,13 @@
             }
             messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
-// header 밑에 ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+          
+          // header 밑에 ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
-
+          
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
           <div style="display:flex; align-items:flex-end;">
@@ -1262,64 +1267,65 @@
         }
         chatContainer.appendChild(chatMsg);
       });
-    // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
-    const searchBar = document.querySelector('.search');
-    const searchIcon = document.getElementById('search-icon');
-    const searchInput = document.getElementById('searchInput');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const searchCounter = document.getElementById('searchCounter');
+      
+      // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
+      const searchBar = document.querySelector('.search');
+      const searchIcon = document.getElementById('search-icon');
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
       
       // 결과 도출에 대한 함수
       let searchResults = [];
       let currentResultIndex = -1;
-
-    // 검색창 열기
-    const openSearch = () => {
-      searchBar.classList.add('visible');
-      searchInput.focus();
-      if (location.hash !== '#search') {
-        location.hash = 'search';
-      }
-    };
-
-    // 검색창 닫기 (뒤로가기 시)
-    const closeSearch = () => {
+      
+      // 검색창 열기
+      const openSearch = () => {
+        searchBar.classList.add('visible');
+        searchInput.focus();
+        if (location.hash !== '#search') {
+          location.hash = 'search';
+        }
+      };
+      
+      // 검색창 닫기 (뒤로가기 시)
+      const closeSearch = () => {
         // 기존 하이라이트 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
-            previouslyHighlighted.classList.remove('current-search-result');
+          previouslyHighlighted.classList.remove('current-search-result');
         }
         // 검색창 닫기
-        searchBar.classList.remove('visible');
-        searchInput.value = "";
+        searchBar.classList.remove('visible');
+        searchInput.value = "";
         // 검색 결과 초기화
-        searchResults = [];
-        currentResultIndex = -1;
-        updateCounter();
-    };
-
-    // 검색 실행
-    const performSearch = () => {
-        // 기존 하이라이트 먼저 제거
-        const previouslyHighlighted = document.querySelector('.current-search-result');
-        if (previouslyHighlighted) {
+        searchResults = [];
+        currentResultIndex = -1;
+        updateCounter();
+      };
+      
+      // 검색 실행
+        const performSearch = () => {
+          // 기존 하이라이트 먼저 제거
+          const previouslyHighlighted = document.querySelector('.current-search-result');
+          if (previouslyHighlighted) {
             previouslyHighlighted.classList.remove('current-search-result');
-        }
-
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (!searchTerm) {
-          searchResults = [];
-          currentResultIndex = -1;
-          updateCounter();
-          return;
-        }
-        
-        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-        searchResults = Array.from(allMessages).filter(message =>
-          message.textContent.toLowerCase().includes(searchTerm)
-        );
+          }
+          
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          
+          if (!searchTerm) {
+            searchResults = [];
+            currentResultIndex = -1;
+            updateCounter();
+            return;
+          }
+          
+          const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+          searchResults = Array.from(allMessages).filter(message =>
+            message.textContent.toLowerCase().includes(searchTerm)
+                                                        );
         
         if (searchResults.length > 0) {
             currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
@@ -1381,6 +1387,31 @@
           closeSearch(); // 해시가 #search가 아니면 검색창 닫기
         }
     });
+    
+    // ▼▼▼ 최신 대화부터 시작 ▼▼▼
+    // 기존의 window.addEventListener('load', ...) 부분을 완전히 대체합니다.
+// window.addEventListener('load', ...)는 삭제하세요.
+
+// DOM 구조가 완전히 로드된 후에 스크롤을 맨 아래로 이동
+document.addEventListener('DOMContentLoaded', () => {
+    const chatContainer = document.getElementById("chat");
+    
+    // 1. 메시지 컨테이너의 마지막 자식 요소를 찾음 (가장 최근 메시지)
+    const lastMessage = chatContainer.lastElementChild;
+
+    if (lastMessage) {
+        // 2. 해당 요소로 스크롤 이동 (block: 'end'는 요소의 바닥이 화면의 바닥에 맞춰지게 함)
+        lastMessage.scrollIntoView({
+            behavior: 'auto',
+            block: 'end' // 요소를 화면의 끝(아래)에 배치
+        });
+    }
+    
+    // 참고: 만약 위에 고정된 '구독일 패널' 때문에 마지막 메시지가 가려진다면,
+    // 이 방법 대신 '해결책 2'의 `scrollTop` 방법이 더 깔끔할 수 있어.
+});
+    // ▲▲▲ 최신 대화부터 시작 ▲▲▲
+
 </script>
-  </body>
+</body>
 </html>
