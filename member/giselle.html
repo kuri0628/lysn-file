@@ -21,7 +21,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         padding-top: 32.42vw;
-        padding-bottom: 25.53vw;
+        padding-bottom: 13vw;
       }
       .profile {
         width: 10.4vw;
@@ -70,7 +70,7 @@
       .message-content {
         display: flex;
         flex-direction: column;
-        max-width: 95%;
+        max-width: 80%;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
       }
       .chat-message {
@@ -166,6 +166,9 @@
         max-width: 244px;
         border-radius: 4px 13px 13px 13px;
         display: block;
+      }
+      img, video {
+        dynamic-range-limit: standard;
       }
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
@@ -283,37 +286,32 @@
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
-        font-size: 15.5px;
-        font-weight: 650;
+        font-size: 16px;
+        font-weight: 600;
         color: #000000;
-        padding-top: 16.5px;
-        position: fixed;
+        padding-top: 49px;
         top: 0;
-        left: 0;
-        right: 0;
-        /* transform: translateX(-1px); */
-        max-width: 550px;
-        margin: 0 auto;
-        text-align: center;
+        position: fixed;
+        width: 550px;
         z-index: 1001;
-        pointer-events: none;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
       }
 /* ▼▼▼ [구독일 하트] ▼▼▼ */
       .d-day {
         position: fixed;
         top: 0;
-        left: 0;
-        right: 0;
-        max-width: 600px;
-        margin: 0 auto;
-        padding-top: 62px;
-        transform: translateX(30px); /* 숫자↑ 위치→ */
-        text-align: center;
+        padding-top: 94px;
         z-index: 1001;
         font-size: 11px;
         font-weight: 600;
         color: #000000;
         pointer-events: none;
+        width: auto;
+        left: 50%;
+        transform: translateX(20px);
+        text-align: left;
       }
 /* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
       .input-bar {
@@ -370,11 +368,11 @@
       }
       #search-icon {
         position: absolute;
-        top: 18.5px;
+        top: 49px;
         right: 64px;
         width: 20.5px;
         height: 20.5px;
-        opacity: 0.5;
+        opacity: 0;
         background: transparent;
         border: none;
         border-radius: 50%;
@@ -437,14 +435,14 @@
   </head>
   <body>
     <div class="nickname">
-      리쿠
+      진수
     </div>
     <div class="d-day">
-      149
+      421
     </div>
     
     <div class="title-bar">
-      <img src="../pic/구독일패널.png" alt="상단 고정 이미지">
+      <img src="../pic/galaxy_sub_title.png" alt="상단 고정 이미지">
       
       <div id="search-icon">
         <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
@@ -471,12 +469,6 @@
       const pollImagePath = '../pic/vote.jpg';
       // 아티스트 정보
       const artistProfile = [
-        {img: "../profile/giselle_first.jpg", name: "RIKU"},
-        {img: "../profile/sion_6_251008.jpg", name:"ㅇㅅㅇ"},
-        {img: "../profile/profile_riku_color.jpg", name:"陸"}
-      ];
-      // 메시지 배열
-      const messages = [
         { type: 'date', content: '2025년 7월 30일 수요일' },
         { sender: 'artist', type: 'text', content: "보고싶네진짜로", time: "오후 9:56", profileIndex: 1 },
         { sender: 'artist', type: 'text', content: "하", time: "오후 9:56" },
@@ -531,52 +523,56 @@
         { sender: 'artist', type: 'text', content: "나두 곧 잔다", time: "오전 3:34" },
         // 여기에 메시지 내용 추가...
         ];
-  let currentProfileIndex = 0;
-  const chatContainer = document.getElementById("chat");
-  messages.forEach(msg => {
-// 1. 날짜
-    if (msg.type === 'date') {
-      const dateEl = document.createElement('div');
-      dateEl.className = 'date';
-      dateEl.textContent = msg.content;
-      chatContainer.appendChild(dateEl);
-      return;
-    }
-// 2. 내가 보내는 버블
-    if (msg.sender === 'me') {
-      const myMsg = document.createElement("div");
-      myMsg.className = "my-chat-message";
-      myMsg.innerHTML = `
-      <div class="time">${msg.time}</div>
-      <div class="bubble my-bubble">${msg.content}</div>
-      `;
-      chatContainer.appendChild(myMsg);
-      return;
-    }
-    if (msg.profileIndex !== undefined) {
-      currentProfileIndex = msg.profileIndex;
-    }
-    const chatMsg = document.createElement("div");
-    chatMsg.className = "chat-message";
-// ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
-    if (msg.type === 'reply') {
-      chatMsg.innerHTML = `
-      <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
-      <div class="message-content">
-      <div class="header">
       
-      <div class="name">${artistProfile[currentProfileIndex].name}</div>
-      </div>
-      <div class="bubble reply-bubble">
-      <div class="reply-title">ARTIST의 답장</div>
-      <div class="reply-content">${msg.replyContent}</div>
-      </div>
-      <div style="display:flex; align-items:flex-end;">
-      <div class="bubble bubble-after-reply">${msg.mainContent}</div>
-      <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-      </div>
-      </div>
-      `;
+      let currentProfileIndex = 0;
+      const chatContainer = document.getElementById("chat");
+      messages.forEach(msg => {
+        
+        // 1. 날짜
+        if (msg.type === 'date') {
+          const dateEl = document.createElement('div');
+          dateEl.className = 'date';
+          dateEl.textContent = msg.content;
+          chatContainer.appendChild(dateEl);
+          return;
+        }
+        
+        // 2. 내가 보내는 버블
+        if (msg.sender === 'me') {
+          const myMsg = document.createElement("div");
+          myMsg.className = "my-chat-message";
+          myMsg.innerHTML = `
+          <div class="time">${msg.time}</div>
+          <div class="bubble my-bubble">${msg.content}</div>
+          `;
+          chatContainer.appendChild(myMsg);
+          return;
+        }
+        if (msg.profileIndex !== undefined) {
+          currentProfileIndex = msg.profileIndex;
+        }
+        const chatMsg = document.createElement("div");
+        chatMsg.className = "chat-message";
+        
+        // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+        if (msg.type === 'reply') {
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+          
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div class="bubble reply-bubble">
+          <div class="reply-title">ARTIST의 답장</div>
+          <div class="reply-content">${msg.replyContent}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          </div>
+          </div>
+          `;
         } else {
           let messageBodyHTML = '';
           if (msg.type === 'emote') {
@@ -595,9 +591,9 @@
             let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
             messageBodyHTML = `
             <div class="poll">
-              <img src="${pollImagePath}" alt="투표 이미지">
-              ${pollTitleHTML}
-              <div class="poll-topic">${msg.text}</div>
+            <img src="${pollImagePath}" alt="투표 이미지">
+            ${pollTitleHTML}
+            <div class="poll-topic">${msg.text}</div>
             </div>
             `;
           } else {
@@ -612,12 +608,13 @@
             }
             messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
           }
-// header 밑에 ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+          
+          // header 밑에 ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
           chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
           <div class="header">
-
+          
           <div class="name">${artistProfile[currentProfileIndex].name}</div>
           </div>
           <div style="display:flex; align-items:flex-end;">
@@ -629,125 +626,147 @@
         }
         chatContainer.appendChild(chatMsg);
       });
-    // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
-    const searchBar = document.querySelector('.search');
-    const searchIcon = document.getElementById('search-icon');
-    const searchInput = document.getElementById('searchInput');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const searchCounter = document.getElementById('searchCounter');
+      
+      // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
+      const searchBar = document.querySelector('.search');
+      const searchIcon = document.getElementById('search-icon');
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
       
       // 결과 도출에 대한 함수
       let searchResults = [];
       let currentResultIndex = -1;
-
-    // 검색창 열기
-    const openSearch = () => {
-      searchBar.classList.add('visible');
-      searchInput.focus();
-      if (location.hash !== '#search') {
-        location.hash = 'search';
-      }
-    };
-
-    // 검색창 닫기 (뒤로가기 시)
-    const closeSearch = () => {
+      
+      // 검색창 열기
+      const openSearch = () => {
+        searchBar.classList.add('visible');
+        searchInput.focus();
+        if (location.hash !== '#search') {
+          location.hash = 'search';
+        }
+      };
+      
+      // 검색창 닫기 (뒤로가기 시)
+      const closeSearch = () => {
         // 기존 하이라이트 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
-            previouslyHighlighted.classList.remove('current-search-result');
+          previouslyHighlighted.classList.remove('current-search-result');
         }
         // 검색창 닫기
-        searchBar.classList.remove('visible');
-        searchInput.value = "";
+        searchBar.classList.remove('visible');
+        searchInput.value = "";
         // 검색 결과 초기화
-        searchResults = [];
-        currentResultIndex = -1;
-        updateCounter();
-    };
-
-    // 검색 실행
-    const performSearch = () => {
-        // 기존 하이라이트 먼저 제거
-        const previouslyHighlighted = document.querySelector('.current-search-result');
-        if (previouslyHighlighted) {
+        searchResults = [];
+        currentResultIndex = -1;
+        updateCounter();
+      };
+      
+      // 검색 실행
+        const performSearch = () => {
+          // 기존 하이라이트 먼저 제거
+          const previouslyHighlighted = document.querySelector('.current-search-result');
+          if (previouslyHighlighted) {
             previouslyHighlighted.classList.remove('current-search-result');
-        }
-
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (!searchTerm) {
-          searchResults = [];
-          currentResultIndex = -1;
-          updateCounter();
-          return;
-        }
-        
-        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-        searchResults = Array.from(allMessages).filter(message =>
-          message.textContent.toLowerCase().includes(searchTerm)
-        );
-        
-        if (searchResults.length > 0) {
+          }
+          
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          
+          if (!searchTerm) {
+            searchResults = [];
+            currentResultIndex = -1;
+            updateCounter();
+            return;
+          }
+          
+          const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+          searchResults = Array.from(allMessages).filter(message =>
+            message.textContent.toLowerCase().includes(searchTerm)
+                                                        );
+          
+          if (searchResults.length > 0) {
             currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
             navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
-        } else {
+          } else {
             currentResultIndex = -1;
-        }
-        updateCounter(); // 카운터 업데이트
-    };
-
-    // 특정 검색 결과로 이동하고 하이라이트 적용
-    const navigateToResult = (index) => {
-        if (index < 0 || index >= searchResults.length) return;
-        
+          }
+          updateCounter(); // 카운터 업데이트
+        };
+      
+      // 특정 검색 결과로 이동하고 하이라이트 적용
+      const navigateToResult = (index) => {
+        if (index < 0 || index >= searchResults.length) return;
+        
         // 기존 하이라이트가 있다면 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
-            previouslyHighlighted.classList.remove('current-search-result');
+          previouslyHighlighted.classList.remove('current-search-result');
         }
-
-        const targetMessage = searchResults[index];
-        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        const targetMessage = searchResults[index];
+        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // 새로운 타겟에 하이라이트 클래스 추가
         targetMessage.classList.add('current-search-result');
-        
-        currentResultIndex = index;
-        updateCounter();
-    };
-    
-    // 카운터 숫자 업데이트
-    const updateCounter = () => {
-        const total = searchResults.length;
-        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
-    };
-
-    // 이전/다음 버튼 핸들러
-    const handleNavigation = (direction) => {
-        if (searchResults.length === 0) return;
-        const total = searchResults.length;
+        currentResultIndex = index;
+        updateCounter();
+      };
+      
+      // 카운터 숫자 업데이트
+      const updateCounter = () => {
+        const total = searchResults.length;
+        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
+      };
+      
+      // 이전/다음 버튼 핸들러
+      const handleNavigation = (direction) => {
+        if (searchResults.length === 0) return;
+        const total = searchResults.length;
         // 다음 인덱스 계산 (배열의 끝과 처음을 순환)
-        let newIndex = (currentResultIndex + direction + total) % total;
-        navigateToResult(newIndex);
-    };
-    
-    // --- 이벤트 리스너 설정 ---
-    // 돋보기 아이콘 클릭
-    searchIcon.addEventListener('click', openSearch);
-    // 검색어 입력 시 실시간 검색
-    searchInput.addEventListener('input', performSearch);
-    // 이전(↑) 버튼 클릭
-    prevBtn.addEventListener('click', () => handleNavigation(-1));
-    // 다음(↓) 버튼 클릭
-    nextBtn.addEventListener('click', () => handleNavigation(1));
-    
-    // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
-    window.addEventListener('hashchange', () => {
-        if (location.hash !== '#search') {
-          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
-        }
-    });
-</script>
+        let newIndex = (currentResultIndex + direction + total) % total;
+        navigateToResult(newIndex);
+      };
+      
+      // --- 이벤트 리스너 설정 ---
+      // 돋보기 아이콘 클릭
+      searchIcon.addEventListener('click', openSearch);
+      // 검색어 입력 시 실시간 검색
+      searchInput.addEventListener('input', performSearch);
+      // 이전(↑) 버튼 클릭
+      prevBtn.addEventListener('click', () => handleNavigation(-1));
+      // 다음(↓) 버튼 클릭
+      nextBtn.addEventListener('click', () => handleNavigation(1));
+      
+      // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
+      window.addEventListener('hashchange', () => {
+        if (location.hash !== '#search') {
+          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
+        }
+      });
+      
+      // ▼▼▼ 최신 대화부터 시작 ▼▼▼
+      function scrollToBottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
+          behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
+        });
+      }
+
+      // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
+      document.addEventListener('DOMContentLoaded', () => {
+        scrollToBottom();
+      });
+
+      // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
+      window.addEventListener('load', () => {
+        scrollToBottom();
+        
+        // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
+        setTimeout(scrollToBottom, 100);
+      });
+      // ▲▲▲ 최신 대화부터 시작 ▲▲▲
+    </script>
   </body>
 </html>
