@@ -930,22 +930,24 @@
       });
       
       // ▼▼▼ 최신 대화부터 시작 ▼▼▼
-      // DOM 구조가 완전히 로드된 후에 스크롤을 맨 아래로 이동
+      function scrollToBottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
+          behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
+        });
+      }
+
+      // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
       document.addEventListener('DOMContentLoaded', () => {
-        const chatContainer = document.getElementById("chat");
-        // 1. 메시지 컨테이너의 마지막 자식 요소를 찾음 (가장 최근 메시지)
-    const lastMessage = chatContainer.lastElementChild;
+        scrollToBottom();
+      });
+
+      // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
+      window.addEventListener('load', () => {
+        scrollToBottom();
         
-        if (lastMessage) {
-          // 2. 해당 요소로 스크롤 이동 (block: 'end'는 요소의 바닥이 화면의 바닥에 맞춰지게 함)
-          lastMessage.scrollIntoView({
-            behavior: 'auto',
-            block: 'end' // 요소를 화면의 끝(아래)에 배치
-            });
-        }
-        
-        // 참고: 만약 위에 고정된 '구독일 패널' 때문에 마지막 메시지가 가려진다면,
-        // 이 방법 대신 '해결책 2'의 `scrollTop` 방법이 더 깔끔할 수 있어.
+        // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
+        setTimeout(scrollToBottom, 100);
       });
       // ▲▲▲ 최신 대화부터 시작 ▲▲▲
     </script>
