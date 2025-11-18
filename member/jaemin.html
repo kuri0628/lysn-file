@@ -12,48 +12,48 @@
   body {
     font-family: "Roboto";
     font-size: 14px;
-    line-height: 1.2;
-    margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
-    background: #EEEEEE;
-    background-image:url('../pic/.jpg');
-    background-position: center;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    padding-top: 32.42vw;
-    padding-bottom: 13vw;
-  }
-  .profile {
-    width: 10.4vw;
-    height: 10.4vw;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    margin-top: 3.4px; /* 숫자↓ 위치↑ */
-    border: 0.01px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
-    flex-shrink: 0;
-  }
+        line-height: 1.2;
+        margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
+        background: #EEEEEE;
+        background-image:url('../pic/.jpg');
+        background-position: center;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        padding-top: 32.42vw;
+        padding-bottom: 13vw;
+      }
+      .profile {
+        width: 10.4vw;
+        height: 10.4vw;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+        margin-top: 3.4px; /* 숫자↓ 위치↑ */
+        border: 0.01px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+        flex-shrink: 0;
+      }
 /* 프사랑 아티스트 뱃지 그룹 */
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
-  }
-  .artist-tag {
-    transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
-    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
-    font-family: 'Noto Sans KR';
-    font-weight: 800;
-    font-size: 8px;
-    /* letter-spacing: -0.01em;  자간 0.01em = 1% */
-    color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
-    background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
-    padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
-    border-radius: 999px;
-    position: relative; /* <-- 기준점을 현재 위치로 설정 */
-    top: 1px;          /* 숫자↑ 위치↓ */
-    margin-right: 4.2px; /* 아티스트 - 이름 간격 */
-  }
+      .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
+      }
+      .artist-tag {
+        transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
+        transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+        font-family: 'Noto Sans KR';
+        font-weight: 800;
+        font-size: 8px;
+        /* letter-spacing: -0.01em;  자간 0.01em = 1% */
+        color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+        background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
+        padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
+        border-radius: 999px;
+        position: relative; /* <-- 기준점을 현재 위치로 설정 */
+        top: 1px;          /* 숫자↑ 위치↓ */
+        margin-right: 4.2px; /* 아티스트 - 이름 간격 */
+      }
       .name {
         /* font-family: 'Noto Sans KR'; */
         font-size: 11px;
@@ -405,63 +405,57 @@
         align-items: center;
         gap: 5px;
       }
-      .search-controls button {
-        width: 38px;
-        height: 38px;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        background: white;
-        font-size: 18px;
-        padding: 0;
-      }
-      #searchCounter {
-        font-size: 12px;
-        color: #8A8A8A;
-        min-width: 40px;
-        text-align: center;
-      }
-  /* 현재 검색 결과 하이라이트 (수정) */
-      .current-search-result .bubble {
-        animation: highlight-animation 1.2s;
-        animation-delay: 1s;
-      }
-      @keyframes highlight-animation {
-        0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); }
-        70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
-        100% { box-shadow: none; }
-      }
-    
-    </style>
+  .search-controls button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background: white;
+    font-size: 18px;
+    padding: 0;
+  }
+  #searchCounter {
+    font-size: 12px;
+    color: #8A8A8A;
+    min-width: 40px;
+    text-align: center;
+  }
+/* 현재 검색 결과 하이라이트 (수정) */
+  .current-search-result .bubble {
+    animation: highlight-animation 1.2s;
+    animation-delay: 1s;
+  }
+  @keyframes highlight-animation {
+    0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); }
+    70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+    100% { box-shadow: none; }
+  }
+  
+</style>
   </head>
   <body>
     <div class="nickname">
-      똥글똥글납작복숭아같아가지구고냥귀엽자낭?
+      지송이
     </div>
+    
     <div class="d-day">
-      921
+      100
     </div>
     
-    <div class="title-bar">
-      <img src="../pic/galaxy_sub_title.png" alt="상단 고정 이미지">
-      
-      <div id="search-icon">
-        <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
-      </div>
+    <div class="title-bar"> <img src="../pic/galaxy_sub_title.png" alt="상단 고정 이미지">
+      <div id="search-icon"> <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img"> </div>
     </div>
     
-    <div class="search">
-      <input type="text" id="searchInput" placeholder="채팅 검색">
+    <div class="search"> <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
         <button id="nextBtn">↓</button>
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-    <div class="chat-container" id="chat"></div>
     
-    <div class="input-bar">
-      <img src="../pic/input_bar.jpg" alt="메시지 보내기">
-    </div>
+    <div class="chat-container" id="chat"></div>
+    <div class="input-bar"> <img src="../pic/input_bar.jpg" alt="메시지 보내기"> </div>
     
     <script>
       // 번역을 보려면 true, 숨기려면 false로 변경
@@ -475,24 +469,29 @@
         {img: "../profile/jaemin_200713_2.jpg", name:"JAEMIN💚NANA💚NCTzen"},
         {img: "../profile/jaemin_210130.jpg", name:"NANA💚"},
         {img: "../profile/jaemin_210706.jpg", name:"NANA💚"},
+        //6-10
         {img: "../profile/jaemin_210720.jpg", name:"NANA💚"},
         {img: "../profile/jaemin_210720.jpg", name:"박지성씨는듣거라..당장지갑을찾아오도록"},
         {img: "../profile/jaemin_210720.jpg", name:"지성이 아직 지갑 못 찾았다"},
         {img: "../profile/jaemin_210720.jpg", name:"난 당신의 알람창에 떠 있을꺼야 후후"},
         {img: "../profile/jaemin_210720.jpg", name:"저기..지금 뜬 알람 확인해주세요"},
+        //11-15
         {img: "../profile/jaemin_211117.jpg", name:"저기..지금 뜬 알람 확인해주세요"},
         {img: "../profile/jaemin_211117.jpg", name:"누르고 싶지 누르고 싶을꺼야 당장눌러"},
         {img: "../profile/jaemin_220405.jpg", name:"누르고 싶지 누르고 싶을꺼야 당장눌러"},
         {img: "../profile/jaemin_220910_1.jpg", name:"누르고 싶지 누르고 싶을꺼야 당장눌러"},
         {img: "../profile/jaemin_220910_2.jpg", name:"누르고 싶지 누르고 싶을꺼야 당장눌러"},
+        //16-20
         {img: "../profile/jaemin_230306.jpg", name:"누르고 싶지 누르고 싶을꺼야 당장눌러"},
         {img: "../profile/jaemin_230306.jpg", name:"재민공듀왕쟈🤴🫅💕"},
         {img: "../profile/jaemin_240529.jpg", name:"재민공듀왕쟈🤴🫅💕"},
         {img: "../profile/jaemin_240529.jpg", name:"재민공듀왕쟈가아니라시즈니💚가공듀왕쟈"},
         {img: "../profile/jaemin_240529.jpg", name:"고수100그램에3000원"},
+        //21-22
         {img: "../profile/jaemin_240529.jpg", name:"민이🐰🐱"},
         {img: "../profile/jaemin_240529.jpg", name:"민이🐰🐱🐶"}
       ];
+      
       // 메시지 배열
       const messages = [
         { type: 'date', content: '2020년 2월 7일 금요일' },
@@ -643,10 +642,17 @@
     
     { type: 'date', content: '2025년 5월 20일 화요일' },
     { sender: 'artist', type: 'text', content: "여보💚오늘 하루도 수고했쪄이잉", time: "오후 11:55", profileIndex: 21 },
-    
-    { type: 'date', content: '2025년 5월 21일 수요일' },
-    { sender: 'artist', type: 'text', content: "굿 모니이잉", time: "오후 5:37" },
-    { sender: 'artist', type: 'text', content: "굿5시~", time: "오후 5:37" },
+
+
+
+
+
+
+        
+        // 2024.05.29 프로필 - 민이🐰🐱🐶
+        { type: 'date', content: '2025년 5월 21일 수요일' },
+        { sender: 'artist', type: 'text', content: "굿 모니이잉", time: "오후 5:37", profileIndex: 22 },
+        { sender: 'artist', type: 'text', content: "굿5시~", time: "오후 5:37" },
 
     { type: 'date', content: '2025년 5월 22일 목요일' },
     { sender: 'artist', type: 'text', content: "오늘 하루도 수고했어요~ 유진💚", time: "오전 1:42" },
@@ -1161,6 +1167,7 @@
         { type: 'date', content: '2025년 11월 14일 금요일' },
         { sender: 'artist', type: 'text', content: "오늘 하루도 수고많았어오요 내일 부터 난 콘서트우웅 유진💚", time: "오전 01:49" },
         { sender: 'me', type: 'text', content: '웅 나나도 잘자아', time: '오전 01:49' },
+        // 2025.05.29 프로필 - 민이🐰🐱🐶
         ];
       
       let currentProfileIndex = 0;
