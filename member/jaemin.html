@@ -8,52 +8,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <title>아티스트 채팅</title>
     
-    <style>
-      body {
-        font-family: "Roboto";
-        font-size: 14px;
-        line-height: 1.2;
-        margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
-        background: #EEEEEE;
-        background-image:url('../pic/.jpg');
-        background-position: center;
-        background-size: 100% auto;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        padding-top: 32.42vw;
-        padding-bottom: 25.53vw;
-      }
-      .profile {
-        width: 10.4vw;
-        height: 10.4vw;
-        border-radius: 50%;
-        background-size: cover;
-        background-position: center;
-        margin-top: 3.4px; /* 숫자↓ 위치↑ */
-        border: 0.01px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
-        flex-shrink: 0;
-      }
+<style>
+  body {
+    font-family: "Roboto";
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
+    background: #EEEEEE;
+    background-image:url('../pic/.jpg');
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 32.42vw;
+    padding-bottom: 13vw;
+  }
+  .profile {
+    width: 10.4vw;
+    height: 10.4vw;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-top: 3.4px; /* 숫자↓ 위치↑ */
+    border: 0.01px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+    flex-shrink: 0;
+  }
 /* 프사랑 아티스트 뱃지 그룹 */
-      .header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
-      }
-      .artist-tag {
-        transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
-        transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
-        font-family: 'Noto Sans KR';
-        font-weight: 800;
-        font-size: 8px;
-        /* letter-spacing: -0.01em;  자간 0.01em = 1% */
-        color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
-        background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
-        padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
-        border-radius: 999px;
-        position: relative; /* <-- 기준점을 현재 위치로 설정 */
-        top: 1px;          /* 숫자↑ 위치↓ */
-        margin-right: 4.2px; /* 아티스트 - 이름 간격 */
-      }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
+  }
+  .artist-tag {
+    transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
+    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+    font-family: 'Noto Sans KR';
+    font-weight: 800;
+    font-size: 8px;
+    /* letter-spacing: -0.01em;  자간 0.01em = 1% */
+    color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+    background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
+    padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
+    border-radius: 999px;
+    position: relative; /* <-- 기준점을 현재 위치로 설정 */
+    top: 1px;          /* 숫자↑ 위치↓ */
+    margin-right: 4.2px; /* 아티스트 - 이름 간격 */
+  }
       .name {
         /* font-family: 'Noto Sans KR'; */
         font-size: 11px;
@@ -70,7 +70,7 @@
       .message-content {
         display: flex;
         flex-direction: column;
-        max-width: 95%;
+        max-width: 80%;
         align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
       }
       .chat-message {
@@ -166,6 +166,9 @@
         max-width: 244px;
         border-radius: 4px 13px 13px 13px;
         display: block;
+      }
+      img, video {
+        dynamic-range-limit: standard;
       }
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
@@ -283,37 +286,32 @@
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
-        font-size: 15.5px;
-        font-weight: 650;
+        font-size: 16px;
+        font-weight: 600;
         color: #000000;
-        padding-top: 16.5px;
-        position: fixed;
+        padding-top: 49px;
         top: 0;
-        left: 0;
-        right: 0;
-        /* transform: translateX(-1px); */
-        max-width: 550px;
-        margin: 0 auto;
-        text-align: center;
+        position: fixed;
+        width: 550px;
         z-index: 1001;
-        pointer-events: none;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
       }
 /* ▼▼▼ [구독일 하트] ▼▼▼ */
       .d-day {
         position: fixed;
         top: 0;
-        left: 0;
-        right: 0;
-        max-width: 600px;
-        margin: 0 auto;
-        padding-top: 62px;
-        transform: translateX(30px); /* 숫자↑ 위치→ */
-        text-align: center;
+        padding-top: 94px;
         z-index: 1001;
         font-size: 11px;
         font-weight: 600;
         color: #000000;
         pointer-events: none;
+        width: auto;
+        left: 50%;
+        transform: translateX(20px);
+        text-align: left;
       }
 /* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
       .input-bar {
@@ -370,11 +368,11 @@
       }
       #search-icon {
         position: absolute;
-        top: 18.5px;
+        top: 49px;
         right: 64px;
         width: 20.5px;
         height: 20.5px;
-        opacity: 0.5;
+        opacity: 0;
         background: transparent;
         border: none;
         border-radius: 50%;
@@ -437,14 +435,14 @@
   </head>
   <body>
     <div class="nickname">
-      리쿠
+      똥글똥글납작복숭아같아가지구고냥귀엽자낭?
     </div>
     <div class="d-day">
-      149
+      921
     </div>
     
     <div class="title-bar">
-      <img src="../pic/구독일패널.png" alt="상단 고정 이미지">
+      <img src="../pic/galaxy_sub_title.png" alt="상단 고정 이미지">
       
       <div id="search-icon">
         <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
@@ -1326,92 +1324,88 @@
           searchResults = Array.from(allMessages).filter(message =>
             message.textContent.toLowerCase().includes(searchTerm)
                                                         );
-        
-        if (searchResults.length > 0) {
+          
+          if (searchResults.length > 0) {
             currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
             navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
-        } else {
+          } else {
             currentResultIndex = -1;
-        }
-        updateCounter(); // 카운터 업데이트
-    };
-
-    // 특정 검색 결과로 이동하고 하이라이트 적용
-    const navigateToResult = (index) => {
-        if (index < 0 || index >= searchResults.length) return;
-        
+          }
+          updateCounter(); // 카운터 업데이트
+        };
+      
+      // 특정 검색 결과로 이동하고 하이라이트 적용
+      const navigateToResult = (index) => {
+        if (index < 0 || index >= searchResults.length) return;
+        
         // 기존 하이라이트가 있다면 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
-            previouslyHighlighted.classList.remove('current-search-result');
+          previouslyHighlighted.classList.remove('current-search-result');
         }
-
-        const targetMessage = searchResults[index];
-        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        const targetMessage = searchResults[index];
+        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // 새로운 타겟에 하이라이트 클래스 추가
         targetMessage.classList.add('current-search-result');
-        
-        currentResultIndex = index;
-        updateCounter();
-    };
-    
-    // 카운터 숫자 업데이트
-    const updateCounter = () => {
-        const total = searchResults.length;
-        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
-    };
-
-    // 이전/다음 버튼 핸들러
-    const handleNavigation = (direction) => {
-        if (searchResults.length === 0) return;
-        const total = searchResults.length;
+        currentResultIndex = index;
+        updateCounter();
+      };
+      
+      // 카운터 숫자 업데이트
+      const updateCounter = () => {
+        const total = searchResults.length;
+        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
+      };
+      
+      // 이전/다음 버튼 핸들러
+      const handleNavigation = (direction) => {
+        if (searchResults.length === 0) return;
+        const total = searchResults.length;
         // 다음 인덱스 계산 (배열의 끝과 처음을 순환)
-        let newIndex = (currentResultIndex + direction + total) % total;
-        navigateToResult(newIndex);
-    };
-    
-    // --- 이벤트 리스너 설정 ---
-    // 돋보기 아이콘 클릭
-    searchIcon.addEventListener('click', openSearch);
-    // 검색어 입력 시 실시간 검색
-    searchInput.addEventListener('input', performSearch);
-    // 이전(↑) 버튼 클릭
-    prevBtn.addEventListener('click', () => handleNavigation(-1));
-    // 다음(↓) 버튼 클릭
-    nextBtn.addEventListener('click', () => handleNavigation(1));
-    
-    // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
-    window.addEventListener('hashchange', () => {
-        if (location.hash !== '#search') {
-          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
-        }
-    });
-    
-    // ▼▼▼ 최신 대화부터 시작 ▼▼▼
-    // 기존의 window.addEventListener('load', ...) 부분을 완전히 대체합니다.
-// window.addEventListener('load', ...)는 삭제하세요.
-
-// DOM 구조가 완전히 로드된 후에 스크롤을 맨 아래로 이동
-document.addEventListener('DOMContentLoaded', () => {
-    const chatContainer = document.getElementById("chat");
-    
-    // 1. 메시지 컨테이너의 마지막 자식 요소를 찾음 (가장 최근 메시지)
-    const lastMessage = chatContainer.lastElementChild;
-
-    if (lastMessage) {
-        // 2. 해당 요소로 스크롤 이동 (block: 'end'는 요소의 바닥이 화면의 바닥에 맞춰지게 함)
-        lastMessage.scrollIntoView({
-            behavior: 'auto',
-            block: 'end' // 요소를 화면의 끝(아래)에 배치
+        let newIndex = (currentResultIndex + direction + total) % total;
+        navigateToResult(newIndex);
+      };
+      
+      // --- 이벤트 리스너 설정 ---
+      // 돋보기 아이콘 클릭
+      searchIcon.addEventListener('click', openSearch);
+      // 검색어 입력 시 실시간 검색
+      searchInput.addEventListener('input', performSearch);
+      // 이전(↑) 버튼 클릭
+      prevBtn.addEventListener('click', () => handleNavigation(-1));
+      // 다음(↓) 버튼 클릭
+      nextBtn.addEventListener('click', () => handleNavigation(1));
+      
+      // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
+      window.addEventListener('hashchange', () => {
+        if (location.hash !== '#search') {
+          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
+        }
+      });
+      
+      // ▼▼▼ 최신 대화부터 시작 ▼▼▼
+      function scrollToBottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
+          behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
         });
-    }
-    
-    // 참고: 만약 위에 고정된 '구독일 패널' 때문에 마지막 메시지가 가려진다면,
-    // 이 방법 대신 '해결책 2'의 `scrollTop` 방법이 더 깔끔할 수 있어.
-});
-    // ▲▲▲ 최신 대화부터 시작 ▲▲▲
+      }
 
-</script>
-</body>
+      // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
+      document.addEventListener('DOMContentLoaded', () => {
+        scrollToBottom();
+      });
+
+      // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
+      window.addEventListener('load', () => {
+        scrollToBottom();
+        
+        // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
+        setTimeout(scrollToBottom, 100);
+      });
+      // ▲▲▲ 최신 대화부터 시작 ▲▲▲
+    </script>
+  </body>
 </html>
