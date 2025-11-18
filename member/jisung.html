@@ -8,10 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <title>아티스트 채팅</title>
     
-    <style>
-      body {
-        font-family: "Roboto";
-        font-size: 14px;
+<style>
+  body {
+    font-family: "Roboto";
+    font-size: 14px;
         line-height: 1.2;
         margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
         background: #EEEEEE;
@@ -21,7 +21,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         padding-top: 32.42vw;
-        padding-bottom: 25.53vw;
+        padding-bottom: 13vw;
       }
       .profile {
         width: 10.4vw;
@@ -166,6 +166,9 @@
         max-width: 244px;
         border-radius: 4px 13px 13px 13px;
         display: block;
+      }
+      img, video {
+        dynamic-range-limit: standard;
       }
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
@@ -402,63 +405,57 @@
         align-items: center;
         gap: 5px;
       }
-      .search-controls button {
-        width: 38px;
-        height: 38px;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        background: white;
-        font-size: 18px;
-        padding: 0;
-      }
-      #searchCounter {
-        font-size: 12px;
-        color: #8A8A8A;
-        min-width: 40px;
-        text-align: center;
-      }
-  /* 현재 검색 결과 하이라이트 (수정) */
-      .current-search-result .bubble {
-        animation: highlight-animation 1.2s;
-        animation-delay: 1s;
-      }
-      @keyframes highlight-animation {
-        0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); }
-        70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
-        100% { box-shadow: none; }
-      }
-    
-    </style>
+  .search-controls button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background: white;
+    font-size: 18px;
+    padding: 0;
+  }
+  #searchCounter {
+    font-size: 12px;
+    color: #8A8A8A;
+    min-width: 40px;
+    text-align: center;
+  }
+/* 현재 검색 결과 하이라이트 (수정) */
+  .current-search-result .bubble {
+    animation: highlight-animation 1.2s;
+    animation-delay: 1s;
+  }
+  @keyframes highlight-animation {
+    0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); }
+    70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+    100% { box-shadow: none; }
+  }
+  
+</style>
   </head>
   <body>
     <div class="nickname">
-      윳띠 /ᐠ⩌⩊⩌マ
+      지송이
     </div>
+    
     <div class="d-day">
-      201
+      100
     </div>
     
-    <div class="title-bar">
-      <img src="../pic/galaxy_sub_title.png" alt="상단 고정 이미지">
-      
-      <div id="search-icon">
-        <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
-      </div>
+    <div class="title-bar"> <img src="../pic/galaxy_sub_title.png" alt="상단 고정 이미지">
+      <div id="search-icon"> <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img"> </div>
     </div>
     
-    <div class="search">
-      <input type="text" id="searchInput" placeholder="채팅 검색">
+    <div class="search"> <input type="text" id="searchInput" placeholder="채팅 검색">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
         <button id="nextBtn">↓</button>
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-    <div class="chat-container" id="chat"></div>
     
-    <div class="input-bar">
-      <img src="../pic/input_bar.jpg" alt="메시지 보내기">
-    </div>
+    <div class="chat-container" id="chat"></div>
+    <div class="input-bar"> <img src="../pic/input_bar.jpg" alt="메시지 보내기"> </div>
     
     <script>
       // 번역을 보려면 true, 숨기려면 false로 변경
@@ -467,18 +464,18 @@
       // 아티스트 정보
       const artistProfile = [
         {img: "../profile/jisung_0_first_Boom.jpg", name:"JISUNG"},
-    {img: "../profile/jisung_1_200713_error_휴지에우주인그림.jpg", name:"JISUNG💚"},
-    {img: "../profile/jisung_200715-200811.jpg", name:"JISUNG"},
-    {img: "../profile/jisung_3-6_200811-200912.jpg", name:"JISUNG"},
-    {img: "../profile/jisung_3-6_200811-200912.jpg", name:"임포스터 지성🥰"},
-    {img: "../profile/jisung_3-6_200811-200912.jpg", name:"흰색 좋아 지성 🥰"},
-    {img: "../profile/jisung_3-6_200811-200912.jpg", name:"🖤지성🤍 🥰"},
-    {img: "../profile/jisung_7-8_200912-200912.jpg", name:"🖤지성🤍 🥰"},
-    {img: "../profile/jisung_7-8_200912-201010.jpg", name:"🖤지성🤍 🥰"},
-    {img: "../profile/jisung_9_201010.jpg", name:"🖤지성🤍 🥰"},
-    {img: "../profile/jisung_10_201028.jpg", name:"🖤지성🤍 🥰"},
-    {img: "../profile/jisung_11_201111.jpg", name:"🖤지성🤍 🥰"},
-    {img: "../profile/jisung_12_201117.jpg", name:"🖤지성🤍 🥰"},
+        {img: "../profile/jisung_1_200713_error_휴지에우주인그림.jpg", name:"JISUNG💚"},
+        {img: "../profile/jisung_200715-200811.jpg", name:"JISUNG"},
+        {img: "../profile/jisung_3-6_200811-200912.jpg", name:"JISUNG"},
+        {img: "../profile/jisung_3-6_200811-200912.jpg", name:"임포스터 지성🥰"},
+        {img: "../profile/jisung_3-6_200811-200912.jpg", name:"흰색 좋아 지성 🥰"},
+        {img: "../profile/jisung_3-6_200811-200912.jpg", name:"🖤지성🤍 🥰"},
+        {img: "../profile/jisung_7-8_200912-200912.jpg", name:"🖤지성🤍 🥰"},
+        {img: "../profile/jisung_7-8_200912-201010.jpg", name:"🖤지성🤍 🥰"},
+        {img: "../profile/jisung_9_201010.jpg", name:"🖤지성🤍 🥰"},
+        {img: "../profile/jisung_10_201028.jpg", name:"🖤지성🤍 🥰"},
+        {img: "../profile/jisung_11_201111.jpg", name:"🖤지성🤍 🥰"},
+        {img: "../profile/jisung_12_201117.jpg", name:"🖤지성🤍 🥰"},
     {img: "../profile/jisung_13-24_201202-201225.jpg", name:"JSSs"},
     {img: "../profile/jisung_13-24_201202-201225.jpg", name:"치성"},
     {img: "../profile/jisung_13-24_201202-201225.jpg", name:"붕어빵슈크림 맛"},
@@ -612,6 +609,7 @@
         {img: "../profile/jisung_140-142_250419.jpg", name:"띵"},
         {img: "../profile/jisung_140-142_250419.jpg", name:"바보"}
       ];
+      
       // 메시지 배열
       const messages = [
         { type: 'date', content: '2020년 2월 7일 금요일' },
@@ -747,7 +745,14 @@
 
     
     
-    
+        // 2025.04.19 프로필 - ❤️
+        { type: 'date', content: '2025년 5월 21일 수요일' },
+        { sender: 'artist', type: 'text', content: "좋아", time: "오후 4:51", profileIndex: 140 },
+        { sender: 'artist', type: 'text', content: "목도 풀었다", time: "오후 4:51" },
+        { sender: 'artist', type: 'emote', content: '../emoji/폴라_.png', isImage: true, time: "오후 4:51" },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 4:53" },
+        { sender: 'artist', type: 'text', content: "라디오 하는 당일인데 막 엄청은 안 떨리는구만", time: "오후 4:53" },
+        { sender: 'artist', type: 'text', content: "성장했어 좋아", time: "오후 4:53" },
     
     
     { type: 'date', content: '2025년 8월 23일 토요일' },
@@ -1111,6 +1116,9 @@
         { sender: 'artist', type: 'text', content: "유진이두 잘자아ㅏㅏ", time: "오후 10:27" },
         { sender: 'artist', type: 'emote', content: '../emoji/헤헤강쥐왕코_누워서.png', isImage: true, time: "오후 10:27" },
         { sender: 'artist', type: 'emote', content: '../emoji/폴라.png', isImage: true, time: "오후 10:27" },
+        
+        // 2025.04.19 프로필 - 바보
+        
         ];
       
       let currentProfileIndex = 0;
@@ -1336,22 +1344,24 @@
       });
       
       // ▼▼▼ 최신 대화부터 시작 ▼▼▼
-      // DOM 구조가 완전히 로드된 후에 스크롤을 맨 아래로 이동
+      function scrollToBottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
+          behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
+        });
+      }
+
+      // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
       document.addEventListener('DOMContentLoaded', () => {
-        const chatContainer = document.getElementById("chat");
-        // 1. 메시지 컨테이너의 마지막 자식 요소를 찾음 (가장 최근 메시지)
-    const lastMessage = chatContainer.lastElementChild;
+        scrollToBottom();
+      });
+
+      // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
+      window.addEventListener('load', () => {
+        scrollToBottom();
         
-        if (lastMessage) {
-          // 2. 해당 요소로 스크롤 이동 (block: 'end'는 요소의 바닥이 화면의 바닥에 맞춰지게 함)
-          lastMessage.scrollIntoView({
-            behavior: 'auto',
-            block: 'end' // 요소를 화면의 끝(아래)에 배치
-            });
-        }
-        
-        // 참고: 만약 위에 고정된 '구독일 패널' 때문에 마지막 메시지가 가려진다면,
-        // 이 방법 대신 '해결책 2'의 `scrollTop` 방법이 더 깔끔할 수 있어.
+        // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
+        setTimeout(scrollToBottom, 100);
       });
       // ▲▲▲ 최신 대화부터 시작 ▲▲▲
     </script>
