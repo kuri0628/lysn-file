@@ -605,11 +605,11 @@
       
       // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
       const searchBar = document.querySelector('.search');
-      const searchIcon = document.getElementById('search-icon');
-      const searchInput = document.getElementById('searchInput');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const searchCounter = document.getElementById('searchCounter');
+      const searchIcon = document.getElementById('search-icon');
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
       
       // 결과 도출에 대한 함수
       let searchResults = [];
@@ -641,35 +641,31 @@
       };
       
       // 검색 실행
-        const performSearch = () => {
-          // 기존 하이라이트 먼저 제거
-          const previouslyHighlighted = document.querySelector('.current-search-result');
-          if (previouslyHighlighted) {
-            previouslyHighlighted.classList.remove('current-search-result');
-          }
-          
-          const searchTerm = searchInput.value.trim().toLowerCase();
-          
-          if (!searchTerm) {
-            searchResults = [];
-            currentResultIndex = -1;
-            updateCounter();
-            return;
-          }
-          
-          const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-          searchResults = Array.from(allMessages).filter(message =>
-            message.textContent.toLowerCase().includes(searchTerm)
-                                                        );
-          
-          if (searchResults.length > 0) {
-            currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
-            navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
-          } else {
-            currentResultIndex = -1;
-          }
-          updateCounter(); // 카운터 업데이트
-        };
+      const performSearch = () => {
+        // 기존 하이라이트 먼저 제거
+        const previouslyHighlighted = document.querySelector('.current-search-result');
+        if (previouslyHighlighted) {
+          previouslyHighlighted.classList.remove('current-search-result');
+        }
+        
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        if (!searchTerm) {
+          searchResults = [];
+          currentResultIndex = -1;
+          updateCounter();
+          return;
+        }
+        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+        searchResults = Array.from(allMessages).filter(message =>
+          message.textContent.toLowerCase().includes(searchTerm));
+        if (searchResults.length > 0) {
+          currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
+          navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
+        } else {
+          currentResultIndex = -1;
+        }
+        updateCounter(); // 카운터 업데이트
+      };
       
       // 특정 검색 결과로 이동하고 하이라이트 적용
       const navigateToResult = (index) => {
@@ -709,11 +705,11 @@
       // 돋보기 아이콘 클릭
       searchIcon.addEventListener('click', openSearch);
       // 검색어 입력 시 실시간 검색
-      searchInput.addEventListener('input', performSearch);
-      // 이전(↑) 버튼 클릭
-      prevBtn.addEventListener('click', () => handleNavigation(-1));
-      // 다음(↓) 버튼 클릭
-      nextBtn.addEventListener('click', () => handleNavigation(1));
+      searchInput.addEventListener('input', performSearch);
+      // 이전(↑) 버튼 클릭
+      prevBtn.addEventListener('click', () => handleNavigation(-1));
+      // 다음(↓) 버튼 클릭
+      nextBtn.addEventListener('click', () => handleNavigation(1));
       
       // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
       window.addEventListener('hashchange', () => {
@@ -729,7 +725,6 @@
           behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
           });
       }
-      
       // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
       document.addEventListener('DOMContentLoaded', () => {
         scrollToBottom();
