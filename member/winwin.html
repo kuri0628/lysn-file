@@ -489,8 +489,9 @@
       
       let currentProfileIndex = 0;
       const chatContainer = document.getElementById("chat");
+
+      // 메시지 생성 루프
       messages.forEach(msg => {
-        
         // 1. 날짜
         if (msg.type === 'date') {
           const dateEl = document.createElement('div');
@@ -505,52 +506,34 @@
           const myMsg = document.createElement("div");
           myMsg.className = "my-chat-message";
           myMsg.innerHTML = `
-          <div class="time">${msg.time}</div>
-          <div class="bubble my-bubble">${msg.content}</div>
+            <div class="time">${msg.time}</div>
+            <div class="bubble my-bubble">${msg.content}</div>
           `;
           chatContainer.appendChild(myMsg);
           return;
         }
+
         if (msg.profileIndex !== undefined) {
           currentProfileIndex = msg.profileIndex;
         }
         const chatMsg = document.createElement("div");
         chatMsg.className = "chat-message";
         
-        // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+        // 내용 생성
+        let messageBodyHTML = '';
         if (msg.type === 'reply') {
-          chatMsg.innerHTML = `
-          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
-          <div class="message-content">
-          <div class="header">
-          
-          <div class="name">${artistProfile[currentProfileIndex].name}</div>
-          </div>
-          <div class="bubble reply-bubble">
-          <div class="reply-title">ARTIST의 답장</div>
-          <div class="reply-content">${msg.replyContent}</div>
-          </div>
-          <div style="display:flex; align-items:flex-end;">
-          <div class="bubble bubble-after-reply">${msg.mainContent}</div>
-          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-          </div>
-          </div>
-          `;
-        } else {
-          let messageBodyHTML = '';
-          if (msg.type === 'emote') {
+           // 답장 기능이 있다면 여기에 구현
+        } else if (msg.type === 'emote') {
             if (msg.isImage) {
               messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
             } else {
               messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
             }
-          } else if (msg.type === 'image') {
+        } else if (msg.type === 'image') {
             messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
-          } else if (msg.type === 'voice') {
-            messageBodyHTML = `<div class="bubble voice">
-            <img src="${msg.content}" alt="음성메시지">
-            </div>`;
-          } else if (msg.type === 'poll') {
+        } else if (msg.type === 'voice') {
+            messageBodyHTML = `<div class="bubble voice"><img src="${msg.content}" alt="음성메시지"></div>`;
+        } else if (msg.type === 'poll') {
             let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
             messageBodyHTML = `
             <div class="poll">
@@ -559,7 +542,8 @@
             <div class="poll-topic">${msg.text}</div>
             </div>
             `;
-          } else {
+        } else {
+            // 일반 텍스트
             let bubbleContent = msg.content;
             let bubbleClass = 'bubble';
             if (showTranslations && msg.translation) {
@@ -570,35 +554,32 @@
               bubbleClass += ' has-translation';
             }
             messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
-          }
+        }
           
-          // header 밑에 ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
-          chatMsg.innerHTML = `
+        // 최종 조립
+        chatMsg.innerHTML = `
           <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
           <div class="message-content">
-          <div class="header">
-          
-          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+            <div class="header">
+              <div class="name">${artistProfile[currentProfileIndex].name}</div>
+            </div>
+            <div style="display:flex; align-items:flex-end;">
+              ${messageBodyHTML}
+              <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+            </div>
           </div>
-          <div style="display:flex; align-items:flex-end;">
-          ${messageBodyHTML}
-          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
-          </div>
-          </div>
-          `;
-        }
+        `;
         chatContainer.appendChild(chatMsg);
       });
       
-      // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
+      // ▼▼▼ 검색 기능 (변수 선언부 공백 문자 제거됨) ▼▼▼
       const searchBar = document.querySelector('.search');
-      const searchIcon = document.getElementById('search-icon');
-      const searchInput = document.getElementById('searchInput');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const searchCounter = document.getElementById('searchCounter');
+      const searchIcon = document.getElementById('search-icon');
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
       
-      // 결과 도출에 대한 함수
       let searchResults = [];
       let currentResultIndex = -1;
       
@@ -611,25 +592,21 @@
         }
       };
       
-      // 검색창 닫기 (뒤로가기 시)
+      // 검색창 닫기
       const closeSearch = () => {
-        // 기존 하이라이트 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
           previouslyHighlighted.classList.remove('current-search-result');
         }
-        // 검색창 닫기
         searchBar.classList.remove('visible');
         searchInput.value = "";
-        // 검색 결과 초기화
         searchResults = [];
         currentResultIndex = -1;
         updateCounter();
       };
       
       // 검색 실행
-        const performSearch = () => {
-          // 기존 하이라이트 먼저 제거
+      const performSearch = () => {
           const previouslyHighlighted = document.querySelector('.current-search-result');
           if (previouslyHighlighted) {
             previouslyHighlighted.classList.remove('current-search-result');
@@ -644,92 +621,81 @@
             return;
           }
           
+          // 검색 대상: 메시지 래퍼 전체
           const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
           searchResults = Array.from(allMessages).filter(message =>
             message.textContent.toLowerCase().includes(searchTerm)
-                                                        );
+          );
           
           if (searchResults.length > 0) {
-            currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
-            navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
+            currentResultIndex = 0;
+            navigateToResult(currentResultIndex);
           } else {
             currentResultIndex = -1;
           }
-          updateCounter(); // 카운터 업데이트
-        };
+          updateCounter();
+      };
       
-      // 특정 검색 결과로 이동하고 하이라이트 적용
+      // 이동 및 하이라이트
       const navigateToResult = (index) => {
         if (index < 0 || index >= searchResults.length) return;
         
-        // 기존 하이라이트가 있다면 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
           previouslyHighlighted.classList.remove('current-search-result');
         }
         
         const targetMessage = searchResults[index];
+        // block: 'center'를 통해 메시지를 화면 중앙으로 이동
         targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
-        // 새로운 타겟에 하이라이트 클래스 추가
         targetMessage.classList.add('current-search-result');
         currentResultIndex = index;
         updateCounter();
       };
       
-      // 카운터 숫자 업데이트
+      // 카운터
       const updateCounter = () => {
         const total = searchResults.length;
         searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
       };
       
-      // 이전/다음 버튼 핸들러
+      // 탐색 핸들러
       const handleNavigation = (direction) => {
         if (searchResults.length === 0) return;
         const total = searchResults.length;
-        // 다음 인덱스 계산 (배열의 끝과 처음을 순환)
         let newIndex = (currentResultIndex + direction + total) % total;
         navigateToResult(newIndex);
       };
       
-      // --- 이벤트 리스너 설정 ---
-      // 돋보기 아이콘 클릭
-      searchIcon.addEventListener('click', openSearch);
-      // 검색어 입력 시 실시간 검색
-      searchInput.addEventListener('input', performSearch);
-      // 이전(↑) 버튼 클릭
-      prevBtn.addEventListener('click', () => handleNavigation(-1));
-      // 다음(↓) 버튼 클릭
-      nextBtn.addEventListener('click', () => handleNavigation(1));
+      // 이벤트 리스너 연결
+      if(searchIcon) searchIcon.addEventListener('click', openSearch);
+      if(searchInput) searchInput.addEventListener('input', performSearch);
+      if(prevBtn) prevBtn.addEventListener('click', () => handleNavigation(-1));
+      if(nextBtn) nextBtn.addEventListener('click', () => handleNavigation(1));
       
-      // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
       window.addEventListener('hashchange', () => {
         if (location.hash !== '#search') {
-          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
+          closeSearch();
         }
       });
       
-      // ▼▼▼ 최신 대화부터 시작 ▼▼▼
+      // 스크롤 하단 고정
       function scrollToBottom() {
         window.scrollTo({
-          top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
-          behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
+          top: document.body.scrollHeight,
+          behavior: 'auto'
         });
       }
 
-      // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
       document.addEventListener('DOMContentLoaded', () => {
         scrollToBottom();
       });
 
-      // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
       window.addEventListener('load', () => {
         scrollToBottom();
-        
-        // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
         setTimeout(scrollToBottom, 100);
       });
-      // ▲▲▲ 최신 대화부터 시작 ▲▲▲
     </script>
   </body>
 </html>
