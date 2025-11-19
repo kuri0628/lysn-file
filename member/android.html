@@ -626,12 +626,20 @@
       };
       
       // 검색창 닫기 (뒤로가기 시)
+      // 검색창 닫기 (뒤로가기 시)
       const closeSearch = () => {
+        // [추가된 부분 1] 초기화하기 전에 마지막으로 보고 있던 검색 결과 요소를 기억해둠
+        let lastFoundElement = null;
+        if (searchResults.length > 0 && currentResultIndex !== -1) {
+            lastFoundElement = searchResults[currentResultIndex];
+        }
+
         // 기존 하이라이트 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
           previouslyHighlighted.classList.remove('current-search-result');
         }
+        
         // 검색창 닫기
         searchBar.classList.remove('visible');
         searchInput.value = "";
@@ -639,6 +647,11 @@
         searchResults = [];
         currentResultIndex = -1;
         updateCounter();
+
+        // [추가된 부분 2] 기억해둔 요소가 있다면 그 위치로 화면을 즉시 고정 (흔들림 방지)
+        if (lastFoundElement) {
+            lastFoundElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+        }
       };
       
       // 검색 실행
