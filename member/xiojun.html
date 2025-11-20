@@ -579,7 +579,7 @@
           } else if (msg.type === 'video') {
             // controls: 재생바 표시, autoplay: 자동재생, muted: 음소거(자동재생 필수조건), loop: 반복재생, playsinline: 모바일 전체화면 방지
             messageBodyHTML = `<div class="bubble picture">
-              <video src="${msg.content}" controls autoplay muted loop playsinline></video>
+              <video src="${msg.content}" controls playsinline></video>
             </div>`;
           /* ▲▲▲ [MP4 추가] ▲▲▲ */
 
