@@ -423,6 +423,7 @@
         left: 0;
         width: 100%;
         text-align: center;
+        z-index: 1000;
       }
       .input-bar img {
         max-width: 500px;
@@ -637,12 +638,12 @@
           
           // 1. 메타데이터(시간 정보)가 로드되면 2초로 이동
           video.addEventListener('loadedmetadata', () => {
-            video.currentTime = 2; 
+            video.currentTime = 1.55;  // 2 -> 1.55로 변경
           });
           
           // 2. 이미 로딩이 끝난 경우를 대비해 즉시 적용
           if (video.readyState >= 1) {
-            video.currentTime = 2;
+            video.currentTime = 1.55; // 2 -> 1.55로 변경
           }
           // ▲▲▲ [추가 완료] ▲▲▲
 
