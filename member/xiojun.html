@@ -255,12 +255,6 @@
         background-color: rgba(0, 0, 0, 0.3);
         pointer-events: auto; /* 다시 클릭 가능하게 */
       }
-
-
-
-
-
-        
   
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
@@ -372,7 +366,7 @@
       }
 /* 투표 메시지만 너비 키우기 */
       .message-content:has(.poll) {
-        max-width: 79%; /*  */
+        max-width: 79%; /* */
       }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
@@ -606,8 +600,8 @@
         { sender: 'artist', type: 'text', content: "成都飞飞飞~", translation: "청두페이페이~", time: "오후 2:38" },
         ];
       
-      let currentprofileindex = 0;
-      const chatcontainer = document.getElementById("chat");
+      let currentProfileIndex = 0;
+      const chatContainer = document.getElementById("chat");
       
       // 비디오 메시지를 DOM에 추가한 후 호출될 함수
       const attachVideoListeners = () => {
@@ -709,7 +703,7 @@
             /* ▼▼▼ [MP4 추가] ▼▼▼ */
           } else if (msg.type === 'video') {
             // controls: 재생바 표시, autoplay: 자동재생, muted: 음소거(자동재생 필수조건), loop: 반복재생, playsinline: 모바일 전체화면 방지
-            messagebodyhtml = `<div class="bubble picture video-container">
+            messageBodyHTML = `<div class="bubble picture video-container">
               <video src="${msg.content}" muted loop playsinline></video>
               <div class="custom-controls">
               <button class="play-pause-btn"></button>
@@ -758,7 +752,7 @@
           </div>
           `;
         }
-        chatcontainer.appendChild(chatmsg);
+        chatContainer.appendChild(chatMsg);
       }); // messages.forEach 끝
 
       // 모든 메시지가 DOM에 추가된 후 비디오 이벤트 리스너를 연결
@@ -899,7 +893,7 @@
         window.scrollTo({
           top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
           behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
-        });
+          });
         // 스크롤 후에도 비디오 리스너를 다시 확인 (혹시 모를 동적 추가/변경 대비)
         attachVideoListeners(); 
       }
