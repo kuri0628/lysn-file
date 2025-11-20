@@ -632,6 +632,21 @@
           const playPauseBtn = container.querySelector('.play-pause-btn');
           const customControls = container.querySelector('.custom-controls');
           
+          // ▼▼▼ [추가된 부분: 2초 지점을 썸네일로 설정] ▼▼▼
+          // 이 코드가 없으면 영상의 0초(첫 화면)가 썸네일이 됩니다.
+          
+          // 1. 메타데이터(시간 정보)가 로드되면 2초로 이동
+          video.addEventListener('loadedmetadata', () => {
+            video.currentTime = 2; 
+          });
+          
+          // 2. 이미 로딩이 끝난 경우를 대비해 즉시 적용
+          if (video.readyState >= 1) {
+            video.currentTime = 2;
+          }
+          // ▲▲▲ [추가 완료] ▲▲▲
+
+
           // 이미 이벤트 리스너가 붙어있으면 다시 붙이지 않도록 방어 (forEach가 여러번 실행될 경우 대비)
           if (container.dataset.listenerAttached) {
             return;
