@@ -606,8 +606,48 @@
         { sender: 'artist', type: 'text', content: "成都飞飞飞~", translation: "청두페이페이~", time: "오후 2:38" },
         ];
       
-      let currentProfileIndex = 0;
-      const chatContainer = document.getElementById("chat");
+      let currentprofileindex = 0;
+      const chatcontainer = document.getElementById("chat");
+      
+      // 비디오 메시지를 DOM에 추가한 후 호출될 함수
+      const attachVideoListeners = () => {
+        document.querySelectorAll('.video-container').forEach(container => {
+          const video = container.querySelector('video');
+          const playPauseBtn = container.querySelector('.play-pause-btn');
+          const customControls = container.querySelector('.custom-controls');
+          
+          // 이미 이벤트 리스너가 붙어있으면 다시 붙이지 않도록 방어 (forEach가 여러번 실행될 경우 대비)
+          if (container.dataset.listenerAttached) {
+            return;
+          }
+          container.dataset.listenerAttached = 'true'; // 리스너가 붙었음을 표시
+
+          // 비디오가 재생/일시정지될 때마다 클래스 토글
+          video.addEventListener('play', () => {
+            container.classList.add('playing');
+          });
+
+          video.addEventListener('pause', () => {
+            container.classList.remove('playing');
+          });
+
+          // 커스텀 컨트롤러 클릭 시 재생/일시정지
+          customControls.addEventListener('click', () => {
+            if (video.paused) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+
+          // 재생/일시정지 버튼 클릭 시 재생/일시정지 (컨트롤러 오버레이와 동일 기능)
+          // customControls에 이벤트가 걸려있으므로 playPauseBtn은 클릭 이벤트를 따로 안 걸어도 됨
+          // 만약 버튼에만 클릭 이벤트를 걸고 싶다면 customControls 대신 playPauseBtn에 이벤트를 걸고,
+          // video가 재생 중일 때 customControls의 pointer-events를 none으로 설정해야 비디오 클릭으로 재생/멈춤이 가능합니다.
+        });
+      };
+
+
       messages.forEach(msg => {
         
         // 1. 날짜
@@ -665,19 +705,19 @@
             }
           } else if (msg.type === 'image') {
             messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
-          
-          /* ▼▼▼ [MP4 추가] ▼▼▼ */
+            
+            /* ▼▼▼ [MP4 추가] ▼▼▼ */
           } else if (msg.type === 'video') {
             // controls: 재생바 표시, autoplay: 자동재생, muted: 음소거(자동재생 필수조건), loop: 반복재생, playsinline: 모바일 전체화면 방지
-            messageBodyHTML = `<div class="bubble picture video-container">
-              <video src="${msg.content}" controls playsinline></video>
+            messagebodyhtml = `<div class="bubble picture video-container">
+              <video src="${msg.content}" muted loop playsinline></video>
               <div class="custom-controls">
               <button class="play-pause-btn"></button>
               </div>
               </div>`;
             /* ▲▲▲ [MP4 추가] ▲▲▲ */
 
-          } else if (msg.type === 'voice') {
+            } else if (msg.type === 'voice') {
             messageBodyHTML = `<div class="bubble voice">
             <img src="${msg.content}" alt="음성메시지">
             </div>`;
@@ -718,8 +758,11 @@
           </div>
           `;
         }
-        chatContainer.appendChild(chatMsg);
-      });
+        chatcontainer.appendChild(chatmsg);
+      }); // messages.forEach 끝
+
+      // 모든 메시지가 DOM에 추가된 후 비디오 이벤트 리스너를 연결
+      attachVideoListeners();
       
       // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
       const searchBar = document.querySelector('.search');
@@ -849,24 +892,28 @@
         }
       });
       
-      // ▼▼▼ 최신 대화부터 시작 ▼▼▼
-      function scrollToBottom() {
+      // ▼▼▼ [최신 대화부터 시작] ▼▼▼
+      // 이 부분도 attachVideoListeners() 호출 후로 옮기거나,
+      // DOMContentLoaded와 load 이벤트 핸들러 내부에서 attachVideoListeners()를 호출해줘야 합니다.
+      function scrolltobottom() {
         window.scrollTo({
           top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
           behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
-          });
+        });
+        // 스크롤 후에도 비디오 리스너를 다시 확인 (혹시 모를 동적 추가/변경 대비)
+        attachVideoListeners(); 
       }
       // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
       document.addEventListener('DOMContentLoaded', () => {
-        scrollToBottom();
+        scrolltobottom();
+        attachVideoListeners(); // DOM이 준비되면 한 번 실행
       });
-      
       // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
       window.addEventListener('load', () => {
-        scrollToBottom();
-        
+        scrolltobottom();
         // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
-        setTimeout(scrollToBottom, 100);
+        setTimeout(scrolltobottom, 100);
+        attachVideoListeners(); // 모든 리소스 로딩 후에도 한 번 더 실행
       });
       // ▲▲▲ 최신 대화부터 시작 ▲▲▲
     </script>
