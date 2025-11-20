@@ -171,6 +171,97 @@
       img, video {
         dynamic-range-limit: standard;
       }
+      .video-container {
+        position: relative; /* 자식 요소(컨트롤러)의 absolute 위치 기준 */
+        display: inline-block; /* 너비가 콘텐츠에 맞게 조절되도록 */
+        /* padding은 .bubble에서 처리되므로 여기서는 제거하거나 필요에 따라 조절 */
+      }
+  /* 커스텀 컨트롤러 오버레이 */
+      .custom-controls {
+        position: absolute; /* 비디오 위에 겹치도록 */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex; /* 버튼을 중앙에 배치하기 위함 */
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.3); /* 반투명 배경 (선택 사항) */
+        cursor: pointer; /* 마우스 오버 시 손가락 모양 커서 */
+        transition: background-color 0.2s ease;
+      }
+
+/* 재생/멈춤 버튼 */
+      .play-pause-btn {
+        width: 50px; /* 버튼 크기 */
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.7); /* 버튼 배경 */
+        border: none;
+        border-radius: 50%; /* 원형 버튼 */
+        cursor: pointer;
+        outline: none;
+        position: relative;
+        /* 재생 아이콘 (삼각형) */
+        clip-path: polygon(30% 20%, 30% 80%, 80% 50%); /* 재생 아이콘 모양 */
+        transform: translateX(10%); /* 아이콘을 시각적으로 중앙에 맞추기 위해 */
+        transition: background-color 0.2s ease, transform 0.1s ease;
+      }
+
+/* 일시정지 상태 아이콘 (두 개의 막대) */
+      .video-container.playing .play-pause-btn {
+        clip-path: none; /* 원형으로 되돌림 */
+        transform: none; /* 위치 조정 초기화 */
+      }
+
+      .video-container.playing .play-pause-btn::before,
+      .video-container.playing .play-pause-btn::after {
+        content: '';
+        position: absolute;
+        top: 25%;
+        width: 15%; /* 막대 너비 */
+        height: 50%; /* 막대 높이 */
+        background-color: #333; /* 막대 색상 */
+      }
+
+      .video-container.playing .play-pause-btn::before {
+        left: 30%;
+      }
+
+      .video-container.playing .play-pause-btn::after {
+        right: 30%;
+      }
+
+/* 비디오가 재생 중일 때 커스텀 컨트롤러 숨기기 */
+      .video-container.playing .custom-controls {
+        background-color: transparent; /* 배경 투명하게 */
+        pointer-events: none; /* 클릭 이벤트 막기 (비디오 클릭 시 재생/멈춤을 위해) */
+      }
+
+      .video-container.playing .custom-controls .play-pause-btn {
+        opacity: 0; /* 버튼 숨기기 */
+      }
+
+/* 비디오가 로드될 때까지 컨트롤러는 보이도록 */
+      .video-container:not(.playing) .custom-controls {
+        pointer-events: auto;
+      }
+
+/* 비디오 위로 마우스 올렸을 때 컨트롤러 다시 보이게 (선택 사항) */
+      .video-container.playing:hover .custom-controls .play-pause-btn {
+        opacity: 1;
+      }
+
+      .video-container.playing:hover .custom-controls {
+        background-color: rgba(0, 0, 0, 0.3);
+        pointer-events: auto; /* 다시 클릭 가능하게 */
+      }
+
+
+
+
+
+        
+  
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
       .emoji {
@@ -578,10 +669,13 @@
           /* ▼▼▼ [MP4 추가] ▼▼▼ */
           } else if (msg.type === 'video') {
             // controls: 재생바 표시, autoplay: 자동재생, muted: 음소거(자동재생 필수조건), loop: 반복재생, playsinline: 모바일 전체화면 방지
-            messageBodyHTML = `<div class="bubble picture">
+            messageBodyHTML = `<div class="bubble picture video-container">
               <video src="${msg.content}" controls playsinline></video>
-            </div>`;
-          /* ▲▲▲ [MP4 추가] ▲▲▲ */
+              <div class="custom-controls">
+              <button class="play-pause-btn"></button>
+              </div>
+              </div>`;
+            /* ▲▲▲ [MP4 추가] ▲▲▲ */
 
           } else if (msg.type === 'voice') {
             messageBodyHTML = `<div class="bubble voice">
