@@ -162,8 +162,7 @@
     margin-left: 1px;
     margin-top: 0px;
   }
-  .picture img,
-  .picture video {
+  .picture img {
     max-width: 244px;
     border-radius: 4px 13px 13px 13px;
     display: block;
@@ -171,6 +170,14 @@
   img, video {
     dynamic-range-limit: standard;
   }
+  
+  /* 동영상은 크기 줄임 (원하는 크기로 숫자 조절 가능) */
+  .picture video {
+    max-width: 180px; /* 244px -> 180px로 축소 */
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+
   /* 비디오 컨테이너: 둥근 모서리 적용의 핵심 */
   .video-container {
     position: relative;
@@ -202,8 +209,8 @@
 
   /* 재생/멈춤 버튼 (동그라미 배경) */
   .play-pause-btn {
-    width: 46px; /* 버튼 크기 */
-    height: 46px;
+    width: 34px; /* 버튼 크기 */
+    height: 34px;
     /* 재생바 배경 원 */
     background-color: rgba(0, 0, 0, 0.3); 
     border: none; /* 재생바 배경 원의 테두리 */
