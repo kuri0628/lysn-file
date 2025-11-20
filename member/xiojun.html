@@ -156,117 +156,115 @@
       }
 /* ▼▼▼ [사진] ▼▼▼ */
   /* 3. 사진 메시지 스타일 */
-      .picture {
-        padding: 0;
-        background: none;
-        margin-left: 1px;
-        margin-top: 0px;
-      }
-      .picture img,
-      .picture video {
-        max-width: 244px;
-        border-radius: 4px 13px 13px 13px;
-        display: block;
-      }
-      img, video {
-        dynamic-range-limit: standard;
-      }
-      /* 비디오 컨테이너: 둥근 모서리 적용의 핵심 */
-.video-container {
-  position: relative;
-  display: inline-block;
-  /* 중요: 내부의 비디오와 어두운 배경이 이 둥근 모서리에 맞춰 잘리도록 설정 */
-  overflow: hidden; 
-  /* 말풍선과 동일한 둥근 모서리 (필요시 .bubble 클래스의 값과 맞춰주세요) */
-  border-radius: 4px 13px 13px 13px;
-  line-height: 0; /* 비디오 하단 미세한 여백 제거 */
-}
+  .picture {
+    padding: 0;
+    background: none;
+    margin-left: 1px;
+    margin-top: 0px;
+  }
+  .picture img,
+  .picture video {
+    max-width: 244px;
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+  img, video {
+    dynamic-range-limit: standard;
+  }
+  /* 비디오 컨테이너: 둥근 모서리 적용의 핵심 */
+  .video-container {
+    position: relative;
+    display: inline-block;
+    /* 중요: 내부의 비디오와 어두운 배경이 이 둥근 모서리에 맞춰 잘리도록 설정 */
+    overflow: hidden; 
+    /* 말풍선과 동일한 둥근 모서리 (필요시 .bubble 클래스의 값과 맞춰주세요) */
+    border-radius: 4px 13px 13px 13px;
+    line-height: 0; /* 비디오 하단 미세한 여백 제거 */
+  }
 
-/* 커스텀 컨트롤러 오버레이 (어두운 배경) */
-.custom-controls {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* 버튼과 텍스트를 세로로 배치 */
-  display: flex;
-  flex-direction: column; 
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.3); /* 전체를 덮는 옅은 어둠 */
-  cursor: pointer;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
-  z-index: 10;
-}
+  /* 비디오의 어두운 막 */
+  .custom-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 버튼과 텍스트를 세로로 배치 */
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; /* 내용물 세로 중앙 정렬 */
+    align-items: center; /* 내용물 가로 중앙 정렬 */
+    background-color: rgba(0, 0, 0, 0.1); /* RGB값 000.(검정), 숫자 올 투명도 내 */
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    z-index: 10;
+  }
 
-/* 재생/멈춤 버튼 (동그라미 배경) */
-.play-pause-btn {
-  width: 46px; /* 버튼 크기 */
-  height: 46px;
-  /* [요청하신 디자인] 어두운 살짝 투명한 회색 동그라미 */
-  background-color: rgba(0, 0, 0, 0.5); 
-  border: 1px solid rgba(255, 255, 255, 0.2); /* 살짝 테두리 (선택사항) */
-  border-radius: 50%;
-  
-  /* 내부 아이콘 중앙 정렬 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  /* 기존 버튼 스타일 초기화 */
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  transition: transform 0.1s ease;
-}
+  /* 재생/멈춤 버튼 (동그라미 배경) */
+  .play-pause-btn {
+    width: 46px; /* 버튼 크기 */
+    height: 46px;
+    /* 재생바 배경 원 */
+    background-color: rgba(0, 0, 0, 0.3); 
+    border: none; /* 재생바 배경 원의 테두리 */
+    border-radius: 50%;
+    /* 내부 아이콘 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 기존 버튼 스타일 초기화 */
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    transition: transform 0.1s ease;
+  }
 
-/* 클릭 효과 */
-.play-pause-btn:active {
-  transform: scale(0.95);
-}
+  /* 클릭 효과 */
+  .play-pause-btn:active {
+    transform: scale(0.95);
+  }
 
-/* 버튼 내부의 SVG 아이콘 (흰색 외곽선 삼각형) */
-.play-pause-btn svg {
-  width: 20px; /* 아이콘 크기 */
-  height: 20px;
-  fill: none; /* 내부 채우기 없음 */
-  stroke: white; /* 외곽선 흰색 */
-  stroke-width: 2px; /* 선 두께 */
-  stroke-linejoin: round; /* 모서리 둥글게 */
-  margin-left: 3px; /* 삼각형이라 시각적 중심 맞추기 */
-}
+  /* 버튼 내부의 SVG 아이콘 (흰색 외곽선 삼각형) */
+  .play-pause-btn svg {
+    width: 21px; /* 아이콘 크기 */
+    height: 21px;
+    fill: none; /* 내부 채우기 없음 */
+    stroke: white; /* 외곽선 흰색 */
+    stroke-width: 1px; /* 선 두께 */
+    stroke-linejoin: round; /* 모서리 둥글게 */
+    margin-left: 3px; /* 삼각형이라 시각적 중심 맞추기 */
+  }
 
-/* 일시정지 상태일 때 아이콘 변경을 위한 클래스 */
-.video-container.playing .play-pause-btn svg {
-  margin-left: 0; /* 일시정지 아이콘은 정중앙 */
-  fill: white; /* 일시정지는 꽉 찬 흰색으로 (선택사항) */
-  stroke: none;
-}
+  /* 일시정지 상태일 때 아이콘 변경을 위한 클래스 */
+  .video-container.playing .play-pause-btn svg {
+    margin-left: 0; /* 일시정지 아이콘은 정중앙 */
+    fill: white; /* 일시정지는 꽉 찬 흰색으로 (선택사항) */
+    stroke: none;
+  }
 
-/* 용량 텍스트 */
-.video-size-text {
-  margin-top: 8px; /* 버튼과의 간격 */
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 11px;
-  font-family: 'Roboto', sans-serif; /* 숫자 폰트 깔끔하게 */
-  font-weight: 400;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* 글자 잘 보이게 그림자 */
-}
+  /* 용량 텍스트 */
+  .video-size-text {
+    margin-top: 8px; /* 버튼과 MB글의 간격 */
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif; /* 숫자 폰트 깔끔하게 */
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* 글자 잘 보이게 그림자 */
+  }
 
-/* --- 동작 관련 --- */
+  /* --- 동작 관련 --- */
 
-/* 재생 중일 때 컨트롤러 숨기기 */
-.video-container.playing .custom-controls {
-  opacity: 0; /* 투명하게 만듦 */
-  pointer-events: none; /* 클릭 통과 */
-}
+  /* 재생 중일 때 컨트롤러 숨기기 */
+  .video-container.playing .custom-controls {
+    opacity: 0; /* 투명하게 만듦 */
+    pointer-events: none; /* 클릭 통과 */
+  }
 
-/* 마우스 올렸을 때 다시 보이기 */
-.video-container.playing:hover .custom-controls {
-  opacity: 1;
-  pointer-events: auto;
-}
+  /* 마우스 올렸을 때 다시 보이기 */
+  .video-container.playing:hover .custom-controls {
+    opacity: 1;
+    pointer-events: auto;
+  }
   
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
