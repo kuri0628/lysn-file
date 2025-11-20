@@ -8,128 +8,128 @@
     <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <title>아티스트 채팅</title>
     
-    <style>
-      body {
-        font-family: "Roboto";
-        font-size: 14px;
-        line-height: 1.2;
-        margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
-        background: #EEEEEE;
-        background-image:url('../pic/.jpg');
-        background-position: center;
-        background-size: 100% auto;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        padding-top: 32.42vw;
-        padding-bottom: 20vw;
-      }
-      .profile {
-        width: 10.4vw;
-        height: 10.4vw;
-        border-radius: 50%;
-        background-size: cover;
-        background-position: center;
-        margin-top: 3.4px; /* 숫자↓ 위치↑ */
-        border: 0.01px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
-        flex-shrink: 0;
-      }
+<style>
+  body {
+    font-family: "Roboto";
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
+    background: #EEEEEE;
+    background-image:url('../pic/.jpg');
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 32.42vw;
+    padding-bottom: 13vw;
+  }
+  .profile {
+    width: 10.4vw;
+    height: 10.4vw;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-top: 3.4px; /* 숫자↓ 위치↑ */
+    border: 0.01px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+    flex-shrink: 0;
+  }
 /* 프사랑 아티스트 뱃지 그룹 */
-      .header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
-      }
-      .artist-tag {
-        transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
-        transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
-        font-family: 'Noto Sans KR';
-        font-weight: 800;
-        font-size: 8px;
-        /* letter-spacing: -0.01em;  자간 0.01em = 1% */
-        color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
-        background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
-        padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
-        border-radius: 999px;
-        position: relative; /* <-- 기준점을 현재 위치로 설정 */
-        top: 1px;          /* 숫자↑ 위치↓ */
-        margin-right: 4.2px; /* 아티스트 - 이름 간격 */
-      }
-      .name {
-        /* font-family: 'Noto Sans KR'; */
-        font-size: 11px;
-        font-weight: 400; /* 아티스트 태그 on → 600 */
-        color: #000000;
-        top: 0.3vw; /* 숫자↓ 위치↑*/
-      }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
+  }
+  .artist-tag {
+    transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
+    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+    font-family: 'Noto Sans KR';
+    font-weight: 800;
+    font-size: 8px;
+    /* letter-spacing: -0.01em;  자간 0.01em = 1% */
+    color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+    background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
+    padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
+    border-radius: 999px;
+    position: relative; /* <-- 기준점을 현재 위치로 설정 */
+    top: 1px;          /* 숫자↑ 위치↓ */
+    margin-right: 4.2px; /* 아티스트 - 이름 간격 */
+  }
+  .name {
+    /* font-family: 'Noto Sans KR'; */
+    font-size: 11px;
+    font-weight: 400; /* 아티스트 태그 on → 600 */
+    color: #000000;
+    top: 0.3vw; /* 숫자↓ 위치↑*/
+  }
 /* ▼▼▼ [버블] ▼▼▼ */
-      .chat-container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 2.01vw; /* 화면 외곽에서 내용물까지의 간격 */
-      }
-      .message-content {
-        display: flex;
-        flex-direction: column;
-        max-width: 95%;
-        align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
-      }
-      .chat-message {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 16px; /* 메시지 간 간격 */
-        gap: 1.49vw; /* 메시지-프로필 간격 */
-      }
+  .chat-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2.01vw; /* 화면 외곽에서 내용물까지의 간격 */
+  }
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px; /* 메시지 간 간격 */
+    gap: 1.49vw; /* 메시지-프로필 간격 */
+  }
 /* 말풍선 */
-      .bubble {
-        /* font-family: 'Kosugi Maru'; */
-        background: #ffffff;
-        border-radius: 4px 14.5px 14.5px 14.5px;
-        /* 위 오른 아래 왼쪽 여백 */
-        padding: 11.4px 12.4px 9.8px 12.5px;
-        font-size: 13.7px;
-        font-weight: 400;
-        line-height: 1.4;
-      }
+  .bubble {
+    /* font-family: 'Kosugi Maru'; */
+    background: #ffffff;
+    border-radius: 4px 14.5px 14.5px 14.5px;
+    /* 위 오른 아래 왼쪽 여백 */
+    padding: 11.4px 12.4px 9.8px 12.5px;
+    font-size: 13.7px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
   /* 오른쪽배치 */
-      .my-chat-message {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: -1.5px;
-        /* 메시지 아래 간격 */
-        margin-bottom: 18px;
-        width: 100%;
-        /* 내용물을 아래쪽 기준으로 정렬 (시간-말풍선 높이 맞춤) */
-        align-items: flex-end;
-        /* 시간과 말풍선 사이 간격을 줌 */
-        gap: 0.41vw;
-      }
+  .my-chat-message {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -1.5px;
+    /* 메시지 아래 간격 */
+    margin-bottom: 18px;
+    width: 100%;
+    /* 내용물을 아래쪽 기준으로 정렬 (시간-말풍선 높이 맞춤) */
+    align-items: flex-end;
+    /* 시간과 말풍선 사이 간격을 줌 */
+    gap: 0.41vw;
+  }
   /* 메시지 색 */
-      .my-bubble {
-        background: #A584F9;
-        color: #FFFFFF;
-        line-height: 1.1;
-        border-radius: 14.5px 14.5px 4px 14.5px;
-        /* 위 오른 아래 왼쪽 여백 */
-        padding: 11.8px 13px 11.1px 12.5px;
-        max-width: 60%;
-      }
+  .my-bubble {
+    background: #A584F9;
+    color: #FFFFFF;
+    line-height: 1.1;
+    border-radius: 14.5px 14.5px 4px 14.5px;
+    /* 위 오른 아래 왼쪽 여백 */
+    padding: 11.8px 13px 11.1px 12.5px;
+    max-width: 60%;
+  }
   /* 메시지 시간 */
-      .my-chat-message .time {
-        margin-left: 0;
-        margin-right: 4.9px;
-      }
+  .my-chat-message .time {
+    margin-left: 0;
+    margin-right: 4.9px;
+  }
 /* ▼▼▼ [시간] ▼▼▼ */
-      .time {
-        font-family: sans-serif;
-        font-size: 9px;
-        font-weight: 400;
-        color: rgba(0, 0, 0, 0.3);
-        margin-left: 6.6px;
-        white-space: nowrap;
-        position: relative;
-        /* top: 2px; */
-      }
+  .time {
+    font-family: sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.3);
+    margin-left: 6.6px;
+    white-space: nowrap;
+    position: relative;
+    /* top: 2px; */
+  }
       .time .colon {
         position: relative;
         top: -2px; /* 숫자↓ 콜론 위치↑ */
@@ -166,6 +166,9 @@
         max-width: 244px;
         border-radius: 4px 13px 13px 13px;
         display: block;
+      }
+      img, video {
+        dynamic-range-limit: standard;
       }
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
@@ -253,7 +256,6 @@
       .poll img {
         width: 63.99vw;
         height: auto;
-        opacity: 0.5;
         display: block; /* 이미지 아래 작은 여백 제거 */
       }
 /* 투표 기간 */
@@ -283,37 +285,33 @@
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
-        font-size: 15.5px;
-        font-weight: 650;
+        font-size: 16px;
+        font-weight: 600;
         color: #000000;
-        padding-top: 16.5px;
-        position: fixed;
+        padding-top: 49px;
         top: 0;
-        left: 0;
-        right: 0;
-        /* transform: translateX(-1px); */
-        max-width: 550px;
-        margin: 0 auto;
-        text-align: center;
+        position: fixed;
+        width: 550px;
         z-index: 1001;
-        pointer-events: none;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        pointer-events: none; /* 닉네임 영역이 클릭을 가로채지 못하게 설정 */
       }
 /* ▼▼▼ [구독일 하트] ▼▼▼ */
       .d-day {
         position: fixed;
         top: 0;
-        left: 0;
-        right: 0;
-        max-width: 600px;
-        margin: 0 auto;
-        padding-top: 62px;
-        transform: translateX(30px); /* 숫자↑ 위치→ */
-        text-align: center;
+        padding-top: 94px;
         z-index: 1001;
         font-size: 11px;
         font-weight: 600;
         color: #000000;
         pointer-events: none;
+        width: auto;
+        left: 50%;
+        transform: translateX(20px);
+        text-align: left;
       }
 /* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
       .input-bar {
@@ -370,11 +368,11 @@
       }
       #search-icon {
         position: absolute;
-        top: 18.5px;
+        top: 49px;
         right: 64px;
         width: 20.5px;
         height: 20.5px;
-        opacity: 0.5;
+        opacity: 0;
         background: transparent;
         border: none;
         border-radius: 50%;
@@ -401,73 +399,68 @@
         outline: none;
         border-color: #A584F9;
         box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
-      }
-      .search-controls {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-      .search-controls button {
-        width: 38px;
-        height: 38px;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        background: white;
-        font-size: 18px;
-        padding: 0;
-      }
-      #searchCounter {
-        font-size: 12px;
-        color: #8A8A8A;
-        min-width: 40px;
-        text-align: center;
-      }
-  /* 현재 검색 결과 하이라이트 (수정) */
-      .current-search-result .bubble {
-        animation: highlight-animation 1.2s;
-        animation-delay: 1s;
-      }
-      @keyframes highlight-animation {
-        0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); }
-        70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
-        100% { box-shadow: none; }
-      }
-    
-    </style>
+  }
+  .search-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .search-controls button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background: white;
+    font-size: 18px;
+    padding: 0;
+  }
+  #searchCounter {
+    font-size: 12px;
+    color: #8A8A8A;
+    min-width: 40px;
+    text-align: center;
+  }
+/* 현재 검색 결과 하이라이트 (수정) */
+  .current-search-result .bubble {
+    animation: highlight-animation 1.2s;
+    animation-delay: 1s;
+  }
+  @keyframes highlight-animation {
+    0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); }
+    70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+    100% { box-shadow: none; }
+  }
+  
+</style>
   </head>
   <body>
     <div class="nickname">
-      이동혁
-    </div>
-    <div class="d-day">
-      246
-    </div>
-    <div class="title-bar">
-      <img src="../pic/구독일패널.png" alt="상단 고정 이미지">
-      <div id="search-icon">
-        <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img">
-      </div>
+      cool kid never die
     </div>
     
-    <div class="search">
-      <input type="text" id="searchInput" placeholder="채팅 검색">
+    <div class="d-day">
+      100
+    </div>
+    
+    <div class="title-bar"> <img src="../pic/galaxy_sub_title.png" alt="타이틀">
+      <div id="search-icon"> <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img"> </div>
+    </div>
+    
+    <div class="search"> <input type="text" id="searchInput" placeholder="검색">
       <div class="search-controls">
         <button id="prevBtn">↑</button>
         <button id="nextBtn">↓</button>
         <span id="searchCounter">0 / 0</span>
       </div>
     </div>
-    <div class="chat-container" id="chat"></div>
     
-    <div class="input-bar">
-      <img src="../pic/input_bar.jpg" alt="메시지 보내기">
-    </div>
+    <div class="chat-container" id="chat"></div>
+    <div class="input-bar"> <img src="../pic/input_bar.jpg" alt="메시지 보내기"> </div>
     
     <script>
       // 번역을 보려면 true, 숨기려면 false로 변경
       const showTranslations = true;
       const pollImagePath = '../pic/vote.jpg';
-      
       // 아티스트 정보
       const artistProfile = [
         {img: "../profile/haechan_first_슈휴로추정중.jpg", name:"HAECAHN"},
@@ -499,6 +492,7 @@
         {img: "../profile/haechan_26th_250812-.jpg", name:"곰돌이"},
         {img: "../profile/haechan_250825.jpg", name:"곰돌이"}
       ];
+      
       // 메시지 배열
       const messages = [
         { type: 'date', content: '2025년 7월 30일 수요일' },
@@ -558,7 +552,8 @@
         { type: 'date', content: '2025년 10월 31일 금요일' },
         { sender: 'artist', type: 'image', content: '../pic/.jpg', time: '오후 1:06' },
         { sender: 'artist', type: 'text', content: "베이징에서 밥먹고 나왔는데 익숙한 베이커리가 있길래 들어와봤지", time: "오후 1:06" },
-        
+
+        // 2025.08.25 프로필 - 곰돌이
         { type: 'date', content: '2025년 11월 3일 월요일' },
         { sender: 'artist', type: 'text', content: "이 시간에 롤 하시는분", time: "오전 10:11" },
         { sender: 'artist', type: 'text', content: "아 잠들기에 너무 애매한 시간이에여", time: "오전 10:11" },
@@ -586,7 +581,7 @@
         { sender: 'artist', type: 'text', content: "실내에 있을거라고 얇게 입지 말고", time: "오전 10:50" },
         { sender: 'artist', type: 'text', content: "나 봐봐", time: "오전 10:50" },
         { sender: 'artist', type: 'text', content: "스케줄때 내옷 안입는데도 패딩 입잖아", time: "오전 10:51" },
-      ];
+        ];
       
       let currentProfileIndex = 0;
       const chatContainer = document.getElementById("chat");
@@ -693,11 +688,11 @@
       
       // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
       const searchBar = document.querySelector('.search');
-      const searchIcon = document.getElementById('search-icon');
-      const searchInput = document.getElementById('searchInput');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const searchCounter = document.getElementById('searchCounter');
+      const searchIcon = document.getElementById('search-icon');
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
       
       // 결과 도출에 대한 함수
       let searchResults = [];
@@ -713,12 +708,20 @@
       };
       
       // 검색창 닫기 (뒤로가기 시)
+      // 검색창 닫기 (뒤로가기 시)
       const closeSearch = () => {
+        // [추가된 부분 1] 초기화하기 전에 마지막으로 보고 있던 검색 결과 요소를 기억해둠
+        let lastFoundElement = null;
+        if (searchResults.length > 0 && currentResultIndex !== -1) {
+            lastFoundElement = searchResults[currentResultIndex];
+        }
+
         // 기존 하이라이트 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
           previouslyHighlighted.classList.remove('current-search-result');
         }
+        
         // 검색창 닫기
         searchBar.classList.remove('visible');
         searchInput.value = "";
@@ -726,123 +729,111 @@
         searchResults = [];
         currentResultIndex = -1;
         updateCounter();
+
+        // [추가된 부분 2] 기억해둔 요소가 있다면 그 위치로 화면을 즉시 고정 (흔들림 방지)
+        if (lastFoundElement) {
+            lastFoundElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+        }
       };
       
       // 검색 실행
-    
-      
-      
-      
-      
-      
-      
-      
       const performSearch = () => {
         // 기존 하이라이트 먼저 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
-            previouslyHighlighted.classList.remove('current-search-result');
+          previouslyHighlighted.classList.remove('current-search-result');
         }
-
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (!searchTerm) {
-          searchResults = [];
-          currentResultIndex = -1;
-          updateCounter();
-          return;
-        }
-        
-        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
-        searchResults = Array.from(allMessages).filter(message =>
-          message.textContent.toLowerCase().includes(searchTerm)
-        );
-        
+        
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        if (!searchTerm) {
+          searchResults = [];
+          currentResultIndex = -1;
+          updateCounter();
+          return;
+        }
+        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+        searchResults = Array.from(allMessages).filter(message =>
+          message.textContent.toLowerCase().includes(searchTerm));
         if (searchResults.length > 0) {
-            currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
-            navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
+          currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
+          navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
         } else {
-            currentResultIndex = -1;
+          currentResultIndex = -1;
         }
-        updateCounter(); // 카운터 업데이트
-    };
-
-    // 특정 검색 결과로 이동하고 하이라이트 적용
-    const navigateToResult = (index) => {
-        if (index < 0 || index >= searchResults.length) return;
-        
+        updateCounter(); // 카운터 업데이트
+      };
+      
+      // 특정 검색 결과로 이동하고 하이라이트 적용
+      const navigateToResult = (index) => {
+        if (index < 0 || index >= searchResults.length) return;
+        
         // 기존 하이라이트가 있다면 제거
         const previouslyHighlighted = document.querySelector('.current-search-result');
         if (previouslyHighlighted) {
-            previouslyHighlighted.classList.remove('current-search-result');
+          previouslyHighlighted.classList.remove('current-search-result');
         }
-
-        const targetMessage = searchResults[index];
-        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        const targetMessage = searchResults[index];
+        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // 새로운 타겟에 하이라이트 클래스 추가
         targetMessage.classList.add('current-search-result');
-        
-        currentResultIndex = index;
-        updateCounter();
-    };
-    
-    // 카운터 숫자 업데이트
-    const updateCounter = () => {
-        const total = searchResults.length;
-        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
-    };
-
-    // 이전/다음 버튼 핸들러
-    const handleNavigation = (direction) => {
-        if (searchResults.length === 0) return;
-        const total = searchResults.length;
+        currentResultIndex = index;
+        updateCounter();
+      };
+      
+      // 카운터 숫자 업데이트
+      const updateCounter = () => {
+        const total = searchResults.length;
+        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
+      };
+      
+      // 이전/다음 버튼 핸들러
+      const handleNavigation = (direction) => {
+        if (searchResults.length === 0) return;
+        const total = searchResults.length;
         // 다음 인덱스 계산 (배열의 끝과 처음을 순환)
-        let newIndex = (currentResultIndex + direction + total) % total;
-        navigateToResult(newIndex);
-    };
-    
-    // --- 이벤트 리스너 설정 ---
-    // 돋보기 아이콘 클릭
-    searchIcon.addEventListener('click', openSearch);
-    // 검색어 입력 시 실시간 검색
-    searchInput.addEventListener('input', performSearch);
-    // 이전(↑) 버튼 클릭
-    prevBtn.addEventListener('click', () => handleNavigation(-1));
-    // 다음(↓) 버튼 클릭
-    nextBtn.addEventListener('click', () => handleNavigation(1));
-    
-    // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
-    window.addEventListener('hashchange', () => {
-        if (location.hash !== '#search') {
-          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
-        }
-    });
-    
-    // ▼▼▼ 최신 대화부터 시작 ▼▼▼
-    // 기존의 window.addEventListener('load', ...) 부분을 완전히 대체합니다.
-// window.addEventListener('load', ...)는 삭제하세요.
-
-// DOM 구조가 완전히 로드된 후에 스크롤을 맨 아래로 이동
-document.addEventListener('DOMContentLoaded', () => {
-    const chatContainer = document.getElementById("chat");
-    
-    // 1. 메시지 컨테이너의 마지막 자식 요소를 찾음 (가장 최근 메시지)
-    const lastMessage = chatContainer.lastElementChild;
-
-    if (lastMessage) {
-        // 2. 해당 요소로 스크롤 이동 (block: 'end'는 요소의 바닥이 화면의 바닥에 맞춰지게 함)
-        lastMessage.scrollIntoView({
-            behavior: 'auto',
-            block: 'end' // 요소를 화면의 끝(아래)에 배치
-        });
-    }
-    
-    // 참고: 만약 위에 고정된 '구독일 패널' 때문에 마지막 메시지가 가려진다면,
-    // 이 방법 대신 '해결책 2'의 `scrollTop` 방법이 더 깔끔할 수 있어.
-});
-    // ▲▲▲ 최신 대화부터 시작 ▲▲▲
-
-</script>
-</body>
+        let newIndex = (currentResultIndex + direction + total) % total;
+        navigateToResult(newIndex);
+      };
+      
+      // --- 이벤트 리스너 설정 ---
+      // 돋보기 아이콘 클릭
+      searchIcon.addEventListener('click', openSearch);
+      // 검색어 입력 시 실시간 검색
+      searchInput.addEventListener('input', performSearch);
+      // 이전(↑) 버튼 클릭
+      prevBtn.addEventListener('click', () => handleNavigation(-1));
+      // 다음(↓) 버튼 클릭
+      nextBtn.addEventListener('click', () => handleNavigation(1));
+      
+      // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
+      window.addEventListener('hashchange', () => {
+        if (location.hash !== '#search') {
+          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
+        }
+      });
+      
+      // ▼▼▼ 최신 대화부터 시작 ▼▼▼
+      function scrollToBottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
+          behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
+          });
+      }
+      // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
+      document.addEventListener('DOMContentLoaded', () => {
+        scrollToBottom();
+      });
+      
+      // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
+      window.addEventListener('load', () => {
+        scrollToBottom();
+        
+        // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
+        setTimeout(scrollToBottom, 100);
+      });
+      // ▲▲▲ 최신 대화부터 시작 ▲▲▲
+    </script>
+  </body>
 </html>
