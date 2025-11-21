@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
+    <title>아티스트 채팅</title>
+    
+<style>
+  body {
+    font-family: "Roboto";
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 0; /* 화면에 테두리 안 생기게 하는 요소 */
+    background: #EEEEEE;
+    background-image:url('../pic/.jpg');
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 32.42vw;
+    padding-bottom: 13vw;
+  }
+  .profile {
+    width: 10.4vw;
+    height: 10.4vw;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-top: 3.4px; /* 숫자↓ 위치↑ */
+    border: 0.01px solid #E8E8E8; /* 테두리, 기존 색 : cdcdcd;  */
+    flex-shrink: 0;
+  }
+/* 프사랑 아티스트 뱃지 그룹 */
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5.5px; /* 이름-메시지 간격 , 숫자↓말풍선이 올라옴*/
+  }
+  .artist-tag {
+    transform: scaleX(1.04); /* 장평 : 숫자↑ 너비↑ */
+    transform-origin: left; /* 왼쪽을 기준으로 조절 (글자 시작점 고정) */
+    font-family: 'Noto Sans KR';
+    font-weight: 800;
+    font-size: 8px;
+    /* letter-spacing: -0.01em;  자간 0.01em = 1% */
+    color: #fff; /* 진한보라: #6040FF , 연보라: #DA87FE #D28AFD */
+    background: linear-gradient(125deg, #6041FF 0%, #6041FF 18%, #8848FE 45%, #A058FD 60%, #CF8CFF 80%, #CF8CFF 100%);
+    padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
+    border-radius: 999px;
+    position: relative; /* <-- 기준점을 현재 위치로 설정 */
+    top: 1px;          /* 숫자↑ 위치↓ */
+    margin-right: 4.2px; /* 아티스트 - 이름 간격 */
+  }
+  .name {
+    /* font-family: 'Noto Sans KR'; */
+    font-size: 11px;
+    font-weight: 400; /* 아티스트 태그 on → 600 */
+    color: #000000;
+    top: 0.3vw; /* 숫자↓ 위치↑*/
+  }
+/* ▼▼▼ [버블] ▼▼▼ */
+  .chat-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2.01vw; /* 화면 외곽에서 내용물까지의 간격 */
+  }
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    align-items: flex-start; /* 말풍선이 다른 말풍선 비율에 따라가지 않도록 */
+  }
+  .chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px; /* 메시지 간 간격 */
+    gap: 1.49vw; /* 메시지-프로필 간격 */
+  }
+/* 말풍선 */
+  .bubble {
+    /* font-family: 'Kosugi Maru'; */
+    background: #ffffff;
+    border-radius: 4px 14.5px 14.5px 14.5px;
+    /* 위 오른 아래 왼쪽 여백 */
+    padding: 11.4px 12.4px 9.8px 12.5px;
+    font-size: 13.7px;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+/* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
+  /* 오른쪽배치 */
+  .my-chat-message {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -1.5px;
+    /* 메시지 아래 간격 */
+    margin-bottom: 18px;
+    width: 100%;
+    /* 내용물을 아래쪽 기준으로 정렬 (시간-말풍선 높이 맞춤) */
+    align-items: flex-end;
+    /* 시간과 말풍선 사이 간격을 줌 */
+    gap: 0.41vw;
+  }
+  /* 메시지 색 */
+  .my-bubble {
+    background: #A584F9;
+    color: #FFFFFF;
+    line-height: 1.1;
+    border-radius: 14.5px 14.5px 4px 14.5px;
+    /* 위 오른 아래 왼쪽 여백 */
+    padding: 11.8px 13px 11.1px 12.5px;
+    max-width: 60%;
+  }
+  /* 메시지 시간 */
+  .my-chat-message .time {
+    margin-left: 0;
+    margin-right: 4.9px;
+  }
+/* ▼▼▼ [시간] ▼▼▼ */
+  .time {
+    font-family: sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.3);
+    margin-left: 6.6px;
+    white-space: nowrap;
+    position: relative;
+    /* top: 2px; */
+  }
+      .time .colon {
+        position: relative;
+        top: -2px; /* 숫자↓ 콜론 위치↑ */
+      }
+/* ▼▼▼ [날짜] ▼▼▼ */
+      .date {
+        text-align: center;
+        font-size: 10.5px;
+        color: #777777; /* 기존 색: 8A8A8A; 날짜 */
+        font-weight: 400;
+        margin: 21.5px 0 21.5px; /* 윗 메시지-날짜(좌우여백조절)-아래메시지 */
+        position: relative;
+      }
+/* 날짜 선 */
+      .date::before {
+        content: '';
+        position: absolute;
+        top: -6px; /* 날짜와 선 간격, 숫자↓ 간격↑ */
+        left: 50%; /* 선 시작점이 화면 중앙 */
+        width: 100vw;
+        height: 0.5px; /* 선 두께 */
+        background: #D6D6D6; /* 기존 색: E0E0E0; 날짜 선 */
+        transform: translateX(-50%);
+      }
+/* ▼▼▼ [사진] ▼▼▼ */
+  /* 3. 사진 메시지 스타일 */
+  .picture {
+    padding: 0;
+    background: none;
+    margin-left: 1px;
+    margin-top: 0px;
+  }
+  .picture img {
+    max-width: 244px;
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+  img, video {
+    dynamic-range-limit: standard;
+  }
+  
+  /* 동영상은 크기 줄임 (원하는 크기로 숫자 조절 가능) */
+  .picture video {
+    max-width: 220px; /* 244px -> 180px로 축소 */
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+
+  /* 비디오 컨테이너: 둥근 모서리 적용의 핵심 */
+  .video-container {
+    position: relative;
+    display: inline-block;
+    /* 중요: 내부의 비디오와 어두운 배경이 이 둥근 모서리에 맞춰 잘리도록 설정 */
+    overflow: hidden; 
+    /* 말풍선과 동일한 둥근 모서리 (필요시 .bubble 클래스의 값과 맞춰주세요) */
+    border-radius: 4px 13px 13px 13px;
+    line-height: 0; /* 비디오 하단 미세한 여백 제거 */
+  }
+
+  /* 비디오의 어두운 막 */
+  .custom-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 버튼과 텍스트를 세로로 배치 */
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; /* 내용물 세로 중앙 정렬 */
+    align-items: center; /* 내용물 가로 중앙 정렬 */
+    background-color: rgba(0, 0, 0, 0.2); /* RGB값 000.(검정), 숫자 올 투명도 내 */
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    z-index: 10;
+  }
+
+  /* 재생/멈춤 버튼 (동그라미 배경) */
+  .play-pause-btn {
+    width: 40px; /* 버튼 크기 */
+    height: 40px;
+    /* 재생바 배경 원 */
+    background-color: rgba(0, 0, 0, 0.2); 
+    border: none; /* 재생바 배경 원의 테두리 */
+    border-radius: 50%;
+    /* 내부 아이콘 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 기존 버튼 스타일 초기화 */
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    transition: transform 0.1s ease;
+  }
+
+  /* 클릭 효과 */
+  .play-pause-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* 버튼 내부의 SVG 아이콘 (흰색 외곽선 삼각형) */
+  .play-pause-btn svg {
+    width: 21px; /* 아이콘 크기 */
+    height: 21px;
+    fill: none; /* 내부 채우기 없음 */
+    stroke: white; /* 외곽선 흰색 */
+    stroke-width: 1px; /* 선 두께 */
+    stroke-linejoin: round; /* 모서리 둥글게 */
+    margin-left: 3px; /* 삼각형이라 시각적 중심 맞추기 */
+  }
+
+  /* 일시정지 상태일 때 아이콘 변경을 위한 클래스 */
+  .video-container.playing .play-pause-btn svg {
+    margin-left: 0; /* 일시정지 아이콘은 정중앙 */
+    fill: white; /* 일시정지는 꽉 찬 흰색으로 (선택사항) */
+    stroke: none;
+  }
+
+  /* 용량 텍스트 */
+  .video-size-text {
+    margin-top: 16px; /* 버튼과 MB글의 간격 */
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 9px;
+    font-family: 'Roboto', sans-serif; /* 숫자 폰트 깔끔하게 */
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* 글자 잘 보이게 그림자 */
+  }
+
+  /* --- 동작 관련 --- */
+
+  /* 재생 중일 때 컨트롤러 숨기기 */
+  .video-container.playing .custom-controls {
+    opacity: 0; /* 투명하게 만듦 */
+    pointer-events: none; /* 클릭 통과 */
+  }
+
+  /* 마우스 올렸을 때 다시 보이기 */
+  .video-container.playing:hover .custom-controls {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+/* ▼▼▼ [이모지] ▼▼▼ */
+  /* 진짜 이모지 */
+      .emoji {
+        font-size: 66px;
+        background: none;
+        position: relative;
+        top: 8px;
+        margin-bottom: 10px;
+      }
+      .emoji + .time {
+        top: -2px;
+        left: 1px;
+      }
+  /* 버블 이모티콘 */
+      .sticker {
+        width: 40vw;
+        height: auto;
+        position: relative;
+        top: -10px;
+        margin-left: -1.89vw;
+      }
+      .sticker + .time {
+        top: -10px; /* 원하는 만큼 음수 값을 조절해 봐 */
+        left: -7.5px;
+      }
+/* ▼▼▼ [번역] ▼▼▼ */
+  /* 점선 스타일 */
+      .dotted-divider {
+        border: none;
+        background-image: linear-gradient(to right, #F4F4F4 4.5px, transparent 5px);
+        background-size: 6.5px 100%; /* 점선 빈 부분 길이 */
+        background-repeat: repeat-x;
+        background-position: left;
+        height: 0.5vw; /* 선의 높이(두께) 지정 */
+        margin: 8.5px -13px; /* 점선 상하 간격 , 점선을 말풍선까지 연결 */
+      }
+  /* 말풍선 내부 번역 텍스트 */
+      .translation-inner {
+        font-size: 13.5px;
+        color: #9050F3;
+        line-height: 1.2;
+      }
+      .bubble.has-translation {
+        padding-bottom: 9px; /* 번역 있는 말풍선의 아래 여백만 줄이기 */
+      }
+/* ▼▼▼ [ARTIST 답장] ▼▼▼ */
+      .reply-bubble {
+        background-color: #FFFFFFCC; /* 배경 색 */
+        padding: 13.7px 12px 17px 12px; /* 위 오른 아래 왼쪽 간격 */
+        margin-bottom: 4.5px; /* 두 말풍선 간격 */
+        border-radius: 14px;
+      }
+      .reply-title {
+        /* font-family: 'Noto Sans KR', sans-serif; */
+        font-size: 9.5px;
+        font-weight: 600;
+        color: #000000; /* ARTIST의 답장 */
+        margin-bottom: 4px; /* ARTIST의 답장-팬버블 간격 */
+      }
+      .reply-content {
+        font-size: 11.9px;
+        color: #00000078; /* 팬 버블 7E7E7E */
+      }
+      .bubble-after-reply {
+        border-top-left-radius: 4px;
+      }
+/* ▼▼▼ [음성] ▼▼▼ */
+      .voice {
+        display: flex;
+        padding: 8px 14px 8px 10px; /* 위, 오른쪽, 아래, 왼쪽 */
+      }
+      .voice img {
+        width: auto;
+        height: 22.8px;
+      }
+/* ▼▼▼ [투표] ▼▼▼ */
+      .poll {
+        position: relative;
+        overflow: hidden; /* 둥근 모서리 밖으로 이미지가 삐져나가지 않도록 */
+        display: block;
+        max-width: 500px; /* 최대 너비 */
+        margin-bottom: 1px; /* */
+      }
+      .poll img {
+        width: 63.99vw;
+        height: auto;
+        display: block; /* 이미지 아래 작은 여백 제거 */
+      }
+/* 투표 기간 */
+      .poll-period {
+        position: absolute;
+        color: #b2b2b2;
+        font-size: 10px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 232px;         /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 19px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+      }
+/* 투표 주제 */
+      .poll-topic {
+        position: absolute;
+        color: #000000;
+        font-size: 14px;
+        text-align: left;   /* 텍스트 왼쪽 정렬 (고정) */
+        width: 200px;       /* 텍스트가 차지할 최대 너비 */
+        top: 203px;          /* 이미지 위쪽에서의 거리 (숫자가 클수록 아래로) */
+        left: 34px;         /* 이미지 왼쪽에서의 거리 (숫자가 클수록 오른쪽으로) */
+      }
+/* 투표 메시지만 너비 키우기 */
+      .message-content:has(.poll) {
+        max-width: 79%; /* */
+      }
+/* ▼▼▼ [채팅방 이름] ▼▼▼ */
+      .nickname {
+        font-family: 'Noto Sans KR';
+        font-size: 16px;
+        font-weight: 600;
+        color: #000000;
+        padding-top: 49px;
+        top: 0;
+        position: fixed;
+        width: 550px;
+        z-index: 1001;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        pointer-events: none; /* 닉네임 영역이 클릭을 가로채지 못하게 설정 */
+      }
+/* ▼▼▼ [구독일 하트] ▼▼▼ */
+      .d-day {
+        position: fixed;
+        top: 0;
+        padding-top: 94px;
+        z-index: 1001;
+        font-size: 11px;
+        font-weight: 600;
+        color: #000000;
+        pointer-events: none;
+        width: auto;
+        left: 50%;
+        transform: translateX(20px);
+        text-align: left;
+      }
+/* ▼▼▼ [메시지를 입력하세요] ▼▼▼ */
+      .input-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 1000;
+      }
+      .input-bar img {
+        max-width: 500px;
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+      }
+/* ▼▼▼ [구독일 패널] ▼▼▼ */
+      .title-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+        background: #F1F1F1;
+        z-index: 1000;
+        /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+        /* _| 그림자 | 퍼지는 정도 | 그림자 색상 */
+      }
+      .title-bar img {
+        width: 100%;
+        display: block;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+        /* border-radius: 0 0 11px 10px;  좌상 우상 우하 좌하 */
+      }
+/* ▼▼▼ [검색] ▼▼▼ */
+      .search {
+        position: fixed;
+        top: 0;
+        background: white;
+        padding: 10px 8px;
+        z-index: 1002;
+        display: none;
+        align-items: center;
+        gap: 5px;
+        max-width: 500px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        left: 0;
+        right: 0;
+      }
+      .search.visible {
+        display: flex;
+      }
+      #search-icon {
+        position: absolute;
+        top: 49px;
+        right: 64px;
+        width: 20.5px;
+        height: 20.5px;
+        opacity: 0;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .search-img {
+        max-width: 100%; /* 부모 (#search-icon) 너비에 맞춤 */
+        max-height: 100%; /* 부모 (#search-icon) 높이에 맞춤 */
+        object-fit: contain; /* 이미지 비율을 유지하며 컨테이너에 맞춤 */
+        display: block; /* 이미지 하단의 불필요한 여백 제거 */
+      }
+      #searchInput {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      #searchInput:focus {
+        outline: none;
+        border-color: #A584F9;
+        box-shadow: 0 0 0 2px rgba(165, 132, 249, 0.4);
+  }
+  .search-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .search-controls button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background: white;
+    font-size: 18px;
+    padding: 0;
+  }
+  #searchCounter {
+    font-size: 12px;
+    color: #8A8A8A;
+    min-width: 40px;
+    text-align: center;
+  }
+/* 현재 검색 결과 하이라이트 (수정) */
+  .current-search-result .bubble {
+    animation: highlight-animation 1.2s;
+    animation-delay: 1s;
+  }
+  @keyframes highlight-animation {
+    0% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0.6); }
+    70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
+    100% { box-shadow: none; }
+  }
+  
+</style>
+  </head>
+  <body>
+    <div class="nickname">
+      영호
+    </div>
+    
+    <div class="d-day">
+      100
+    </div>
+    
+    <div class="title-bar"> <img src="../pic/galaxy_sub_title.png" alt="타이틀">
+      <div id="search-icon"> <img src="../pic/돋보기.png" alt="검색 아이콘" class="search-img"> </div>
+    </div>
+    
+    <div class="search"> <input type="text" id="searchInput" placeholder="검색">
+      <div class="search-controls">
+        <button id="prevBtn">↑</button>
+        <button id="nextBtn">↓</button>
+        <span id="searchCounter">0 / 0</span>
+      </div>
+    </div>
+    
+    <div class="chat-container" id="chat"></div>
+    <div class="input-bar"> <img src="../pic/input_bar.jpg" alt="메시지 보내기"> </div>
+    
+    <script>
+      // 번역을 보려면 true, 숨기려면 false로 변경
+      const showTranslations = true;
+      const pollImagePath = '../pic/vote.jpg';
+      // 아티스트 정보
+      const artistProfile = [
+        {img: "../profile/쟈니처음버블.jpg", name:""},
+        {img: "../profile/bubble_profile_johnny_201211.jpg", name:""},
+        {img: "../profile/bubble_profile_johnny_210419.jpg", name:""},
+        {img: "../profile/bubble_profile_johnny_210610.jpg", name:""},
+        {img: "../profile/bubble_profile_johnny_210908.jpg", name:""},
+        {img: "../profile/bubble_profile_johnny_220315.jpg", name:""},
+        {img: "../profile/bubble_profile_johnny_220624.jpg", name:""},
+        {img: "../profile/bubble_profile_johnny_221120.jpg", name:"영호"},
+        {img: "../profile/bubble_profile_johnny_230912.jpg", name:"영호"},
+        {img: "../profile/bubble_profile_johnny_240209.jpg", name:"영호"},
+        {img: "../profile/bubble_profile_johnny_240927.jpg", name:"영호"},
+        {img: "../profile/bubble_profile_johnny_241015.jpg", name:"영호"},
+        {img: "../profile/bubble_profile_johnny_250112.jpg", name:"영호"},
+        //확인완료
+        {img: "../profile/bubble_profile_johnny_250228.jpg", name:"영호"},
+        {img: "../profile/bubble_profile_johnny_251015.jpg", name:"영호"}
+      ];
+      
+      // 메시지 배열
+      const messages = [
+        // 2025.05.29 프로필 - 영호
+        { type: 'date', content: '2025년 11월 12일 수요일' },
+        { sender: 'artist', type: 'text', content: "하이", time: "오후 10:54", profileIndex: 14 },
+        { sender: 'artist', type: 'text', content: "나 쟌소리 보고 댓글 읽는데", time: "오후 10:56" },
+        { sender: 'artist', type: 'text', content: "혹시나 이 시간에 버블 하고 있는 내일 수능 보는 사람 있다면", time: "오후 10:57" },
+        { sender: 'artist', type: 'text', content: "음..... 내일 학교 따뜻하게 입구가", time: "오후 10:58" },
+        { sender: 'artist', type: 'text', content: "아침엔 추워", time: "오후 10:59" },
+        { sender: 'artist', type: 'text', content: "음... 솔직히 화이팅이라고 하기도 좀 그렇고 잘 보라고 하기도 좀 그렇고 ㅎㅎ", time: "오후 11:00" },
+        { sender: 'artist', type: 'text', content: "음.... 이렇게 해야되겠다. 응원하고 있어! 내가! 내일도 버텨내는거야! 하루하루 버텨낼수 있는 우리! 멋있다!", time: "오후 11:03" },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_johnny_251112_2304_pod.jpg', time: '오후 11:04' },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:04" },
+        { sender: 'artist', type: 'text', content: "그리고 오늘 쟌소리 보는데", time: "오후 11:08" },
+        { sender: 'artist', type: 'text', content: "진짜 몇주 전에 찍은건데", time: "오후 11:08" },
+        { sender: 'artist', type: 'text', content: "날씨 왜이렇게 좋아?", time: "오후 11:08" },
+        { sender: 'artist', type: 'text', content: "언제 이렇게 추워졌어 ㅠ", time: "오후 11:08" },
+        { sender: 'artist', type: 'text', content: "궁금한거", time: "오후 11:09" },
+        { sender: 'artist', type: 'text', content: "애기는 가을 옷 언제 까지 입어? ㅋㅋㅋㅋㅋ", time: "오후 11:09" },
+        { sender: 'artist', type: 'text', content: "추운데 패딩 아직 꺼내고 싶지 않아", time: "오후 11:10" },
+        { sender: 'artist', type: 'text', content: "약간... 자존심 상한다고 해야되나...?", time: "오후 11:10" },
+        { sender: 'artist', type: 'text', content: "근데 추워 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:10" },
+        { sender: 'artist', type: 'text', content: "근데 춥다하면 안 어울린데 ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:10" },
+        { sender: 'artist', type: 'text', content: "시카고에서 온거 아니냐고 ㅋㅋㅋㅋㅋㅋ", time: "오후 11:11" },
+        { sender: 'artist', type: 'text', content: "네... 맞는데요... 추위타는거랑 추운데서 온거랑은.... 다르잖어요....", time: "오후 11:11" },
+        { sender: 'artist', type: 'text', content: "아 그리고 내가 요즘 기묘한 이야기 정주행 한다고 했었잖아", time: "오후 11:13" },
+        { sender: 'artist', type: 'text', content: "다 봤어 ㅎㅎ", time: "오후 11:13" },
+        { sender: 'artist', type: 'text', content: "그와동시에 옷장이 많이 바뀌었어 ㅋㅋㅋㅋ", time: "오후 11:13" },
+        { sender: 'artist', type: 'text', content: "근데 이제 패딩 입으면.... 안보여ㅠ", time: "오후 11:14" },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:14" },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_johnny_251112_231_pod.jpg', time: '오후 11:1' },
+        { sender: 'artist', type: 'text', content: "헉 나 살 뺀거 아니야 ㅠㅠ", time: "오후 11:16" },
+        { sender: 'artist', type: 'text', content: "오늘도 나 혼자 마라탕 먹었는데....", time: "오후 11:16" },
+        { sender: 'artist', type: 'text', content: "안남겼지", time: "오후 11:18" },
+        { sender: 'artist', type: 'text', content: "볶음밥 까지 다 없앴어", time: "오후 11:18" },
+        { sender: 'artist', type: 'text', content: "나는 추가하는거... 고기 밖에 없는데...", time: "오후 11:19" },
+        { sender: 'artist', type: 'text', content: "아니아니아니", time: "오후 11:20" },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:20" },
+        { sender: 'artist', type: 'text', content: "기본으로 들어가는 재료들은 있잖아", time: "오후 11:20" },
+        { sender: 'artist', type: 'text', content: "근데 여기서 고백할꺼 있어", time: "오후 11:23" },
+        { sender: 'artist', type: 'text', content: "첫 끼로 이걸 4시 쯤 먹었는데", time: "오후 11:24" },
+        { sender: 'artist', type: 'text', content: "마지막 끼니가 4시였어", time: "오후 11:24" },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:24" },
+        { sender: 'artist', type: 'text', content: "요즘 유진이는 심심할때 뭐해?", time: "오후 11:25" },
+        { sender: 'artist', type: 'text', content: "난 요즘 웹소설 넷플 유투브 환연", time: "오후 11:27" },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:27" },
+        { sender: 'artist', type: 'text', content: "쟌소리 근데 점점 나아지고 있는것같지? ㅋㅋㅋㅋㅋㅋ", time: "오후 11:29" },
+        { sender: 'artist', type: 'text', content: "어제 정우도 봤는데", time: "오후 11:29" },
+        { sender: 'artist', type: 'text', content: "정우도 일화보고 나 좀 언게 보였대 ㅋㅋㅋㅋ", time: "오후 11:29" },
+        { sender: 'artist', type: 'text', content: "'레알개뚝딱댔음'", time: "오후 11:30" },
+        { sender: 'artist', type: 'text', content: "이거 누구야", time: "오후 11:30" },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:31" },
+        { sender: 'artist', type: 'text', content: "나도 적응할 시간이 필요하지 ㅋㅋㅋ", time: "오후 11:31" },
+        { sender: 'artist', type: 'text', content: "좋아", time: "오후 11:31" },
+        { sender: 'artist', type: 'text', content: "이런 피드백 좋아", time: "오후 11:32" },
+        { sender: 'artist', type: 'text', content: "더 잘해보도록 할께 개뚝딱거리지 않게", time: "오후 11:32" },
+        { sender: 'artist', type: 'text', content: "아", time: "오후 11:37" },
+        { sender: 'artist', type: 'text', content: "귀여운거 보여줄거 있어", time: "오후 11:37" },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_johnny_251112_2337_pod.jpg', time: '오후 11:37' },
+        { sender: 'artist', type: 'text', content: "더스틴 (기묘한 이야기)", time: "오후 11:39" },
+        { sender: 'artist', type: 'text', content: "맞겠지? ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:39" },
+        { sender: 'artist', type: 'text', content: "이렇게 말해놓고 다른 사람이면 웃기겠다 ㅋㅋㅋ", time: "오후 11:39" },
+        { sender: 'artist', type: 'text', content: "27일만 기다리는 중 ㅋㅋㅋㅋ", time: "오후 11:40" },
+        { sender: 'artist', type: 'text', content: "아 스띵 나오는 날", time: "오후 11:41" },
+        { sender: 'artist', type: 'text', content: "오 이걸 쟈니칼에 입혀본다고...?", time: "오후 11:41" },
+        { sender: 'artist', type: 'text', content: "웨이트하고 있어봐봐", time: "오후 11:41" },
+        { sender: 'artist', type: 'text', content: "아.....", time: "오후 11:43" },
+        { sender: 'artist', type: 'text', content: "살짝 커.....", time: "오후 11:44" },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_johnny_251112_2344_pod.jpg', time: '오후 11:44' },
+        { sender: 'artist', type: 'text', content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", time: "오후 11:45" },
+        { sender: 'artist', type: 'text', content: "뒤에서 안 잡고 있으면 옷이 계속 내려와 ㅋㅋㅋㅋ", time: "오후 11:45" },
+        { sender: 'artist', type: 'text', content: "그리고.... 옷 빼는 과정에 구멍이 살짝 났어....", time: "오후 11:45" },
+        { sender: 'artist', type: 'text', content: "약간 맘 아프네 ㅋㅋㅋㅋㅋㅋ", time: "오후 11:48" },
+        { sender: 'artist', type: 'text', content: "암튼", time: "오후 11:48" },
+        { sender: 'artist', type: 'text', content: "나는 이제 자러 가야겠다", time: "오후 11:48" },
+        { sender: 'artist', type: 'text', content: "유진이 오늘도 고생했고<br>내일도 좋은 아루 보내자구", time: "오후 11:49" },
+        { sender: 'artist', type: 'text', content: "굿나잇", time: "오후 11:49" },
+        { sender: 'artist', type: 'text', content: "나 간다", time: "오후 11:49" },
+        { sender: 'artist', type: 'text', content: "빠이", time: "오후 11:49" },
+        { sender: 'artist', type: 'emote', content: "👋", time: "오후 11:49" },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_johnny_251112_2352_pod.jpg', time: '오후 11:52' },
+        { sender: 'artist', type: 'text', content: "이거 깜빡했다", time: "오후 11:52" },
+        { sender: 'artist', type: 'text', content: "진짜 간다", time: "오후 11:52" },
+        { sender: 'artist', type: 'text', content: "빠이", time: "오후 11:52" },
+        { sender: 'artist', type: 'emote', content: "👋", time: "오후 11:52" },
+        ];
+      
+      let currentProfileIndex = 0;
+      const chatContainer = document.getElementById("chat");
+      
+      // 비디오 메시지를 DOM에 추가한 후 호출될 함수
+      const attachVideoListeners = () => {
+        document.querySelectorAll('.video-container').forEach(container => {
+          const video = container.querySelector('video');
+          const playPauseBtn = container.querySelector('.play-pause-btn');
+          const customControls = container.querySelector('.custom-controls');
+          
+          // ▼▼▼ [2초 지점을 썸네일로 설정] ▼▼▼
+          // 이 코드가 없으면 영상의 0초(첫 화면)가 썸네일이 됩니다.
+          
+          // 1. 메타데이터(시간 정보)가 로드되면 2초로 이동
+          video.addEventListener('loadedmetadata', () => {
+            video.currentTime = 1.55;  // 2 -> 1.55로 변경
+          });
+          
+          // 2. 이미 로딩이 끝난 경우를 대비해 즉시 적용
+          if (video.readyState >= 1) {
+            video.currentTime = 1.55; // 2 -> 1.55로 변경
+          }
+          // ▲▲▲ [추가 완료] ▲▲▲
+
+
+          // 이미 이벤트 리스너가 붙어있으면 다시 붙이지 않도록 방어 (forEach가 여러번 실행될 경우 대비)
+          if (container.dataset.listenerAttached) {
+            return;
+          }
+          container.dataset.listenerAttached = 'true'; // 리스너가 붙었음을 표시
+
+          // 비디오가 재생/일시정지될 때마다 클래스 토글
+          video.addEventListener('play', () => {
+            container.classList.add('playing');
+          });
+
+          video.addEventListener('pause', () => {
+            container.classList.remove('playing');
+          });
+
+          // 커스텀 컨트롤러 클릭 시 재생/일시정지
+          customControls.addEventListener('click', () => {
+            if (video.paused) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+
+          // 재생/일시정지 버튼 클릭 시 재생/일시정지 (컨트롤러 오버레이와 동일 기능)
+          // customControls에 이벤트가 걸려있으므로 playPauseBtn은 클릭 이벤트를 따로 안 걸어도 됨
+          // 만약 버튼에만 클릭 이벤트를 걸고 싶다면 customControls 대신 playPauseBtn에 이벤트를 걸고,
+          // video가 재생 중일 때 customControls의 pointer-events를 none으로 설정해야 비디오 클릭으로 재생/멈춤이 가능합니다.
+        });
+      };
+
+
+      messages.forEach(msg => {
+        
+        // 1. 날짜
+        if (msg.type === 'date') {
+          const dateEl = document.createElement('div');
+          dateEl.className = 'date';
+          dateEl.textContent = msg.content;
+          chatContainer.appendChild(dateEl);
+          return;
+        }
+        
+        // 2. 내가 보내는 버블
+        if (msg.sender === 'me') {
+          const myMsg = document.createElement("div");
+          myMsg.className = "my-chat-message";
+          myMsg.innerHTML = `
+          <div class="time">${msg.time}</div>
+          <div class="bubble my-bubble">${msg.content}</div>
+          `;
+          chatContainer.appendChild(myMsg);
+          return;
+        }
+        if (msg.profileIndex !== undefined) {
+          currentProfileIndex = msg.profileIndex;
+        }
+        const chatMsg = document.createElement("div");
+        chatMsg.className = "chat-message";
+        
+        // ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+        if (msg.type === 'reply') {
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+          
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div class="bubble reply-bubble">
+          <div class="reply-title">ARTIST의 답장</div>
+          <div class="reply-content">${msg.replyContent}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          <div class="bubble bubble-after-reply">${msg.mainContent}</div>
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          </div>
+          </div>
+          `;
+        } else {
+          let messageBodyHTML = '';
+          if (msg.type === 'emote') {
+            if (msg.isImage) {
+              messageBodyHTML = `<img src="${msg.content}" class="sticker" alt="sticker">`;
+            } else {
+              messageBodyHTML = `<div class="emoji">${msg.content}</div>`;
+            }
+          } else if (msg.type === 'image') {
+            messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
+            
+            /* ▼▼▼ [MP4 추가] ▼▼▼ */
+          } else if (msg.type === 'video') {
+            // 용량 텍스트가 있으면 보여주고, 없으면 빈칸
+            const fileSizeText = msg.fileSize ? `<div class="video-size-text">${msg.fileSize}</div>` : '';
+            // controls: 재생바 표시, autoplay: 자동재생, muted: 음소거(자동재생 필수조건), loop: 반복재생, playsinline: 모바일 전체화면 방지
+            // 아이콘은 SVG를 사용해 '외곽선 삼각형'을 그립니다.
+            messageBodyHTML = `<div class="bubble picture video-container">
+              <video src="${msg.content}" muted loop playsinline></video>
+              <div class="custom-controls">
+                <button class="play-pause-btn">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M6.5 5.6c0-.9.9-1.4 1.7-1l11.2 6.5c.8.5.8 1.7 0 2.1L8.2 19.8c-.8.5-1.7 0-1.7-.9V5.6z"></path>
+                  </svg>
+                </button>
+                ${fileSizeText}
+               </div>
+              </div>`;
+            /* ▲▲▲ [MP4 추가] ▲▲▲ */
+            
+          } else if (msg.type === 'voice') {
+            messageBodyHTML = `<div class="bubble voice">
+            <img src="${msg.content}" alt="음성메시지">
+            </div>`;
+          } else if (msg.type === 'poll') {
+            let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
+            messageBodyHTML = `
+            <div class="poll">
+            <img src="${pollImagePath}" alt="투표 이미지">
+            ${pollTitleHTML}
+            <div class="poll-topic">${msg.text}</div>
+            </div>
+            `;
+          } else {
+            let bubbleContent = msg.content;
+            let bubbleClass = 'bubble';
+            if (showTranslations && msg.translation) {
+              bubbleContent += `
+              <hr class="dotted-divider">
+              <div class="translation-inner">${msg.translation}</div>
+              `;
+              bubbleClass += ' has-translation';
+            }
+            messageBodyHTML = `<div class="${bubbleClass}">${bubbleContent}</div>`;
+          }
+          
+          // header 밑에 ▼ 아티스트 태그 코드 <span class="artist-tag">ARTIST</span>
+          chatMsg.innerHTML = `
+          <div class="profile" style="background-image: url('${artistProfile[currentProfileIndex].img}')"></div>
+          <div class="message-content">
+          <div class="header">
+          
+          <div class="name">${artistProfile[currentProfileIndex].name}</div>
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+          ${messageBodyHTML}
+          <div class="time">${msg.time.replace(':', '<span class="colon">:</span>')}</div>
+          </div>
+          </div>
+          `;
+        }
+        chatContainer.appendChild(chatMsg);
+      }); // messages.forEach 끝
+
+      // 모든 메시지가 DOM에 추가된 후 비디오 이벤트 리스너를 연결
+      attachVideoListeners();
+      
+      // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
+      const searchBar = document.querySelector('.search');
+      const searchIcon = document.getElementById('search-icon');
+      const searchInput = document.getElementById('searchInput');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const searchCounter = document.getElementById('searchCounter');
+      
+      // 결과 도출에 대한 함수
+      let searchResults = [];
+      let currentResultIndex = -1;
+      
+      // 검색창 열기
+      const openSearch = () => {
+        searchBar.classList.add('visible');
+        searchInput.focus();
+        if (location.hash !== '#search') {
+          location.hash = 'search';
+        }
+      };
+      
+      // 검색창 닫기 (뒤로가기 시)
+      const closeSearch = () => {
+        // [추가된 부분 1] 초기화하기 전에 마지막으로 보고 있던 검색 결과 요소를 기억해둠
+        let lastFoundElement = null;
+        if (searchResults.length > 0 && currentResultIndex !== -1) {
+            lastFoundElement = searchResults[currentResultIndex];
+        }
+
+        // 기존 하이라이트 제거
+        const previouslyHighlighted = document.querySelector('.current-search-result');
+        if (previouslyHighlighted) {
+          previouslyHighlighted.classList.remove('current-search-result');
+        }
+        
+        // 검색창 닫기
+        searchBar.classList.remove('visible');
+        searchInput.value = "";
+        // 검색 결과 초기화
+        searchResults = [];
+        currentResultIndex = -1;
+        updateCounter();
+
+        // [추가된 부분 2] 기억해둔 요소가 있다면 그 위치로 화면을 즉시 고정 (흔들림 방지)
+        if (lastFoundElement) {
+            lastFoundElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+        }
+      };
+      
+      // 검색 실행
+      const performSearch = () => {
+        // 기존 하이라이트 먼저 제거
+        const previouslyHighlighted = document.querySelector('.current-search-result');
+        if (previouslyHighlighted) {
+          previouslyHighlighted.classList.remove('current-search-result');
+        }
+        
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        if (!searchTerm) {
+          searchResults = [];
+          currentResultIndex = -1;
+          updateCounter();
+          return;
+        }
+        const allMessages = document.querySelectorAll('.chat-message, .my-chat-message');
+        searchResults = Array.from(allMessages).filter(message =>
+          message.textContent.toLowerCase().includes(searchTerm));
+        if (searchResults.length > 0) {
+          currentResultIndex = 0; // 검색 결과가 있으면 첫번째 항목으로 초기화
+          navigateToResult(currentResultIndex); // 첫 번째 결과로 이동 및 하이라이트
+        } else {
+          currentResultIndex = -1;
+        }
+        updateCounter(); // 카운터 업데이트
+      };
+      
+      // 특정 검색 결과로 이동하고 하이라이트 적용
+      const navigateToResult = (index) => {
+        if (index < 0 || index >= searchResults.length) return;
+        
+        // 기존 하이라이트가 있다면 제거
+        const previouslyHighlighted = document.querySelector('.current-search-result');
+        if (previouslyHighlighted) {
+          previouslyHighlighted.classList.remove('current-search-result');
+        }
+        
+        const targetMessage = searchResults[index];
+        targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // 새로운 타겟에 하이라이트 클래스 추가
+        targetMessage.classList.add('current-search-result');
+        currentResultIndex = index;
+        updateCounter();
+      };
+      
+      // 카운터 숫자 업데이트
+      const updateCounter = () => {
+        const total = searchResults.length;
+        searchCounter.textContent = total > 0 ? `${currentResultIndex + 1} / ${total}` : `0 / 0`;
+      };
+      
+      // 이전/다음 버튼 핸들러
+      const handleNavigation = (direction) => {
+        if (searchResults.length === 0) return;
+        const total = searchResults.length;
+        // 다음 인덱스 계산 (배열의 끝과 처음을 순환)
+        let newIndex = (currentResultIndex + direction + total) % total;
+        navigateToResult(newIndex);
+      };
+      
+      // --- 이벤트 리스너 설정 ---
+      // 돋보기 아이콘 클릭
+      searchIcon.addEventListener('click', openSearch);
+      // 검색어 입력 시 실시간 검색
+      searchInput.addEventListener('input', performSearch);
+      // 이전(↑) 버튼 클릭
+      prevBtn.addEventListener('click', () => handleNavigation(-1));
+      // 다음(↓) 버튼 클릭
+      nextBtn.addEventListener('click', () => handleNavigation(1));
+      
+      // 브라우저 주소의 hash 변경 감지 (뒤로가기 등)
+      window.addEventListener('hashchange', () => {
+        if (location.hash !== '#search') {
+          closeSearch(); // 해시가 #search가 아니면 검색창 닫기
+        }
+      });
+      
+      // ▼▼▼ [최신 대화부터 시작] ▼▼▼
+      // 이 부분도 attachVideoListeners() 호출 후로 옮기거나,
+      // DOMContentLoaded와 load 이벤트 핸들러 내부에서 attachVideoListeners()를 호출해줘야 합니다.
+      function scrolltobottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
+          behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
+          });
+        // 스크롤 후에도 비디오 리스너를 다시 확인 (혹시 모를 동적 추가/변경 대비)
+        attachVideoListeners(); 
+      }
+      // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
+      document.addEventListener('DOMContentLoaded', () => {
+        scrolltobottom();
+        attachVideoListeners(); // DOM이 준비되면 한 번 실행
+      });
+      // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
+      window.addEventListener('load', () => {
+        scrolltobottom();
+        // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
+        setTimeout(scrolltobottom, 100);
+        attachVideoListeners(); // 모든 리소스 로딩 후에도 한 번 더 실행
+      });
+      // ▲▲▲ 최신 대화부터 시작 ▲▲▲
+    </script>
+  </body>
+</html>
