@@ -88,7 +88,7 @@
     padding: 11.4px 12.4px 9.8px 12.5px;
     font-size: 13.7px;
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.1;
   }
 /* ▼▼▼ [내가 보내는 버블] ▼▼▼ */
   /* 오른쪽배치 */
@@ -156,20 +156,123 @@
       }
 /* ▼▼▼ [사진] ▼▼▼ */
   /* 3. 사진 메시지 스타일 */
-      .picture {
-        padding: 0;
-        background: none;
-        margin-left: 1px;
-        margin-top: 0px;
-      }
-      .picture img {
-        max-width: 244px;
-        border-radius: 4px 13px 13px 13px;
-        display: block;
-      }
-      img, video {
-        dynamic-range-limit: standard;
-      }
+  .picture {
+    padding: 0;
+    background: none;
+    margin-left: 1px;
+    margin-top: 0px;
+  }
+  .picture img {
+    max-width: 244px;
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+  img, video {
+    dynamic-range-limit: standard;
+  }
+  
+  /* 동영상은 크기 줄임 (원하는 크기로 숫자 조절 가능) */
+  .picture video {
+    max-width: 220px; /* 244px -> 180px로 축소 */
+    border-radius: 4px 13px 13px 13px;
+    display: block;
+  }
+
+  /* 비디오 컨테이너: 둥근 모서리 적용의 핵심 */
+  .video-container {
+    position: relative;
+    display: inline-block;
+    /* 중요: 내부의 비디오와 어두운 배경이 이 둥근 모서리에 맞춰 잘리도록 설정 */
+    overflow: hidden; 
+    /* 말풍선과 동일한 둥근 모서리 (필요시 .bubble 클래스의 값과 맞춰주세요) */
+    border-radius: 4px 13px 13px 13px;
+    line-height: 0; /* 비디오 하단 미세한 여백 제거 */
+  }
+
+  /* 비디오의 어두운 막 */
+  .custom-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 버튼과 텍스트를 세로로 배치 */
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; /* 내용물 세로 중앙 정렬 */
+    align-items: center; /* 내용물 가로 중앙 정렬 */
+    background-color: rgba(0, 0, 0, 0.2); /* RGB값 000.(검정), 숫자 올 투명도 내 */
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    z-index: 10;
+  }
+
+  /* 재생/멈춤 버튼 (동그라미 배경) */
+  .play-pause-btn {
+    width: 40px; /* 버튼 크기 */
+    height: 40px;
+    /* 재생바 배경 원 */
+    background-color: rgba(0, 0, 0, 0.2); 
+    border: none; /* 재생바 배경 원의 테두리 */
+    border-radius: 50%;
+    /* 내부 아이콘 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 기존 버튼 스타일 초기화 */
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    transition: transform 0.1s ease;
+  }
+
+  /* 클릭 효과 */
+  .play-pause-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* 버튼 내부의 SVG 아이콘 (흰색 외곽선 삼각형) */
+  .play-pause-btn svg {
+    width: 21px; /* 아이콘 크기 */
+    height: 21px;
+    fill: none; /* 내부 채우기 없음 */
+    stroke: white; /* 외곽선 흰색 */
+    stroke-width: 1px; /* 선 두께 */
+    stroke-linejoin: round; /* 모서리 둥글게 */
+    margin-left: 3px; /* 삼각형이라 시각적 중심 맞추기 */
+  }
+
+  /* 일시정지 상태일 때 아이콘 변경을 위한 클래스 */
+  .video-container.playing .play-pause-btn svg {
+    margin-left: 0; /* 일시정지 아이콘은 정중앙 */
+    fill: white; /* 일시정지는 꽉 찬 흰색으로 (선택사항) */
+    stroke: none;
+  }
+
+  /* 용량 텍스트 */
+  .video-size-text {
+    margin-top: 16px; /* 버튼과 MB글의 간격 */
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 9px;
+    font-family: 'Roboto', sans-serif; /* 숫자 폰트 깔끔하게 */
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* 글자 잘 보이게 그림자 */
+  }
+
+  /* --- 동작 관련 --- */
+
+  /* 재생 중일 때 컨트롤러 숨기기 */
+  .video-container.playing .custom-controls {
+    opacity: 0; /* 투명하게 만듦 */
+    pointer-events: none; /* 클릭 통과 */
+  }
+
+  /* 마우스 올렸을 때 다시 보이기 */
+  .video-container.playing:hover .custom-controls {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
 /* ▼▼▼ [이모지] ▼▼▼ */
   /* 진짜 이모지 */
       .emoji {
@@ -280,7 +383,7 @@
       }
 /* 투표 메시지만 너비 키우기 */
       .message-content:has(.poll) {
-        max-width: 79%; /*  */
+        max-width: 79%; /* */
       }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
@@ -320,6 +423,7 @@
         left: 0;
         width: 100%;
         text-align: center;
+        z-index: 1000;
       }
       .input-bar img {
         max-width: 500px;
@@ -435,7 +539,7 @@
   </head>
   <body>
     <div class="nickname">
-      ARTIST
+      쩡우
     </div>
     
     <div class="d-day">
@@ -508,10 +612,78 @@
         
         { type: 'date', content: '2025년 11월 12일 수요일' },
         { sender: 'artist', type: 'text', content: "오늘 하루도 존하루 보내요~!", time: "오후 2:10" },
+        
+        { type: 'date', content: '2025년 11월 22일 토요일' },
+        { sender: 'artist', type: 'text', content: "유진이 잘지내고 있었어~?", time: "오후 12:18" },
+        { sender: 'artist', type: 'text', content: "오 잘지내고 있었다니 다행이군~", time: "오후 12:20" },
+        { sender: 'artist', type: 'text', content: "나는 요즘 계속 이것저것 촬영도 하고 준비도 하고 지내고 있었어!!", time: "오후 12:22" },
+        { sender: 'artist', type: 'text', content: "최근에 스케줄때매 삿포로 돈키호테에서 입욕제를 사서 욕조에 풀어서 써봤는데 다 녹으면 랜덤으로 캐릭터가 나오더라고 그거 보고 좀 놀랐어 요즘은 이렇게 나오는구나ㅎㅎ", time: "오후 12:30" },
+        { sender: 'artist', type: 'text', content: "디저트로 파르페 카페도 갔는데 거기도 신기하고", time: "오후 12:31" },
+        { sender: 'artist', type: 'text', content: "아 그리고 최근에 딤섬도 진짜 많이 먹었다", time: "오후 12:32" },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_jungwoo_251122_1233_pod.jpg', time: '오후 12:33' },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_jungwoo_251122_1235_pod.jpg', time: '오후 12:35' },
+        { sender: 'artist', type: 'text', content: "다쓰면 저렇게 나오던뎅", time: "오후 12:35" },
+        { sender: 'artist', type: 'image', content: '../pic/bubble_img_jungwoo_251122_1238_pod.jpg', time: '오후 12:38' },
+        { sender: 'artist', type: 'text', content: "그리고 한번쯤 가보고싶었던 여의도 화목순대국도 가보고!", time: "오후 12:38" },
         ];
       
       let currentProfileIndex = 0;
       const chatContainer = document.getElementById("chat");
+      
+      // 비디오 메시지를 DOM에 추가한 후 호출될 함수
+      const attachVideoListeners = () => {
+        document.querySelectorAll('.video-container').forEach(container => {
+          const video = container.querySelector('video');
+          const playPauseBtn = container.querySelector('.play-pause-btn');
+          const customControls = container.querySelector('.custom-controls');
+          
+          // ▼▼▼ [2초 지점을 썸네일로 설정] ▼▼▼
+          // 이 코드가 없으면 영상의 0초(첫 화면)가 썸네일이 됩니다.
+          
+          // 1. 메타데이터(시간 정보)가 로드되면 2초로 이동
+          video.addEventListener('loadedmetadata', () => {
+            video.currentTime = 1.55;  // 2 -> 1.55로 변경
+          });
+          
+          // 2. 이미 로딩이 끝난 경우를 대비해 즉시 적용
+          if (video.readyState >= 1) {
+            video.currentTime = 1.55; // 2 -> 1.55로 변경
+          }
+          // ▲▲▲ [추가 완료] ▲▲▲
+
+
+          // 이미 이벤트 리스너가 붙어있으면 다시 붙이지 않도록 방어 (forEach가 여러번 실행될 경우 대비)
+          if (container.dataset.listenerAttached) {
+            return;
+          }
+          container.dataset.listenerAttached = 'true'; // 리스너가 붙었음을 표시
+
+          // 비디오가 재생/일시정지될 때마다 클래스 토글
+          video.addEventListener('play', () => {
+            container.classList.add('playing');
+          });
+
+          video.addEventListener('pause', () => {
+            container.classList.remove('playing');
+          });
+
+          // 커스텀 컨트롤러 클릭 시 재생/일시정지
+          customControls.addEventListener('click', () => {
+            if (video.paused) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+
+          // 재생/일시정지 버튼 클릭 시 재생/일시정지 (컨트롤러 오버레이와 동일 기능)
+          // customControls에 이벤트가 걸려있으므로 playPauseBtn은 클릭 이벤트를 따로 안 걸어도 됨
+          // 만약 버튼에만 클릭 이벤트를 걸고 싶다면 customControls 대신 playPauseBtn에 이벤트를 걸고,
+          // video가 재생 중일 때 customControls의 pointer-events를 none으로 설정해야 비디오 클릭으로 재생/멈춤이 가능합니다.
+        });
+      };
+
+
       messages.forEach(msg => {
         
         // 1. 날짜
@@ -569,6 +741,26 @@
             }
           } else if (msg.type === 'image') {
             messageBodyHTML = `<div class="bubble picture"><img src="${msg.content}" alt="image message"></div>`;
+            
+            /* ▼▼▼ [MP4 추가] ▼▼▼ */
+          } else if (msg.type === 'video') {
+            // 용량 텍스트가 있으면 보여주고, 없으면 빈칸
+            const fileSizeText = msg.fileSize ? `<div class="video-size-text">${msg.fileSize}</div>` : '';
+            // controls: 재생바 표시, autoplay: 자동재생, muted: 음소거(자동재생 필수조건), loop: 반복재생, playsinline: 모바일 전체화면 방지
+            // 아이콘은 SVG를 사용해 '외곽선 삼각형'을 그립니다.
+            messageBodyHTML = `<div class="bubble picture video-container">
+              <video src="${msg.content}" muted loop playsinline></video>
+              <div class="custom-controls">
+                <button class="play-pause-btn">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M6.5 5.6c0-.9.9-1.4 1.7-1l11.2 6.5c.8.5.8 1.7 0 2.1L8.2 19.8c-.8.5-1.7 0-1.7-.9V5.6z"></path>
+                  </svg>
+                </button>
+                ${fileSizeText}
+               </div>
+              </div>`;
+            /* ▲▲▲ [MP4 추가] ▲▲▲ */
+            
           } else if (msg.type === 'voice') {
             messageBodyHTML = `<div class="bubble voice">
             <img src="${msg.content}" alt="음성메시지">
@@ -611,7 +803,10 @@
           `;
         }
         chatContainer.appendChild(chatMsg);
-      });
+      }); // messages.forEach 끝
+
+      // 모든 메시지가 DOM에 추가된 후 비디오 이벤트 리스너를 연결
+      attachVideoListeners();
       
       // ▼▼▼ [여기부터 검색 기능 스크립트 수정됨] ▼▼▼
       const searchBar = document.querySelector('.search');
@@ -634,7 +829,6 @@
         }
       };
       
-      // 검색창 닫기 (뒤로가기 시)
       // 검색창 닫기 (뒤로가기 시)
       const closeSearch = () => {
         // [추가된 부분 1] 초기화하기 전에 마지막으로 보고 있던 검색 결과 요소를 기억해둠
@@ -741,24 +935,28 @@
         }
       });
       
-      // ▼▼▼ 최신 대화부터 시작 ▼▼▼
-      function scrollToBottom() {
+      // ▼▼▼ [최신 대화부터 시작] ▼▼▼
+      // 이 부분도 attachVideoListeners() 호출 후로 옮기거나,
+      // DOMContentLoaded와 load 이벤트 핸들러 내부에서 attachVideoListeners()를 호출해줘야 합니다.
+      function scrolltobottom() {
         window.scrollTo({
           top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
           behavior: 'auto' // 부드럽게 말고 즉시 이동 ('smooth'로 하면 로딩 시 어지러울 수 있음)
           });
+        // 스크롤 후에도 비디오 리스너를 다시 확인 (혹시 모를 동적 추가/변경 대비)
+        attachVideoListeners(); 
       }
       // 1. HTML이 로드되자마자 한 번 실행 (텍스트 위주 채팅일 때 빠름)
       document.addEventListener('DOMContentLoaded', () => {
-        scrollToBottom();
+        scrolltobottom();
+        attachVideoListeners(); // DOM이 준비되면 한 번 실행
       });
-      
       // 2. 이미지 등 모든 리소스가 로딩된 후 한 번 더 확실하게 실행 (사진 씹힘 방지)
       window.addEventListener('load', () => {
-        scrollToBottom();
-        
+        scrolltobottom();
         // 혹시 모를 렌더링 지연을 대비해 0.1초 뒤 확인 사살
-        setTimeout(scrollToBottom, 100);
+        setTimeout(scrolltobottom, 100);
+        attachVideoListeners(); // 모든 리소스 로딩 후에도 한 번 더 실행
       });
       // ▲▲▲ 최신 대화부터 시작 ▲▲▲
     </script>
