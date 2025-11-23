@@ -386,6 +386,105 @@
       .message-content:has(.poll) {
         max-width: 79%; /* */
       }
+/* ▼▼▼ [투표 화면 모달 (새로 추가됨)] ▼▼▼ */
+  .vote-modal {
+    display: none; /* 평소엔 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 2000; /* 채팅방보다 위에 뜨게 */
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  /* 투표 화면 헤더 (뒤로가기) */
+  .vote-header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid #eee;
+  }
+  .back-btn {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+  .vote-header-title {
+    font-weight: 700;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+
+  /* 투표 내용 영역 */
+  .vote-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .vote-content img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .vote-question {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* 투표 내부 */
+  .vote-options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .vote-option-label {
+    display: flex;
+    align-items: center;
+    padding: 15px; /* 박스 안쪽 여백 */
+    border: 1px solid #ddd; /* 테두리 선 */
+    border-radius: 8px; /* 박스 모서리 둥글기 */
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  /* 선택되었을 때 스타일 */
+  .vote-option-input:checked + .vote-option-label {
+    border-color: #A584F9;
+    background-color: #f3efff;
+    color: #A584F9;
+    font-weight: 600;
+  }
+  .vote-option-input {
+    display: none; /* 기본 라디오 버튼 숨김 */
+  }
+  
+  /* 투표하기 버튼 */
+  .submit-vote-btn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 15px;
+    background: #ddd;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: not-allowed;
+  }
+  /* 선택 완료 시 버튼 활성화 */
+  .submit-vote-btn.active {
+    background: #A584F9;
+    cursor: pointer;
+  }
 /* ▼▼▼ [채팅방 이름] ▼▼▼ */
       .nickname {
         font-family: 'Noto Sans KR';
@@ -535,106 +634,6 @@
     70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
     100% { box-shadow: none; }
   }
-
-/* ▼▼▼ [투표 화면 모달 (새로 추가됨)] ▼▼▼ */
-  .vote-modal {
-    display: none; /* 평소엔 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    z-index: 2000; /* 채팅방보다 위에 뜨게 */
-    flex-direction: column;
-    overflow-y: auto;
-  }
-  
-  /* 투표 화면 헤더 (뒤로가기) */
-  .vote-header {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    border-bottom: 1px solid #eee;
-  }
-  .back-btn {
-    font-size: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-  }
-  .vote-header-title {
-    font-weight: 700;
-    margin-left: 10px;
-    font-size: 16px;
-  }
-
-  /* 투표 내용 영역 */
-  .vote-content {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .vote-content img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-  .vote-question {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  /* 투표 선택지 (라디오 버튼 디자인) */
-  .vote-options {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .vote-option-label {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  /* 선택되었을 때 스타일 */
-  .vote-option-input:checked + .vote-option-label {
-    border-color: #A584F9;
-    background-color: #f3efff;
-    color: #A584F9;
-    font-weight: 600;
-  }
-  .vote-option-input {
-    display: none; /* 기본 라디오 버튼 숨김 */
-  }
-  
-  /* 투표하기 버튼 */
-  .submit-vote-btn {
-    margin-top: 30px;
-    width: 100%;
-    padding: 15px;
-    background: #ddd;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: not-allowed;
-  }
-  /* 선택 완료 시 버튼 활성화 */
-  .submit-vote-btn.active {
-    background: #A584F9;
-    cursor: pointer;
-  }
   
 </style>
   </head>
@@ -669,12 +668,8 @@
       </div>
       
       <div class="vote-content">
-        <img src="../pic/vote.jpg" alt="투표 상세 이미지">
-        
         <div id="modalQuestion" class="vote-question"></div>
-        
         <div id="modalOptions" class="vote-options"></div>
-
         <button id="voteBtn" class="submit-vote-btn">투표하기</button>
       </div>
     </div>
