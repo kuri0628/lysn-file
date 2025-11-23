@@ -51,7 +51,7 @@
     padding: 0.7px 5.6px 1.3px 6.6px;  /* 위 오른 아래 왼쪽 여백 */
     border-radius: 999px;
     position: relative; /* <-- 기준점을 현재 위치로 설정 */
-    top: 1px;          /* 숫자↑ 위치↓ */
+    top: 1px;           /* 숫자↑ 위치↓ */
     margin-right: 4.2px; /* 아티스트 - 이름 간격 */
   }
   .name {
@@ -84,7 +84,7 @@
     /* font-family: 'Kosugi Maru'; */
     background: #fa02e180; /* #ffffff; */
     border-radius: 4px 14.5px 14.5px 14.5px;
-           /* 위    오른    아래   왼쪽  여백 */
+            /* 위    오른    아래    왼쪽  여백 */
     padding: 12.9px 12.4px 11px 12.5px;
     font-size: 13.7px;
     font-weight: 400;
@@ -535,6 +535,106 @@
     70% { box-shadow: 0 0 0 3px rgba(165, 132, 249, 0); }
     100% { box-shadow: none; }
   }
+
+/* ▼▼▼ [투표 화면 모달 (새로 추가됨)] ▼▼▼ */
+  .vote-modal {
+    display: none; /* 평소엔 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 2000; /* 채팅방보다 위에 뜨게 */
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  /* 투표 화면 헤더 (뒤로가기) */
+  .vote-header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid #eee;
+  }
+  .back-btn {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+  .vote-header-title {
+    font-weight: 700;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+
+  /* 투표 내용 영역 */
+  .vote-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .vote-content img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .vote-question {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* 투표 선택지 (라디오 버튼 디자인) */
+  .vote-options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .vote-option-label {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  /* 선택되었을 때 스타일 */
+  .vote-option-input:checked + .vote-option-label {
+    border-color: #A584F9;
+    background-color: #f3efff;
+    color: #A584F9;
+    font-weight: 600;
+  }
+  .vote-option-input {
+    display: none; /* 기본 라디오 버튼 숨김 */
+  }
+  
+  /* 투표하기 버튼 */
+  .submit-vote-btn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 15px;
+    background: #ddd;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: not-allowed;
+  }
+  /* 선택 완료 시 버튼 활성화 */
+  .submit-vote-btn.active {
+    background: #A584F9;
+    cursor: pointer;
+  }
   
 </style>
   </head>
@@ -562,6 +662,23 @@
     <div class="chat-container" id="chat"></div>
     <div class="input-bar"> <img src="../pic/input_bar.jpg" alt="메시지 보내기"> </div>
     
+    <div id="voteModal" class="vote-modal">
+      <div class="vote-header">
+        <button class="back-btn" onclick="closeVote()">←</button>
+        <div class="vote-header-title">투표</div>
+      </div>
+      
+      <div class="vote-content">
+        <img src="../pic/vote.jpg" alt="투표 상세 이미지">
+        
+        <div id="modalQuestion" class="vote-question"></div>
+        
+        <div id="modalOptions" class="vote-options"></div>
+
+        <button id="voteBtn" class="submit-vote-btn">투표하기</button>
+      </div>
+    </div>
+
     <script>
       // 번역을 보려면 true, 숨기려면 false로 변경
       const showTranslations = true;
@@ -604,7 +721,7 @@
         
         { sender: 'me', type: 'text', content: '카메랑 앵글 뭔데 ㅋㅋㅋㅋㅋㅋㅋㅋ', time: '오후 7:48' },
         { sender: 'artist', type: 'text', content: "나 이제 세개야", time: "오후 7:48" },
-        { sender: 'artist', type: 'poll', pollTitle: '25/5/5 오후 7:59 까지', text: '자기 골라조 으아으아으아으아으아', time: '오후 7:49' },
+        { sender: 'artist', type: 'poll', pollTitle: '25/5/5 오후 7:59 까지', text: '자기 골라조 으아으아으아으아으아', options: ['1번', '2번', '3번'], time: '오후 7:49' },
         { sender: 'artist', type: 'text', content: "오 이렇게 되는구나 이거", time: "오후 7:50" },
         { sender: 'artist', type: 'text', content: "55분은 근본 없나", time: "오후 7:52" },
         { sender: 'me', type: 'text', content: '아니 8시까지 버블하다 가라구 눌렀지', time: '오후 7:52' },
@@ -633,7 +750,7 @@
         { sender: 'artist', type: 'text', content: "비리럽 첫주차", time: "오후 5:30", profileIndex: 3 },
         { sender: 'artist', type: 'text', content: "끝났드아아", time: "오후 5:30" },
         { sender: 'artist', type: 'text', content: "금,토,일요일중 언제가 제일 좋았어여", time: "오후 5:30" },
-        //                                            기한                             질문              목록
+        // [수정] options 항목이 추가되었습니다.
         { sender: 'artist', type: 'poll', pollTitle: '25/11/23 오후 6:32 까지', text: '음악방송', options: ['금요일', '토요일', '일요일'], time: '오후 5:32' },
         { sender: 'artist', type: 'text', content: "너무 좀 적나라하긴한데", time: "오후 5:32" },
         { sender: 'artist', type: 'text', content: "궁금해", time: "오후 5:32" },
@@ -697,7 +814,8 @@
       };
 
 
-      messages.forEach(msg => {
+      // [수정] forEach에 index 파라미터 추가
+      messages.forEach((msg, index) => {
         
         // 1. 날짜
         if (msg.type === 'date') {
@@ -780,8 +898,9 @@
             </div>`;
           } else if (msg.type === 'poll') {
             let pollTitleHTML = msg.pollTitle ? `<div class="poll-period">${msg.pollTitle}</div>` : '';
+            // [수정] onclick 이벤트가 추가되었습니다.
             messageBodyHTML = `
-            <div class="poll">
+            <div class="poll" onclick="openVote(${index})" style="cursor: pointer;">
             <img src="${pollImagePath}" alt="투표 이미지">
             ${pollTitleHTML}
             <div class="poll-topic">${msg.text}</div>
@@ -948,9 +1067,73 @@
         }
       });
       
+      // ▼▼▼ [투표 화면 열기/닫기 기능 (새로 추가됨)] ▼▼▼
+      const voteModal = document.getElementById('voteModal');
+      const voteBtn = document.getElementById('voteBtn');
+      const modalQuestion = document.getElementById('modalQuestion');
+      const modalOptions = document.getElementById('modalOptions');
+
+      // 투표 화면 열기
+      function openVote(index) {
+        const data = messages[index]; // 클릭한 메시지의 데이터
+
+        // 1. 질문 텍스트 설정
+        modalQuestion.textContent = data.text;
+
+        // 2. 기존 선택지들 초기화
+        modalOptions.innerHTML = '';
+        voteBtn.classList.remove('active'); 
+
+        // 3. 선택지 생성
+        if (data.options && data.options.length > 0) {
+          data.options.forEach((opt, i) => {
+            const optionId = `vote_opt_${i}`;
+            const optionHTML = `
+              <div class="option-wrapper">
+                <input type="radio" name="vote_select" id="${optionId}" class="vote-option-input" onchange="enableVoteBtn()">
+                <label for="${optionId}" class="vote-option-label">${opt}</label>
+              </div>
+            `;
+            modalOptions.insertAdjacentHTML('beforeend', optionHTML);
+          });
+        }
+
+        // 4. 모달 표시
+        voteModal.style.display = 'flex';
+        location.hash = 'vote';
+      }
+
+      // 투표 화면 닫기
+      function closeVote() {
+        voteModal.style.display = 'none';
+        if (location.hash === '#vote') {
+          history.back();
+        }
+      }
+
+      // 브라우저 뒤로가기 버튼 눌렀을 때 투표창 닫기
+      window.addEventListener('hashchange', () => {
+        if (location.hash !== '#vote' && voteModal.style.display === 'flex') {
+          voteModal.style.display = 'none';
+        }
+      });
+
+      // 투표 항목 선택 시 버튼 활성화
+      function enableVoteBtn() {
+        voteBtn.classList.add('active');
+        voteBtn.removeAttribute('disabled');
+      }
+      
+      // 투표하기 버튼 클릭 시
+      voteBtn.addEventListener('click', () => {
+          if(voteBtn.classList.contains('active')) {
+              alert('투표가 완료되었습니다! (리쿠가 좋아하겠네💚)');
+              closeVote();
+          }
+      });
+      // ▲▲▲ [투표 기능 끝] ▲▲▲
+
       // ▼▼▼ [최신 대화부터 시작] ▼▼▼
-      // 이 부분도 attachVideoListeners() 호출 후로 옮기거나,
-      // DOMContentLoaded와 load 이벤트 핸들러 내부에서 attachVideoListeners()를 호출해줘야 합니다.
       function scrolltobottom() {
         window.scrollTo({
           top: document.body.scrollHeight, // 문서의 맨 끝 높이 좌표
